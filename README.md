@@ -14,7 +14,7 @@ make setup
 
 # Usage
 
-To build (i.e., update) the OpenAPI spec, create a new branch and run the following:
+To build (i.e., update) the OpenAPI specifications for the REST API (`./defs/asana_oas.yaml`) and for app components (`./defs/app_components_oas.yaml`), create a new branch and run the following:
 
 ```
 make build_spec
