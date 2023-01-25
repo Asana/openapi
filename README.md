@@ -1,6 +1,6 @@
 # Asana's OpenAPI Specifications
 
-This repository contains the [OpenAPI specification](https://swagger.io/specification/) for Asana's APIs.
+This repository contains the [OpenAPI Specification](https://swagger.io/specification/) for Asana's APIs.
 
 To learn more about Asana's APIs, [visit our developer documentation](https://developers.asana.com/docs).
 
