@@ -5,7 +5,7 @@ info:
     This is the interface for handling requests for
     [app components](https://developers.asana.com/docs/overview-of-app-components). This reference
     is generated from an [OpenAPI spec]
-    (https://raw.githubusercontent.com/Asana/developer-docs/master/defs/app_components_oas.yaml).
+    (https://raw.githubusercontent.com/Asana/openapi/master/defs/app_components_oas.yaml).
   title: App Components
   termsOfService: https://asana.com/terms
   contact:
