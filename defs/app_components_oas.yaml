@@ -871,7 +871,7 @@ components:
             - $ref: '#/components/schemas/TypeaheadItem'
             - type: object
               description: >-
-                *Optional*. The value for the form field, which is the chosen [TypeaheadItem](/docs/typeahead-item) object.
+                *Optional*. The value for the form field, which is the chosen [TypeaheadItem](/reference/lookups#typeaheaditem) object.
     FormMetadataResponse:
       description: >-
         Contains the metadata that describes how to display and manage a form.
@@ -905,11 +905,11 @@ components:
                 An array of form field objects that are rendered in the order they are in the array. Limit of 30 fields.
 
 
-                Valid object schemas: [FormField-Checkbox](/docs/form-field-checkbox), [FormField-Date](/docs/form-field-date),
-                [FormField-Datetime](/docs/form-field-datetime), [FormField-Dropdown](/docs/form-field-dropdown),
-                [FormField-MultiLineText](/docs/form-field-multi-line-text), [FormField-RadioButton](/docs/form-field-radio-button),
-                [FormField-RichText](/docs/form-field-rich-text), [FormField-SingleLineText](/docs/form-field-single-line-text),
-                [FormField-StaticText](/docs/form-field-static-text), [FormField-Typeahead](/docs/form-field-typeahead)
+                Valid object schemas: [FormField-Checkbox](/reference/modal-forms#formfield-checkbox), [FormField-Date](/reference/modal-forms#formfield-date),
+                [FormField-Datetime](/reference/modal-forms#formfield-datetime), [FormField-Dropdown](/reference/modal-forms#formfield-dropdown),
+                [FormField-MultiLineText](/reference/modal-forms#formfield-multilinetext), [FormField-RadioButton](/reference/modal-forms#formfield-radiobutton),
+                [FormField-RichText](/reference/modal-forms#formfield-richtext), [FormField-SingleLineText](/reference/modal-forms#formfield-singlelinetext),
+                [FormField-StaticText](/reference/modal-forms#formfield-statictext), [FormField-Typeahead](/reference/modal-forms#formfield-typeahead)
               type: array
             submit_button_text:
               description: >-
@@ -938,11 +938,11 @@ components:
           description: >-
             An object that maps each FormField’s GID to its value.
 
-            Refer to the `value` property on the FormField schema: [FormField-Checkbox](/docs/form-field-checkbox), [FormField-Date](/docs/form-field-date),
-            [FormField-Datetime](/docs/form-field-datetime), [FormField-Dropdown](/docs/form-field-dropdown),
-            [FormField-MultiLineText](/docs/form-field-multi-line-text), [FormField-RadioButton](/docs/form-field-radio-button),
-            [FormField-RichText](/docs/form-field-rich-text), [FormField-SingleLineText](/docs/form-field-single-line-text),
-            [FormField-StaticText](/docs/form-field-static-text), [FormField-Typeahead](/docs/form-field-typeahead)
+            Refer to the `value` property on the FormField schema: [FormField-Checkbox](/reference/modal-forms#formfield-checkbox), [FormField-Date](/reference/modal-forms#formfield-date),
+            [FormField-Datetime](/reference/modal-forms#formfield-datetime), [FormField-Dropdown](/reference/modal-forms#formfield-dropdown),
+            [FormField-MultiLineText](/reference/modal-forms#formfield-multilinetext), [FormField-RadioButton](/reference/modal-forms#formfield-radiobutton),
+            [FormField-RichText](/reference/modal-forms#formfield-richtext), [FormField-SingleLineText](/reference/modal-forms#formfield-singlelinetext),
+            [FormField-StaticText](/reference/modal-forms#formfield-statictext), [FormField-Typeahead](/reference/modal-forms#formfield-typeahead)
           example:
             checkbox_field_1: ["opt-in"]
             date_field_1: "2021-12-31T08:00:00.000Z"
@@ -1258,7 +1258,7 @@ components:
           example: 'List of messages'
         items:
           description: >-
-            Array of [TypeaheadItem](/docs/typeahead-item) objects that indicate typeahead results.
+            Array of [TypeaheadItem](/reference/lookups#typeaheaditem) objects that indicate typeahead results.
           type: array
           items:
             $ref: '#/components/schemas/TypeaheadItem'
@@ -1446,7 +1446,7 @@ components:
                 A list of fields showing data from external resources (i.e., an array of WidgetField objects). A widget must contain at least 1 field and no more than 5 fields.
 
 
-                Valid object schemas: [WidgetField-DatetimeWithIcon](/docs/widget-field-datetime-with-icon), [WidgetField-Pill](/docs/widget-field-pill), [WidgetField-TextWithIcon](/docs/widget-field-text-with-icon).
+                Valid object schemas: [WidgetField-DatetimeWithIcon](/reference/widgets#widgetfield-datetimewithicon), [WidgetField-Pill](/reference/widgets#widgetfield-pill), [WidgetField-TextWithIcon](/reference/widgets#widgetfield-textwithicon).
               type: array
             subtitle:
               description: >-
@@ -1465,7 +1465,7 @@ components:
                 Contains the information to display a footer on the widget.
 
 
-                Valid schemas: [WidgetFooter-Created](/docs/widget-footer-created), [WidgetFooter-CustomText](/docs/widget-footer-custom-text), [WidgetFooter-Updated](/docs/widget-footer-updated).
+                Valid schemas: [WidgetFooter-Created](/reference/widgets#widgetfooter-created), [WidgetFooter-CustomText](/reference/widgets#widgetfooter-customtext), [WidgetFooter-Updated](/reference/widgets#widgetfooter-updated).
             num_comments:
               description: >-
                 The number of comments to display on the lower right corner of the widget. If not provided, no comment
@@ -1566,7 +1566,7 @@ paths:
         Gets typeahead results to render as a dropdown list in the resource lookup input field.
 
 
-        When the user types into the lookup input field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/docs/typeahead-item)s in the response will then be rendered in a dropdown list. When the user selects an item from the list, Asana will send a [resource attach](/docs/resource-attach) request to the app server, then process the response and render the attached resource in the widget.
+        When the user types into the lookup input field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/reference/lookups#typeaheaditem)s in the response will then be rendered in a dropdown list. When the user selects an item from the list, Asana will send a [resource attach](/reference/attachresource) request to the app server, then process the response and render the attached resource in the widget.
       tags:
         - Lookups
       operationId: getTypeaheadResults
@@ -1645,7 +1645,7 @@ paths:
         If a modal form field is of type `typehead`, this operation gets typeahead results to render as a dropdown list.
 
 
-        When the user types into a modal form form field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/docs/typeahead-item)s in the response will then be rendered in a dropdown list.
+        When the user types into a modal form form field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/reference/lookups#typeaheaditem)s in the response will then be rendered in a dropdown list.
         <br>
         <br>
         <a href="https://d3ki9tyy5l5ruj.cloudfront.net/obj/9ddc32f45cb458d111912b8fe8353bf8f682d6b9/ac-form-typeahead.png">
@@ -1690,7 +1690,7 @@ paths:
         In a rule action typeahead form field, this operation gets typeahead results to render as a dropdown list. Typeahead results are limited to 50 items.
 
 
-        When the user types into a rule action form field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/docs/typeahead-item)s in the response will then be rendered in a dropdown list.
+        When the user types into a rule action form field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/reference/lookups#typeaheaditem)s in the response will then be rendered in a dropdown list.
         <br>
         <br>
         <a href="../images/ac-rule-typeahead.png">
