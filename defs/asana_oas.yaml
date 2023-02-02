@@ -103,7 +103,7 @@ tags:
       such as Dropbox or Google Drive.
   - name: Audit log API
     description: >-
-      Asana's audit log is an immutable log of [important events](/docs/supported-auditlogevents)
+      Asana's audit log is an immutable log of [important events](/docs/audit-log-events#supported-audit-log-events)
       in your organization's Asana instance.
 
 
@@ -120,7 +120,7 @@ tags:
 
 
       Note that since the API provides insight into what is happening in an Asana
-      instance, the data is [read-only](/docs/get-audit-log-events). That is, there
+      instance, the data is [read-only](/reference/getauditlogevents). That is, there
       are no "write" or "update" endpoints for audit log events.
 
 
@@ -131,7 +131,7 @@ tags:
 
 
       For a full list of
-      supported events, see [supported AuditLogEvents](/docs/supported-auditlogevents).
+      supported events, see [supported AuditLogEvents](/docs/audit-log-events#supported-audit-log-events).
   - name: Batch API
     description: >-
       There are many cases where you want to accomplish a variety of work in
@@ -365,7 +365,7 @@ tags:
 
 
       For custom fields shared across the workspace or organization, the
-      workspace [can be queried](/docs/get-a-workspaces-custom-fields)
+      workspace [can be queried](/reference/getcustomfieldsforworkspace)
       for its list of defined custom fields. Like other collection queries, the
       fields will be returned as a compact record; slightly different from most
       other compact records is the fact that the compact record for custom fields
@@ -375,7 +375,7 @@ tags:
       #### Accessing custom field definitions
 
 
-      The [custom fields](/docs/get-a-custom-field) reference
+      The [custom fields](/reference/getcustomfield) reference
       describes how the metadata which defines a custom field is accessed. A
       GET request with a `gid` can be issued on the `/custom_fields` endpoint
       to fetch the full definition of a single custom field given its `gid`
@@ -388,7 +388,7 @@ tags:
 
       A mapping between a custom field and a project or portfolio is handled with
       a
-      [custom field settings](/docs/asana-custom-field-settings) object. This object
+      [custom field settings](/reference/custom-field-settings) object. This object
       contains a reference for each
       of the custom fields and the project or portfolio, as well as additional information
       about the status of that particular custom field (e.g., `is_important`, which
@@ -399,7 +399,7 @@ tags:
       #### Accessing custom field values on tasks or projects
 
 
-      The [tasks](/docs/get-a-task) reference has information on how custom fields
+      The [tasks](/reference/gettask) reference has information on how custom fields
       look on tasks. custom fields will return as an array on the
       property `custom_fields`, and each entry will contain, side-by-side, the
       compact representation of the custom field metadata and a
@@ -416,7 +416,7 @@ tags:
 
       Custom fields can be set just as in the Asana-defined fields on a task via
       `POST` or `PUT` requests. You can see an example in the
-      [update a task](/docs/update-a-task) endpoint.
+      [update a task](/reference/updatetask) endpoint.
 
 
       Custom fields on projects follow this same pattern.
@@ -567,8 +567,8 @@ tags:
 
 
       *Note*: With any work that is handled asynchronously
-      (e.g., [project instantation from a template](/docs/instantiate-a-project-from-a-project-template),
-      duplicating a [task](/docs/duplicate-a-task) or [project](/docs/duplicate-a-project),
+      (e.g., [project instantation from a template](/reference/instantiateproject),
+      duplicating a [task](/reference/duplicatetask) or [project](/reference/duplicateproject),
       etc.),
       the *intermittent states* of newly-created objects may not be consistent. That
       is, object properties may
@@ -584,7 +584,7 @@ tags:
 
 
       * Create an `organization_export`
-        [request](/docs/create-an-organization-export-request)
+        [request](/reference/createorganizationexport)
         and store the ID that is returned.
       * Request the `organization_export` every few minutes, until the
         `state` field contains ‘finished’.
@@ -601,7 +601,7 @@ tags:
       A portfolio gives a high-level overview of the status of multiple
       initiatives in Asana. Portfolios provide a dashboard overview of the
       state of multiple projects, including a progress report and the most
-      recent [status update](/docs/asana-statuses).
+      recent [status update](/reference/status-updates).
 
       Portfolios have some restrictions on size. Each portfolio has a max of 500
       items and, like projects, a maximum of 20 custom fields.
@@ -631,15 +631,14 @@ tags:
 
 
       **Note:** You can use certain project endpoints to operate on
-      [user task lists](/docs/user-task-lists) ([My Tasks](https://asana.com/guide/help/fundamentals/my-tasks))
+      [user task lists](/reference/user-task-lists) ([My Tasks](https://asana.com/guide/help/fundamentals/my-tasks))
       by substituting the `{project_gid}` with the `{user_task_list_gid}`. For example,
       you can perform
-      operations on the custom fields of a [user task list](/docs/user-task-lists)
-      by using the following
-      projects endpoints: [Add a custom field to a project](/docs/add-a-custom-field-to-a-project),
-      [Remove a custom field from a project](/docs/remove-a-custom-field-from-a-project)
+      operations on the custom fields of a user task list by using the following
+      projects endpoints: [Add a custom field to a project](/reference/addcustomfieldsettingforproject),
+      [Remove a custom field from a project](/reference/removecustomfieldsettingforproject)
       and
-      [Get a project's custom fields](/docs/get-a-projects-custom-fields)
+      [Get a project's custom fields](/reference/getcustomfieldsettingsforproject)
   - name: Project briefs
     description: >-
       A project brief object represents a rich text document that describes
@@ -660,7 +659,7 @@ tags:
       endpoints described here.
   - name: Project statuses
     description: |-
-      *Deprecated: new integrations should prefer using [status updates](/docs/asana-statuses)*
+      *Deprecated: new integrations should prefer using [status updates](/reference/status-updates)*
 
       A project status is an update on the progress of a particular project,
       and is sent out to all project followers when created. These updates
@@ -691,8 +690,7 @@ tags:
       board views of a project regardless of the project’s layout.
 
 
-      The ‘memberships’ property when
-      [getting a task](/docs/get-a-task)
+      The ‘memberships’ property when [getting a task](/reference/gettask)
       will return the information for the section or the column under
       ‘section’ in the response.
   - name: Status updates
@@ -740,10 +738,10 @@ tags:
       within a project.
 
 
-      [Queries](/docs/get-multiple-tasks)
-      return a [compact representation of each task object](/docs/task-compact). To
+      [Queries](/reference/gettasks)
+      return a [compact representation of each task object](/reference/tasks). To
       retrieve *all* fields or *specific set* of the fields, use
-      [field selectors](/docs/input-output-options) to manipulate what data is included
+      [field selectors](/docs/inputoutput-options) to manipulate what data is included
       in a response.
   - name: Teams
     description: >-
@@ -755,7 +753,7 @@ tags:
   - name: Time periods
     description: >-
       A time period is an object that represents a domain-scoped date range that can
-      be set on [goals](/docs/goals).
+      be set on [goals](/reference/goals).
   - name: Typeahead
     description: >-
       The typeahead search API provides search for objects from a single
@@ -781,7 +779,7 @@ tags:
       Asana resources (e.g., tasks, projects, stories, etc.).
 
 
-      For a more detailed explanation of webhooks see the [overview of webhooks](/docs/overview-of-webhooks).
+      For a more detailed explanation of webhooks see the [overview of webhooks](/docs/webhooks-guide).
   - name: Workspaces
     description: >-
       A *workspace* is the highest-level organizational unit in Asana. All
@@ -1185,8 +1183,8 @@ components:
       description: >-
         Filter to events of this type.
 
-        Refer to the [Supported AuditLogEvents](/docs/supported-auditlogevents) for
-        a full list of values.
+        Refer to the [supported audit log events](/docs/audit-log-events#supported-audit-log-events)
+        for a full list of values.
       required: false
       schema:
         type: string
@@ -1600,7 +1598,7 @@ components:
         Every audit log event is comprised of an `event_type`, `actor`, `resource`,
         and `context`.
         Some events will include additional metadata about the event under `details`.
-        See our [currently supported list of events](/docs/supported-auditlogevents)
+        See our [currently supported list of events](/docs/audit-log-events#supported-audit-log-events)
         for more details.
       type: object
       properties:
@@ -1847,7 +1845,7 @@ components:
             description:
               description: >-
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 The description of the custom field.
               type: string
               example: Development team priority
@@ -1857,7 +1855,7 @@ components:
                 This array specifies the possible values which an `enum` custom
                 field can adopt. To modify the enum options, refer to [working
                 with enum
-                options](/docs/create-an-enum-option).
+                options](/reference/createenumoptionforcustomfield).
               type: array
               items:
                 $ref: '#/components/schemas/EnumOption'
@@ -2077,7 +2075,7 @@ components:
           description: >-
             Custom Fields store the metadata that is used in order to
             add user-specified information to tasks in Asana. Be sure
-            to reference the [Custom Fields](/docs/asana-custom-fields)
+            to reference the [custom fields](/reference/custom-fields)
             developer documentation for more information about how custom fields
             relate to various resources in Asana.
 
@@ -2123,7 +2121,7 @@ components:
                 This array specifies the possible values which an `enum` custom
                 field can adopt. To modify the enum options, refer to [working
                 with enum
-                options](/docs/create-an-enum-option).
+                options](/reference/createenumoptionforcustomfield).
               type: array
               items:
                 $ref: '#/components/schemas/EnumOption'
@@ -2224,8 +2222,8 @@ components:
             people_value:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `people`.
-                This array of [compact user](/docs/user-compact) objects reflects
-                the values
+                This array of [compact user](/reference/users) objects reflects the
+                values
                 of a `people` custom field.
               type: array
               items:
@@ -2548,8 +2546,8 @@ components:
                 Asana resource. This will be only the `gid` and `resource_type`
                 of the resource when the events come from webhooks; this will
                 be the compact representation (and can have fields expanded
-                with [opt_fields](/docs/input-output-options)) when using the
-                [Events](/docs/asana-events) endpoint.
+                with [opt_fields](/docs/inputoutput-options)) when using the
+                [get events](/reference/getevents) endpoint.
               example:
                 gid: '12345'
                 resource_type: user
@@ -2560,8 +2558,8 @@ components:
                 Asana resource. This will be only the `gid` and `resource_type`
                 of the resource when the events come from webhooks; this will
                 be the compact representation (and can have fields expanded
-                with [opt_fields](/docs/input-output-options)) when using the
-                [Events](/docs/asana-events) endpoint.
+                with [opt_fields](/docs/inputoutput-options)) when using the
+                [get events](/reference/getevents) endpoint.
               example:
                 gid: '12345'
                 resource_type: user
@@ -2572,8 +2570,8 @@ components:
                 Asana resource. This will be only the `gid` and `resource_type`
                 of the resource when the events come from webhooks; this will
                 be the compact representation (and can have fields expanded
-                with [opt_fields](/docs/input-output-options)) when using the
-                [Events](/docs/asana-events) endpoint.
+                with [opt_fields](/docs/inputoutput-options)) when using the
+                [get events](/reference/getevents) endpoint.
               example:
                 gid: '12345'
                 resource_type: user
@@ -3200,7 +3198,7 @@ components:
             initiatives in Asana. Portfolios provide a dashboard overview of
             the state of multiple projects, including a progress report and the
             most recent [project
-            status](/docs/asana-project-statuses)
+            status](/reference/project-statuses)
             update.
 
             Portfolios have some restrictions on size. Each portfolio has a max of
@@ -3225,7 +3223,7 @@ components:
           properties:
             portfolio:
               description: >-
-                [Opt In](/docs/input-output-options).
+                [Opt In](/docs/inputoutput-options).
                 The portfolio the user is a member of.
               $ref: '#/components/schemas/PortfolioCompact'
             user:
@@ -3474,13 +3472,13 @@ components:
               example: '2019-09-15'
             html_notes:
               description: >-
-                [Opt In](/docs/input-output-options).
+                [Opt In](/docs/inputoutput-options).
                 The notes of the project with formatting as HTML.
               type: string
               example: <body>These are things we need to purchase.</body>
             is_template:
               description: >-
-                [Opt In](/docs/input-output-options).
+                [Opt In](/docs/inputoutput-options).
                 *Deprecated - please use a project template endpoint instead (more
                 in [this forum post](https://forum.asana.com/t/a-new-api-for-project-templates/156432)).*
                 Determines if the project is a template.
@@ -3579,7 +3577,7 @@ components:
           properties:
             text:
               description: >-
-                [Opt In](/docs/input-output-options).
+                [Opt In](/docs/inputoutput-options).
                 The plain text of the project brief.
               type: string
               example: This is a project brief.
@@ -3704,7 +3702,7 @@ components:
             project:
               description: >-
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 The project the user is a member of.
               $ref: '#/components/schemas/ProjectCompact'
             write_access:
@@ -3856,7 +3854,7 @@ components:
                 - $ref: '#/components/schemas/ProjectBriefCompact'
                 - type: object
                   description: >-
-                    [Opt In](/docs/input-output-options).
+                    [Opt In](/docs/inputoutput-options).
                     The project brief associated with this project.
                   nullable: true
             created_from_template:
@@ -3864,7 +3862,7 @@ components:
                 - $ref: '#/components/schemas/ProjectTemplateCompact'
                 - type: object
                   description: >-
-                    [Opt In](/docs/input-output-options).
+                    [Opt In](/docs/inputoutput-options).
                     The project template from which this project was created. If the
                     project was
                     not created from a template, this field will be null.
@@ -3910,7 +3908,7 @@ components:
             html_text:
               description: >-
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 The text content of the status update with formatting as HTML.
               type: string
               example: >-
@@ -4307,7 +4305,7 @@ components:
             html_text:
               description: >-
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 The text content of the status update with formatting as HTML.
               type: string
               example: >-
@@ -4476,7 +4474,7 @@ components:
               example: This is a comment.
             html_text:
               description: >-
-                [Opt In](/docs/input-output-options).
+                [Opt In](/docs/inputoutput-options).
                 HTML formatted text for a comment. This will not include the name
                 of the creator.
               type: string
@@ -5072,7 +5070,7 @@ components:
             dependencies:
               description: >-
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 Array of resources referencing tasks that this task depends on.
                 The objects contain only the gid of the dependency.
               type: array
@@ -5082,7 +5080,7 @@ components:
             dependents:
               description: >-
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 Array of resources referencing tasks that depend on this task. The
                 objects contain only the ID of the dependent.
               type: array
@@ -5111,7 +5109,7 @@ components:
               description: >-
                 *OAuth Required*. *Conditional*. This field is returned only
                 if external values are set or included by using [Opt In]
-                (/docs/input-output-options).
+                (/docs/inputoutput-options).
 
                 The external field allows you to store app-specific metadata on
                 tasks, including a gid that can be used to retrieve tasks and a
@@ -5135,7 +5133,7 @@ components:
             html_notes:
               description: >-
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 The notes of the text with formatting as HTML.
               type: string
               example: >-
@@ -5158,10 +5156,10 @@ components:
               readOnly: true
             is_rendered_as_separator:
               description: >-
-                [Opt In](/docs/input-output-options).
+                [Opt In](/docs/inputoutput-options).
                 In some contexts tasks can be rendered as a visual separator;
                 for instance, subtasks can appear similar to
-                [sections](/docs/asana-sections) without being true
+                [sections](/reference/sections) without being true
                 `section` objects. If a `task` object is rendered this way in any
                 context it will have the property `is_rendered_as_separator` set
                 to `true`.
@@ -5235,7 +5233,7 @@ components:
             num_subtasks:
               description: >
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 The number of subtasks on this task.
               type: integer
               example: 3
@@ -5697,14 +5695,14 @@ components:
             description:
               description: >
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 The description of the team.
               type: string
               example: All developers should be members of this team.
             html_description:
               description: >
                 [Opt
-                In](/docs/input-output-options).
+                In](/docs/inputoutput-options).
                 The description of the team with formatting as HTML.
               type: string
               example: >-
@@ -5899,7 +5897,7 @@ components:
             server to be updated with information from Asana. This schema
             represents the subscription itself, not the objects that are sent to
             the server. For information on those please refer to the
-            [Event](/docs/tocS_Event) schema.
+            [event](/reference/events) schema.
           x-docs-overrides:
             properties.resource_type.example: webhook
           properties:
@@ -5923,7 +5921,7 @@ components:
       description: >-
         A WebhookFilter can be passed on creation of a webhook in order to filter
         the types of actions that trigger delivery of an
-        [Event](/docs/tocS_Event)
+        [event](/reference/events)
       properties:
         resource_type:
           type: string
@@ -5944,7 +5942,7 @@ components:
           description: >-
             The type of change on the **resource** to pass through the filter.
             For more information refer to `Event.action` in the
-            [Event](/docs/tocS_Event) schema. This can be one of
+            [event](/reference/events) schema. This can be one of
             `changed`, `added`, `removed`, `deleted`, and `undeleted` depending
             on the nature of what has occurred on the resource.
           example: changed
@@ -6443,7 +6441,7 @@ paths:
         Retrieve the audit log events that have been captured in your domain.
 
 
-        This endpoint will return a list of [AuditLogEvent](/docs/audit-log-event)
+        This endpoint will return a list of [AuditLogEvent](/reference/audit-log-api)
         objects,
         sorted by creation time in ascending order. Note that the Audit Log API captures
         events
@@ -6454,8 +6452,8 @@ paths:
 
         There are a number of query parameters (below) that can be used to filter
         the set of
-        [AuditLogEvent](/docs/audit-log-event) objects that are returned in the response.
-        Any
+        [AuditLogEvent](/reference/audit-log-api) objects that are returned in the
+        response. Any
         combination of query parameters is valid. When no filters are provided, all
         of the events
         that have been captured in your domain will match.
@@ -6478,7 +6476,7 @@ paths:
 
         When no `offset` is provided, the response will begin with the oldest events
         that match the provided filters. It is important to note that
-        [AuditLogEvent](/docs/audit-log-event) objects will be permanently deleted
+        [AuditLogEvent](/reference/audit-log-api) objects will be permanently deleted
         from our systems
         after 90 days. If you wish to keep a permanent record of these events, we
         recommend using a
@@ -8942,7 +8940,7 @@ paths:
 
 
         To form this request, it is recommended to first make a request to
-        [get a project template](/docs/get-a-project-template). Then, from the response,
+        [get a project template](/reference/getprojecttemplate). Then, from the response,
         copy the
         `gid` from the object in the `requested_dates` array. This `gid` should be
         used in
@@ -8951,7 +8949,7 @@ paths:
 
         _Note: The body of this request will differ if your workspace is an organization.
         To determine if your workspace is an organization, use the
-        [is_organization](/docs/workspace) parameter._
+        [is_organization](/reference/workspaces) parameter._
       tags:
         - Project templates
       operationId: instantiateProject
@@ -9529,13 +9527,13 @@ paths:
       description: >-
         Get an object that holds task count fields. **All fields are excluded by default**.
         You must
-        [opt in](/docs/input-output-options) using `opt_fields` to get any information
+        [opt in](/docs/inputoutput-options) using `opt_fields` to get any information
         from this endpoint.
 
 
-        This endpoint has an additional [rate limit](/docs/standard-rate-limits) and
-        each field counts especially high
-        against our [cost limits](/docs/cost-limits).
+        This endpoint has an additional [rate limit](/docs/rate-limits) and each field
+        counts especially high
+        against our [cost limits](/docs/rate-limits#cost-limits).
 
 
         Milestones are just tasks, so they are included in the `num_tasks`, `num_incomplete_tasks`,
@@ -10730,7 +10728,7 @@ paths:
 
 
         For more complex task retrieval, use
-        [workspaces/{workspace_gid}/tasks/search](/docs/search-tasks-in-a-workspace).
+        [workspaces/{workspace_gid}/tasks/search](/reference/searchtasksforworkspace).
       tags:
         - Tasks
       operationId: getTasks
