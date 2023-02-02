@@ -1115,6 +1115,11 @@ components:
           required:
           - idempotency_key
           properties:
+            project:
+              type: string
+              description: >-
+                The project GID this hook is coming from.
+              example: '12345'
             target_object:
               type: string
               description: >-
