@@ -2198,6 +2198,13 @@ components:
               description: >-
                 *Create-Only* The workspace to create a custom field in.
               example: '1331'
+            is_app_owned:
+              type: boolean
+              description: >-
+                *Allow-listed*. Instructs the API that this Custom Field is
+                app-owned. This parameter is allow-listed to specific apps at this
+                point in time. For apps that are not allow-listed, providing this
+                parameter will result in a `403 Forbidden`.
             people_value:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `people`.
@@ -5643,6 +5650,16 @@ components:
               description: >-
                 Describes if the user is a guest in the team.
               example: false
+            is_limited_access:
+              type: boolean
+              description: >-
+                Describes if the user has limited access to the team.
+              example: false
+            is_admin:
+              type: boolean
+              description: >-
+                Describes if the user is a team admin.
+              example: false
     TeamMembershipResponse:
       $ref: '#/components/schemas/TeamMembershipBase'
     TeamRemoveUserRequest:
@@ -5687,6 +5704,49 @@ components:
                 - secret
                 - request_to_join
                 - public
+            edit_team_name_or_description_access_level:
+              description: >
+                Controls who can edit team name and description
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            edit_team_visibility_or_trash_team_access_level:
+              description: >
+                Controls who can edit team visibility and trash teams
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            member_invite_management_access_level:
+              description: >
+                Controls who can accept or deny member invites for a given team
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            guest_invite_management_access_level:
+              description: >
+                Controls who can accept or deny guest invites for a given team
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            join_request_management_access_level:
+              description: >
+                Controls who can accept or deny join team requests for a Membership
+                by Request team
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            team_member_removal_access_level:
+              description: >
+                Controls who can remove team members
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
     TeamResponse:
       allOf:
         - $ref: '#/components/schemas/TeamBase'
@@ -5728,6 +5788,49 @@ components:
                 - secret
                 - request_to_join
                 - public
+            edit_team_name_or_description_access_level:
+              description: >
+                Controls who can edit team name and description
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            edit_team_visibility_or_trash_team_access_level:
+              description: >
+                Controls who can edit team visibility and trash teams
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            member_invite_management_access_level:
+              description: >
+                Controls who can accept or deny member invites for a given team
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            guest_invite_management_access_level:
+              description: >
+                Controls who can accept or deny guest invites for a given team
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            join_request_management_access_level:
+              description: >
+                Controls who can accept or deny join team requests for a Membership
+                by Request team
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
+            team_member_removal_access_level:
+              description: >
+                Controls who can remove team members
+              type: string
+              enum:
+                - all_team_members
+                - only_team_admins
     TimePeriodBase:
       allOf:
         - $ref: '#/components/schemas/TimePeriodCompact'
