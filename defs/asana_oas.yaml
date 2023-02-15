@@ -10075,6 +10075,192 @@ paths:
 
               result = client.jobs.get_job(job_gid: 'job_gid', param: "value", param:
               "value", options: {pretty: true})
+  /memberships:
+    parameters:
+      - $ref: '#/components/parameters/parent'
+      - $ref: '#/components/parameters/member'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/fields'
+    get:
+      summary: Get a membership
+      description: >-
+        Returns the record for membership under a parent. The possible values
+        for `parent` in this request are `project`, `porfolio`, `team`, `goal`,
+        and `workspace`.
+      tags:
+        - Memberships
+      operationId: getMembership
+      parameters:
+        - name: parent
+          in: query
+          description: >-
+            Globally unique identifier for `project`, `portfolio`,
+              team`, `goal`, and `workspace`.
+          schema:
+            type: string
+          example: '159874'
+        - name: member
+          in: query
+          description: Globally unique identifier for `team` and `user`.
+          schema:
+            type: string
+          example: '1061493'
+        - name: limit
+          in: query
+          description: Pagination limit for the request.
+          schema:
+            type: int
+          example: 50"
+        - name: offset
+          in: query
+          description: >-
+            Offset token.
+            An offset to the next page returned by the API. A pagination request
+            will return an offset token, which can be used as an input parameter to
+            the next request. If an offset is not passed in, the API will return
+            the first page of results.
+            'Note: You can only pass in an offset that was returned to you via a
+            previously paginated request.'
+          example: eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
+          schema:
+            type: string
+      responses:
+        200:
+          description: >-
+            Successfully retrieved the requested membership.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MembershipResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create a [project/porfolio/team/goal] membership
+      description: >-
+        Returns the record for memberships under a parent. The possible values for
+        `parent` in this request are `project`, `portfolio`, `team`, and `goal`. Member
+        is only supported on `goal` and `project` right now. The rest uses `user`.
+      tags:
+        - Memberships
+      operationId: createMembership
+      requestBody:
+        description: The updated fields for the membership.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/CreateMembershipRequest'
+      responses:
+        200:
+          description: >-
+            Successfully created the requested membership.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MembershipResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Deletes a [project/porfolio/team/goal] membership
+      description: >-
+        Returns an empty data record.
+      tags:
+        - Memberships
+      operationId: deleteMembership
+      responses:
+        200:
+          description: >-
+            Successfully deleted the requested membership.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      put:
+        summary: Updates a [project/porfolio/team/goal] membership. Standard access
+          level can be updated for project only right now.
+        description: >-
+          Returns the record for membership under a parent.
+        tags:
+          - Memberships
+        operationId: updateMembership
+        requestBody:
+          description: The updated fields for the membership.
+          required: false
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MembershipRequest'
+        parameters:
+          - name: gid
+            in: query
+            description: A gid of a membership object.
+            schema:
+              type: string
+            example: '159874'
+        responses:
+          200:
+            description: >-
+              Successfully updated the requested membership.
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    data:
+                      $ref: '#/components/schemas/MembershipResponse'
+          400:
+            $ref: '#/components/responses/BadRequest'
+          401:
+            $ref: '#/components/responses/Unauthorized'
+          403:
+            $ref: '#/components/responses/Forbidden'
+          404:
+            $ref: '#/components/responses/NotFound'
+          500:
+            $ref: '#/components/responses/InternalServerError'
   /organization_exports:
     parameters:
       - $ref: '#/components/parameters/pretty'
