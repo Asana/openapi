@@ -6377,6 +6377,13 @@ components:
               description: The gid of the `portfolio`, `team`, `project`, or `goal`
               type: string
               example: true
+    MembershipResponse:
+      anyOf:
+        - $ref: '#/components/schemas/ProjectMembershipResponse'
+        - $ref: '#/components/schemas/PortfolioMembershipResponse'
+        - $ref: '#/components/schemas/TeamMembershipResponse'
+        - $ref: '#/components/schemas/GoalMembershipResponse'
+        - $ref: '#/components/schemas/WorkspaceMembershipResponse'
   securitySchemes:
     personalAccessToken:
       type: http
@@ -6628,6 +6635,13 @@ paths:
         Overview. For a project brief, an attachment refers to inline files in the
         project brief itself. For
         a task, an attachment refers to a file directly associated to that task.
+
+
+        Note that within the Asana app, inline images in the task description do not
+        appear in the index of image
+        thumbnails nor as stories in the task. However, requests made to `GET /attachments`
+        for a task will return
+        all of the images in the task, including inline images.
       tags:
         - Attachments
       operationId: getAttachmentsForObject
