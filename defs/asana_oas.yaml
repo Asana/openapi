@@ -10099,7 +10099,7 @@ paths:
       summary: Get a membership
       description: >-
         Returns the record for membership under a parent. The possible values
-        for `parent` in this request are `project`, `porfolio`, `team`, `goal`,
+        for `parent` in this request are `project`, `portfolio`, `team`, `goal`,
         and `workspace`.
       tags:
         - Memberships
@@ -10123,8 +10123,8 @@ paths:
           in: query
           description: Pagination limit for the request.
           schema:
-            type: int
-          example: 50"
+            type: integer
+          example: 50
         - name: offset
           in: query
           description: >-
@@ -10162,7 +10162,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
     post:
-      summary: Create a [project/porfolio/team/goal] membership
+      summary: Create a project, portfolio, team, or goal membership
       description: >-
         Returns the record for memberships under a parent. The possible values for
         `parent` in this request are `project`, `portfolio`, `team`, and `goal`. Member
@@ -10202,7 +10202,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
     delete:
-      summary: Deletes a [project/porfolio/team/goal] membership
+      summary: Deletes a project, portfolio, team, or goal membership
       description: >-
         Returns an empty data record.
       tags:
@@ -10229,52 +10229,52 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-      put:
-        summary: Updates a [project/porfolio/team/goal] membership. Standard access
-          level can be updated for project only right now.
-        description: >-
-          Returns the record for membership under a parent.
-        tags:
-          - Memberships
-        operationId: updateMembership
-        requestBody:
-          description: The updated fields for the membership.
-          required: false
+    put:
+      summary: Updates a project, portfolio, team, or goal membership. Standard access
+        level can be updated for project only right now.
+      description: >-
+        Returns the record for membership under a parent.
+      tags:
+        - Memberships
+      operationId: updateMembership
+      requestBody:
+        description: The updated fields for the membership.
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/MembershipRequest'
+      parameters:
+        - name: gid
+          in: query
+          description: A gid of a membership object.
+          schema:
+            type: string
+          example: '159874'
+      responses:
+        200:
+          description: >-
+            Successfully updated the requested membership.
           content:
             application/json:
               schema:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/MembershipRequest'
-        parameters:
-          - name: gid
-            in: query
-            description: A gid of a membership object.
-            schema:
-              type: string
-            example: '159874'
-        responses:
-          200:
-            description: >-
-              Successfully updated the requested membership.
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    data:
-                      $ref: '#/components/schemas/MembershipResponse'
-          400:
-            $ref: '#/components/responses/BadRequest'
-          401:
-            $ref: '#/components/responses/Unauthorized'
-          403:
-            $ref: '#/components/responses/Forbidden'
-          404:
-            $ref: '#/components/responses/NotFound'
-          500:
-            $ref: '#/components/responses/InternalServerError'
+                    $ref: '#/components/schemas/MembershipResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /organization_exports:
     parameters:
       - $ref: '#/components/parameters/pretty'
