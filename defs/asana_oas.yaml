@@ -10243,6 +10243,19 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: python
+            install: pip install asana
+            code: >-
+              import asana
+
+
+              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+
+              result = client.memberships.create_membership({'field': 'value', 'field':
+              'value'}, opt_pretty=True)
   /memberships/{membership_gid}:
     parameters:
       - $ref: '#/components/parameters/membership_path_gid'
@@ -10279,6 +10292,18 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: python
+            install: pip install asana
+            code: >-
+              import asana
+
+
+              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+
+              result = client.memberships.delete_membership(membership_gid, opt_pretty=True)
     put:
       summary: Update a membership
       description: >-
@@ -10323,6 +10348,19 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: python
+            install: pip install asana
+            code: >-
+              import asana
+
+
+              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+
+              result = client.memberships.update_membership(membership_gid, {'field':
+              'value', 'field': 'value'}, opt_pretty=True)
   /organization_exports:
     parameters:
       - $ref: '#/components/parameters/pretty'
