@@ -4097,16 +4097,11 @@ components:
           example: New Project Name
         team:
           description: >-
-            *Conditional*. Sets the team of the new project. If the project template
+            *Optional*. Sets the team of the new project. If the project template
             exists in an
-            _organization_, you must specify a value for `team` and not `workspace`.
-          type: string
-          example: '12345'
-        workspace:
-          description: >-
-            *Conditional*. Sets the workspace of the new project. If the project template
-            exists in
-            a _workspace_, you must specify a value for `workspace` and not `team`.
+            _organization_, you may specify a value for `team`. If no value is provided
+            then it
+            defaults to the same team as the project template.
           type: string
           example: '12345'
         public:
@@ -10248,19 +10243,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-      x-readme:
-        code-samples:
-          - language: python
-            install: pip install asana
-            code: >-
-              import asana
-
-
-              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-
-              result = client.memberships.create_membership({'field': 'value', 'field':
-              'value'}, opt_pretty=True)
   /memberships/{membership_gid}:
     parameters:
       - $ref: '#/components/parameters/membership_path_gid'
@@ -10297,18 +10279,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-      x-readme:
-        code-samples:
-          - language: python
-            install: pip install asana
-            code: >-
-              import asana
-
-
-              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-
-              result = client.memberships.delete_membership(membership_gid, opt_pretty=True)
     put:
       summary: Update a membership
       description: >-
@@ -10353,19 +10323,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-      x-readme:
-        code-samples:
-          - language: python
-            install: pip install asana
-            code: >-
-              import asana
-
-
-              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-
-              result = client.memberships.update_membership(membership_gid, {'field':
-              'value', 'field': 'value'}, opt_pretty=True)
   /organization_exports:
     parameters:
       - $ref: '#/components/parameters/pretty'
