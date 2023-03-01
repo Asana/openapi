@@ -4097,16 +4097,11 @@ components:
           example: New Project Name
         team:
           description: >-
-            *Conditional*. Sets the team of the new project. If the project template
+            *Optional*. Sets the team of the new project. If the project template
             exists in an
-            _organization_, you must specify a value for `team` and not `workspace`.
-          type: string
-          example: '12345'
-        workspace:
-          description: >-
-            *Conditional*. Sets the workspace of the new project. If the project template
-            exists in
-            a _workspace_, you must specify a value for `workspace` and not `team`.
+            _organization_, you may specify a value for `team`. If no value is provided
+            then it
+            defaults to the same team as the project template.
           type: string
           example: '12345'
         public:
