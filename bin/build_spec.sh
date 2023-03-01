@@ -10,6 +10,8 @@ checkout_client_lib() (
 	dest="$2"
 
 	if [[ -d "$dest" ]]; then
+		cd $dest
+		echo "Getting latest changes for $dest"
 		git checkout master
 		git pull
         return
