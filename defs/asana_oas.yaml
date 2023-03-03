@@ -10201,6 +10201,19 @@ paths:
 
               result = client.memberships.get_memberships({'param': 'value', 'param':
               'value'}, opt_pretty=True)
+          - language: php
+            install: composer require asana/asana
+            code: >-
+              <?php
+
+              require 'php-asana/vendor/autoload.php';
+
+
+              $client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              $result = $client->memberships->getMemberships(array('param' => 'value',
+              'param' => 'value'), array('opt_pretty' => 'true'))
     post:
       summary: Create a membership
       description: |-
@@ -10256,6 +10269,19 @@ paths:
 
               result = client.memberships.create_membership({'field': 'value', 'field':
               'value'}, opt_pretty=True)
+          - language: php
+            install: composer require asana/asana
+            code: >-
+              <?php
+
+              require 'php-asana/vendor/autoload.php';
+
+
+              $client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              $result = $client->memberships->createMembership(array('field' => 'value',
+              'field' => 'value'), array('opt_pretty' => 'true'))
   /memberships/{membership_gid}:
     parameters:
       - $ref: '#/components/parameters/membership_path_gid'
@@ -10304,6 +10330,19 @@ paths:
 
 
               result = client.memberships.delete_membership(membership_gid, opt_pretty=True)
+          - language: php
+            install: composer require asana/asana
+            code: >-
+              <?php
+
+              require 'php-asana/vendor/autoload.php';
+
+
+              $client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              $result = $client->memberships->deleteMembership($membership_gid, array('opt_pretty'
+              => 'true'))
     put:
       summary: Update a membership
       description: >-
@@ -10361,6 +10400,19 @@ paths:
 
               result = client.memberships.update_membership(membership_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
+          - language: php
+            install: composer require asana/asana
+            code: >-
+              <?php
+
+              require 'php-asana/vendor/autoload.php';
+
+
+              $client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              $result = $client->memberships->updateMembership($membership_gid, array('field'
+              => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
   /organization_exports:
     parameters:
       - $ref: '#/components/parameters/pretty'
