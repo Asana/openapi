@@ -3043,6 +3043,8 @@ components:
               $ref: '#/components/schemas/TaskCompact'
             new_project_template:
               $ref: '#/components/schemas/ProjectTemplateCompact'
+            new_task_template:
+              $ref: '#/components/schemas/TaskTemplateCompact'
     JobResponse:
       $ref: '#/components/schemas/JobBase'
     Like:
@@ -10214,6 +10216,19 @@ paths:
 
               $result = $client->memberships->getMemberships(array('param' => 'value',
               'param' => 'value'), array('opt_pretty' => 'true'))
+          - language: ruby
+            install: gem install asana
+            code: >-
+              require 'asana'
+
+
+              client = Asana::Client.new do |c|
+                  c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+              end
+
+
+              result = client.memberships.get_memberships(parent: '&#x27;parent_example&#x27;',
+              param: "value", param: "value", options: {pretty: true})
     post:
       summary: Create a membership
       description: |-
@@ -10282,6 +10297,19 @@ paths:
 
               $result = $client->memberships->createMembership(array('field' => 'value',
               'field' => 'value'), array('opt_pretty' => 'true'))
+          - language: ruby
+            install: gem install asana
+            code: >-
+              require 'asana'
+
+
+              client = Asana::Client.new do |c|
+                  c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+              end
+
+
+              result = client.memberships.create_membership(field: "value", field:
+              "value", options: {pretty: true})
   /memberships/{membership_gid}:
     parameters:
       - $ref: '#/components/parameters/membership_path_gid'
@@ -10343,6 +10371,19 @@ paths:
 
               $result = $client->memberships->deleteMembership($membership_gid, array('opt_pretty'
               => 'true'))
+          - language: ruby
+            install: gem install asana
+            code: >-
+              require 'asana'
+
+
+              client = Asana::Client.new do |c|
+                  c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+              end
+
+
+              result = client.memberships.delete_membership(membership_gid: 'membership_gid',
+              options: {pretty: true})
     put:
       summary: Update a membership
       description: >-
@@ -10413,6 +10454,19 @@ paths:
 
               $result = $client->memberships->updateMembership($membership_gid, array('field'
               => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
+          - language: ruby
+            install: gem install asana
+            code: >-
+              require 'asana'
+
+
+              client = Asana::Client.new do |c|
+                  c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+              end
+
+
+              result = client.memberships.update_membership(membership_gid: 'membership_gid',
+              field: "value", field: "value", options: {pretty: true})
   /organization_exports:
     parameters:
       - $ref: '#/components/parameters/pretty'
