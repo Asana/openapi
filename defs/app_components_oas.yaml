@@ -128,7 +128,7 @@ components:
       schema:
         type: string
       description: >-
-        The user GID` this hook is coming from.
+        The user GID this hook is coming from.
     resource_url:
       name: resource_url
       required: true
