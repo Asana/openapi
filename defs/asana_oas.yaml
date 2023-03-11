@@ -3043,8 +3043,6 @@ components:
               $ref: '#/components/schemas/TaskCompact'
             new_project_template:
               $ref: '#/components/schemas/ProjectTemplateCompact'
-            new_task_template:
-              $ref: '#/components/schemas/TaskTemplateCompact'
     JobResponse:
       $ref: '#/components/schemas/JobBase'
     Like:
