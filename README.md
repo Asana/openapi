@@ -6,7 +6,9 @@ To learn more about Asana's APIs, [visit our developer documentation](https://de
 
 # Setup
 
-Install dependencies:
+1. Clone this repository to your local machine. 
+
+2. Navigate to project's root directory via your terminal and install dependencies:
 
 ```
 make setup
@@ -20,5 +22,4 @@ To build (i.e., update) the OpenAPI specifications for the REST API (`./defs/asa
 ./bin/build_spec.sh
 ```
 
-Then, create a pull request with the new specifications.
-
+Then, create a pull request with the result of the above operation.
