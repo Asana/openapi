@@ -2198,7 +2198,7 @@ components:
               description: >-
                 *Create-Only* The workspace to create a custom field in.
               example: '1331'
-            is_app_owned:
+            owned_by_app:
               type: boolean
               description: >-
                 *Allow-listed*. Instructs the API that this Custom Field is
@@ -6381,16 +6381,6 @@ components:
             *Optional*. Denotes if a member is an admin. Applies to only `team` memberships.
           type: boolean
           example: false
-        standard_access_level:
-          description: >-
-            *Optional*. Denotes a member's access level. Applies to only `project`
-            memberships.
-          type: string
-          enum:
-            - editor
-            - write_all
-            - comment_only
-          example: editor
     CreateMembershipRequest:
       allOf:
         - $ref: '#/components/schemas/MembershipRequest'
@@ -6936,6 +6926,21 @@ paths:
         requests can be made with the latest `offset` to poll for new events that
         match
         the provided filters.
+
+
+        *Note: If the filters you provided match events in your domain and `next_page`
+        is
+        present in the response, we will continue to send `next_page` on subsequent
+        requests
+        even when there are no more events that match the filters. This was put in
+        place so
+        that you can implement an audit log stream that will return future events
+        that match
+        these filters. If you are not interested in future events that match the filters
+        you
+        have defined, you can rely on checking empty `data` response for the end of
+        current
+        events that match your filters.*
 
 
         When no `offset` is provided, the response will begin with the oldest events
@@ -10123,10 +10128,15 @@ paths:
     get:
       summary: Get multiple memberships
       description: >-
-        Returns compact membership records. The possible values
-        for `parent` in this request are `project`, `porfolio`, `team`, `goal`,
-        and `workspace`. An additional member (user or team GID) can be passed in
+        Returns compact `goal_membership`, `team_membership`, `project_membership`,
+        `portfolio_membership`,
+        or `workspace_membership` records. The possible types
+        for `parent` in this request are `project`, `portfolio`, `team`, `goal`,
+        and `workspace`. An additional member (user GID or team GID) can be passed
+        in
         to filter to a specific membership.
+        If a `parent` param is not provided, a `member`, `resource_subtype`, and `workspace`
+        param must be provided.
       tags:
         - Memberships
       operationId: getMemberships
@@ -10136,16 +10146,33 @@ paths:
           description: >-
             Globally unique identifier for `project`, `portfolio`,
               `team`, `goal`, and `workspace`.
-          required: true
           schema:
             type: string
           example: '159874'
         - name: member
           in: query
-          description: Globally unique identifier for `team` and `user`.
+          description: Globally unique identifier for `team` or `user`.
           schema:
             type: string
           example: '1061493'
+        - name: resource_subtype
+          in: query
+          schema:
+            type: string
+          example: team_membership
+          description: >-
+            The resource_subtype to filter on.
+            Must be provided with `member` and `workspace` if `parent` is not provided.
+            Valid values include `team_membership`, `workspace_membership`, `portfolio_membership`
+        - name: workspace
+          in: query
+          schema:
+            type: string
+          example: '75642'
+          description: >-
+            The workspace to filter on.
+            Must be provided with `member` and `resource_subtype` if `parent` is not
+            provided.
         - name: limit
           in: query
           description: Pagination limit for the request.
@@ -10388,9 +10415,7 @@ paths:
         An existing membership can be updated by making a `PUT` request on the URL
         for
         that goal. Only the fields provided in the `data` block will be updated;
-        any unspecified fields will remain unchanged. Currently, the standard access
-        level
-        can only be updated for `project`. Memberships on `project`, `portfolio`,
+        any unspecified fields will remain unchanged. Memberships on `project`, `portfolio`,
         `team`, and `goals` can be updated.
       tags:
         - Memberships
@@ -14862,7 +14887,7 @@ paths:
     post:
       summary: Create a project in a workspace
       description: |-
-        Returns the compact project records for all projects in the workspace.
+        Creates a project in the workspace.
 
         If the workspace for your project is an organization, you must also
         supply a team to share the project with.
