@@ -1510,7 +1510,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/WidgetMetadataResponse'
         400:
-          $ref: '#/components/responses/BadRequest'
+          description: >-
+            Bad request
         401:
           $ref: '#/components/responses/Unauthorized'
         403:
