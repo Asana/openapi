@@ -11040,7 +11040,7 @@ paths:
           example: '1331'
         - name: owner
           in: query
-          required: true
+          required: false
           description: The user who owns the portfolio. Currently, API users can only
             get a list of portfolios that they themselves own.
           schema:
