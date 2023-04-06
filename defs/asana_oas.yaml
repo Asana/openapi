@@ -11051,11 +11051,15 @@ paths:
         - name: owner
           in: query
           required: false
-          description: The user who owns the portfolio. Currently, API users can only
-            get a list of portfolios that they themselves own, unless the request
-            is from a Service Account. In the case of a Service Account, if this parameter
-            is specified all portfolios owned by this parameter are returned, otherwise
-            all portfolios across the workspace are returned.
+          description: >-
+            The user who owns the portfolio. Currently, API users can only get a list
+            of
+            portfolios that they themselves own, unless the request is made from a
+            Service Account.
+            In the case of a Service Account, if this parameter is specified, then
+            all portfolios owned
+            by this parameter are returned. Otherwise, all portfolios across the workspace
+            are returned.
           schema:
             type: string
           example: '14916'
