@@ -6411,6 +6411,69 @@ components:
         - $ref: '#/components/schemas/TeamMembershipResponse'
         - $ref: '#/components/schemas/GoalMembershipResponse'
         - $ref: '#/components/schemas/WorkspaceMembershipResponse'
+    UpdateTimeTrackingEntryRequest:
+      type: object
+      properties:
+        duration_minutes:
+          description: >-
+            *Optional*. Time in minutes tracked by the entry
+          type: integer
+          example: 12
+        entered_on:
+          description: >-
+            *Optional*. The day that this entry is logged on. Defaults to today if
+            no day specified
+          type: string
+          format: date
+          example: '2023-03-19'
+    CreateTimeTrackingEntryRequest:
+      type: object
+      properties:
+        duration_minutes:
+          description: >-
+            Time in minutes tracked by the entry. Must be greater than 0
+          type: integer
+          example: 12
+        entered_on:
+          description: >-
+            *Optional*. The day that this entry is logged on. Defaults to today if
+            not specified
+          type: string
+          format: date
+          example: '2023-03-19'
+    TimeTrackingEntryCompact:
+      allOf:
+        - $ref: '#/components/schemas/AsanaResource'
+        - type: object
+          properties:
+            duration_minutes:
+              description: >-
+                Time in minutes tracked by the entry.
+              type: integer
+              example: 12
+            entered_on:
+              description: >-
+                The day that this entry is logged on.
+              type: string
+              format: date
+              example: '2015-03-14'
+            created_by:
+              $ref: '#/components/schemas/UserCompact'
+              readOnly: true
+    TimeTrackingEntryBase:
+      allOf:
+        - $ref: '#/components/schemas/TimeTrackingEntryCompact'
+        - type: object
+          properties:
+            task:
+              $ref: '#/components/schemas/TaskCompact'
+              readOnly: true
+            created_at:
+              description: The time at which this resource was created.
+              type: string
+              format: date-time
+              readOnly: true
+              example: '2012-02-22T02:06:58.147Z'
   securitySchemes:
     personalAccessToken:
       type: http
@@ -23251,6 +23314,188 @@ paths:
 
               result = client.time_periods.get_time_periods(workspace: '&#x27;workspace_example&#x27;',
               param: "value", param: "value", options: {pretty: true})
+  /tasks/{task_gid}/time_tracking_entries:
+    parameters:
+      - $ref: '#/components/parameters/task_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/fields'
+    get:
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+      summary: Get time tracking entries for a task
+      description: Returns time tracking entries for a given task.
+      tags:
+        - Time tracking entries
+      operationId: getTimeTrackingEntriesForTask
+      responses:
+        200:
+          description: Successfully retrieved the requested time tracking entries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TimeTrackingEntryCompact'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create a time tracking entry
+      description: |-
+        Creates a time tracking entry on a given task.
+
+        Returns the record of the newly created time tracking entry.
+      operationId: createTimeTrackingEntry
+      tags:
+        - Time tracking entries
+      requestBody:
+        description: Information about the time tracking entry.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/CreateTimeTrackingEntryRequest'
+      responses:
+        201:
+          description: Successfully created a time tracking entry for the task.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TimeTrackingEntryBase'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /time_tracking_entries/{time_tracking_entry_gid}:
+    parameters:
+      - $ref: '#/components/parameters/time_tracking_entry_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/fields'
+    get:
+      summary: Get a time tracking entry
+      description: Returns the complete time tracking entry record for a single time
+        tracking entry.
+      tags:
+        - Time tracking entries
+      operationId: getTimeTrackingEntry
+      responses:
+        200:
+          description: Successfully retrieved the requested time tracking entry.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TimeTrackingEntryBase'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update a time tracking entry
+      description: |-
+        A specific, existing time tracking entry can be updated by making a `PUT` request on
+        the URL for that time tracking entry. Only the fields provided in the `data` block
+        will be updated; any unspecified fields will remain unchanged.
+
+        When using this method, it is best to specify only those fields you wish
+        to change, or else you may overwrite changes made by another user since
+        you last retrieved the task.
+
+        Returns the complete updated time tracking entry record.
+      tags:
+        - Time tracking entries
+      operationId: updateTimeTrackingEntry
+      requestBody:
+        description: The updated fields for the time tracking entry.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/UpdateTimeTrackingEntryRequest'
+      responses:
+        200:
+          description: Successfully updated the time tracking entry.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TimeTrackingEntryBase'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete a time tracking entry
+      description: |-
+        A specific, existing time tracking entry can be deleted by making a `DELETE` request on
+        the URL for that time tracking entry.
+
+        Returns an empty data record.
+      tags:
+        - Time tracking entries
+      operationId: delete time tracking entry
+      responses:
+        200:
+          description: Successfully deleted the specified time tracking entry.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /workspaces/{workspace_gid}/typeahead:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
