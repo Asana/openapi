@@ -1103,6 +1103,16 @@ components:
         type: string
       example: '917392'
       x-env-variable: time_period
+    time_tracking_entry_path_gid:
+      name: time_tracking_entry_gid
+      in: path
+      description: >-
+        Globally unique identifier for the time tracking entry.
+      required: true
+      schema:
+        type: string
+      example: '917392'
+      x-env-variable: time_tracking_entry
     user_query_param:
       name: user
       in: query
@@ -11041,8 +11051,13 @@ paths:
         - name: owner
           in: query
           required: false
-          description: The user who owns the portfolio. Currently, API users can only
-            get a list of portfolios that they themselves own.
+          description: >-
+            The user who owns the portfolio. Currently, API users can  only get a
+            list of portfolios that they themselves own, unless
+            the request is made from a Service Account. In the case of a
+            Service Account, if this parameter is specified, then all
+            portfolios owned by this parameter are returned.
+            Otherwise, all portfolios across the workspace are returned.
           schema:
             type: string
           example: '14916'
