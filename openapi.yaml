@@ -10,11 +10,7 @@ info:
 servers:
   - url: https://app.asana.com/api/1.0
 paths:
-  /users/{user_gid}:
-    parameters:
-      - $ref: "#/components/parameters/user_gid"
-      - $ref: "#/components/parameters/opt_fields"
-      - $ref: "#/components/parameters/opt_pretty"
+  /users/me:
     get:
       tags:
         - Users
@@ -34,157 +30,11 @@ paths:
                     $ref: "#/components/schemas/UserResponse"
 components:
   schemas:
-    AsanaResource:
-      description: A generic Asana Resource, containing a globally unique identifier.
+    UserResponse:
       type: object
       properties:
-        gid:
-          description: Globally unique identifier of the resource, as a string.
+        email:
           type: string
-          readOnly: true
-          example: "12345"
-        resource_type:
-          description: The base type of this resource.
-          type: string
-          readOnly: true
-          example: task
-    UserBaseResponse:
-      allOf:
-        - $ref: "#/components/schemas/UserCompact"
-        - type: object
-          properties:
-            email:
-              type: string
-              format: email
-              readOnly: true
-              description: The user's email address.
-              example: gsanchez@example.com
-            photo:
-              type: object
-              nullable: true
-              properties:
-                image_21x21:
-                  type: string
-                  format: uri
-                  example: https://...
-                image_27x27:
-                  type: string
-                  format: uri
-                  example: https://...
-                image_36x36:
-                  type: string
-                  format: uri
-                  example: https://...
-                image_60x60:
-                  type: string
-                  format: uri
-                  example: https://...
-                image_128x128:
-                  type: string
-                  format: uri
-                  example: https://...
-                image_1024x1024:
-                  type: string
-                  format: uri
-                  example: https://...
-              readOnly: true
-              description: >-
-                A map of the user’s profile photo in various sizes, or null if no
-                photo is set. Sizes provided are 21, 27, 36, 60, 128, and 1024. All
-                images are in PNG format, except for 1024 (which is in JPEG format).
-              example:
-                image_21x21: https://...
-                image_27x27: https://...
-                image_36x36: https://...
-                image_60x60: https://...
-                image_128x128: https://...
-                image_1024x1024: https://...
-    UserCompact:
-      allOf:
-        - $ref: "#/components/schemas/AsanaResource"
-        - type: object
-          description: >-
-            A *user* object represents an account in Asana that can be given
-            access to various workspaces, projects, and tasks.
-          properties:
-            # Override resource_type example
-            resource_type:
-              example: user
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user’s name.
-              example: Greg Sanchez
-    UserResponse:
-      allOf:
-        - $ref: "#/components/schemas/UserBaseResponse"
-        - type: object
-          properties:
-            workspaces:
-              description: |-
-                Workspaces and organizations this user may access.
-
-                Note: The API will only return workspaces and organizations that
-                also contain the authenticated user.
-              readOnly: true
-              type: array
-              items:
-                $ref: "#/components/schemas/WorkspaceCompact"
-    WorkspaceCompact:
-      allOf:
-        - $ref: "#/components/schemas/AsanaResource"
-        - type: object
-          description: >-
-            A *workspace* is the highest-level organizational unit in Asana. All
-            projects and tasks have an associated workspace.
-          properties:
-            # Override resource_type example
-            resource_type:
-              example: workspace
-            name:
-              description: The name of the workspace.
-              type: string
-              example: My Company Workspace
-  parameters:
-    opt_fields:
-      name: opt_fields
-      in: query
-      description: >-
-        This option allows you to list the exact set of fields that the API should
-        be sure to return for the objects. The field names should be provided as
-        paths, described below.
-      required: false
-      schema:
-        type: array
-        items:
-          type: string
-      example:
-        - gid
-        - resource_type
-      style: form
-      explode: false
-    opt_pretty:
-      name: opt_pretty
-      in: query
-      description: >-
-        Provides the response in a “pretty” format. In the case of JSON this
-        means doing proper line breaking and indentation to make it readable.
-      required: false
-      allowEmptyValue: true
-      schema:
-        type: boolean
-      style: form
-      example: true
-    user_gid:
-      name: user_gid
-      in: path
-      description: >-
-        A string identifying a user. This can either be the string "me", an email,
-        or the gid of a user.
-      required: true
-      schema:
-        type: string
-      example: me
   securitySchemes:
     personal_access_token:
       type: http
