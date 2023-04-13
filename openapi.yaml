@@ -8,8 +8,41 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.0
 servers:
-  - url: https://app.asana.com/api/1.0
+  - url: http://localhost:5003
 paths:
+  /projects:
+    post:
+      summary: Create a project
+      description: |-
+        Create a new project in a workspace or team.
+
+        Every project is required to be created in a specific workspace or
+        organization, and this cannot be changed once set. Note that you can use
+        the `workspace` parameter regardless of whether or not it is an
+        organization.
+      tags:
+        - Projects
+      operationId: createProject
+      requestBody:
+        description: The project to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/ProjectRequest"
+      responses:
+        "201":
+          description: Successfully retrieved projects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/ProjectResponse"
   /users/{user_gid}:
     get:
       tags:
@@ -140,6 +173,1153 @@ paths:
                           example: Bug Task
 components:
   schemas:
+    CustomFieldCompact:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: The name of the custom field.
+          type: string
+          example: Status
+        resource_subtype:
+          description: >
+            The type of the custom field. Must be one of the given values.
+          type: string
+          example: text
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+        type:
+          description: >-
+            *Deprecated: new integrations should prefer the resource_subtype
+            field.* The type of the custom field. Must be one of the given
+            values.
+          type: string
+          readOnly: true
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+        enum_options:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type `enum`.
+            This array specifies the possible values which an `enum` custom
+            field can adopt. To modify the enum options, refer to [working
+            with enum
+            options](/reference/createenumoptionforcustomfield).
+          type: array
+          items:
+            $ref: "#/components/schemas/EnumOption"
+        enabled:
+          description: >-
+            *Conditional*. Determines if the custom field is enabled or not.
+          type: boolean
+          example: true
+        date_value:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type `date`.
+            This object reflects the chosen date (and optionally, time) value
+            of a `date` custom field. If no date is selected, the value of
+            `date_value` will be `null`.
+          type: object
+          properties:
+            date:
+              type: string
+              description: >-
+                A string representing the date in YYYY-MM-DD format.
+              example: "2024-08-23"
+            date_time:
+              type: string
+              description: >-
+                A string representing the date in ISO 8601 format. If no time
+                value
+                is selected, the value of `date-time` will be `null`.
+              example: "2024-08-23T22:00:00.000Z"
+        enum_value:
+          allOf:
+            - $ref: "#/components/schemas/EnumOption"
+            - type: object
+              description: >-
+                *Conditional*. Only relevant for custom fields of type
+                `enum`. This object is the chosen value of an `enum` custom
+                field.
+        multi_enum_values:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type
+            `multi_enum`. This object is the chosen values of a `multi_enum` custom
+            field.
+          type: array
+          items:
+            $ref: "#/components/schemas/EnumOption"
+        number_value:
+          description: >-
+            *Conditional*. This number is the value of a `number` custom field.
+          type: number
+          example: 5.2
+        text_value:
+          description: >-
+            *Conditional*. This string is the value of a `text` custom field.
+          type: string
+          example: Some Value
+        display_value:
+          description: >-
+            A string representation for the value of the custom field.
+            Integrations that don't require the underlying type should
+            use this field to read values. Using this field will future-proof
+            an app against new custom field types.
+          type: string
+          readOnly: true
+          example: blue
+          nullable: true
+    CustomFieldResponse:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: The name of the custom field.
+          type: string
+          example: Status
+        resource_subtype:
+          description: >
+            The type of the custom field. Must be one of the given values.
+          type: string
+          example: text
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+        type:
+          description: >
+            *Deprecated: new integrations should prefer the resource_subtype
+            field.* The type of the custom field. Must be one of the given
+            values.
+          type: string
+          readOnly: true
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+        enum_options:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type `enum`.
+            This array specifies the possible values which an `enum` custom
+            field can adopt. To modify the enum options, refer to [working
+            with enum
+            options](/reference/createenumoptionforcustomfield).
+          type: array
+          items:
+            $ref: "#/components/schemas/EnumOption"
+        enabled:
+          description: >-
+            *Conditional*. Determines if the custom field is enabled or not.
+          type: boolean
+          example: true
+        date_value:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type `date`.
+            This object reflects the chosen date (and optionally, time) value
+            of a `date` custom field. If no date is selected, the value of
+            `date_value` will be `null`.
+          type: object
+          properties:
+            date:
+              type: string
+              description: >-
+                A string representing the date in YYYY-MM-DD format.
+              example: "2024-08-23"
+            date_time:
+              type: string
+              description: >-
+                A string representing the date in ISO 8601 format. If no time
+                value
+                is selected, the value of `date-time` will be `null`.
+              example: "2024-08-23T22:00:00.000Z"
+        enum_value:
+          allOf:
+            - $ref: "#/components/schemas/EnumOption"
+            - type: object
+              description: >-
+                *Conditional*. Only relevant for custom fields of type
+                `enum`. This object is the chosen value of an `enum` custom
+                field.
+        multi_enum_values:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type
+            `multi_enum`. This object is the chosen values of a `multi_enum` custom
+            field.
+          type: array
+          items:
+            $ref: "#/components/schemas/EnumOption"
+        number_value:
+          description: >-
+            *Conditional*. This number is the value of a `number` custom field.
+          type: number
+          example: 5.2
+        text_value:
+          description: >-
+            *Conditional*. This string is the value of a `text` custom field.
+          type: string
+          example: Some Value
+        display_value:
+          description: >-
+            A string representation for the value of the custom field.
+            Integrations that don't require the underlying type should
+            use this field to read values. Using this field will future-proof
+            an app against new custom field types.
+          type: string
+          readOnly: true
+          example: blue
+          nullable: true
+        description:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            The description of the custom field.
+          type: string
+          example: Development team priority
+        precision:
+          description: >-
+            Only relevant for custom fields of type ‘Number’. This field
+            dictates the number of places after the decimal to round to, i.e.
+            0 is integer values, 1 rounds to the nearest tenth, and so on.
+            Must be between 0 and 6, inclusive.
+
+            For percentage format, this may be unintuitive, as a value of 0.25
+            has a precision of 0, while a value of 0.251 has a precision of 1.
+            This is due to 0.25 being displayed as 25%.
+
+            The identifier format will always have a precision of 0.
+          type: integer
+          example: 2
+        format:
+          description: >-
+            The format of this custom field.
+          type: string
+          enum:
+            - currency
+            - identifier
+            - percentage
+            - custom
+            - none
+          example: custom
+        currency_code:
+          description: >-
+            ISO 4217 currency code to format this custom field. This will be
+            null if the `format` is not `currency`.
+          type: string
+          nullable: true
+          example: EUR
+        custom_label:
+          description: >-
+            This is the string that appears next to the custom field value.
+            This will be null if the `format` is not `custom`.
+          type: string
+          nullable: true
+          example: gold pieces
+        custom_label_position:
+          description: >-
+            Only relevant for custom fields with `custom` format. This depicts
+            where to place the custom label. This will be null if the `format`
+            is not `custom`.
+          type: string
+          enum:
+            - prefix
+            - suffix
+          example: suffix
+        is_global_to_workspace:
+          description: >-
+            This flag describes whether this custom field is available to
+            every container in the workspace. Before project-specific custom
+            fields, this field was always true.
+          type: boolean
+          example: true
+          readOnly: true
+        has_notifications_enabled:
+          description: >-
+            *Conditional*. This flag describes whether a follower of a task
+            with this field should receive inbox notifications from changes
+            to this field.
+          type: boolean
+          example: true
+        asana_created_field:
+          description: >-
+            *Conditional*. A unique identifier to associate this field with the
+            template source of truth.
+          type: string
+          readOnly: true
+          nullable: true
+          enum:
+            - a_v_requirements
+            - account_name
+            - actionable
+            - align_shipping_link
+            - align_status
+            - allotted_time
+            - appointment
+            - approval_stage
+            - approved
+            - article_series
+            - board_committee
+            - browser
+            - campaign_audience
+            - campaign_project_status
+            - campaign_regions
+            - channel_primary
+            - client_topic_type
+            - complete_by
+            - contact
+            - contact_email_address
+            - content_channels
+            - content_channels_needed
+            - content_stage
+            - content_type
+            - contract
+            - contract_status
+            - cost
+            - creation_stage
+            - creative_channel
+            - creative_needed
+            - creative_needs
+            - data_sensitivity
+            - deal_size
+            - delivery_appt
+            - delivery_appt_date
+            - department
+            - department_responsible
+            - design_request_needed
+            - design_request_type
+            - discussion_category
+            - do_this_task
+            - editorial_content_status
+            - editorial_content_tag
+            - editorial_content_type
+            - effort
+            - effort_level
+            - est_completion_date
+            - estimated_time
+            - estimated_value
+            - expected_cost
+            - external_steps_needed
+            - favorite_idea
+            - feedback_type
+            - financial
+            - funding_amount
+            - grant_application_process
+            - hiring_candidate_status
+            - idea_status
+            - ids_link
+            - ids_patient_link
+            - implementation_stage
+            - insurance
+            - interview_area
+            - interview_question_score
+            - itero_scan_link
+            - job_s_applied_to
+            - lab
+            - launch_status
+            - lead_status
+            - localization_language
+            - localization_market_team
+            - localization_status
+            - meeting_minutes
+            - meeting_needed
+            - minutes
+            - mrr
+            - must_localize
+            - name_of_foundation
+            - need_to_follow_up
+            - next_appointment
+            - next_steps_sales
+            - num_people
+            - number_of_user_reports
+            - office_location
+            - onboarding_activity
+            - owner
+            - participants_needed
+            - patient_date_of_birth
+            - patient_email
+            - patient_phone
+            - patient_status
+            - phone_number
+            - planning_category
+            - point_of_contact
+            - position
+            - post_format
+            - prescription
+            - priority
+            - priority_level
+            - product
+            - product_stage
+            - progress
+            - project_size
+            - project_status
+            - proposed_budget
+            - publish_status
+            - reason_for_scan
+            - referral
+            - request_type
+            - research_status
+            - responsible_department
+            - responsible_team
+            - risk_assessment_status
+            - room_name
+            - sales_counterpart
+            - sentiment
+            - shipping_link
+            - social_channels
+            - stage
+            - status
+            - status_design
+            - status_of_initiative
+            - system_setup
+            - task_progress
+            - team
+            - team_marketing
+            - team_responsible
+            - time_it_takes_to_complete_tasks
+            - timeframe
+            - treatment_type
+            - type_work_requests_it
+            - use_agency
+            - user_name
+            - vendor_category
+            - vendor_type
+            - word_count
+          example: priority
+        created_by:
+          $ref: "#/components/schemas/UserCompact"
+        people_value:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type `people`.
+            This array of [compact user](/reference/users) objects reflects the
+            values
+            of a `people` custom field.
+          type: array
+          items:
+            $ref: "#/components/schemas/UserCompact"
+    CustomFieldSettingResponse:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        project:
+          allOf:
+            - $ref: "#/components/schemas/ProjectCompact"
+            - type: object
+              description: >-
+                *Deprecated: new integrations should prefer the `parent`
+                field.* The id of the project that this custom field settings
+                refers to.
+              readOnly: true
+        is_important:
+          description: >-
+            `is_important` is used in the Asana web application to determine
+            if this custom field is displayed in the list/grid view of a project
+            or portfolio.
+          type: boolean
+          readOnly: true
+          example: false
+        parent:
+          allOf:
+            - $ref: "#/components/schemas/ProjectCompact"
+            - type: object
+              description: >-
+                The parent to which the custom field is applied. This can be a
+                project or portfolio and indicates that the tasks or projects
+                that the parent contains may be given custom field values for
+                this custom field.
+              readOnly: true
+        custom_field:
+          allOf:
+            - $ref: "#/components/schemas/CustomFieldResponse"
+            - type: object
+              description: >-
+                The custom field that is applied to the `parent`.
+              readOnly: true
+    EnumOption:
+      type: object
+      description: >-
+        Enum options are the possible values which an enum custom field can
+        adopt. An enum custom field must contain at least 1 enum option but no
+        more than 500.
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: The name of the enum option.
+          type: string
+          example: Low
+        enabled:
+          description: >-
+            Whether or not the enum option is a selectable value for the
+            custom field.
+          type: boolean
+          example: true
+        color:
+          description: >-
+            The color of the enum option. Defaults to ‘none’.
+          type: string
+          example: blue
+    ProjectBriefCompact:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+    ProjectCompact:
+      type: object
+      description: >-
+        A *project* represents a prioritized list of tasks in Asana or a board
+        with columns of tasks represented as cards. It exists in a single
+        workspace or organization and is accessible to a subset of users in
+        that workspace or organization, depending on its permissions.
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: >-
+            Name of the project. This is generally a short sentence fragment
+            that fits on a line in the UI for maximum readability. However, it
+            can be longer.
+          type: string
+          example: Stuff to buy
+    ProjectResponse:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: >-
+            Name of the project. This is generally a short sentence fragment
+            that fits on a line in the UI for maximum readability. However, it
+            can be longer.
+          type: string
+          example: Stuff to buy
+        archived:
+          description: >-
+            True if the project is archived, false if not. Archived projects
+            do not show in the UI by default and may be treated differently
+            for queries.
+          type: boolean
+          example: false
+        color:
+          description: Color of the project.
+          type: string
+          nullable: true
+          enum:
+            - dark-pink
+            - dark-green
+            - dark-blue
+            - dark-red
+            - dark-teal
+            - dark-brown
+            - dark-orange
+            - dark-purple
+            - dark-warm-gray
+            - light-pink
+            - light-green
+            - light-blue
+            - light-red
+            - light-teal
+            - light-brown
+            - light-orange
+            - light-purple
+            - light-warm-gray
+          example: light-green
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "2012-02-22T02:06:58.147Z"
+        current_status:
+          $ref: "#/components/schemas/ProjectStatusResponse"
+        current_status_update:
+          $ref: "#/components/schemas/StatusUpdateCompact"
+        custom_field_settings:
+          description: Array of Custom Field Settings (in compact form).
+          readOnly: true
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomFieldSettingResponse"
+        default_view:
+          description: The default view (list, board, calendar, or timeline) of
+            a project.
+          type: string
+          enum:
+            - list
+            - board
+            - calendar
+            - timeline
+          example: calendar
+        due_date:
+          description: >-
+            *Deprecated: new integrations should prefer the `due_on` field.*
+          type: string
+          nullable: true
+          format: date-time
+          example: "2019-09-15T02:06:58.147Z"
+        due_on:
+          description: >-
+            The day on which this project is due. This takes a date with
+            format YYYY-MM-DD.
+          type: string
+          nullable: true
+          format: date-time
+          example: "2019-09-15T02:06:58.147Z"
+        html_notes:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            The notes of the project with formatting as HTML.
+          type: string
+          example: <body>These are things we need to purchase.</body>
+        members:
+          description: Array of users who are members of this project.
+          type: array
+          items:
+            $ref: "#/components/schemas/UserCompact"
+          readOnly: true
+        modified_at:
+          description: >-
+            The time at which this project was last modified.
+
+            *Note: This does not currently reflect any changes in
+            associations such as tasks or comments that may have been added or
+            removed from the project.*
+          type: string
+          readOnly: true
+          format: date-time
+          example: "2012-02-22T02:06:58.147Z"
+        notes:
+          description: >-
+            Free-form textual information associated with the
+            project (ie., its description).
+          type: string
+          example: These are things we need to purchase.
+        public:
+          description: >-
+            True if the project is public to its team.
+          type: boolean
+          example: false
+        start_on:
+          description: >-
+            The day on which work for this project begins, or null if the
+            project has no start date. This takes a date with `YYYY-MM-DD`
+            format. *Note: `due_on` or `due_at` must be present in the
+            request when setting or unsetting the `start_on` parameter.
+            Additionally, `start_on` and `due_on` cannot be the same date.*
+          type: string
+          nullable: true
+          format: date
+          example: "2019-09-14"
+        workspace:
+          allOf:
+            - $ref: "#/components/schemas/WorkspaceCompact"
+            - type: object
+              readOnly: true
+              description: >-
+                *Create-only*. The workspace or organization this project is
+                associated with. Once created, projects cannot be moved to a
+                different workspace. This attribute can only be specified at
+                creation time.
+        custom_fields:
+          description: Array of Custom Fields.
+          readOnly: true
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomFieldCompact"
+        completed:
+          description: >-
+            True if the project is currently marked complete, false if not.
+          type: boolean
+          readOnly: true
+          example: false
+        completed_at:
+          description: >-
+            The time at which this project was completed, or null if the project
+            is not completed.
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          example: "2012-02-22T02:06:58.147Z"
+        completed_by:
+          $ref: "#/components/schemas/UserCompact"
+        followers:
+          description: >-
+            Array of users following this project. Followers are a subset
+            of members who have opted in to receive "tasks added"
+            notifications for a project.
+          type: array
+          items:
+            $ref: "#/components/schemas/UserCompact"
+          readOnly: true
+        owner:
+          $ref: "#/components/schemas/UserCompact"
+        team:
+          $ref: "#/components/schemas/TeamCompact"
+        icon:
+          description: >-
+            The icon for a project.
+          type: string
+          nullable: true
+          enum:
+            - list
+            - board
+            - timeline
+            - calendar
+            - rocket
+            - people
+            - graph
+            - star
+            - bug
+            - light_bulb
+            - globe
+            - gear
+            - notebook
+            - computer
+            - check
+            - target
+            - html
+            - megaphone
+            - chat_bubbles
+            - briefcase
+            - page_layout
+            - mountain_flag
+            - puzzle
+            - presentation
+            - line_and_symbols
+            - speed_dial
+            - ribbon
+            - shoe
+            - shopping_basket
+            - map
+            - ticket
+            - coins
+          example: chat_bubbles
+        permalink_url:
+          type: string
+          readOnly: true
+          description: >-
+            A url that points directly to the object within Asana.
+          example: https://app.asana.com/0/resource/123456789/list
+        project_brief:
+          allOf:
+            - $ref: "#/components/schemas/ProjectBriefCompact"
+            - type: object
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                The project brief associated with this project.
+              nullable: true
+        created_from_template:
+          allOf:
+            - $ref: "#/components/schemas/ProjectTemplateCompact"
+            - type: object
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                The project template from which this project was created. If the
+                project was
+                not created from a template, this field will be null.
+              nullable: true
+    ProjectRequest:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: >-
+            Name of the project. This is generally a short sentence fragment
+            that fits on a line in the UI for maximum readability. However, it
+            can be longer.
+          type: string
+          example: Stuff to buy
+        archived:
+          description: >-
+            True if the project is archived, false if not. Archived projects
+            do not show in the UI by default and may be treated differently
+            for queries.
+          type: boolean
+          example: false
+        color:
+          description: Color of the project.
+          type: string
+          nullable: true
+          enum:
+            - dark-pink
+            - dark-green
+            - dark-blue
+            - dark-red
+            - dark-teal
+            - dark-brown
+            - dark-orange
+            - dark-purple
+            - dark-warm-gray
+            - light-pink
+            - light-green
+            - light-blue
+            - light-red
+            - light-teal
+            - light-brown
+            - light-orange
+            - light-purple
+            - light-warm-gray
+          example: light-green
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "2012-02-22T02:06:58.147Z"
+        current_status:
+          $ref: "#/components/schemas/ProjectStatusResponse"
+        current_status_update:
+          $ref: "#/components/schemas/StatusUpdateCompact"
+        custom_field_settings:
+          description: Array of Custom Field Settings (in compact form).
+          readOnly: true
+          type: array
+          items:
+            $ref: "#/components/schemas/CustomFieldSettingResponse"
+        default_view:
+          description: The default view (list, board, calendar, or timeline) of
+            a project.
+          type: string
+          enum:
+            - list
+            - board
+            - calendar
+            - timeline
+          example: calendar
+        due_date:
+          description: >-
+            *Deprecated: new integrations should prefer the `due_on` field.*
+          type: string
+          nullable: true
+          format: date-time
+          example: "2019-09-15T02:06:58.147Z"
+        due_on:
+          description: >-
+            The day on which this project is due. This takes a date with
+            format YYYY-MM-DD.
+          type: string
+          nullable: true
+          format: date-time
+          example: "2019-09-15T02:06:58.147Z"
+        html_notes:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            The notes of the project with formatting as HTML.
+          type: string
+          example: <body>These are things we need to purchase.</body>
+        members:
+          description: Array of users who are members of this project.
+          type: array
+          items:
+            $ref: "#/components/schemas/UserCompact"
+          readOnly: true
+        modified_at:
+          description: >-
+            The time at which this project was last modified.
+
+            *Note: This does not currently reflect any changes in
+            associations such as tasks or comments that may have been added or
+            removed from the project.*
+          type: string
+          readOnly: true
+          format: date-time
+          example: "2012-02-22T02:06:58.147Z"
+        notes:
+          description: >-
+            Free-form textual information associated with the
+            project (ie., its description).
+          type: string
+          example: These are things we need to purchase.
+        public:
+          description: >-
+            True if the project is public to its team.
+          type: boolean
+          example: false
+        start_on:
+          description: >-
+            The day on which work for this project begins, or null if the
+            project has no start date. This takes a date with `YYYY-MM-DD`
+            format. *Note: `due_on` or `due_at` must be present in the
+            request when setting or unsetting the `start_on` parameter.
+            Additionally, `start_on` and `due_on` cannot be the same date.*
+          type: string
+          nullable: true
+          format: date
+          example: "2019-09-14"
+        workspace:
+          allOf:
+            - $ref: "#/components/schemas/WorkspaceCompact"
+            - type: object
+              readOnly: true
+              description: >-
+                *Create-only*. The workspace or organization this project is
+                associated with. Once created, projects cannot be moved to a
+                different workspace. This attribute can only be specified at
+                creation time.
+        custom_fields:
+          description: >-
+            An object where each key is a Custom Field GID and each value is
+            an enum GID, string, number, or object.
+          type: object
+          additionalProperties:
+            type: string
+            description: >-
+              "{custom_field_gid}" => Value (Can be text, number, etc.)
+          example:
+            "5678904321": On Hold
+            "4578152156": Not Started
+        followers:
+          description: >-
+            *Create-only*. Comma separated string of users. Followers
+            are a subset of members who have opted in to receive "tasks
+            added" notifications for a project.
+          type: string
+          example: 12345,23456
+        owner:
+          description: >-
+            The current owner of the project, may be null.
+          nullable: true
+          type: string
+          example: "12345"
+        team:
+          description: >-
+            The team that this project is shared with.
+          type: string
+          example: "12345"
+    ProjectStatusResponse:
+      type: object
+      required:
+        - text
+        - color
+      properties:
+        text:
+          description: The text content of the status update.
+          type: string
+          example: The project is moving forward according to plan...
+        html_text:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            The text content of the status update with formatting as HTML.
+          type: string
+          example: >-
+            <body>The project <strong>is</strong> moving forward according to
+            plan...</body>
+        color:
+          description: The color associated with the status update.
+          type: string
+          enum:
+            - green
+            - yellow
+            - red
+            - blue
+        author:
+          $ref: "#/components/schemas/UserCompact"
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: "2012-02-22T02:06:58.147Z"
+        created_by:
+          $ref: "#/components/schemas/UserCompact"
+        modified_at:
+          description: >-
+            The time at which this project status was last modified.
+
+            *Note: This does not currently reflect any changes in
+            associations such as comments that may have been added or
+            removed from the project status.*
+          type: string
+          format: date-time
+          readOnly: true
+          example: "2012-02-22T02:06:58.147Z"
+    ProjectTemplateCompact:
+      type: object
+      description: >-
+        A *project template* is an object that allows new projects to be created
+        with a predefined setup, which may include tasks, sections, Rules, etc.
+        It simplifies the process of running a workflow that involves a similar
+        set of work every time.
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: >-
+            Name of the project template.
+          type: string
+          example: Packing list
+    StatusUpdateCompact:
+      type: object
+      description: >-
+        A *status update* is an update on the progress of a particular
+        project, portfolio, or goal, and is sent out to all of its parent's
+        followers when created. These
+        updates include both text describing the update and a `status_type`
+        intended to represent the overall state of the project.
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        title:
+          description: The title of the status update.
+          type: string
+          example: Status Update - Jun 15
+        resource_subtype:
+          type: string
+          description: >-
+            The subtype of this resource. Different subtypes retain many of
+            the same fields and behavior, but may render differently in Asana
+            or represent resources with different semantic meaning.
+
+            The `resource_subtype`s for `status` objects represent the type of
+            their parent.
+          enum:
+            - project_status_update
+            - portfolio_status_update
+            - goal_status_update
+          example: project_status_update
+          readOnly: true
+    TeamCompact:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: The name of the team.
+          type: string
+          example: Marketing
+    UserCompact:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          type: string
+          description: >-
+            *Read-only except when same user as requester*. The user’s name.
+          example: Greg Sanchez
     UserResponse:
       type: object
       properties:
@@ -229,6 +1409,24 @@ components:
                 description: The name of the workspace.
                 type: string
                 example: My Company Workspace
+    WorkspaceCompact:
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: "12345"
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+        name:
+          description: The name of the workspace.
+          type: string
+          example: My Company Workspace
   securitySchemes:
     personal_access_token:
       type: http
@@ -265,6 +1463,35 @@ security:
   - personal_access_token: []
   - oauth2: []
 tags:
+  - name: Projects
+    description: >-
+      A project represents a prioritized list of tasks in Asana or a board
+      with columns of tasks represented as cards. A project exists in a single
+      workspace or organization and is accessible to a subset of users in that
+      workspace or organization, depending on its permissions.
+
+
+      Projects in organizations are shared with a single team. Currently, the team
+      of a project cannot be changed via the API. Non-organization
+      workspaces do not have teams and so you should not specify the team of
+      project in a regular workspace.
+
+
+      Followers of a project are a subset of the members of that project.
+      Followers of a project will receive all updates including tasks
+      created, added and removed from that project. Members of the project
+      have access to and will receive status updates of the project. Adding
+      followers to a project will add them as members if they are not
+      already, removing followers from a project will not affect membership.
+
+
+      **Note:** You can use certain project endpoints to operate on
+      [user task lists](/reference/user-task-lists) ([My Tasks](https://asana.com/guide/help/fundamentals/my-tasks))
+      by substituting the `{project_gid}` with the `{user_task_list_gid}`. For example, you can perform
+      operations on the custom fields of a user task list by using the following
+      projects endpoints: [Add a custom field to a project](/reference/addcustomfieldsettingforproject),
+      [Remove a custom field from a project](/reference/removecustomfieldsettingforproject) and
+      [Get a project's custom fields](/reference/getcustomfieldsettingsforproject)
   - name: Typeahead
     description: >-
       The typeahead search API provides search for objects from a single
