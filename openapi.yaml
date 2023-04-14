@@ -43,7 +43,117 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/ProjectResponse"
+  /projects/{project_gid}:
+    get:
+      summary: Get a project
+      description: Returns the complete project record for a single project.
+      tags:
+        - Projects
+      operationId: getProject
+      parameters:
+        - name: project_gid
+          in: path
+          description: >-
+            Globally unique identifier for the project.
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved the requested project.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/ProjectResponse"
+  /projects/{project_gid}/duplicate:
+    post:
+      summary: Duplicate a project
+      description: >-
+        Creates and returns a job that will asynchronously handle the duplication.
+      tags:
+        - Projects
+      operationId: duplicateProject
+      parameters:
+        - name: project_gid
+          in: path
+          description: >-
+            Globally unique identifier for the project.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          Describes the duplicate's name and the elements that will be duplicated.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/ProjectDuplicateRequest"
+      responses:
+        "201":
+          description: Successfully created the job to handle duplication.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/JobResponse"
   /projects/{project_gid}/sections:
+    get:
+      summary: Get sections in a project
+      description: >-
+        Returns the compact records for all sections in the specified project.
+      tags:
+        - Sections
+      operationId: getSectionsForProject
+      parameters:
+        - name: project_gid
+          in: path
+          description: >-
+            Globally unique identifier for the project.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            Results per page. The number of objects to return per page. The value must be between 1 and 100.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+        - name: offset
+          in: query
+          description: >-
+            Offset token.
+
+            An offset to the next page returned by the API. A pagination request
+            will return an offset token, which can be used as an input parameter to
+            the next request. If an offset is not passed in, the API will return
+            the first page of results.
+
+            'Note: You can only pass in an offset that was returned to you via a
+            previously paginated request.'
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved sections in project.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/SectionCompact"
     post:
       summary: Create a section in a project
       description: >-
@@ -80,6 +190,219 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/SectionResponse"
+  /projects/{project_gid}/sections/insert:
+    post:
+      summary: Move or Insert sections
+      description: |-
+        Move sections relative to each other. One of
+        `before_section` or `after_section` is required.
+
+        Sections cannot be moved between projects.
+
+        Returns an empty data block.
+      tags:
+        - Sections
+      operationId: insertSectionForProject
+      parameters:
+        - name: project_gid
+          in: path
+          description: >-
+            Globally unique identifier for the project.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The section's move action.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/ProjectSectionInsertRequest"
+      responses:
+        "200":
+          description: Successfully moved the specified section.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: >-
+                      An empty object. Some endpoints do not return an object on success. The
+                      success is conveyed through a 2-- status code and returning an empty
+                      object.
+  /projects/{project_gid}/tasks:
+    get:
+      summary: Get tasks from a project
+      description: >-
+        Returns the compact task records for all tasks within the given project,
+        ordered by their priority within the project. Tasks can exist in more
+        than one project at a time.
+      tags:
+        - Tasks
+      operationId: getTasksForProject
+      parameters:
+        - name: project_gid
+          in: path
+          description: >-
+            Globally unique identifier for the project.
+          required: true
+          schema:
+            type: string
+        - name: completed_since
+          in: query
+          required: false
+          description: >
+            Only return tasks that are either incomplete or that have
+            been completed since this time. Accepts a date-time string or
+            the keyword *now*.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            Results per page. The number of objects to return per page. The value must be between 1 and 100.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+        - name: offset
+          in: query
+          description: >-
+            Offset token.
+
+            An offset to the next page returned by the API. A pagination request
+            will return an offset token, which can be used as an input parameter to
+            the next request. If an offset is not passed in, the API will return
+            the first page of results.
+
+            'Note: You can only pass in an offset that was returned to you via a
+            previously paginated request.'
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved the requested project's tasks.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/TaskCompact"
+  /sections/{section_gid}:
+    get:
+      summary: Get a section
+      description: >-
+        Returns the complete record for a single section.
+      tags:
+        - Sections
+      operationId: getSection
+      parameters:
+        - name: section_gid
+          in: path
+          required: true
+          description: The globally unique identifier for the section.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved section.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/SectionResponse"
+  /sections/{section_gid}/addTask:
+    post:
+      summary: Add task to section
+      description: |-
+        Add a task to a specific, existing section. This will remove the task from other sections of the project.
+
+        The task will be inserted at the top of a section unless an insert_before or insert_after parameter is declared.
+
+        This does not work for separators (tasks with the resource_subtype of section).
+      tags:
+        - Sections
+      operationId: addTaskForSection
+      parameters:
+        - name: section_gid
+          in: path
+          required: true
+          description: The globally unique identifier for the section.
+          schema:
+            type: string
+      requestBody:
+        description: The task and optionally the insert location.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/SectionTaskInsertRequest"
+      responses:
+        "200":
+          description: Successfully added the task.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    description: >-
+                      An empty object. Some endpoints do not return an object on success. The
+                      success is conveyed through a 2-- status code and returning an empty
+                      object.
+  /stories/{story_gid}:
+    get:
+      summary: Get a story
+      description: Returns the full record for a single story.
+      tags:
+        - Stories
+      operationId: getStory
+      parameters:
+        - name: story_gid
+          in: path
+          description: Globally unique identifier for the story.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            Results per page. The number of objects to return per page. The value must be between 1 and 100.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+        - name: offset
+          in: query
+          description: >-
+            An offset to the next page returned by the API. A pagination request
+            will return an offset token, which can be used as an input parameter to
+            the next request. If an offset is not passed in, the API will return
+            the first page of results.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved the specified story.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/StoryResponse"
   /tasks:
     get:
       summary: Get multiple tasks
@@ -95,13 +418,11 @@ paths:
         - name: limit
           in: query
           description: >-
-            Results per page.
-
-            The number of objects to return per page. The value must be between 1
-            and 100.
-          example: 50
+            Results per page. The number of objects to return per page. The value must be between 1 and 100.
           schema:
             type: integer
+            minimum: 0
+            maximum: 100
         - name: offset
           in: query
           description: >-
@@ -212,6 +533,188 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/TaskResponse"
+  /tasks/{task_gid}:
+    get:
+      summary: Get a task
+      description: Returns the complete task record for a single task.
+      tags:
+        - Tasks
+      operationId: getTask
+      parameters:
+        - name: task_gid
+          in: path
+          required: true
+          description: The task to operate on.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved the specified task.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/TaskResponse"
+    put:
+      summary: Update a task
+      description: |-
+        A specific, existing task can be updated by making a PUT request on the
+        URL for that task. Only the fields provided in the `data` block will be
+        updated; any unspecified fields will remain unchanged.
+      tags:
+        - Tasks
+      operationId: updateTask
+      parameters:
+        - name: task_gid
+          in: path
+          required: true
+          description: The task to operate on.
+          schema:
+            type: string
+      requestBody:
+        description: The task to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/TaskRequest"
+      responses:
+        "200":
+          description: Successfully updated the specified task.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/TaskResponse"
+  /tasks/{task_gid}/duplicate:
+    post:
+      summary: Duplicate a task
+      description: >-
+        Creates and returns a job that will asynchronously handle the duplication.
+      tags:
+        - Tasks
+      operationId: duplicateTask
+      parameters:
+        - name: task_gid
+          in: path
+          required: true
+          description: The task to operate on.
+          schema:
+            type: string
+      requestBody:
+        description: >-
+          Describes the duplicate's name and the fields that will be duplicated.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/TaskDuplicateRequest"
+      responses:
+        "201":
+          description: Successfully created the job to handle duplication.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/JobResponse"
+  /tasks/{task_gid}/stories:
+    get:
+      summary: Get stories from a task
+      description: >-
+        Returns the compact records for all stories on the task.
+      tags:
+        - Stories
+      operationId: getStoriesForTask
+      parameters:
+        - name: task_gid
+          in: path
+          required: true
+          description: The task to operate on.
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            Results per page. The number of objects to return per page. The value must be between 1 and 100.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+        - name: offset
+          in: query
+          description: >-
+            Offset token.
+
+            An offset to the next page returned by the API. A pagination request
+            will return an offset token, which can be used as an input parameter to
+            the next request. If an offset is not passed in, the API will return
+            the first page of results.
+
+            'Note: You can only pass in an offset that was returned to you via a
+            previously paginated request.'
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved the specified task's stories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/StoryCompact"
+    post:
+      summary: Create a story on a task
+      description: |-
+        Adds a story to a task. This endpoint currently only allows for comment
+        stories to be created. The comment will be authored by the currently
+        authenticated user, and timestamped when the server receives the request.
+
+        Returns the full record for the new story added to the task.
+      tags:
+        - Stories
+      operationId: createStoryForTask
+      parameters:
+        - name: task_gid
+          in: path
+          required: true
+          description: The task to operate on.
+          schema:
+            type: string
+      requestBody:
+        description: The story to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/StoryRequest"
+      responses:
+        "201":
+          description: Successfully created a new story.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/StoryResponse"
   /users/{user_gid}:
     get:
       tags:
@@ -239,6 +742,102 @@ paths:
                 properties:
                   data:
                     $ref: "#/components/schemas/UserResponse"
+  /workspaces/{workspace_gid}/projects:
+    get:
+      summary: Get all projects in a workspace
+      description: >-
+        Returns the compact project records for all projects in the workspace.
+
+        *Note: This endpoint may timeout for large domains. Prefer the
+        `/teams/{team_gid}/projects` endpoint.*
+      tags:
+        - Projects
+      operationId: getProjectsForWorkspace
+      parameters:
+        - name: workspace_gid
+          in: path
+          description: >-
+            Globally unique identifier for the workspace or organization.
+          required: true
+          schema:
+            type: string
+        - name: limit
+          in: query
+          description: >-
+            Results per page. The number of objects to return per page. The value must be between 1 and 100.
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 100
+        - name: offset
+          in: query
+          description: >-
+            An offset to the next page returned by the API. A pagination request
+            will return an offset token, which can be used as an input parameter to
+            the next request. If an offset is not passed in, the API will return
+            the first page of results.
+          schema:
+            type: string
+        - name: archived
+          in: query
+          description: >-
+            Only return projects whose `archived` field takes on the value of
+            this parameter.
+          schema:
+            type: boolean
+      responses:
+        "200":
+          description: Successfully retrieved the requested workspace's projects.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/ProjectCompact"
+    post:
+      summary: Create a project in a workspace
+      description: |-
+        Creates a project in the workspace.
+
+        If the workspace for your project is an organization, you must also
+        supply a team to share the project with.
+
+        Returns the full record of the newly created project.
+      tags:
+        - Projects
+      operationId: createProjectForWorkspace
+      parameters:
+        - name: workspace_gid
+          in: path
+          description: >-
+            Globally unique identifier for the workspace or organization.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: The new project to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: "#/components/schemas/ProjectRequest"
+      responses:
+        "201":
+          description: >-
+            Successfully created a new project in the specified workspace.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: "#/components/schemas/ProjectResponse"
   /workspaces/{workspace_gid}/typeahead:
     get:
       summary: Get objects via typeahead
@@ -876,6 +1475,33 @@ components:
             The color of the enum option. Defaults to ‘none’.
           type: string
           example: blue
+    JobResponse:
+      type: object
+      properties:
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+        status:
+          description: >-
+            The current status of this job. The value is one of: `not_started`,
+            `in_progress`, `succeeded`, or `failed`.
+          type: string
+          enum:
+            - not_started
+            - in_progress
+            - succeeded
+            - failed
+          readOnly: true
+        new_project:
+          $ref: "#/components/schemas/ProjectCompact"
+        new_task:
+          $ref: "#/components/schemas/TaskCompact"
+        new_project_template:
+          $ref: "#/components/schemas/ProjectTemplateCompact"
     Like:
       type: object
       description: >-
@@ -889,6 +1515,41 @@ components:
           example: "12345"
         user:
           $ref: "#/components/schemas/UserCompact"
+    Preview:
+      type: object
+      description: >-
+        A collection of rich text that will be displayed as a preview to another
+        app.
+
+        This is read-only except for a small group of whitelisted apps.
+      readOnly: true
+      properties:
+        fallback:
+          description:
+            Some fallback text to display if unable to display the full
+            preview.
+          type: string
+        footer:
+          description: Text to display in the footer.
+          type: string
+        header:
+          description: Text to display in the header.
+          type: string
+        header_link:
+          description: Where the header will link to.
+          type: string
+        html_text:
+          description: HTML formatted text for the body of the preview.
+          type: string
+        text:
+          description: Text for the body of the preview.
+          type: string
+        title:
+          description: Text to display as the title.
+          type: string
+        title_link:
+          description: Where to title will link to.
+          type: string
     ProjectBriefCompact:
       type: object
       properties:
@@ -929,6 +1590,63 @@ components:
             can be longer.
           type: string
           example: Stuff to buy
+    ProjectDuplicateRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          description: The name of the new project.
+          type: string
+        team:
+          description: >-
+            Sets the team of the new project. If team is not defined,
+            the new project will be in the same team as the the
+            original project.
+          type: string
+        include:
+          description: >-
+            The elements that will be duplicated to the new project.
+            Tasks are always included.
+          type: string
+          enum:
+            - members
+            - notes
+            - forms
+            - task_notes
+            - task_assignee
+            - task_subtasks
+            - task_attachments
+            - task_dates
+            - task_dependencies
+            - task_followers
+            - task_tags
+            - task_projects
+        schedule_dates:
+          description: >-
+            A dictionary of options to auto-shift dates.
+            `task_dates` must be included to use this option.
+            Requires either `start_on` or `due_on`, but not both.
+          type: object
+          required:
+            - should_skip_weekends
+          properties:
+            should_skip_weekends:
+              description: >-
+                Determines if the auto-shifted dates should skip weekends.
+              type: boolean
+            due_on:
+              description: >-
+                Sets the last due date in the duplicated project to the given
+                date. The rest of the due dates will be offset by the same amount
+                as the due dates in the original project.
+              type: string
+            start_on:
+              description: >-
+                Sets the first start date in the duplicated project to the given
+                date. The rest of the start dates will be offset by the same amount
+                as the start dates in the original project.
+              type: string
     ProjectResponse:
       type: object
       properties:
@@ -1304,6 +2022,28 @@ components:
             The team that this project is shared with.
           type: string
           example: "12345"
+    ProjectSectionInsertRequest:
+      type: object
+      properties:
+        project:
+          description: The project in which to reorder the given section.
+          type: string
+        section:
+          description: The section to reorder.
+          type: string
+        before_section:
+          description: >-
+            Insert the given section immediately before the section
+            specified by this parameter.
+          type: string
+        after_section:
+          description: >-
+            Insert the given section immediately after the section
+            specified by this parameter.
+          type: string
+      required:
+        - project
+        - section
     ProjectStatusResponse:
       type: object
       required:
@@ -1432,6 +2172,26 @@ components:
             The name of the section (i.e. the text displayed as the section
             header).
           type: string
+    SectionTaskInsertRequest:
+      type: object
+      properties:
+        task:
+          description: The task to add to this section.
+          type: string
+        insert_before:
+          description: >-
+            An existing task within this section before which the added
+            task should be inserted. Cannot be provided together with
+            insert_after.
+          type: string
+        insert_after:
+          description: >-
+            An existing task within this section after which the added
+            task should be inserted. Cannot be provided together with
+            insert_before.
+          type: string
+      required:
+        - task
     SectionResponse:
       type: object
       properties:
@@ -1486,6 +2246,449 @@ components:
       required:
         - project
         - name
+    StoryCompact:
+      type: object
+      description: >-
+        A story represents an activity associated with an object in the Asana
+        system.
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+        created_by:
+          $ref: "#/components/schemas/UserCompact"
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+        text:
+          description: >-
+            *Create-only*. Human-readable text for the story or comment.
+
+            This will not include the name of the creator.
+
+            *Note: This is not guaranteed to be stable for a given type of
+            story. For example, text for a reassignment may not always say
+            “assigned to …” as the text for a story can both be edited and
+            change based on the language settings of the user making the
+            request.*
+
+            Use the `resource_subtype` property to discover the action that
+            created the story.
+          type: string
+    StoryRequest:
+      type: object
+      description: >-
+        A story represents an activity associated with an object in the Asana
+        system.
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+        text:
+          description: The plain text of the comment to add. Cannot be used with
+            html_text.
+          type: string
+        html_text:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            HTML formatted text for a comment. This will not include the name
+            of the creator.
+          type: string
+        is_pinned:
+          description: >-
+            *Conditional*. Whether the story should be pinned on the
+            resource.
+          type: boolean
+        sticker_name:
+          description: >-
+            The name of the sticker in this story. `null` if there is no sticker.
+          type: string
+          enum:
+            - green_checkmark
+            - people_dancing
+            - dancing_unicorn
+            - heart
+            - party_popper
+            - people_waving_flags
+            - splashing_narwhal
+            - trophy
+            - yeti_riding_unicorn
+            - celebrating_people
+            - determined_climbers
+            - phoenix_spreading_love
+    StoryResponse:
+      type: object
+      description: >-
+        A story represents an activity associated with an object in the Asana
+        system.
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+        text:
+          description: The plain text of the comment to add. Cannot be used with
+            html_text.
+          type: string
+        html_text:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            HTML formatted text for a comment. This will not include the name
+            of the creator.
+          type: string
+        is_pinned:
+          description: >-
+            *Conditional*. Whether the story should be pinned on the
+            resource.
+          type: boolean
+          example: false
+        sticker_name:
+          description: >-
+            The name of the sticker in this story. `null` if there is no sticker.
+          type: string
+          enum:
+            - green_checkmark
+            - people_dancing
+            - dancing_unicorn
+            - heart
+            - party_popper
+            - people_waving_flags
+            - splashing_narwhal
+            - trophy
+            - yeti_riding_unicorn
+            - celebrating_people
+            - determined_climbers
+            - phoenix_spreading_love
+        created_by:
+          $ref: "#/components/schemas/UserCompact"
+        type:
+          type: string
+          enum:
+            - comment
+            - system
+          readOnly: true
+        is_editable:
+          description: >-
+            *Conditional*. Whether the text of the story can be edited
+            after creation.
+          type: boolean
+          readOnly: true
+        is_edited:
+          description: >-
+            *Conditional*. Whether the text of the story has been edited
+            after creation.
+          type: boolean
+          readOnly: true
+        hearted:
+          description: >-
+            *Deprecated - please use likes instead*
+
+            *Conditional*. True if the story is hearted by the authorized
+            user, false if not.
+          type: boolean
+          readOnly: true
+        hearts:
+          description: |-
+            *Deprecated - please use likes instead*
+
+            *Conditional*. Array of likes for users who have hearted this story.
+          type: array
+          items:
+            $ref: "#/components/schemas/Like"
+          readOnly: true
+        num_hearts:
+          description: |-
+            *Deprecated - please use likes instead*
+
+            *Conditional*. The number of users who have hearted this story.
+          type: integer
+          readOnly: true
+        liked:
+          description: >-
+            *Conditional*. True if the story is liked by the authorized
+            user, false if not.
+          type: boolean
+          readOnly: true
+        likes:
+          description: >-
+            *Conditional*. Array of likes for users who have liked this story.
+          type: array
+          items:
+            $ref: "#/components/schemas/Like"
+          readOnly: true
+        num_likes:
+          description: >-
+            *Conditional*. The number of users who have liked this story.
+          type: integer
+          readOnly: true
+        previews:
+          description: >-
+            *Conditional*. A collection of previews to be displayed in the
+            story.
+
+
+            *Note: This property only exists for comment stories.*
+          type: array
+          items:
+            $ref: "#/components/schemas/Preview"
+          readOnly: true
+        old_name:
+          description: >-
+            *Conditional*'
+          type: string
+        new_name:
+          description: >-
+            *Conditional*
+          type: string
+          readOnly: true
+        old_dates:
+          $ref: "#/components/schemas/StoryResponseDates"
+        new_dates:
+          $ref: "#/components/schemas/StoryResponseDates"
+        old_resource_subtype:
+          description: >-
+            *Conditional*
+          type: string
+          readOnly: true
+        new_resource_subtype:
+          description: >-
+            *Conditional*
+          type: string
+          readOnly: true
+          example: milestone
+        story:
+          allOf:
+            - $ref: "#/components/schemas/StoryCompact"
+            - type: object
+              readOnly: true
+        assignee:
+          allOf:
+            - $ref: "#/components/schemas/UserCompact"
+            - type: object
+              readOnly: true
+        follower:
+          allOf:
+            - $ref: "#/components/schemas/UserCompact"
+            - type: object
+              readOnly: true
+        old_section:
+          allOf:
+            - $ref: "#/components/schemas/SectionCompact"
+            - type: object
+              readOnly: true
+        new_section:
+          allOf:
+            - $ref: "#/components/schemas/SectionCompact"
+            - type: object
+              readOnly: true
+        task:
+          allOf:
+            - $ref: "#/components/schemas/TaskCompact"
+            - type: object
+              readOnly: true
+        project:
+          allOf:
+            - $ref: "#/components/schemas/ProjectCompact"
+            - type: object
+              readOnly: true
+        tag:
+          allOf:
+            - $ref: "#/components/schemas/TagCompact"
+            - type: object
+              readOnly: true
+        custom_field:
+          allOf:
+            - $ref: "#/components/schemas/CustomFieldCompact"
+            - type: object
+              readOnly: true
+        old_text_value:
+          type: string
+          readOnly: true
+        new_text_value:
+          type: string
+          readOnly: true
+        old_number_value:
+          type: integer
+          readOnly: true
+        new_number_value:
+          type: integer
+          readOnly: true
+        old_enum_value:
+          allOf:
+            - $ref: "#/components/schemas/EnumOption"
+            - type: object
+              readOnly: true
+        new_enum_value:
+          allOf:
+            - $ref: "#/components/schemas/EnumOption"
+            - type: object
+            - readOnly: true
+        old_date_value:
+          allOf:
+            - $ref: "#/components/schemas/StoryResponseDates"
+            - description: >-
+                *Conditional*. The old value of a date custom field story.
+          readOnly: true
+        new_date_value:
+          allOf:
+            - $ref: "#/components/schemas/StoryResponseDates"
+            - description: >-
+                *Conditional* The new value of a date custom field story.
+          readOnly: true
+        old_people_value:
+          description: >-
+            *Conditional*. The old value of a people custom field story.
+          type: array
+          items:
+            $ref: "#/components/schemas/UserCompact"
+          readOnly: true
+        new_people_value:
+          description: >-
+            *Conditional*. The new value of a people custom field story.
+          type: array
+          items:
+            $ref: "#/components/schemas/UserCompact"
+          readOnly: true
+        old_multi_enum_values:
+          description: >-
+            *Conditional*. The old value of a multi-enum custom field story.
+          type: array
+          items:
+            $ref: "#/components/schemas/EnumOption"
+          readOnly: true
+        new_multi_enum_values:
+          description: >-
+            *Conditional*. The new value of a multi-enum custom field story.
+          type: array
+          items:
+            $ref: "#/components/schemas/EnumOption"
+          readOnly: true
+        new_approval_status:
+          description: >-
+            *Conditional*. The new value of approval status.
+          type: string
+          readOnly: true
+          example: approved
+        old_approval_status:
+          description: >-
+            *Conditional*. The old value of approval status.
+          type: string
+          readOnly: true
+          example: pending
+        duplicate_of:
+          allOf:
+            - $ref: "#/components/schemas/TaskCompact"
+            - type: object
+              readOnly: true
+        duplicated_from:
+          allOf:
+            - $ref: "#/components/schemas/TaskCompact"
+            - type: object
+              readOnly: true
+        dependency:
+          allOf:
+            - $ref: "#/components/schemas/TaskCompact"
+            - type: object
+              readOnly: true
+        source:
+          description: >-
+            The component of the Asana product the user used to trigger the
+            story.
+          type: string
+          enum:
+            - web
+            - email
+            - mobile
+            - api
+            - unknown
+          readOnly: true
+        target:
+          allOf:
+            - $ref: "#/components/schemas/TaskCompact"
+            - type: object
+              readOnly: true
+              description: >-
+                The object this story is associated with. Currently may only be
+                a
+                task.
+    StoryResponseDates:
+      description: >-
+        *Conditional*
+      type: object
+      readOnly: true
+      properties:
+        start_on:
+          description: >-
+            The day on which work for this goal begins, or null if the
+            goal has no start date. This takes a date with `YYYY-MM-DD`
+            format, and cannot be set unless there is an accompanying due date.
+          type: string
+          format: date
+          nullable: true
+        due_at:
+          description: >-
+            The UTC date and time on which this task is due, or null if the
+            task has no due time. This takes an ISO 8601 date string in UTC
+            and should not be used together with `due_on`.
+          type: string
+          format: date-time
+          nullable: true
+        due_on:
+          description: >-
+            The localized day on which this goal is due. This takes a
+            date with format `YYYY-MM-DD`.
+          type: string
+          format: date
     TagCompact:
       type: object
       properties:
@@ -1540,6 +2743,27 @@ components:
             - section
             - approval
           example: default_task
+    TaskDuplicateRequest:
+      type: object
+      properties:
+        name:
+          description: The name of the new task.
+          type: string
+          example: New Task Name
+        include:
+          description: The fields that will be duplicated to the new task.
+          type: string
+          enum:
+            - notes
+            - assignee
+            - subtasks
+            - attachments
+            - tags
+            - followers
+            - projects
+            - dates
+            - dependencies
+            - parent
     TaskResponse:
       type: object
       properties:
@@ -2383,6 +3607,16 @@ tags:
       The ‘memberships’ property when [getting a task](/reference/gettask)
       will return the information for the section or the column under
       ‘section’ in the response.
+  - name: Stories
+    description: >-
+      *See [our forum post](https://forum.asana.com/t/no-more-parsing-story-text-new-fields-on-stories/42924)
+      for more info on when conditional fields are returned.*
+
+
+      A story represents an activity associated with an object in the
+      Asana system. Stories are generated by the system whenever users take
+      actions such as creating or assigning tasks, or moving tasks between
+      projects. "Comments" are also a form of user-generated story.
   - name: Typeahead
     description: >-
       The typeahead search API provides search for objects from a single
