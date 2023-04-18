@@ -3373,6 +3373,13 @@ components:
                 True if the portfolio is public to its workspace members.
               type: boolean
               example: false
+            project_templates:
+              description: >-
+                Array of project templates that are in the portfolio
+              type: array
+              readOnly: true
+              items:
+                $ref: '#/components/schemas/ProjectTemplateCompact'
     Preview:
       type: object
       description: >-
