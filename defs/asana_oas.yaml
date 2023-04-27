@@ -58,6 +58,7 @@ info:
     - ProjectStatusCompact
     - ProjectTemplateCompact
     - ProjectTemplateResponse
+    - RuleTriggerResponse
     - SectionResponse
     - SectionCompact
     - StatusUpdateResponse
@@ -1032,6 +1033,16 @@ components:
         type: string
       example: '12345'
       x-env-variable: portfolio
+    rule_trigger_path_gid:
+      name: rule_trigger_gid
+      in: path
+      required: true
+      description: The ID of the incoming web request trigger. This value is a path
+        parameter that is automatically generated for the API endpoint.
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: rule
     section_path_gid:
       name: section_gid
       in: path
@@ -4109,7 +4120,6 @@ components:
       type: object
       required:
         - name
-        - public
       properties:
         name:
           description: The name of the new project.
@@ -4238,6 +4248,34 @@ components:
             Sets the project template to public to its team.
           type: boolean
           example: true
+    RuleTriggerRequest:
+      type: object
+      properties:
+        resource:
+          description: >-
+            The ID of the resource. For the duration of the beta, this resource is
+            always a task, and this task must exist in the project in which the rule
+            is created.
+          type: string
+          example: '12345'
+        action_data:
+          description: >-
+            The dynamic keys and values of the request. These fields are intended
+            to be used in the action for the rule associated with this trigger.
+          example:
+            jira_ticket_name: Test
+            jira_ticket_id: '123'
+      required:
+        - resource
+        - action_data
+    RuleTriggerResponse:
+      type: object
+      properties:
+        message:
+          description: >-
+            Message providing more detail about the result
+          type: string
+          example: Successfully saved the payload and ran the rule
     RemoveCustomFieldSettingRequest:
       type: object
       required:
@@ -7252,8 +7290,8 @@ paths:
         compact form. Note that, as in all queries to collections which return
         compact representation, `opt_fields` can be used to
         include more data than is returned in the compact representation. See the
-        [getting started guide on input/output
-        options](https://developers.asana.com/docs/#input-output-options)
+        [documentation for input/output
+        options](https://developers.asana.com/docs/inputoutput-options)
         for more information.
       tags:
         - Custom field settings
@@ -15992,6 +16030,48 @@ paths:
 
               result = client.projects.project_save_as_template(project_gid: 'project_gid',
               field: "value", field: "value", options: {pretty: true})
+  /rule_triggers/{rule_trigger_gid}/run:
+    parameters:
+      - $ref: '#/components/parameters/rule_trigger_path_gid'
+    post:
+      summary: Trigger a rule
+      description: |-
+        Trigger a rule which uses an ["incoming web request"](/docs/incoming-web-request) trigger.
+      tags:
+        - Automation
+      operationId: triggerRule
+      requestBody:
+        description: A dictionary of variables accessible from within the rule.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/RuleTriggerRequest'
+      responses:
+        200:
+          description: Successfully triggered a rule.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RuleTriggerResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /sections/{section_gid}:
     parameters:
       - $ref: '#/components/parameters/section_path_gid'
