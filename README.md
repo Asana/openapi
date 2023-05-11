@@ -2,7 +2,10 @@
 
 This repository contains the [OpenAPI Specification](https://swagger.io/specification/) for Asana's APIs.
 
-To learn more about Asana's APIs, [visit our developer documentation](https://developers.asana.com/docs).
+To learn more about Asana's APIs, [visit our developer documentation](https://developers.asana.com/docs). You may also directly view API references for:
+
+* [Asana's REST API](https://developers.asana.com/reference/rest-api-reference)
+* [App components](https://developers.asana.com/reference/ac-api-reference)
 
 # Setup
 
