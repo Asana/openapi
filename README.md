@@ -11,7 +11,7 @@ To learn more about Asana's APIs, [visit our developer documentation](https://de
 
 1. Clone this repository to your local machine. 
 
-2. Navigate to project's root directory via your terminal and install dependencies:
+2. Navigate to project's root directory via your terminal, then install dependencies:
 
 ```
 make setup
