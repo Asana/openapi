@@ -1,4 +1,4 @@
-name: ReadMe GitHub Action 2 🦉
+name: Build and sync docs on merge
 
 on:
   pull_request:

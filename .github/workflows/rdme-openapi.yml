@@ -1,4 +1,4 @@
-name: ReadMe GitHub Action 🦉
+name: Build and sync docs on push to master
 
 on:
   push:
