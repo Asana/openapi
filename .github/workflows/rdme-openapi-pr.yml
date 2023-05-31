@@ -1,14 +1,13 @@
-name: Build and sync docs on push to master
+name: Build and sync docs on merge
 
 on:
-  push:
-    branches:
-      # This workflow will run every time you push code to the following branch: `master`
-      # https://docs.github.com/actions/using-workflows/events-that-trigger-workflows
-      - master
+  pull_request:
+    types:
+      - closed
 
 jobs:
-  rdme-openapi:
+  rdme-openapi-pr:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo 📚
