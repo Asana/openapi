@@ -1,0 +1,19 @@
+name: ReadMe GitHub Action 2 🦉
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  rdme-openapi-pr:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo 📚
+        uses: actions/checkout@v3
+
+      - name: Run `openapi` command 🚀
+        uses: readmeio/rdme@v8
+        with:
+          rdme: openapi defs/asana_oas.yaml --key=${{ secrets.README_API_KEY }} --id=638e5f87d840f80025e80c75
