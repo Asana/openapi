@@ -374,6 +374,14 @@ components:
             The text (i.e., label) for the field. Limit 50 characters.
           type: string
           example: 'Please enter the following details:'
+        style:
+          description: >-
+            *Optional*. The style of the field. If not provided, the default value will be `"default"`.
+          type: string
+          enum:
+            - default
+            - header
+          example: 'default'
     FormField-SingleLineText:
       description: >-
         A modal form field that accepts single-line text input.
