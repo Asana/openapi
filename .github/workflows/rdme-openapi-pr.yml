@@ -16,4 +16,4 @@ jobs:
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
         with:
-          rdme: openapi defs/asana_oas.yaml --key=${{ secrets.README_API_KEY }} --id=638e5f87d840f80025e80c75
+          rdme: openapi defs/asana_oas.yaml --key=${{ secrets.README_API_KEY }} --id=64a8a031f326ee000e3a92f3
