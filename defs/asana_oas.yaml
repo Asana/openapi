@@ -856,6 +856,8 @@ components:
       example: 50
       schema:
         type: integer
+        minimum: 1
+        maximum: 100
     offset:
       name: offset
       in: query
@@ -1901,6 +1903,7 @@ components:
                 - identifier
                 - percentage
                 - custom
+                - duration
                 - none
               example: custom
             currency_code:
@@ -2088,6 +2091,7 @@ components:
                 - vendor_category
                 - vendor_type
                 - word_count
+                - null
               example: priority
     CustomFieldCompact:
       allOf:
@@ -2168,6 +2172,7 @@ components:
                 of a `date` custom field. If no date is selected, the value of
                 `date_value` will be `null`.
               type: object
+              nullable: true
               properties:
                 date:
                   type: string
@@ -2272,8 +2277,7 @@ components:
             created_by:
               allOf:
                 - $ref: '#/components/schemas/UserCompact'
-                - type: object
-                  nullable: true
+                - nullable: true
             people_value:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `people`.
@@ -2597,7 +2601,8 @@ components:
             new_value:
               description: >-
                 *Conditional.* This property is only present when the
-                **field's** `action` is `changed` _and_ the `new_value` is an
+                value of the event's `change.action` is `changed` _and_ the `new_value`
+                is an
                 Asana resource. This will be only the `gid` and `resource_type`
                 of the resource when the events come from webhooks; this will
                 be the compact representation (and can have fields expanded
@@ -2609,7 +2614,8 @@ components:
             added_value:
               description: >-
                 *Conditional.* This property is only present when the
-                **field's** `action` is `added` _and_ the `added_value` is an
+                value of the event's `change.action` is `added` _and_ the `added_value`
+                is an
                 Asana resource. This will be only the `gid` and `resource_type`
                 of the resource when the events come from webhooks; this will
                 be the compact representation (and can have fields expanded
@@ -2621,7 +2627,8 @@ components:
             removed_value:
               description: >-
                 *Conditional.* This property is only present when the
-                **field's** `action` is `removed` _and_ the `removed_value` is an
+                value of the event's `change.action` is `removed` _and_ the `removed_value`
+                is an
                 Asana resource. This will be only the `gid` and `resource_type`
                 of the resource when the events come from webhooks; this will
                 be the compact representation (and can have fields expanded
@@ -3005,10 +3012,10 @@ components:
                 - type: object
                   nullable: true
             current_status_update:
-              description: The latest `status_update` posted to this goal.
-              nullable: true
               allOf:
                 - $ref: '#/components/schemas/StatusUpdateCompact'
+                - description: The latest `status_update` posted to this goal.
+                  nullable: true
             status:
               type: string
               readOnly: true
@@ -3110,7 +3117,10 @@ components:
             new_project:
               $ref: '#/components/schemas/ProjectCompact'
             new_task:
-              $ref: '#/components/schemas/TaskCompact'
+              allOf:
+                - $ref: '#/components/schemas/TaskCompact'
+                - type: object
+                  nullable: true
             new_project_template:
               $ref: '#/components/schemas/ProjectTemplateCompact'
     JobResponse:
@@ -3169,6 +3179,37 @@ components:
         dependents:
           - '133713'
           - '184253'
+    NextPage:
+      type: object
+      nullable: true
+      description: >-
+        *Conditional*. This property is only present when a limit query parameter
+        is provided in the request.
+        When making a paginated request, the API will return a number of results as
+        specified by the limit parameter. If more results exist, then the response
+        will
+        contain a next_page attribute, which will include an offset, a relative path
+        attribute, and a full uri attribute. If there are no more pages available,
+        next_page will be null and no offset will be provided. Note that an offset
+        token will expire after some time, as data may have changed.
+      properties:
+        offset:
+          type: string
+          readOnly: true
+          description: Pagination offset for the request.
+          example: eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
+        path:
+          type: string
+          readOnly: true
+          description: A relative path containing the query parameters to fetch for
+            next_page
+          example: /tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
+        uri:
+          type: string
+          format: uri
+          readOnly: true
+          description: A full uri containing the query parameters to fetch for next_page
+          example: https://app.asana.com/api/1.0/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
     OrganizationExportBase:
       $ref: '#/components/schemas/OrganizationExportCompact'
     OrganizationExportCompact:
@@ -3383,10 +3424,10 @@ components:
               items:
                 $ref: '#/components/schemas/CustomFieldSettingResponse'
             current_status_update:
-              description: The latest `status_update` posted to this portfolio.
-              nullable: true
               allOf:
                 - $ref: '#/components/schemas/StatusUpdateCompact'
+                - description: The latest `status_update` posted to this portfolio.
+                  nullable: true
             due_on:
               description: >-
                 The localized day on which this portfolio is due. This takes a
@@ -3523,6 +3564,8 @@ components:
                 - light-orange
                 - light-purple
                 - light-warm-gray
+                - none
+                - null
               example: light-green
             created_at:
               description: The time at which this resource was created.
@@ -3565,7 +3608,7 @@ components:
                 *Deprecated: new integrations should prefer the `due_on` field.*
               type: string
               nullable: true
-              format: date-time
+              format: date
               example: '2019-09-15'
             due_on:
               description: >-
@@ -3573,7 +3616,7 @@ components:
                 format YYYY-MM-DD.
               type: string
               nullable: true
-              format: date-time
+              format: date
               example: '2019-09-15'
             html_notes:
               description: >-
@@ -3624,12 +3667,12 @@ components:
               allOf:
                 - $ref: '#/components/schemas/WorkspaceCompact'
                 - type: object
-                  readOnly: true
                   description: >-
                     *Create-only*. The workspace or organization this project is
                     associated with. Once created, projects cannot be moved to a
                     different workspace. This attribute can only be specified at
-                    creation time.
+                    creation time. If the workspace for your project is an
+                    organization, you must also supply a `team` in the request body.
     ProjectBriefBase:
       allOf:
         - $ref: '#/components/schemas/ProjectBriefCompact'
@@ -3727,25 +3770,38 @@ components:
           example: '12345'
         include:
           description: >-
-            The elements that will be duplicated to the new project.
-            Tasks are always included.
-          type: string
-          enum:
-            - members
-            - notes
+            A comma-separated list of elements that will be duplicated to the new
+            project. Tasks are always included.
+
+            ##### Fields
+
             - forms
-            - task_notes
-            - task_assignee
-            - task_subtasks
-            - task_attachments
-            - task_dates
-            - task_dependencies
-            - task_followers
-            - task_tags
-            - task_projects
-          example:
+
             - members
+
+            - notes
+
+            - task_assignee
+
+            - task_attachments
+
+            - task_dates
+
+            - task_dependencies
+
+            - task_followers
+
             - task_notes
+
+            - task_projects
+
+            - task_subtasks
+
+            - task_tags
+          type: string
+          pattern: ([members|notes|forms|task_notes|task_assignee|task_subtasks|task_attachments|task_dates|task_dependencies|task_followers|task_tags|task_projects])(,\1)*
+          example:
+            - members,notes,forms,task_notes,task_assignee,task_subtasks,task_attachments,task_dates,task_dependencies,task_followers,task_tags,task_projects
         schedule_dates:
           description: >-
             A dictionary of options to auto-shift dates.
@@ -3811,12 +3867,11 @@ components:
               example: project_membership
             write_access:
               description: >-
-                Whether the member has full access, edit access, or comment-only
+                Whether the member has full access or comment-only
                 access to the project.
               type: string
               enum:
                 - full_write
-                - editor
                 - comment_only
               readOnly: true
               example: full_write
@@ -3882,12 +3937,13 @@ components:
               nullable: true
               example: '2012-02-22T02:06:58.147Z'
             completed_by:
-              description: >-
-                The user that marked this project complete, or null if the project
-                is not completed.
-              readOnly: true
-              nullable: true
-              $ref: '#/components/schemas/UserCompact'
+              allOf:
+                - $ref: '#/components/schemas/UserCompact'
+                - description: >-
+                    The user that marked this project complete, or null if the project
+                    is not completed.
+                  readOnly: true
+                  nullable: true
             followers:
               description: >-
                 Array of users following this project. Followers are a subset
@@ -3900,9 +3956,10 @@ components:
             owner:
               description: >-
                 The current owner of the project, may be null.
-              nullable: true
               allOf:
                 - $ref: '#/components/schemas/UserCompact'
+                - type: object
+                  nullable: true
             team:
               allOf:
                 - $ref: '#/components/schemas/TeamCompact'
@@ -3975,10 +4032,6 @@ components:
     ProjectSectionInsertRequest:
       type: object
       properties:
-        project:
-          description: The project in which to reorder the given section.
-          type: string
-          example: '123456'
         section:
           description: The section to reorder.
           type: string
@@ -3996,7 +4049,6 @@ components:
           type: string
           example: '987654'
       required:
-        - project
         - section
     ProjectStatusBase:
       allOf:
@@ -4116,9 +4168,10 @@ components:
             owner:
               description: >-
                 The current owner of the project template, may be null.
-              nullable: true
               allOf:
                 - $ref: '#/components/schemas/UserCompact'
+                - type: object
+                  nullable: true
             team:
               allOf:
                 - $ref: '#/components/schemas/TeamCompact'
@@ -4153,6 +4206,7 @@ components:
                 - light-orange
                 - light-purple
                 - light-warm-gray
+                - null
               example: light-green
             requested_roles:
               description: >-
@@ -4403,7 +4457,6 @@ components:
           type: string
           example: '987654'
       required:
-        - project
         - name
     SectionResponse:
       allOf:
@@ -4799,6 +4852,7 @@ components:
               description: >-
                 *Conditional*
               type: string
+              nullable: true
               readOnly: true
               example: This is the New Name
             old_dates:
@@ -4878,6 +4932,7 @@ components:
               description: >-
                 *Conditional*
               type: integer
+              nullable: true
               readOnly: true
               example: 1
             new_number_value:
@@ -5044,6 +5099,7 @@ components:
                 - light-orange
                 - light-purple
                 - light-warm-gray
+                - null
               example: light-green
             notes:
               description: >-
@@ -5217,8 +5273,10 @@ components:
               nullable: true
               example: '2012-02-22T02:06:58.147Z'
             completed_by:
-              readOnly: true
-              $ref: '#/components/schemas/UserCompact'
+              allOf:
+                - $ref: '#/components/schemas/UserCompact'
+                - readOnly: true
+                  nullable: true
             created_at:
               description: The time at which this resource was created.
               type: string
@@ -5251,7 +5309,7 @@ components:
                 task has no due time. This takes an ISO 8601 date string in UTC
                 and should not be used together with `due_on`.
               type: string
-              format: date
+              format: date-time
               example: '2019-09-15T02:06:58.147Z'
               nullable: true
             due_on:
@@ -5425,7 +5483,7 @@ components:
                 setting or unsetting the `start_at` parameter.*
               type: string
               nullable: true
-              format: date
+              format: date-time
               example: '2019-09-14T02:06:58.147Z'
             start_on:
               description: >-
@@ -5513,22 +5571,35 @@ components:
           type: string
           example: New Task Name
         include:
-          description: The fields that will be duplicated to the new task.
-          type: string
-          enum:
-            - notes
+          description: >-
+            A comma-separated list of fields that will be duplicated to the new
+            task.
+
+            ##### Fields
+
             - assignee
-            - subtasks
+
             - attachments
-            - tags
-            - followers
-            - projects
+
             - dates
+
             - dependencies
-            - parent
-          example:
+
+            - followers
+
             - notes
-            - assignee
+
+            - parent
+
+            - projects
+
+            - subtasks
+
+            - tags
+          type: string
+          pattern: ([notes|assignee|subtasks|attachments|tags|followers|projects|dates|dependencies|parent])(,\1)*
+          example:
+            - notes,assignee,subtasks,attachments,tags,followers,projects,dates,dependencies,parent
     TaskRemoveFollowersRequest:
       type: object
       properties:
@@ -5660,14 +5731,15 @@ components:
         - type: object
           properties:
             assignee:
-              nullable: true
               allOf:
                 - $ref: '#/components/schemas/UserCompact'
+                - nullable: true
             assignee_section:
-              nullable: true
               allOf:
                 - $ref: '#/components/schemas/SectionCompact'
-                - description: >-
+                - type: object
+                  nullable: true
+                  description: >-
                     The *assignee section* is a subdivision of a project that groups
                     tasks together in the assignee's "My Tasks" list. It can either
                     be a
@@ -5822,6 +5894,7 @@ components:
               example: false
             is_limited_access:
               type: boolean
+              readOnly: true
               description: >-
                 Describes if the user has limited access to the team.
               example: false
@@ -5878,6 +5951,7 @@ components:
               description: >
                 Controls who can edit team name and description
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5885,6 +5959,7 @@ components:
               description: >
                 Controls who can edit team visibility and trash teams
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5892,6 +5967,7 @@ components:
               description: >
                 Controls who can accept or deny member invites for a given team
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5899,6 +5975,7 @@ components:
               description: >
                 Controls who can accept or deny guest invites for a given team
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5907,6 +5984,7 @@ components:
                 Controls who can accept or deny join team requests for a Membership
                 by Request team
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5914,6 +5992,7 @@ components:
               description: >
                 Controls who can remove team members
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5962,6 +6041,7 @@ components:
               description: >
                 Controls who can edit team name and description
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5969,6 +6049,7 @@ components:
               description: >
                 Controls who can edit team visibility and trash teams
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5976,6 +6057,7 @@ components:
               description: >
                 Controls who can accept or deny member invites for a given team
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5983,6 +6065,7 @@ components:
               description: >
                 Controls who can accept or deny guest invites for a given team
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5991,6 +6074,7 @@ components:
                 Controls who can accept or deny join team requests for a Membership
                 by Request team
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -5998,6 +6082,7 @@ components:
               description: >
                 Controls who can remove team members
               type: string
+              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6057,9 +6142,7 @@ components:
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
     TimePeriodResponse:
-      allOf:
-        - $ref: '#/components/schemas/TimePeriodBase'
-        - type: object
+      $ref: '#/components/schemas/TimePeriodBase'
     UserBase:
       $ref: '#/components/schemas/UserCompact'
     UserCompact:
@@ -6907,12 +6990,15 @@ paths:
             - download_url
             - host
             - name
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permanent_url
             - resource_subtype
             - size
+            - uri
             - view_url
           schema:
             type: array
@@ -6924,12 +7010,15 @@ paths:
                 - download_url
                 - host
                 - name
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permanent_url
                 - resource_subtype
                 - size
+                - uri
                 - view_url
           style: form
           explode: false
@@ -6946,6 +7035,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AttachmentCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -7263,6 +7354,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AuditLogEvent'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -7540,10 +7633,13 @@ paths:
             - custom_field.text_value
             - custom_field.type
             - is_important
+            - offset
             - parent
             - parent.name
+            - path
             - project
             - project.name
+            - uri
           schema:
             type: array
             items:
@@ -7588,10 +7684,13 @@ paths:
                 - custom_field.text_value
                 - custom_field.type
                 - is_important
+                - offset
                 - parent
                 - parent.name
+                - path
                 - project
                 - project.name
+                - uri
           style: form
           explode: false
       responses:
@@ -7607,6 +7706,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/CustomFieldSettingResponse'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -7746,10 +7847,13 @@ paths:
             - custom_field.text_value
             - custom_field.type
             - is_important
+            - offset
             - parent
             - parent.name
+            - path
             - project
             - project.name
+            - uri
           schema:
             type: array
             items:
@@ -7794,10 +7898,13 @@ paths:
                 - custom_field.text_value
                 - custom_field.type
                 - is_important
+                - offset
                 - parent
                 - parent.name
+                - path
                 - project
                 - project.name
+                - uri
           style: form
           explode: false
       responses:
@@ -7813,6 +7920,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/CustomFieldSettingResponse'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -8656,12 +8765,15 @@ paths:
             - multi_enum_values.name
             - name
             - number_value
+            - offset
+            - path
             - people_value
             - people_value.name
             - precision
             - resource_subtype
             - text_value
             - type
+            - uri
           schema:
             type: array
             items:
@@ -8698,12 +8810,15 @@ paths:
                 - multi_enum_values.name
                 - name
                 - number_value
+                - offset
+                - path
                 - people_value
                 - people_value.name
                 - precision
                 - resource_subtype
                 - text_value
                 - type
+                - uri
           style: form
           explode: false
       responses:
@@ -8719,6 +8834,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/CustomFieldResponse'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -9252,7 +9369,7 @@ paths:
 
         Asana limits a single sync token to 100 events. If more than 100 events exist
         for a given resource, `has_more: true` will be returned in the response, indicating
-        that there are more events to pull. 
+        that there are more events to pull.
 
         *Note: The resource returned will be the resource that triggered the
         event. This may be different from the one that the events were requested
@@ -9340,6 +9457,35 @@ paths:
           $ref: '#/components/responses/Forbidden'
         404:
           $ref: '#/components/responses/NotFound'
+        412:
+          description: >-
+            The request is missing or has an expired sync token.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          readOnly: true
+                          description: >-
+                            Message providing more detail about the error
+                            that occurred, if available.
+                          example: Sync token invalid or too old. If you are attempting
+                            to keep resources in sync, you must fetch the full dataset
+                            for this query now and use the new sync token for the
+                            next sync.
+                  sync:
+                    type: string
+                    readOnly: true
+                    description: A sync token to be used with the next call to the
+                      /events endpoint.
+                    example: de4774f6915eae04714ca93bb2f5ee81
         500:
           $ref: '#/components/responses/InternalServerError'
       x-readme:
@@ -9664,6 +9810,8 @@ paths:
       operationId: getGoalRelationships
       parameters:
         - $ref: '#/components/parameters/pretty'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
         - name: supported_goal
           required: true
           in: query
@@ -9687,6 +9835,8 @@ paths:
           required: false
           example:
             - contribution_weight
+            - offset
+            - path
             - resource_subtype
             - supported_goal
             - supported_goal.name
@@ -9694,12 +9844,15 @@ paths:
             - supported_goal.owner.name
             - supporting_resource
             - supporting_resource.name
+            - uri
           schema:
             type: array
             items:
               type: string
               enum:
                 - contribution_weight
+                - offset
+                - path
                 - resource_subtype
                 - supported_goal
                 - supported_goal.name
@@ -9707,6 +9860,7 @@ paths:
                 - supported_goal.owner.name
                 - supporting_resource
                 - supporting_resource.name
+                - uri
           style: form
           explode: false
       responses:
@@ -9721,6 +9875,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/GoalRelationshipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -10031,6 +10187,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -10073,6 +10231,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -10220,6 +10380,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -10262,6 +10424,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -10554,6 +10718,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -10577,8 +10743,10 @@ paths:
             - name
             - notes
             - num_likes
+            - offset
             - owner
             - owner.name
+            - path
             - start_on
             - status
             - team
@@ -10588,6 +10756,7 @@ paths:
             - time_period.end_on
             - time_period.period
             - time_period.start_on
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -10596,6 +10765,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -10619,8 +10790,10 @@ paths:
                 - name
                 - notes
                 - num_likes
+                - offset
                 - owner
                 - owner.name
+                - path
                 - start_on
                 - status
                 - team
@@ -10630,6 +10803,7 @@ paths:
                 - time_period.end_on
                 - time_period.period
                 - time_period.start_on
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -10647,6 +10821,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/GoalCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -10744,6 +10920,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -10786,6 +10964,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -10945,6 +11125,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -10987,6 +11169,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -11149,6 +11333,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -11191,6 +11377,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -11355,6 +11543,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -11397,6 +11587,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -11558,6 +11750,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -11600,6 +11794,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -11759,6 +11955,8 @@ paths:
           required: false
           example:
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - due_on
             - followers
             - followers.name
@@ -11801,6 +11999,8 @@ paths:
               type: string
               enum:
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - due_on
                 - followers
                 - followers.name
@@ -12088,25 +12288,29 @@ paths:
           schema:
             type: string
           example: '1061493'
-        - name: limit
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
           in: query
-          description: Pagination limit for the request.
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - offset
+            - path
+            - uri
           schema:
-            type: integer
-          example: 50
-        - name: offset
-          in: query
-          description: >-
-            Offset token.
-            An offset to the next page returned by the API. A pagination request
-            will return an offset token, which can be used as an input parameter to
-            the next request. If an offset is not passed in, the API will return
-            the first page of results.
-            'Note: You can only pass in an offset that was returned to you via a
-            previously paginated request.'
-          example: eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
-          schema:
-            type: string
+            type: array
+            items:
+              type: string
+              enum:
+                - offset
+                - path
+                - uri
+          style: form
+          explode: false
       responses:
         200:
           description: >-
@@ -12120,6 +12324,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/MembershipResponse'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -12322,92 +12528,9 @@ paths:
 
               result = client.memberships.delete_membership(membership_gid: 'membership_gid',
               options: {pretty: true})
-    put:
-      summary: Update a membership
-      description: >-
-        An existing membership can be updated by making a `PUT` request on the URL
-        for
-        that goal. Only the fields provided in the `data` block will be updated;
-        any unspecified fields will remain unchanged. Memberships on `project`, `portfolio`,
-        `team`, and `goals` can be updated.
-      tags:
-        - Memberships
-      operationId: updateMembership
-      requestBody:
-        description: The updated fields for the membership.
-        required: false
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  $ref: '#/components/schemas/MembershipRequest'
-      responses:
-        200:
-          description: >-
-            Successfully updated the requested membership.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/MembershipResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-      x-readme:
-        code-samples:
-          - language: python
-            install: pip install asana
-            code: >-
-              import asana
-
-
-              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-
-              result = client.memberships.update_membership(membership_gid, {'field':
-              'value', 'field': 'value'}, opt_pretty=True)
-          - language: php
-            install: composer require asana/asana
-            code: >-
-              <?php
-
-              require 'vendor/autoload.php';
-
-
-              $client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
-
-
-              $result = $client->memberships->updateMembership($membership_gid, array('field'
-              => 'value', 'field' => 'value'), array('opt_pretty' => 'true'))
-          - language: ruby
-            install: gem install asana
-            code: >-
-              require 'asana'
-
-
-              client = Asana::Client.new do |c|
-                  c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
-              end
-
-
-              result = client.memberships.update_membership(membership_gid: 'membership_gid',
-              field: "value", field: "value", options: {pretty: true})
   /organization_exports:
     parameters:
       - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
     post:
       summary: Create an organization export request
       description: >-
@@ -12690,8 +12813,11 @@ paths:
             include.
           required: false
           example:
+            - offset
+            - path
             - portfolio
             - portfolio.name
+            - uri
             - user
             - user.name
           schema:
@@ -12699,8 +12825,11 @@ paths:
             items:
               type: string
               enum:
+                - offset
+                - path
                 - portfolio
                 - portfolio.name
+                - uri
                 - user
                 - user.name
           style: form
@@ -12717,6 +12846,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/PortfolioMembershipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -12941,8 +13072,11 @@ paths:
             include.
           required: false
           example:
+            - offset
+            - path
             - portfolio
             - portfolio.name
+            - uri
             - user
             - user.name
           schema:
@@ -12950,8 +13084,11 @@ paths:
             items:
               type: string
               enum:
+                - offset
+                - path
                 - portfolio
                 - portfolio.name
+                - uri
                 - user
                 - user.name
           style: form
@@ -12969,6 +13106,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/PortfolioMembershipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -13073,8 +13212,8 @@ paths:
           in: query
           required: false
           description: >-
-            The user who owns the portfolio. Currently, API users can  only get a
-            list of portfolios that they themselves own, unless
+            The user who owns the portfolio. Currently, API users can
+            only get a list of portfolios that they themselves own, unless
             the request is made from a Service Account. In the case of a
             Service Account, if this parameter is specified, then all
             portfolios owned by this parameter are returned.
@@ -13095,6 +13234,8 @@ paths:
             - created_by
             - created_by.name
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - custom_field_settings
             - custom_field_settings.custom_field
             - custom_field_settings.custom_field.asana_created_field
@@ -13167,13 +13308,16 @@ paths:
             - members
             - members.name
             - name
+            - offset
             - owner
             - owner.name
+            - path
             - permalink_url
             - project_templates
             - project_templates.name
             - public
             - start_on
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -13186,6 +13330,8 @@ paths:
                 - created_by
                 - created_by.name
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - custom_field_settings
                 - custom_field_settings.custom_field
                 - custom_field_settings.custom_field.asana_created_field
@@ -13258,13 +13404,16 @@ paths:
                 - members
                 - members.name
                 - name
+                - offset
                 - owner
                 - owner.name
+                - path
                 - permalink_url
                 - project_templates
                 - project_templates.name
                 - public
                 - start_on
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -13281,6 +13430,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/PortfolioCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -13385,6 +13536,8 @@ paths:
             - created_by
             - created_by.name
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - custom_field_settings
             - custom_field_settings.custom_field
             - custom_field_settings.custom_field.asana_created_field
@@ -13476,6 +13629,8 @@ paths:
                 - created_by
                 - created_by.name
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - custom_field_settings
                 - custom_field_settings.custom_field
                 - custom_field_settings.custom_field.asana_created_field
@@ -13681,6 +13836,8 @@ paths:
             - created_by
             - created_by.name
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - custom_field_settings
             - custom_field_settings.custom_field
             - custom_field_settings.custom_field.asana_created_field
@@ -13772,6 +13929,8 @@ paths:
                 - created_by
                 - created_by.name
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - custom_field_settings
                 - custom_field_settings.custom_field
                 - custom_field_settings.custom_field.asana_created_field
@@ -13966,6 +14125,8 @@ paths:
             - created_by
             - created_by.name
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - custom_field_settings
             - custom_field_settings.custom_field
             - custom_field_settings.custom_field.asana_created_field
@@ -14057,6 +14218,8 @@ paths:
                 - created_by
                 - created_by.name
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - custom_field_settings
                 - custom_field_settings.custom_field
                 - custom_field_settings.custom_field.asana_created_field
@@ -14457,7 +14620,9 @@ paths:
             - modified_at
             - name
             - notes
+            - offset
             - owner
+            - path
             - permalink_url
             - privacy_setting
             - project_brief
@@ -14465,6 +14630,7 @@ paths:
             - start_on
             - team
             - team.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -14575,7 +14741,9 @@ paths:
                 - modified_at
                 - name
                 - notes
+                - offset
                 - owner
+                - path
                 - permalink_url
                 - privacy_setting
                 - project_brief
@@ -14583,6 +14751,7 @@ paths:
                 - start_on
                 - team
                 - team.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -14599,6 +14768,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -15147,6 +15318,8 @@ paths:
             - created_by
             - created_by.name
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - custom_field_settings
             - custom_field_settings.custom_field
             - custom_field_settings.custom_field.asana_created_field
@@ -15238,6 +15411,8 @@ paths:
                 - created_by
                 - created_by.name
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - custom_field_settings
                 - custom_field_settings.custom_field
                 - custom_field_settings.custom_field.asana_created_field
@@ -15447,6 +15622,8 @@ paths:
             - created_by
             - created_by.name
             - current_status_update
+            - current_status_update.resource_subtype
+            - current_status_update.title
             - custom_field_settings
             - custom_field_settings.custom_field
             - custom_field_settings.custom_field.asana_created_field
@@ -15538,6 +15715,8 @@ paths:
                 - created_by
                 - created_by.name
                 - current_status_update
+                - current_status_update.resource_subtype
+                - current_status_update.title
                 - custom_field_settings
                 - custom_field_settings.custom_field
                 - custom_field_settings.custom_field.asana_created_field
@@ -16385,8 +16564,11 @@ paths:
           example:
             - member
             - member.name
+            - offset
+            - path
             - project
             - project.name
+            - uri
             - user
             - user.name
             - write_access
@@ -16397,8 +16579,11 @@ paths:
               enum:
                 - member
                 - member.name
+                - offset
+                - path
                 - project
                 - project.name
+                - uri
                 - user
                 - user.name
                 - write_access
@@ -16417,6 +16602,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectMembershipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -16762,8 +16949,11 @@ paths:
             - created_by.name
             - html_text
             - modified_at
+            - offset
+            - path
             - text
             - title
+            - uri
           schema:
             type: array
             items:
@@ -16777,8 +16967,11 @@ paths:
                 - created_by.name
                 - html_text
                 - modified_at
+                - offset
+                - path
                 - text
                 - title
+                - uri
           style: form
           explode: false
       responses:
@@ -16793,6 +16986,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectStatusCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -17216,7 +17411,9 @@ paths:
             - description
             - html_description
             - name
+            - offset
             - owner
+            - path
             - public
             - requested_dates
             - requested_dates.description
@@ -17225,6 +17422,7 @@ paths:
             - requested_roles.name
             - team
             - team.name
+            - uri
           schema:
             type: array
             items:
@@ -17234,7 +17432,9 @@ paths:
                 - description
                 - html_description
                 - name
+                - offset
                 - owner
+                - path
                 - public
                 - requested_dates
                 - requested_dates.description
@@ -17243,6 +17443,7 @@ paths:
                 - requested_roles.name
                 - team
                 - team.name
+                - uri
           style: form
           explode: false
       responses:
@@ -17258,6 +17459,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectTemplateCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -17362,7 +17565,9 @@ paths:
             - description
             - html_description
             - name
+            - offset
             - owner
+            - path
             - public
             - requested_dates
             - requested_dates.description
@@ -17371,6 +17576,7 @@ paths:
             - requested_roles.name
             - team
             - team.name
+            - uri
           schema:
             type: array
             items:
@@ -17380,7 +17586,9 @@ paths:
                 - description
                 - html_description
                 - name
+                - offset
                 - owner
+                - path
                 - public
                 - requested_dates
                 - requested_dates.description
@@ -17389,6 +17597,7 @@ paths:
                 - requested_roles.name
                 - team
                 - team.name
+                - uri
           style: form
           explode: false
       responses:
@@ -17403,6 +17612,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectTemplateCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -17784,7 +17995,9 @@ paths:
             - modified_at
             - name
             - notes
+            - offset
             - owner
+            - path
             - permalink_url
             - privacy_setting
             - project_brief
@@ -17792,6 +18005,7 @@ paths:
             - start_on
             - team
             - team.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -17902,7 +18116,9 @@ paths:
                 - modified_at
                 - name
                 - notes
+                - offset
                 - owner
+                - path
                 - permalink_url
                 - privacy_setting
                 - project_brief
@@ -17910,6 +18126,7 @@ paths:
                 - start_on
                 - team
                 - team.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -17926,6 +18143,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -19416,7 +19635,9 @@ paths:
             - modified_at
             - name
             - notes
+            - offset
             - owner
+            - path
             - permalink_url
             - privacy_setting
             - project_brief
@@ -19424,6 +19645,7 @@ paths:
             - start_on
             - team
             - team.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -19534,7 +19756,9 @@ paths:
                 - modified_at
                 - name
                 - notes
+                - offset
                 - owner
+                - path
                 - permalink_url
                 - privacy_setting
                 - project_brief
@@ -19542,6 +19766,7 @@ paths:
                 - start_on
                 - team
                 - team.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -19559,6 +19784,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -19761,7 +19988,9 @@ paths:
             - modified_at
             - name
             - notes
+            - offset
             - owner
+            - path
             - permalink_url
             - privacy_setting
             - project_brief
@@ -19769,6 +19998,7 @@ paths:
             - start_on
             - team
             - team.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -19879,7 +20109,9 @@ paths:
                 - modified_at
                 - name
                 - notes
+                - offset
                 - owner
+                - path
                 - permalink_url
                 - privacy_setting
                 - project_brief
@@ -19887,6 +20119,7 @@ paths:
                 - start_on
                 - team
                 - team.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -19903,6 +20136,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -20457,7 +20692,9 @@ paths:
             - modified_at
             - name
             - notes
+            - offset
             - owner
+            - path
             - permalink_url
             - privacy_setting
             - project_brief
@@ -20465,6 +20702,7 @@ paths:
             - start_on
             - team
             - team.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -20575,7 +20813,9 @@ paths:
                 - modified_at
                 - name
                 - notes
+                - offset
                 - owner
+                - path
                 - permalink_url
                 - privacy_setting
                 - project_brief
@@ -20583,6 +20823,7 @@ paths:
                 - start_on
                 - team
                 - team.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -20599,6 +20840,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/ProjectCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -21256,8 +21499,6 @@ paths:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
       - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
     get:
       summary: Get task count of a project
       description: >-
@@ -23178,7 +23419,6 @@ paths:
           explode: false
       requestBody:
         description: The section to create.
-        required: true
         content:
           application/json:
             schema:
@@ -23396,10 +23636,13 @@ paths:
           example:
             - created_at
             - name
+            - offset
+            - path
             - project
             - project.name
             - projects
             - projects.name
+            - uri
           schema:
             type: array
             items:
@@ -23407,10 +23650,13 @@ paths:
               enum:
                 - created_at
                 - name
+                - offset
+                - path
                 - project
                 - project.name
                 - projects
                 - projects.name
+                - uri
           style: form
           explode: false
       responses:
@@ -23425,6 +23671,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/SectionCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -23540,7 +23788,6 @@ paths:
           explode: false
       requestBody:
         description: The section to create.
-        required: true
         content:
           application/json:
             schema:
@@ -23653,7 +23900,6 @@ paths:
       operationId: addTaskForSection
       requestBody:
         description: The task and optionally the insert location.
-        required: true
         content:
           application/json:
             schema:
@@ -23767,7 +24013,6 @@ paths:
       operationId: insertSectionForProject
       requestBody:
         description: The section's move action.
-        required: true
         content:
           application/json:
             schema:
@@ -24171,12 +24416,15 @@ paths:
             - modified_at
             - num_hearts
             - num_likes
+            - offset
             - parent
             - parent.name
+            - path
             - resource_subtype
             - status_type
             - text
             - title
+            - uri
           schema:
             type: array
             items:
@@ -24199,12 +24447,15 @@ paths:
                 - modified_at
                 - num_hearts
                 - num_likes
+                - offset
                 - parent
                 - parent.name
+                - path
                 - resource_subtype
                 - status_type
                 - text
                 - title
+                - uri
           style: form
           explode: false
       responses:
@@ -24219,6 +24470,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/StatusUpdateCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -24476,8 +24729,6 @@ paths:
         - Stories
       operationId: getStory
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
         - name: opt_fields
           in: query
           description: This endpoint returns a compact resource, which excludes some
@@ -25406,6 +25657,7 @@ paths:
             - new_text_value
             - num_hearts
             - num_likes
+            - offset
             - old_approval_status
             - old_date_value
             - old_dates
@@ -25428,6 +25680,7 @@ paths:
             - old_section
             - old_section.name
             - old_text_value
+            - path
             - previews
             - previews.fallback
             - previews.footer
@@ -25458,6 +25711,7 @@ paths:
             - task.resource_subtype
             - text
             - type
+            - uri
           schema:
             type: array
             items:
@@ -25539,6 +25793,7 @@ paths:
                 - new_text_value
                 - num_hearts
                 - num_likes
+                - offset
                 - old_approval_status
                 - old_date_value
                 - old_dates
@@ -25561,6 +25816,7 @@ paths:
                 - old_section
                 - old_section.name
                 - old_text_value
+                - path
                 - previews
                 - previews.fallback
                 - previews.footer
@@ -25591,6 +25847,7 @@ paths:
                 - task.resource_subtype
                 - text
                 - type
+                - uri
           style: form
           explode: false
       responses:
@@ -25605,6 +25862,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/StoryCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -26097,7 +26356,10 @@ paths:
             - followers.name
             - name
             - notes
+            - offset
+            - path
             - permalink_url
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -26111,7 +26373,10 @@ paths:
                 - followers.name
                 - name
                 - notes
+                - offset
+                - path
                 - permalink_url
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -26128,6 +26393,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TagCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -26352,8 +26619,6 @@ paths:
     parameters:
       - $ref: '#/components/parameters/tag_path_gid'
       - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
     get:
       summary: Get a tag
       description: Returns the complete tag record for a single tag.
@@ -26737,7 +27002,10 @@ paths:
             - followers.name
             - name
             - notes
+            - offset
+            - path
             - permalink_url
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -26751,7 +27019,10 @@ paths:
                 - followers.name
                 - name
                 - notes
+                - offset
+                - path
                 - permalink_url
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -26769,6 +27040,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TagCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -26874,7 +27147,10 @@ paths:
             - followers.name
             - name
             - notes
+            - offset
+            - path
             - permalink_url
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -26888,7 +27164,10 @@ paths:
                 - followers.name
                 - name
                 - notes
+                - offset
+                - path
                 - permalink_url
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -26905,6 +27184,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TagCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -27221,7 +27502,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -27295,9 +27578,11 @@ paths:
             - num_hearts
             - num_likes
             - num_subtasks
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permalink_url
             - projects
             - projects.name
@@ -27306,6 +27591,7 @@ paths:
             - start_on
             - tags
             - tags.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -27316,7 +27602,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -27390,9 +27678,11 @@ paths:
                 - num_hearts
                 - num_likes
                 - num_subtasks
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permalink_url
                 - projects
                 - projects.name
@@ -27401,6 +27691,7 @@ paths:
                 - start_on
                 - tags
                 - tags.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -27417,6 +27708,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -27518,7 +27811,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -27613,7 +27908,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -27821,7 +28118,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -27916,7 +28215,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -28118,7 +28419,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -28213,7 +28516,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -28670,7 +28975,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -28744,9 +29051,11 @@ paths:
             - num_hearts
             - num_likes
             - num_subtasks
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permalink_url
             - projects
             - projects.name
@@ -28755,6 +29064,7 @@ paths:
             - start_on
             - tags
             - tags.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -28765,7 +29075,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -28839,9 +29151,11 @@ paths:
                 - num_hearts
                 - num_likes
                 - num_subtasks
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permalink_url
                 - projects
                 - projects.name
@@ -28850,6 +29164,7 @@ paths:
                 - start_on
                 - tags
                 - tags.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -28866,6 +29181,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -28968,7 +29285,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -29042,9 +29361,11 @@ paths:
             - num_hearts
             - num_likes
             - num_subtasks
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permalink_url
             - projects
             - projects.name
@@ -29053,6 +29374,7 @@ paths:
             - start_on
             - tags
             - tags.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -29063,7 +29385,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -29137,9 +29461,11 @@ paths:
                 - num_hearts
                 - num_likes
                 - num_subtasks
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permalink_url
                 - projects
                 - projects.name
@@ -29148,6 +29474,7 @@ paths:
                 - start_on
                 - tags
                 - tags.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -29165,6 +29492,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -29267,7 +29596,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -29341,9 +29672,11 @@ paths:
             - num_hearts
             - num_likes
             - num_subtasks
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permalink_url
             - projects
             - projects.name
@@ -29352,6 +29685,7 @@ paths:
             - start_on
             - tags
             - tags.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -29362,7 +29696,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -29436,9 +29772,11 @@ paths:
                 - num_hearts
                 - num_likes
                 - num_subtasks
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permalink_url
                 - projects
                 - projects.name
@@ -29447,6 +29785,7 @@ paths:
                 - start_on
                 - tags
                 - tags.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -29464,6 +29803,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -29576,7 +29917,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -29650,9 +29993,11 @@ paths:
             - num_hearts
             - num_likes
             - num_subtasks
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permalink_url
             - projects
             - projects.name
@@ -29661,6 +30006,7 @@ paths:
             - start_on
             - tags
             - tags.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -29671,7 +30017,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -29745,9 +30093,11 @@ paths:
                 - num_hearts
                 - num_likes
                 - num_subtasks
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permalink_url
                 - projects
                 - projects.name
@@ -29756,6 +30106,7 @@ paths:
                 - start_on
                 - tags
                 - tags.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -29773,6 +30124,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -29877,7 +30230,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -29951,9 +30306,11 @@ paths:
             - num_hearts
             - num_likes
             - num_subtasks
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permalink_url
             - projects
             - projects.name
@@ -29962,6 +30319,7 @@ paths:
             - start_on
             - tags
             - tags.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -29972,7 +30330,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -30046,9 +30406,11 @@ paths:
                 - num_hearts
                 - num_likes
                 - num_subtasks
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permalink_url
                 - projects
                 - projects.name
@@ -30057,6 +30419,7 @@ paths:
                 - start_on
                 - tags
                 - tags.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -30073,6 +30436,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -30169,7 +30534,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -30264,7 +30631,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -30476,7 +30845,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -30571,7 +30942,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -30783,7 +31156,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -30857,9 +31232,11 @@ paths:
             - num_hearts
             - num_likes
             - num_subtasks
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permalink_url
             - projects
             - projects.name
@@ -30868,6 +31245,7 @@ paths:
             - start_on
             - tags
             - tags.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -30878,7 +31256,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -30952,9 +31332,11 @@ paths:
                 - num_hearts
                 - num_likes
                 - num_subtasks
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permalink_url
                 - projects
                 - projects.name
@@ -30963,6 +31345,7 @@ paths:
                 - start_on
                 - tags
                 - tags.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -30979,6 +31362,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -31306,7 +31691,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -31380,9 +31767,11 @@ paths:
             - num_hearts
             - num_likes
             - num_subtasks
+            - offset
             - parent
             - parent.name
             - parent.resource_subtype
+            - path
             - permalink_url
             - projects
             - projects.name
@@ -31391,6 +31780,7 @@ paths:
             - start_on
             - tags
             - tags.name
+            - uri
             - workspace
             - workspace.name
           schema:
@@ -31401,7 +31791,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -31475,9 +31867,11 @@ paths:
                 - num_hearts
                 - num_likes
                 - num_subtasks
+                - offset
                 - parent
                 - parent.name
                 - parent.resource_subtype
+                - path
                 - permalink_url
                 - projects
                 - projects.name
@@ -31486,6 +31880,7 @@ paths:
                 - start_on
                 - tags
                 - tags.name
+                - uri
                 - workspace
                 - workspace.name
           style: form
@@ -31503,6 +31898,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -32290,7 +32687,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -32385,7 +32784,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -32597,7 +32998,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -32692,7 +33095,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -33395,7 +33800,9 @@ paths:
             - actual_time_minutes
             - approval_status
             - assignee
+            - assignee.name
             - assignee_section
+            - assignee_section.name
             - assignee_status
             - completed
             - completed_at
@@ -33490,7 +33897,9 @@ paths:
                 - actual_time_minutes
                 - approval_status
                 - assignee
+                - assignee.name
                 - assignee_section
+                - assignee_section.name
                 - assignee_status
                 - completed
                 - completed_at
@@ -33855,8 +34264,11 @@ paths:
             - is_admin
             - is_guest
             - is_limited_access
+            - offset
+            - path
             - team
             - team.name
+            - uri
             - user
             - user.name
           schema:
@@ -33867,8 +34279,11 @@ paths:
                 - is_admin
                 - is_guest
                 - is_limited_access
+                - offset
+                - path
                 - team
                 - team.name
+                - uri
                 - user
                 - user.name
           style: form
@@ -33886,6 +34301,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TeamMembershipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -33988,8 +34405,11 @@ paths:
             - is_admin
             - is_guest
             - is_limited_access
+            - offset
+            - path
             - team
             - team.name
+            - uri
             - user
             - user.name
           schema:
@@ -34000,8 +34420,11 @@ paths:
                 - is_admin
                 - is_guest
                 - is_limited_access
+                - offset
+                - path
                 - team
                 - team.name
+                - uri
                 - user
                 - user.name
           style: form
@@ -34019,6 +34442,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TeamMembershipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -34129,8 +34554,11 @@ paths:
             - is_admin
             - is_guest
             - is_limited_access
+            - offset
+            - path
             - team
             - team.name
+            - uri
             - user
             - user.name
           schema:
@@ -34141,8 +34569,11 @@ paths:
                 - is_admin
                 - is_guest
                 - is_limited_access
+                - offset
+                - path
                 - team
                 - team.name
+                - uri
                 - user
                 - user.name
           style: form
@@ -34160,6 +34591,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TeamMembershipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -34242,8 +34675,6 @@ paths:
   /teams:
     parameters:
       - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
     post:
       summary: Create a team
       description: |-
@@ -34390,145 +34821,10 @@ paths:
 
               result = client.teams.create_team(field: "value", field: "value", options:
               {pretty: true})
-    put:
-      summary: Update a team
-      description: |-
-        Updates a team within the current workspace.
-      tags:
-        - Teams
-      operationId: updateTeam
-      parameters:
-        - name: opt_fields
-          in: query
-          description: This endpoint returns a compact resource, which excludes some
-            properties by default. To include those optional properties, set this
-            query parameter to a comma-separated list of the properties you wish to
-            include.
-          required: false
-          example:
-            - description
-            - edit_team_name_or_description_access_level
-            - edit_team_visibility_or_trash_team_access_level
-            - guest_invite_management_access_level
-            - html_description
-            - join_request_management_access_level
-            - member_invite_management_access_level
-            - name
-            - organization
-            - organization.name
-            - permalink_url
-            - team_member_removal_access_level
-            - visibility
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - description
-                - edit_team_name_or_description_access_level
-                - edit_team_visibility_or_trash_team_access_level
-                - guest_invite_management_access_level
-                - html_description
-                - join_request_management_access_level
-                - member_invite_management_access_level
-                - name
-                - organization
-                - organization.name
-                - permalink_url
-                - team_member_removal_access_level
-                - visibility
-          style: form
-          explode: false
-      requestBody:
-        description: The team to update.
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  $ref: '#/components/schemas/TeamRequest'
-      responses:
-        200:
-          description: Successfully updated the team.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/TeamResponse'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-      x-readme:
-        code-samples:
-          - language: java
-            install: >-
-              <dependency><groupId>com.asana</groupId><artifactId>asana</artifactId><version>1.0.0</version></dependency>
-            code: >-
-              import com.asana.Client;
-
-
-              Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
-
-
-              Team result = client.teams.updateTeam()
-                  .data("field", "value")
-                  .data("field", "value")
-                  .option("pretty", true)
-                  .execute();
-          - language: python
-            install: pip install asana
-            code: >-
-              import asana
-
-
-              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
-
-
-              result = client.teams.update_team({'field': 'value', 'field': 'value'},
-              opt_pretty=True)
-          - language: php
-            install: composer require asana/asana
-            code: >-
-              <?php
-
-              require 'vendor/autoload.php';
-
-
-              $client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
-
-
-              $result = $client->teams->updateTeam(array('field' => 'value', 'field'
-              => 'value'), array('opt_pretty' => 'true'))
-          - language: ruby
-            install: gem install asana
-            code: >-
-              require 'asana'
-
-
-              client = Asana::Client.new do |c|
-                  c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
-              end
-
-
-              result = client.teams.update_team(field: "value", field: "value", options:
-              {pretty: true})
   /teams/{team_gid}:
     parameters:
       - $ref: '#/components/parameters/team_path_gid'
       - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
     get:
       summary: Get a team
       description: Returns the full record for a single team.
@@ -34663,20 +34959,13 @@ paths:
 
               result = client.teams.get_team(team_gid: 'team_gid', param: "value",
               param: "value", options: {pretty: true})
-  /workspaces/{workspace_gid}/teams:
-    parameters:
-      - $ref: '#/components/parameters/workspace_path_gid'
-      - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
-    get:
-      summary: Get teams in a workspace
-      description: >-
-        Returns the compact records for all teams in the workspace visible to
-        the authorized user.
+    put:
+      summary: Update a team
+      description: |-
+        Updates a team within the current workspace.
       tags:
         - Teams
-      operationId: getTeamsForWorkspace
+      operationId: updateTeam
       parameters:
         - name: opt_fields
           in: query
@@ -34719,6 +35008,152 @@ paths:
                 - visibility
           style: form
           explode: false
+      requestBody:
+        description: The team to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/TeamRequest'
+      responses:
+        200:
+          description: Successfully updated the team.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TeamResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: java
+            install: >-
+              <dependency><groupId>com.asana</groupId><artifactId>asana</artifactId><version>1.0.0</version></dependency>
+            code: >-
+              import com.asana.Client;
+
+
+              Client client = Client.accessToken("PERSONAL_ACCESS_TOKEN");
+
+
+              Team result = client.teams.updateTeam()
+                  .data("field", "value")
+                  .data("field", "value")
+                  .option("pretty", true)
+                  .execute();
+          - language: python
+            install: pip install asana
+            code: >-
+              import asana
+
+
+              client = asana.Client.access_token('PERSONAL_ACCESS_TOKEN')
+
+
+              result = client.teams.update_team({'field': 'value', 'field': 'value'},
+              opt_pretty=True)
+          - language: php
+            install: composer require asana/asana
+            code: >-
+              <?php
+
+              require 'vendor/autoload.php';
+
+
+              $client = Asana\Client::accessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              $result = $client->teams->updateTeam(array('field' => 'value', 'field'
+              => 'value'), array('opt_pretty' => 'true'))
+          - language: ruby
+            install: gem install asana
+            code: >-
+              require 'asana'
+
+
+              client = Asana::Client.new do |c|
+                  c.authentication :access_token, 'PERSONAL_ACCESS_TOKEN'
+              end
+
+
+              result = client.teams.update_team(field: "value", field: "value", options:
+              {pretty: true})
+  /workspaces/{workspace_gid}/teams:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+    get:
+      summary: Get teams in a workspace
+      description: >-
+        Returns the compact records for all teams in the workspace visible to
+        the authorized user.
+      tags:
+        - Teams
+      operationId: getTeamsForWorkspace
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - description
+            - edit_team_name_or_description_access_level
+            - edit_team_visibility_or_trash_team_access_level
+            - guest_invite_management_access_level
+            - html_description
+            - join_request_management_access_level
+            - member_invite_management_access_level
+            - name
+            - offset
+            - organization
+            - organization.name
+            - path
+            - permalink_url
+            - team_member_removal_access_level
+            - uri
+            - visibility
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - description
+                - edit_team_name_or_description_access_level
+                - edit_team_visibility_or_trash_team_access_level
+                - guest_invite_management_access_level
+                - html_description
+                - join_request_management_access_level
+                - member_invite_management_access_level
+                - name
+                - offset
+                - organization
+                - organization.name
+                - path
+                - permalink_url
+                - team_member_removal_access_level
+                - uri
+                - visibility
+          style: form
+          explode: false
       responses:
         200:
           description: >-
@@ -34733,6 +35168,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TeamCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -34846,10 +35283,13 @@ paths:
             - join_request_management_access_level
             - member_invite_management_access_level
             - name
+            - offset
             - organization
             - organization.name
+            - path
             - permalink_url
             - team_member_removal_access_level
+            - uri
             - visibility
           schema:
             type: array
@@ -34864,10 +35304,13 @@ paths:
                 - join_request_management_access_level
                 - member_invite_management_access_level
                 - name
+                - offset
                 - organization
                 - organization.name
+                - path
                 - permalink_url
                 - team_member_removal_access_level
+                - uri
                 - visibility
           style: form
           explode: false
@@ -34885,6 +35328,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TeamCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -35394,13 +35839,16 @@ paths:
           example:
             - display_name
             - end_on
+            - offset
             - parent
             - parent.display_name
             - parent.end_on
             - parent.period
             - parent.start_on
+            - path
             - period
             - start_on
+            - uri
           schema:
             type: array
             items:
@@ -35408,13 +35856,16 @@ paths:
               enum:
                 - display_name
                 - end_on
+                - offset
                 - parent
                 - parent.display_name
                 - parent.end_on
                 - parent.period
                 - parent.start_on
+                - path
                 - period
                 - start_on
+                - uri
           style: form
           explode: false
       responses:
@@ -35430,6 +35881,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TimePeriodCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -35532,6 +35985,9 @@ paths:
             - created_by.name
             - duration_minutes
             - entered_on
+            - offset
+            - path
+            - uri
           schema:
             type: array
             items:
@@ -35541,6 +35997,9 @@ paths:
                 - created_by.name
                 - duration_minutes
                 - entered_on
+                - offset
+                - path
+                - uri
           style: form
           explode: false
       responses:
@@ -35555,6 +36014,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TimeTrackingEntryCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -36312,6 +36773,8 @@ paths:
           example:
             - email
             - name
+            - offset
+            - path
             - photo
             - photo.image_1024x1024
             - photo.image_128x128
@@ -36319,6 +36782,7 @@ paths:
             - photo.image_27x27
             - photo.image_36x36
             - photo.image_60x60
+            - uri
             - workspaces
             - workspaces.name
           schema:
@@ -36328,6 +36792,8 @@ paths:
               enum:
                 - email
                 - name
+                - offset
+                - path
                 - photo
                 - photo.image_1024x1024
                 - photo.image_128x128
@@ -36335,6 +36801,7 @@ paths:
                 - photo.image_27x27
                 - photo.image_36x36
                 - photo.image_60x60
+                - uri
                 - workspaces
                 - workspaces.name
           style: form
@@ -36352,7 +36819,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/UserCompact'
-        400:
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
@@ -36566,6 +37034,8 @@ paths:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
       - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
       - name: resource_type
         in: query
         required: true
@@ -36608,12 +37078,18 @@ paths:
           required: false
           example:
             - name
+            - offset
+            - path
+            - uri
           schema:
             type: array
             items:
               type: string
               enum:
                 - name
+                - offset
+                - path
+                - uri
           style: form
           explode: false
       responses:
@@ -36628,6 +37104,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/AsanaNamedResource'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -37038,9 +37516,12 @@ paths:
             - last_failure_at
             - last_failure_content
             - last_success_at
+            - offset
+            - path
             - resource
             - resource.name
             - target
+            - uri
           schema:
             type: array
             items:
@@ -37055,9 +37536,12 @@ paths:
                 - last_failure_at
                 - last_failure_content
                 - last_success_at
+                - offset
+                - path
                 - resource
                 - resource.name
                 - target
+                - uri
           style: form
           explode: false
       responses:
@@ -37072,6 +37556,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/WebhookResponse'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -37901,6 +38387,9 @@ paths:
             - is_active
             - is_admin
             - is_guest
+            - offset
+            - path
+            - uri
             - user
             - user.name
             - user_task_list
@@ -37921,6 +38410,9 @@ paths:
                 - is_active
                 - is_admin
                 - is_guest
+                - offset
+                - path
+                - uri
                 - user
                 - user.name
                 - user_task_list
@@ -37947,6 +38439,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/WorkspaceMembershipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -38051,6 +38545,9 @@ paths:
             - is_active
             - is_admin
             - is_guest
+            - offset
+            - path
+            - uri
             - user
             - user.name
             - user_task_list
@@ -38071,6 +38568,9 @@ paths:
                 - is_active
                 - is_admin
                 - is_guest
+                - offset
+                - path
+                - uri
                 - user
                 - user.name
                 - user_task_list
@@ -38097,6 +38597,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/WorkspaceMembershipCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
       x-readme:
         code-samples:
           - language: java
@@ -38190,6 +38692,9 @@ paths:
             - email_domains
             - is_organization
             - name
+            - offset
+            - path
+            - uri
           schema:
             type: array
             items:
@@ -38198,6 +38703,9 @@ paths:
                 - email_domains
                 - is_organization
                 - name
+                - offset
+                - path
+                - uri
           style: form
           explode: false
       responses:
@@ -38212,6 +38720,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/WorkspaceCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
