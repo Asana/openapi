@@ -26,5 +26,9 @@ checkout_client_lib "https://github.com/Asana/python-asana.git" build/python
 checkout_client_lib "https://github.com/Asana/php-asana.git" build/php
 checkout_client_lib "https://github.com/Asana/ruby-asana.git" build/ruby
 
+# Preview Client Libraries
+checkout_client_lib "https://github.com/Asana/python-asana-preview.git" build/python-preview
+checkout_client_lib "git@github.com:Asana/node-asana-preview.git" build/node-preview
+
 # Run script to add client library sample code to OpenAPI Spec file
 python add_code_samples_to_oas.py
