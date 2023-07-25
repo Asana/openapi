@@ -1,4 +1,5 @@
 import os
+import re
 import ruamel.yaml
 
 ASANA_OAS_DIR = './defs/asana_oas.yaml'
@@ -45,6 +46,7 @@ def camel_case(s):
 print('Gathering sample code')
 code_samples = {}
 for language in LANGUAGES:
+    # Add sample code for current client libraries
     for dirpath,_,filenames in os.walk(f'./build/{language}/samples'):
         for filename in filenames:
             with open(f'{dirpath}/{filename}') as fp:
@@ -69,6 +71,36 @@ for language in LANGUAGES:
                                 "code": code_sample
                             }
                         )
+    # Add sample code for preview client libraries
+    if language in {"node", "python"}:
+        for dirpath,_,filenames in os.walk(f'./build/{language}-preview/docs'):
+            for filename in filenames:
+                if re.search("^.*Api.yaml$", filename):
+                    with open(f'{dirpath}/{filename}') as fp:
+                        data = yaml.load(fp)
+                        for resource, operations in data.items():
+                            # OpenAPI Generator adds "Api" suffix to end of resource names we need
+                            # to remove it so we can find a matching resource in our OpenAPI Spec
+                            resource_name = resource.replace("Api", '').lower()
+                            # Set resource key in code_samples dict
+                            code_samples.setdefault(resource_name, {})
+                            # Loop through each operation
+                            for operation, code_sample in operations.items():
+                                # Convert operation name from snake case to camel case
+                                # NOTE: the python generator snake cases all opertionIDs we need to
+                                # change this to camel case so we can find a matching resource in our OpenAPI Spec
+                                operation_name_camel_case = camel_case(operation)
+                                # Set operation name
+                                code_samples[resource_name].setdefault(operation_name_camel_case, [])
+                                # Add sample code
+                                code_samples[resource_name][operation_name_camel_case].append(
+                                    {
+                                        "language": language,
+                                        "install": readme_code_config[language]['install'],
+                                        "code": code_sample,
+                                        "name": f'{language}-preview'
+                                    }
+                                )
 
 # TODO: Find a more efficient way to inject the sample code
 # Load OAS file
