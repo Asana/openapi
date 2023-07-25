@@ -16,8 +16,14 @@ readme_code_config = {
     'node': {
         'install': 'npm install asana',
     },
+    'node-preview': {
+        'install': 'npm install asana-preview',
+    },
     'python': {
         'install': 'pip install asana',
+    },
+    'python-preview': {
+        'install': 'pip install asana-preview',
     },
     'php': {
         'install': 'composer require asana/asana',
@@ -96,7 +102,7 @@ for language in LANGUAGES:
                                 code_samples[resource_name][operation_name_camel_case].append(
                                     {
                                         "language": language,
-                                        "install": readme_code_config[language]['install'],
+                                        "install": readme_code_config[f'{language}-preview']['install'],
                                         "code": code_sample,
                                         "name": f'{language}-preview'
                                     }

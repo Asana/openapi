@@ -6821,7 +6821,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -6855,7 +6855,7 @@ paths:
               result = client.attachments.get_attachment(attachment_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -6961,7 +6961,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -6992,7 +6992,7 @@ paths:
 
               result = client.attachments.delete_attachment(attachment_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -7178,7 +7178,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -7214,7 +7214,7 @@ paths:
               result = client.attachments.get_attachments_for_object({'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -7381,7 +7381,7 @@ paths:
                   .option("pretty", true)
                   .execute();
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -7420,7 +7420,7 @@ paths:
               result = client.attachments.create_attachment_for_object({'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -7604,7 +7604,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -7645,7 +7645,7 @@ paths:
               result = client.audit_log_api.get_audit_log_events(workspace_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -7797,7 +7797,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -7831,7 +7831,7 @@ paths:
               result = client.batch_api.create_batch_request({'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -8061,7 +8061,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -8097,7 +8097,7 @@ paths:
               result = client.custom_field_settings.get_custom_field_settings_for_project(project_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -8325,7 +8325,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -8361,7 +8361,7 @@ paths:
               result = client.custom_field_settings.get_custom_field_settings_for_portfolio(portfolio_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -8582,7 +8582,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -8616,7 +8616,7 @@ paths:
               result = client.custom_fields.create_custom_field({'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -8824,7 +8824,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -8858,7 +8858,7 @@ paths:
               result = client.custom_fields.get_custom_field(custom_field_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -9081,7 +9081,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -9116,7 +9116,7 @@ paths:
               result = client.custom_fields.update_custom_field(custom_field_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -9228,7 +9228,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -9260,7 +9260,7 @@ paths:
               result = client.custom_fields.delete_custom_field(custom_field_gid,
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -9472,7 +9472,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -9508,7 +9508,7 @@ paths:
               result = client.custom_fields.get_custom_fields_for_workspace(workspace_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -9661,7 +9661,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -9696,7 +9696,7 @@ paths:
               result = client.custom_fields.create_enum_option_for_custom_field(custom_field_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -9844,7 +9844,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -9879,7 +9879,7 @@ paths:
               result = client.custom_fields.insert_enum_option_for_custom_field(custom_field_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -10036,7 +10036,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -10071,7 +10071,7 @@ paths:
               result = client.custom_fields.update_enum_option(enum_option_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -10308,7 +10308,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -10343,7 +10343,7 @@ paths:
               result = client.events.get_events({'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -10471,7 +10471,7 @@ paths:
                   .option("pretty", true)
                   .execute();
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -10505,7 +10505,7 @@ paths:
               result = client.goal_relationships.get_goal_relationship(goal_relationship_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -10646,7 +10646,7 @@ paths:
                   .option("pretty", true)
                   .execute();
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -10681,7 +10681,7 @@ paths:
               result = client.goal_relationships.update_goal_relationship(goal_relationship_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -10836,7 +10836,7 @@ paths:
                   .option("pretty", true)
                   .execute();
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -10873,7 +10873,7 @@ paths:
               result = client.goal_relationships.get_goal_relationships({'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -11018,7 +11018,7 @@ paths:
                   .option("pretty", true)
                   .execute();
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -11053,7 +11053,7 @@ paths:
               result = client.goal_relationships.add_supporting_relationship(goal_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -11162,7 +11162,7 @@ paths:
                   .option("pretty", true)
                   .execute();
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -11195,7 +11195,7 @@ paths:
               result = client.goal_relationships.remove_supporting_relationship(goal_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -11400,7 +11400,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -11434,7 +11434,7 @@ paths:
               result = client.goals.get_goal(goal_gid, {'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -11649,7 +11649,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -11684,7 +11684,7 @@ paths:
               result = client.goals.update_goal(goal_gid, {'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -11793,7 +11793,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -11824,7 +11824,7 @@ paths:
 
               result = client.goals.delete_goal(goal_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -12079,7 +12079,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -12120,7 +12120,7 @@ paths:
               result = client.goals.get_goals({'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -12341,7 +12341,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -12375,7 +12375,7 @@ paths:
               result = client.goals.create_goal({'field': 'value', 'field': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -12593,7 +12593,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -12628,7 +12628,7 @@ paths:
               result = client.goals.create_goal_metric(goal_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -12849,7 +12849,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -12884,7 +12884,7 @@ paths:
               result = client.goals.update_goal_metric(goal_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -13107,7 +13107,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -13142,7 +13142,7 @@ paths:
               result = client.goals.add_followers(goal_gid, {'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -13362,7 +13362,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -13397,7 +13397,7 @@ paths:
               result = client.goals.remove_followers(goal_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -13605,7 +13605,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -13639,7 +13639,7 @@ paths:
               result = client.goals.get_parent_goals_for_goal(goal_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -13784,7 +13784,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -13818,7 +13818,7 @@ paths:
               result = client.jobs.get_job(job_gid, {'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -13943,7 +13943,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -13980,7 +13980,7 @@ paths:
               result = client.memberships.get_memberships({'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -14075,7 +14075,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -14108,7 +14108,7 @@ paths:
               result = client.memberships.create_membership({'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -14193,7 +14193,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -14224,7 +14224,7 @@ paths:
 
               result = client.memberships.delete_membership(membership_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -14370,7 +14370,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -14404,7 +14404,7 @@ paths:
               result = client.organization_exports.create_organization_export({'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -14539,7 +14539,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -14573,7 +14573,7 @@ paths:
               result = client.organization_exports.get_organization_export(organization_export_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -14724,7 +14724,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -14762,7 +14762,7 @@ paths:
               result = client.portfolio_memberships.get_portfolio_memberships({'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -14900,7 +14900,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -14934,7 +14934,7 @@ paths:
               result = client.portfolio_memberships.get_portfolio_membership(portfolio_membership_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -15084,7 +15084,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -15121,7 +15121,7 @@ paths:
               result = client.portfolio_memberships.get_portfolio_memberships_for_portfolio(portfolio_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -15459,7 +15459,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -15496,7 +15496,7 @@ paths:
               result = client.portfolios.get_portfolios({'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -15815,7 +15815,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -15849,7 +15849,7 @@ paths:
               result = client.portfolios.create_portfolio({'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -16149,7 +16149,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -16183,7 +16183,7 @@ paths:
               result = client.portfolios.get_portfolio(portfolio_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -16496,7 +16496,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -16531,7 +16531,7 @@ paths:
               result = client.portfolios.update_portfolio(portfolio_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -16639,7 +16639,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -16670,7 +16670,7 @@ paths:
 
               result = client.portfolios.delete_portfolio(portfolio_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -17032,7 +17032,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -17068,7 +17068,7 @@ paths:
               result = client.portfolios.get_items_for_portfolio(portfolio_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -17194,7 +17194,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -17227,7 +17227,7 @@ paths:
               result = client.portfolios.add_item_for_portfolio(portfolio_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -17350,7 +17350,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -17383,7 +17383,7 @@ paths:
               result = client.portfolios.remove_item_for_portfolio(portfolio_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -17506,7 +17506,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -17539,7 +17539,7 @@ paths:
               result = client.portfolios.add_custom_field_setting_for_portfolio(portfolio_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -17661,7 +17661,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -17694,7 +17694,7 @@ paths:
               result = client.portfolios.remove_custom_field_setting_for_portfolio(portfolio_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -18010,7 +18010,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -18045,7 +18045,7 @@ paths:
               result = client.portfolios.add_members_for_portfolio(portfolio_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -18362,7 +18362,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -18397,7 +18397,7 @@ paths:
               result = client.portfolios.remove_members_for_portfolio(portfolio_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -18545,7 +18545,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -18579,7 +18579,7 @@ paths:
               result = client.project_briefs.get_project_brief(project_brief_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -18730,7 +18730,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -18765,7 +18765,7 @@ paths:
               result = client.project_briefs.update_project_brief(project_brief_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -18874,7 +18874,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -18906,7 +18906,7 @@ paths:
               result = client.project_briefs.delete_project_brief(project_brief_gid,
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -19058,7 +19058,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -19093,7 +19093,7 @@ paths:
               result = client.project_briefs.create_project_brief(project_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -19236,7 +19236,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -19270,7 +19270,7 @@ paths:
               result = client.project_memberships.get_project_membership(project_membership_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -19428,7 +19428,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -19465,7 +19465,7 @@ paths:
               result = client.project_memberships.get_project_memberships_for_project(project_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -19616,7 +19616,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -19650,7 +19650,7 @@ paths:
               result = client.project_statuses.get_project_status(project_status_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -19760,7 +19760,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -19792,7 +19792,7 @@ paths:
               result = client.project_statuses.delete_project_status(project_status_gid,
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -19952,7 +19952,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -19988,7 +19988,7 @@ paths:
               result = client.project_statuses.get_project_statuses_for_project(project_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -20148,7 +20148,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -20183,7 +20183,7 @@ paths:
               result = client.project_statuses.create_project_status_for_project(project_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -20336,7 +20336,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -20370,7 +20370,7 @@ paths:
               result = client.project_templates.get_project_template(project_template_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -20454,7 +20454,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -20475,7 +20475,7 @@ paths:
               });
             name: node-preview
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -20615,7 +20615,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -20652,7 +20652,7 @@ paths:
               result = client.project_templates.get_project_templates({'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -20819,7 +20819,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -20855,7 +20855,7 @@ paths:
               result = client.project_templates.get_project_templates_for_team(team_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -21030,7 +21030,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -21065,7 +21065,7 @@ paths:
               result = client.project_templates.instantiate_project(project_template_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -21448,7 +21448,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -21486,7 +21486,7 @@ paths:
               result = client.projects.get_projects({'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -21859,7 +21859,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -21893,7 +21893,7 @@ paths:
               result = client.projects.create_project({'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -22243,7 +22243,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -22277,7 +22277,7 @@ paths:
               result = client.projects.get_project(project_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -22644,7 +22644,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -22679,7 +22679,7 @@ paths:
               result = client.projects.update_project(project_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -22787,7 +22787,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -22818,7 +22818,7 @@ paths:
 
               result = client.projects.delete_project(project_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -22974,7 +22974,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -23009,7 +23009,7 @@ paths:
               result = client.projects.duplicate_project(project_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -23374,7 +23374,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -23410,7 +23410,7 @@ paths:
               result = client.projects.get_projects_for_task(task_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -23776,7 +23776,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -23813,7 +23813,7 @@ paths:
               result = client.projects.get_projects_for_team(team_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -24177,7 +24177,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -24212,7 +24212,7 @@ paths:
               result = client.projects.create_project_for_team(team_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -24581,7 +24581,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -24618,7 +24618,7 @@ paths:
               result = client.projects.get_projects_for_workspace(workspace_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -24987,7 +24987,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -25022,7 +25022,7 @@ paths:
               result = client.projects.create_project_for_workspace(workspace_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -25146,7 +25146,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -25179,7 +25179,7 @@ paths:
               result = client.projects.add_custom_field_setting_for_project(project_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -25301,7 +25301,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -25334,7 +25334,7 @@ paths:
               result = client.projects.remove_custom_field_setting_for_project(project_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -25485,7 +25485,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -25519,7 +25519,7 @@ paths:
               result = client.projects.get_task_counts_for_project(project_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -25889,7 +25889,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -25924,7 +25924,7 @@ paths:
               result = client.projects.add_members_for_project(project_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -26290,7 +26290,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -26325,7 +26325,7 @@ paths:
               result = client.projects.remove_members_for_project(project_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -26695,7 +26695,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -26730,7 +26730,7 @@ paths:
               result = client.projects.add_followers_for_project(project_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -27097,7 +27097,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -27132,7 +27132,7 @@ paths:
               result = client.projects.remove_followers_for_project(project_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -27296,7 +27296,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -27331,7 +27331,7 @@ paths:
               result = client.projects.project_save_as_template(project_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -27425,7 +27425,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -27447,7 +27447,7 @@ paths:
               });
             name: node-preview
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -27558,7 +27558,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -27592,7 +27592,7 @@ paths:
               result = client.sections.get_section(section_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -27745,7 +27745,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -27780,7 +27780,7 @@ paths:
               result = client.sections.update_section(section_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -27892,7 +27892,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -27923,7 +27923,7 @@ paths:
 
               result = client.sections.delete_section(section_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -28071,7 +28071,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -28107,7 +28107,7 @@ paths:
               result = client.sections.get_sections_for_project(project_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -28255,7 +28255,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -28290,7 +28290,7 @@ paths:
               result = client.sections.create_section_for_project(project_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -28415,7 +28415,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -28449,7 +28449,7 @@ paths:
               result = client.sections.add_task_for_section(section_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -28574,7 +28574,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -28608,7 +28608,7 @@ paths:
               result = client.sections.insert_section_for_project(project_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -28779,7 +28779,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -28813,7 +28813,7 @@ paths:
               result = client.status_updates.get_status(status_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -28919,7 +28919,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -28950,7 +28950,7 @@ paths:
 
               result = client.status_updates.delete_status(status_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -29150,7 +29150,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -29187,7 +29187,7 @@ paths:
               result = client.status_updates.get_statuses_for_object({'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -29371,7 +29371,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -29407,7 +29407,7 @@ paths:
               result = client.status_updates.create_status_for_object({'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -29789,7 +29789,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -29823,7 +29823,7 @@ paths:
               result = client.stories.get_story(story_gid, {'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -30215,7 +30215,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -30250,7 +30250,7 @@ paths:
               result = client.stories.update_story(story_gid, {'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -30357,7 +30357,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -30388,7 +30388,7 @@ paths:
 
               result = client.stories.delete_story(story_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -30780,7 +30780,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -30816,7 +30816,7 @@ paths:
               result = client.stories.get_stories_for_task(task_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -31211,7 +31211,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -31246,7 +31246,7 @@ paths:
               result = client.stories.create_story_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -31408,7 +31408,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -31444,7 +31444,7 @@ paths:
               result = client.tags.get_tags({'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -31603,7 +31603,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -31637,7 +31637,7 @@ paths:
               result = client.tags.create_tag({'field': 'value', 'field': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -31779,7 +31779,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -31813,7 +31813,7 @@ paths:
               result = client.tags.get_tag(tag_gid, {'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -31961,7 +31961,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -31995,7 +31995,7 @@ paths:
               result = client.tags.update_tag(tag_gid, {'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -32102,7 +32102,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -32133,7 +32133,7 @@ paths:
 
               result = client.tags.delete_tag(tag_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -32287,7 +32287,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -32323,7 +32323,7 @@ paths:
               result = client.tags.get_tags_for_task(task_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -32481,7 +32481,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -32517,7 +32517,7 @@ paths:
               result = client.tags.get_tags_for_workspace(workspace_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -32677,7 +32677,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -32712,7 +32712,7 @@ paths:
               result = client.tags.create_tag_for_workspace(workspace_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -33103,7 +33103,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -33144,7 +33144,7 @@ paths:
               result = client.tasks.get_tasks({'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -33473,7 +33473,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -33507,7 +33507,7 @@ paths:
               result = client.tasks.create_task({'field': 'value', 'field': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -33815,7 +33815,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -33849,7 +33849,7 @@ paths:
               result = client.tasks.get_task(task_gid, {'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -34174,7 +34174,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -34209,7 +34209,7 @@ paths:
               result = client.tasks.update_task(task_gid, {'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -34319,7 +34319,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -34350,7 +34350,7 @@ paths:
 
               result = client.tasks.delete_task(task_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -34507,7 +34507,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -34542,7 +34542,7 @@ paths:
               result = client.tasks.duplicate_task(task_gid, {'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -34867,7 +34867,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -34904,7 +34904,7 @@ paths:
               result = client.tasks.get_tasks_for_project(project_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -35230,7 +35230,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -35266,7 +35266,7 @@ paths:
               result = client.tasks.get_tasks_for_section(section_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -35591,7 +35591,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -35627,7 +35627,7 @@ paths:
               result = client.tasks.get_tasks_for_tag(tag_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -35963,7 +35963,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -36000,7 +36000,7 @@ paths:
               result = client.tasks.get_tasks_for_user_task_list(user_task_list_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -36326,7 +36326,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -36362,7 +36362,7 @@ paths:
               result = client.tasks.get_subtasks_for_task(task_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -36682,7 +36682,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -36717,7 +36717,7 @@ paths:
               result = client.tasks.create_subtask_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -37041,7 +37041,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -37076,7 +37076,7 @@ paths:
               result = client.tasks.set_parent_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -37400,7 +37400,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -37436,7 +37436,7 @@ paths:
               result = client.tasks.get_dependencies_for_task(task_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -37563,7 +37563,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -37596,7 +37596,7 @@ paths:
               result = client.tasks.add_dependencies_for_task(task_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -37719,7 +37719,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -37752,7 +37752,7 @@ paths:
               result = client.tasks.remove_dependencies_for_task(task_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -38076,7 +38076,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -38112,7 +38112,7 @@ paths:
               result = client.tasks.get_dependents_for_task(task_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -38239,7 +38239,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -38272,7 +38272,7 @@ paths:
               result = client.tasks.add_dependents_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -38396,7 +38396,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -38429,7 +38429,7 @@ paths:
               result = client.tasks.remove_dependents_for_task(task_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -38564,7 +38564,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -38597,7 +38597,7 @@ paths:
               result = client.tasks.add_project_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -38722,7 +38722,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -38755,7 +38755,7 @@ paths:
               result = client.tasks.remove_project_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -38877,7 +38877,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -38910,7 +38910,7 @@ paths:
               result = client.tasks.add_tag_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -39032,7 +39032,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -39065,7 +39065,7 @@ paths:
               result = client.tasks.remove_tag_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -39392,7 +39392,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -39427,7 +39427,7 @@ paths:
               result = client.tasks.add_followers_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -39751,7 +39751,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -39786,7 +39786,7 @@ paths:
               result = client.tasks.remove_follower_for_task(task_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -40601,7 +40601,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -40687,7 +40687,7 @@ paths:
               result = client.tasks.search_tasks_for_workspace(workspace_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -40879,7 +40879,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -40913,7 +40913,7 @@ paths:
               result = client.team_memberships.get_team_membership(team_membership_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -41090,7 +41090,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -41128,7 +41128,7 @@ paths:
               result = client.team_memberships.get_team_memberships({'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -41284,7 +41284,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -41320,7 +41320,7 @@ paths:
               result = client.team_memberships.get_team_memberships_for_team(team_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -41484,7 +41484,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -41521,7 +41521,7 @@ paths:
               result = client.team_memberships.get_team_memberships_for_user(user_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -41687,7 +41687,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -41721,7 +41721,7 @@ paths:
               result = client.teams.create_team({'field': 'value', 'field': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -41871,7 +41871,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -41905,7 +41905,7 @@ paths:
               result = client.teams.get_team(team_gid, {'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -42050,7 +42050,7 @@ paths:
                   .option("pretty", true)
                   .execute();
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -42084,7 +42084,7 @@ paths:
               result = client.teams.update_team({'field': 'value', 'field': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -42250,7 +42250,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -42286,7 +42286,7 @@ paths:
               result = client.teams.get_teams_for_workspace(workspace_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -42460,7 +42460,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -42497,7 +42497,7 @@ paths:
               result = client.teams.get_teams_for_user(user_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -42658,7 +42658,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -42693,7 +42693,7 @@ paths:
               result = client.teams.add_user_for_team(team_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -42817,7 +42817,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -42850,7 +42850,7 @@ paths:
               result = client.teams.remove_user_for_team(team_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -42992,7 +42992,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -43026,7 +43026,7 @@ paths:
               result = client.time_periods.get_time_period(time_period_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -43205,7 +43205,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -43243,7 +43243,7 @@ paths:
               result = client.time_periods.get_time_periods({'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -43364,7 +43364,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -43389,7 +43389,7 @@ paths:
               });
             name: node-preview
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -43487,7 +43487,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -43511,7 +43511,7 @@ paths:
               });
             name: node-preview
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -43600,7 +43600,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -43623,7 +43623,7 @@ paths:
               });
             name: node-preview
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -43725,7 +43725,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -43749,7 +43749,7 @@ paths:
               });
             name: node-preview
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -43805,7 +43805,7 @@ paths:
       x-readme:
         code-samples:
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -43826,7 +43826,7 @@ paths:
               });
             name: node-preview
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -44021,7 +44021,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -44059,7 +44059,7 @@ paths:
               result = client.typeahead.typeahead_for_workspace(workspace_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -44197,7 +44197,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -44231,7 +44231,7 @@ paths:
               result = client.user_task_lists.get_user_task_list(user_task_list_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -44374,7 +44374,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -44409,7 +44409,7 @@ paths:
               result = client.user_task_lists.get_user_task_list_for_user(user_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -44587,7 +44587,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -44624,7 +44624,7 @@ paths:
               result = client.users.get_users({'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -44774,7 +44774,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -44808,7 +44808,7 @@ paths:
               result = client.users.get_user(user_gid, {'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -44973,7 +44973,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -45011,7 +45011,7 @@ paths:
               result = client.users.get_favorites_for_user(user_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -45171,7 +45171,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -45206,7 +45206,7 @@ paths:
               result = client.users.get_users_for_team(team_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -45362,7 +45362,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -45397,7 +45397,7 @@ paths:
               result = client.users.get_users_for_workspace(workspace_gid, {'param':
               'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -45574,7 +45574,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -45611,7 +45611,7 @@ paths:
               result = client.webhooks.get_webhooks({'param': 'value', 'param': 'value'},
               opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -45828,7 +45828,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -45862,7 +45862,7 @@ paths:
               result = client.webhooks.create_webhook({'field': 'value', 'field':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -46012,7 +46012,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -46046,7 +46046,7 @@ paths:
               result = client.webhooks.get_webhook(webhook_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -46206,7 +46206,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -46241,7 +46241,7 @@ paths:
               result = client.webhooks.update_webhook(webhook_gid, {'field': 'value',
               'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -46348,7 +46348,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -46379,7 +46379,7 @@ paths:
 
               result = client.webhooks.delete_webhook(webhook_gid, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -46534,7 +46534,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -46568,7 +46568,7 @@ paths:
               result = client.workspace_memberships.get_workspace_membership(workspace_membership_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -46738,7 +46738,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -46774,7 +46774,7 @@ paths:
               result = client.workspace_memberships.get_workspace_memberships_for_user(user_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -46937,7 +46937,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -46974,7 +46974,7 @@ paths:
               result = client.workspace_memberships.get_workspace_memberships_for_workspace(workspace_gid,
               {'param': 'value', 'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -47121,7 +47121,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -47156,7 +47156,7 @@ paths:
               result = client.workspaces.get_workspaces({'param': 'value', 'param':
               'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -47288,7 +47288,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -47322,7 +47322,7 @@ paths:
               result = client.workspaces.get_workspace(workspace_gid, {'param': 'value',
               'param': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -47468,7 +47468,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -47503,7 +47503,7 @@ paths:
               result = client.workspaces.update_workspace(workspace_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -47663,7 +47663,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -47698,7 +47698,7 @@ paths:
               result = client.workspaces.add_user_for_workspace(workspace_gid, {'field':
               'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
@@ -47826,7 +47826,7 @@ paths:
                       console.log(result);
                   });
           - language: node
-            install: npm install asana
+            install: npm install asana-preview
             code: |-
               const AsanaPreview = require('asana-preview');
               let defaultClient = AsanaPreview.ApiClient.instance;
@@ -47859,7 +47859,7 @@ paths:
               result = client.workspaces.remove_user_for_workspace(workspace_gid,
               {'field': 'value', 'field': 'value'}, opt_pretty=True)
           - language: python
-            install: pip install asana
+            install: pip install asana-preview
             code: |-
               import asana_preview
               from asana_preview.rest import ApiException
