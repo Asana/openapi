@@ -1488,6 +1488,8 @@ components:
               example: dropbox
     AttachmentRequest:
       type: object
+      required:
+        - parent
       properties:
         resource_subtype:
           description: >
@@ -7393,7 +7395,7 @@ paths:
               let apiInstance = new AsanaPreview.AttachmentsApi();
               let opts = { 
                 'resource_subtype': "external" // String | 
-                'file': "file_example" // Blob | 
+                'file': fs.createReadStream("file_example") // Blob | 
                 'parent': "parent_example" // String | 
                 'url': "url_example" // String | 
                 'name': "name_example" // String | 
@@ -19248,7 +19250,7 @@ paths:
               let apiInstance = new AsanaPreview.ProjectMembershipsApi();
               let project_membership_gid = "1331"; // String | 
               let opts = { 
-                'opt_fields': ["member","member.name","project","project.name","user","user.name","write_access"] // [String] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                'opt_fields': ["access_level","member","member.name","project","project.name","user","user.name","write_access"] // [String] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               };
               apiInstance.getProjectMembership(project_membership_gid, opts, (error, data, response) => {
                 if (error) {
@@ -19283,7 +19285,7 @@ paths:
               # create an instance of the API class
               api_instance = asana_preview.ProjectMembershipsApi(asana_preview.ApiClient(configuration))
               project_membership_gid = '1331' # str | 
-              opt_fields = ["member","member.name","project","project.name","user","user.name","write_access"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
+              opt_fields = ["access_level","member","member.name","project","project.name","user","user.name","write_access"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
 
               try:
                   # Get a project membership
@@ -19443,7 +19445,7 @@ paths:
                 'user': "me", // String | A string identifying a user. This can either be the string \"me\", an email, or the gid of a user.
                 'limit': 50, // Number | Results per page. The number of objects to return per page. The value must be between 1 and 100.
                 'offset': "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9", // String | Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. 'Note: You can only pass in an offset that was returned to you via a previously paginated request.'
-                'opt_fields': ["member","member.name","offset","path","project","project.name","uri","user","user.name","write_access"] // [String] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                'opt_fields': ["access_level","member","member.name","offset","path","project","project.name","uri","user","user.name","write_access"] // [String] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               };
               apiInstance.getProjectMembershipsForProject(project_gid, opts, (error, data, response) => {
                 if (error) {
@@ -19481,7 +19483,7 @@ paths:
               user = 'me' # str | A string identifying a user. This can either be the string \"me\", an email, or the gid of a user. (optional)
               limit = 50 # int | Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
               offset = 'eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9' # str | Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. 'Note: You can only pass in an offset that was returned to you via a previously paginated request.' (optional)
-              opt_fields = ["member","member.name","offset","path","project","project.name","uri","user","user.name","write_access"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
+              opt_fields = ["access_level","member","member.name","offset","path","project","project.name","uri","user","user.name","write_access"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
 
               try:
                   # Get memberships from a project
@@ -41697,7 +41699,7 @@ paths:
               oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
               let apiInstance = new AsanaPreview.TeamsApi();
-              let body = new AsanaPreview.TeamsBody1(); // TeamsBody1 | The team to create.
+              let body = new AsanaPreview.TeamsBody(); // TeamsBody | The team to create.
               let opts = { 
                 'opt_fields': ["description","edit_team_name_or_description_access_level","edit_team_visibility_or_trash_team_access_level","guest_invite_management_access_level","html_description","join_request_management_access_level","member_invite_management_access_level","name","organization","organization.name","permalink_url","team_member_removal_access_level","visibility"] // [String] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               };
@@ -41733,7 +41735,7 @@ paths:
 
               # create an instance of the API class
               api_instance = asana_preview.TeamsApi(asana_preview.ApiClient(configuration))
-              body = asana_preview.TeamsBody1() # TeamsBody1 | The team to create.
+              body = asana_preview.TeamsBody() # TeamsBody | The team to create.
               opt_fields = ["description","edit_team_name_or_description_access_level","edit_team_visibility_or_trash_team_access_level","guest_invite_management_access_level","html_description","join_request_management_access_level","member_invite_management_access_level","name","organization","organization.name","permalink_url","team_member_removal_access_level","visibility"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
 
               try:
@@ -42060,11 +42062,12 @@ paths:
               oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
               let apiInstance = new AsanaPreview.TeamsApi();
-              let body = new AsanaPreview.TeamsBody(); // TeamsBody | The team to update.
+              let body = new AsanaPreview.TeamsTeamGidBody(); // TeamsTeamGidBody | The team to update.
+              let team_gid = "159874"; // String | Globally unique identifier for the team.
               let opts = { 
                 'opt_fields': ["description","edit_team_name_or_description_access_level","edit_team_visibility_or_trash_team_access_level","guest_invite_management_access_level","html_description","join_request_management_access_level","member_invite_management_access_level","name","organization","organization.name","permalink_url","team_member_removal_access_level","visibility"] // [String] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               };
-              apiInstance.updateTeam(body, opts, (error, data, response) => {
+              apiInstance.updateTeam(bodyteam_gid, opts, (error, data, response) => {
                 if (error) {
                   console.error(error);
                 } else {
@@ -42096,12 +42099,13 @@ paths:
 
               # create an instance of the API class
               api_instance = asana_preview.TeamsApi(asana_preview.ApiClient(configuration))
-              body = asana_preview.TeamsBody() # TeamsBody | The team to update.
+              body = asana_preview.TeamsTeamGidBody() # TeamsTeamGidBody | The team to update.
+              team_gid = '159874' # str | Globally unique identifier for the team.
               opt_fields = ["description","edit_team_name_or_description_access_level","edit_team_visibility_or_trash_team_access_level","guest_invite_management_access_level","html_description","join_request_management_access_level","member_invite_management_access_level","name","organization","organization.name","permalink_url","team_member_removal_access_level","visibility"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
 
               try:
                   # Update a team
-                  api_response = api_instance.update_team(body, opt_fields=opt_fields)
+                  api_response = api_instance.update_team(body, team_gid, opt_fields=opt_fields)
                   pprint(api_response)
               except ApiException as e:
                   print("Exception when calling TeamsApi->update_team: %s\n" % e)
