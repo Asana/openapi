@@ -16,14 +16,14 @@ readme_code_config = {
     'node': {
         'install': 'npm install asana',
     },
-    'node-preview': {
-        'install': 'npm install asana-preview',
+    'node-old': {
+        'install': 'npm install asana@1.0.2',
     },
     'python': {
         'install': 'pip install asana',
     },
-    'python-preview': {
-        'install': 'pip install asana-preview',
+    'python-old': {
+        'install': 'pip install asana==3.2.1',
     },
     'php': {
         'install': 'composer require asana/asana',
@@ -52,34 +52,9 @@ def camel_case(s):
 print('Gathering sample code')
 code_samples = {}
 for language in LANGUAGES:
-    # Add sample code for current client libraries
-    for dirpath,_,filenames in os.walk(f'./build/{language}/samples'):
-        for filename in filenames:
-            with open(f'{dirpath}/{filename}') as fp:
-                data = yaml.load(fp)
-                for resource, operations in data.items():
-                    # Set resource key in code_samples dict
-                    # NOTE: java resource name has a "base" suffix. We'll need to remove this so we
-                    # can group the sample code together with the other languages
-                    resource_name = resource.replace("base", '') if language == 'java' else resource
-                    code_samples.setdefault(resource_name, {})
-                    # Loop through each operation
-                    for operation, code_sample in operations.items():
-                        # Convert operation name from snake case to camel case
-                        operation_name_camel_case = camel_case(operation)
-                        # Set operation name
-                        code_samples[resource_name].setdefault(operation_name_camel_case, [])
-                        # Add sample code
-                        code_samples[resource_name][operation_name_camel_case].append(
-                            {
-                                "language": language,
-                                "install": readme_code_config[language]['install'],
-                                "code": code_sample
-                            }
-                        )
-    # Add sample code for preview client libraries
     if language in {"node", "python"}:
-        for dirpath,_,filenames in os.walk(f'./build/{language}-preview/docs'):
+        # Add sample code for new client libraries
+        for dirpath,_,filenames in os.walk(f'./build/{language}/docs'):
             for filename in filenames:
                 if re.search("^.*Api.yaml$", filename):
                     with open(f'{dirpath}/{filename}') as fp:
@@ -102,11 +77,62 @@ for language in LANGUAGES:
                                 code_samples[resource_name][operation_name_camel_case].append(
                                     {
                                         "language": language,
-                                        "install": readme_code_config[f'{language}-preview']['install'],
+                                        "install": readme_code_config[language]['install'],
                                         "code": code_sample,
-                                        "name": f'{language}-preview'
                                     }
                                 )
+        # Add sample code for old client libraries
+        for dirpath,_,filenames in os.walk(f'./build/{language}-old/samples'):
+            for filename in filenames:
+                with open(f'{dirpath}/{filename}') as fp:
+                    data = yaml.load(fp)
+                    for resource, operations in data.items():
+                        # Set resource key in code_samples dict
+                        # NOTE: java resource name has a "base" suffix. We'll need to remove this so we
+                        # can group the sample code together with the other languages
+                        resource_name = resource.replace("base", '') if language == 'java' else resource
+                        code_samples.setdefault(resource_name, {})
+                        # Loop through each operation
+                        for operation, code_sample in operations.items():
+                            # Convert operation name from snake case to camel case
+                            operation_name_camel_case = camel_case(operation)
+                            # Set operation name
+                            code_samples[resource_name].setdefault(operation_name_camel_case, [])
+                            # Add sample code
+                            code_samples[resource_name][operation_name_camel_case].append(
+                                {
+                                    "language": language,
+                                    "install": readme_code_config[f'{language}-old']['install'],
+                                    "code": code_sample,
+                                    "name": f'{language}-old'
+                                }
+                            )
+    else:
+        # Add sample code for current client libraries
+        for dirpath,_,filenames in os.walk(f'./build/{language}/samples'):
+            for filename in filenames:
+                with open(f'{dirpath}/{filename}') as fp:
+                    data = yaml.load(fp)
+                    for resource, operations in data.items():
+                        # Set resource key in code_samples dict
+                        # NOTE: java resource name has a "base" suffix. We'll need to remove this so we
+                        # can group the sample code together with the other languages
+                        resource_name = resource.replace("base", '') if language == 'java' else resource
+                        code_samples.setdefault(resource_name, {})
+                        # Loop through each operation
+                        for operation, code_sample in operations.items():
+                            # Convert operation name from snake case to camel case
+                            operation_name_camel_case = camel_case(operation)
+                            # Set operation name
+                            code_samples[resource_name].setdefault(operation_name_camel_case, [])
+                            # Add sample code
+                            code_samples[resource_name][operation_name_camel_case].append(
+                                {
+                                    "language": language,
+                                    "install": readme_code_config[language]['install'],
+                                    "code": code_sample
+                                }
+                            )
 
 # TODO: Find a more efficient way to inject the sample code
 # Load OAS file
