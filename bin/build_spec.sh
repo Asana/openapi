@@ -29,7 +29,6 @@ checkout_old_client_lib() (
 		cd $dest
 		echo "Getting version $tag for $dest"
 		git checkout $tag
-		git pull
         return
 	fi
 
