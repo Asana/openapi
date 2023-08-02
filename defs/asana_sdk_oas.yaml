@@ -51,7 +51,8 @@ info:
     - PortfolioCompact
     - ProjectBriefResponse
     - ProjectBriefCompact
-    - ProjectMembershipResponse
+    - ProjectMembershipCompactResponse
+    - ProjectMembershipNormalResponse
     - ProjectMembershipCompact
     - ProjectResponse
     - ProjectCompact
@@ -1467,16 +1468,16 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectBriefResponseData'
-    ProjectMembershipResponseData:
+    ProjectMembershipNormalResponseData:
       content:
         application/json; charset=UTF-8:
           schema:
-            $ref: '#/components/schemas/ProjectMembershipResponseData'
-    ProjectMembershipResponseArray:
+            $ref: '#/components/schemas/ProjectMembershipNormalResponseData'
+    ProjectMembershipCompactArray:
       content:
         application/json; charset=UTF-8:
           schema:
-            $ref: '#/components/schemas/ProjectMembershipResponseArray'
+            $ref: '#/components/schemas/ProjectMembershipCompactArray'
     ProjectStatusResponseData:
       content:
         application/json; charset=UTF-8:
@@ -6912,7 +6913,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: &id013
+          x-docs-overrides: &id014
             properties.resource_type.example: workspace
         followers:
           type: array
@@ -7185,7 +7186,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: &id017
+          x-docs-overrides: &id018
             properties.resource_type.example: status_update
           nullable: true
         status:
@@ -8203,8 +8204,323 @@ components:
           type: string
           description: The name of the member
           example: Greg Sanchez
-      x-docs-overrides: &id020
+      x-docs-overrides: &id013
         properties.resource_type.example: member
+    MembershipCompact:
+      anyOf:
+        - description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            This object represents a user's connection to a goal.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            resource_subtype:
+              type: string
+              readOnly: true
+              description: The type of membership.
+              example: goal_membership
+            member:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *member* object represents either a team or user.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  type: string
+                  description: The type of the member (team or user)
+                  example: user
+                name:
+                  type: string
+                  description: The name of the member
+                  example: Greg Sanchez
+              x-docs-overrides: *id013
+            parent:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: The name of the goal.
+                  example: Grow web traffic by 30%
+                owner:
+                  description: >-
+                    A generic Asana Resource, containing a globally unique identifier.A
+                    generic Asana Resource, containing a globally unique identifier.
+
+                    A *user* object represents an account in Asana that can be given
+                    access to various workspaces, projects, and tasks.
+                  type: object
+                  properties:
+                    gid:
+                      description: >-
+                        Globally unique identifier of the resource, as a string.
+                      type: string
+                      readOnly: true
+                      example: '12345'
+                      x-insert-after: false
+                    resource_type:
+                      description: The base type of this resource.
+                      type: string
+                      readOnly: true
+                      example: task
+                      x-insert-after: gid
+                    name:
+                      type: string
+                      description: >-
+                        *Read-only except when same user as requester*. The user’s
+                        name.
+                      example: Greg Sanchez
+                  x-docs-overrides: *id004
+                  nullable: true
+              x-docs-overrides: *id008
+              readOnly: true
+            role:
+              type: string
+              description: >-
+                Describes if the member is a commenter or editor in goal.
+              enum:
+                - commenter
+                - editor
+              example: editor
+            goal:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                *Deprecated: new integrations should prefer the `parent` field.* A
+                *Goal* is an object in the goal-tracking system that helps your organization
+                drive measurable results.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: The name of the goal.
+                  example: Grow web traffic by 30%
+                owner:
+                  description: >-
+                    A generic Asana Resource, containing a globally unique identifier.A
+                    generic Asana Resource, containing a globally unique identifier.
+
+                    A *user* object represents an account in Asana that can be given
+                    access to various workspaces, projects, and tasks.
+                  type: object
+                  properties:
+                    gid:
+                      description: >-
+                        Globally unique identifier of the resource, as a string.
+                      type: string
+                      readOnly: true
+                      example: '12345'
+                      x-insert-after: false
+                    resource_type:
+                      description: The base type of this resource.
+                      type: string
+                      readOnly: true
+                      example: task
+                      x-insert-after: gid
+                    name:
+                      type: string
+                      description: >-
+                        *Read-only except when same user as requester*. The user’s
+                        name.
+                      example: Greg Sanchez
+                  x-docs-overrides: *id004
+                  nullable: true
+              x-docs-overrides: *id008
+              readOnly: true
+              deprecated: true
+            is_commenter:
+              type: boolean
+              deprecated: true
+              readOnly: true
+              description: >-
+                *Deprecated: new integrations should prefer the `role` field.*
+                Describes if the member is comment only in goal.
+              example: false
+            is_editor:
+              type: boolean
+              deprecated: true
+              readOnly: true
+              description: >-
+                *Deprecated: new integrations should prefer the `role` field.*
+                Describes if the member is editor in goal.
+              example: false
+          x-docs-overrides: &id032
+            properties.resource_type.example: membership
+        - description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            With the introduction of “comment-only” projects in Asana, a user’s membership
+            in a project comes with associated permissions. These permissions (whether
+            a user has full access to the project or comment-only access) are accessible
+            through the project memberships endpoints described here.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              example: membership
+            user:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+            parent:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *project* represents a prioritized list of tasks in Asana or a board
+                with columns of tasks represented as cards. It exists in a single
+                workspace or organization and is accessible to a subset of users in
+                that workspace or organization, depending on its permissions.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: >-
+                    Name of the project. This is generally a short sentence fragment
+                    that fits on a line in the UI for maximum readability. However,
+                    it
+                    can be longer.
+                  type: string
+                  example: Stuff to buy
+              x-docs-overrides: *id006
+            member:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *member* object represents either a team or user.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  type: string
+                  description: The type of the member (team or user)
+                  example: user
+                name:
+                  type: string
+                  description: The name of the member
+                  example: Greg Sanchez
+              x-docs-overrides: *id013
+            access_level:
+              description: >-
+                Whether the member has admin, editor, commenter, or viewer
+                access to the project.
+              type: string
+              enum:
+                - admin
+                - editor
+                - commenter
+                - viewer
+              readOnly: true
+              example: admin
+            resource_subtype:
+              description: Type of the membership.
+              type: string
+              example: project_membership
+          x-docs-overrides: &id020
+            properties.resource_type.example: project_membership
     ModifyDependenciesRequest:
       type: object
       properties:
@@ -8344,8 +8660,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
-      x-docs-overrides: &id014
+          x-docs-overrides: *id014
+      x-docs-overrides: &id015
         properties.resource_type.example: organization_export
     OrganizationExportCompact:
       description: >-
@@ -8430,8 +8746,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
-      x-docs-overrides: *id014
+          x-docs-overrides: *id014
+      x-docs-overrides: *id015
     OrganizationExportRequest:
       type: object
       description: >-
@@ -8526,8 +8842,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
-      x-docs-overrides: *id014
+          x-docs-overrides: *id014
+      x-docs-overrides: *id015
     PortfolioAddItemRequest:
       type: object
       required:
@@ -8608,7 +8924,7 @@ components:
             - light-purple
             - light-warm-gray
           example: light-green
-      x-docs-overrides: &id015
+      x-docs-overrides: &id016
         properties.resource_type.example: portfolio
     PortfolioCompact:
       description: >-
@@ -8641,7 +8957,7 @@ components:
           description: The name of the portfolio.
           type: string
           example: Bug Portfolio
-      x-docs-overrides: *id015
+      x-docs-overrides: *id016
     PortfolioMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -8694,7 +9010,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -8723,7 +9039,7 @@ components:
                 *Read-only except when same user as requester*. The user’s name.
               example: Greg Sanchez
           x-docs-overrides: *id004
-      x-docs-overrides: &id016
+      x-docs-overrides: &id017
         properties.resource_type.example: portfolio_membership
     PortfolioMembershipCompact:
       description: >-
@@ -8777,7 +9093,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -8806,7 +9122,7 @@ components:
                 *Read-only except when same user as requester*. The user’s name.
               example: Greg Sanchez
           x-docs-overrides: *id004
-      x-docs-overrides: *id016
+      x-docs-overrides: *id017
     PortfolioMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -8859,7 +9175,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -8888,7 +9204,7 @@ components:
                 *Read-only except when same user as requester*. The user’s name.
               example: Greg Sanchez
           x-docs-overrides: *id004
-      x-docs-overrides: *id016
+      x-docs-overrides: *id017
     PortfolioRemoveItemRequest:
       type: object
       required:
@@ -8976,7 +9292,7 @@ components:
           description: >-
             True if the portfolio is public to its workspace members.
           example: false
-      x-docs-overrides: *id015
+      x-docs-overrides: *id016
     PortfolioResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -9944,7 +10260,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id017
+          x-docs-overrides: *id018
           nullable: true
         due_on:
           description: >-
@@ -10437,7 +10753,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
         permalink_url:
           type: string
           readOnly: true
@@ -10484,7 +10800,7 @@ components:
                 type: string
                 example: Packing list
             x-docs-overrides: *id011
-      x-docs-overrides: *id015
+      x-docs-overrides: *id016
     Preview:
       type: object
       description: >-
@@ -10796,7 +11112,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id017
+          x-docs-overrides: *id018
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -11722,44 +12038,6 @@ components:
           nullable: true
           format: date
           example: '2019-09-14'
-        workspace:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.A generic Asana Resource, containing
-            a globally unique identifier.A generic Asana Resource, containing a globally
-            unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.
-
-            *Create-only*. The workspace or organization this project is associated
-            with. Once created, projects cannot be moved to a different workspace.
-            This attribute can only be specified at creation time. If the workspace
-            for your project is an organization, you must also supply a `team` in
-            the request body.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              description: The name of the workspace.
-              type: string
-              example: My Company Workspace
-          x-docs-overrides: *id013
       x-docs-overrides: *id006
     ProjectBriefBase:
       description: >-
@@ -11793,7 +12071,7 @@ components:
             HTML formatted text for the project brief.
           type: string
           example: <body>This is a <strong>project brief</strong>.</body>
-      x-docs-overrides: &id018
+      x-docs-overrides: &id019
         properties.resource_type.example: project_brief
     ProjectBriefCompact:
       description: >-
@@ -11817,7 +12095,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-      x-docs-overrides: *id018
+      x-docs-overrides: *id019
     ProjectBriefRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -11857,7 +12135,7 @@ components:
             but not both.
           type: string
           example: This is a project brief.
-      x-docs-overrides: *id018
+      x-docs-overrides: *id019
     ProjectBriefResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -11943,7 +12221,7 @@ components:
               type: string
               example: Stuff to buy
           x-docs-overrides: *id006
-      x-docs-overrides: *id018
+      x-docs-overrides: *id019
     ProjectCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12106,112 +12384,7 @@ components:
                 *Read-only except when same user as requester*. The user’s name.
               example: Greg Sanchez
           x-docs-overrides: *id004
-      x-docs-overrides: &id019
-        properties.resource_type.example: project_membership
-    ProjectMembershipCompact:
-      description: >-
-        A generic Asana Resource, containing a globally unique identifier.A generic
-        Asana Resource, containing a globally unique identifier.
-
-        With the introduction of “comment-only” projects in Asana, a user’s membership
-        in a project comes with associated permissions. These permissions (whether
-        a user has full access to the project or comment-only access) are accessible
-        through the project memberships endpoints described here.
-      type: object
-      properties:
-        gid:
-          description: >-
-            Globally unique identifier of the resource, as a string.
-          type: string
-          readOnly: true
-          example: '12345'
-          x-insert-after: false
-        resource_type:
-          description: The base type of this resource.
-          type: string
-          readOnly: true
-          example: task
-          x-insert-after: gid
-        user:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user’s name.
-              example: Greg Sanchez
-          x-docs-overrides: *id004
-      x-docs-overrides: *id019
-    ProjectMembershipResponse:
-      description: >-
-        A generic Asana Resource, containing a globally unique identifier.A generic
-        Asana Resource, containing a globally unique identifier.
-
-        With the introduction of “comment-only” projects in Asana, a user’s membership
-        in a project comes with associated permissions. These permissions (whether
-        a user has full access to the project or comment-only access) are accessible
-        through the project memberships endpoints described here.
-      type: object
-      properties:
-        gid:
-          description: >-
-            Globally unique identifier of the resource, as a string.
-          type: string
-          readOnly: true
-          example: '12345'
-          x-insert-after: false
-        resource_type:
-          description: Type of the membership.
-          type: string
-          example: project_membership
-        user:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user’s name.
-              example: Greg Sanchez
-          x-docs-overrides: *id004
-        project:
+        parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -12266,17 +12439,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id020
-        write_access:
-          description: >-
-            Whether the member has full access or comment-only
-            access to the project.
-          type: string
-          enum:
-            - full_write
-            - comment_only
-          readOnly: true
-          example: full_write
+          x-docs-overrides: *id013
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -12289,7 +12452,412 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
+    ProjectMembershipCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        With the introduction of “comment-only” projects in Asana, a user’s membership
+        in a project comes with associated permissions. These permissions (whether
+        a user has full access to the project or comment-only access) are accessible
+        through the project memberships endpoints described here.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id004
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id006
+        member:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *member* object represents either a team or user.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              type: string
+              description: The type of the member (team or user)
+              example: user
+            name:
+              type: string
+              description: The name of the member
+              example: Greg Sanchez
+          x-docs-overrides: *id013
+        access_level:
+          description: >-
+            Whether the member has admin, editor, commenter, or viewer
+            access to the project.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          readOnly: true
+          example: admin
+      x-docs-overrides: *id020
+    ProjectMembershipCompactResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        With the introduction of “comment-only” projects in Asana, a user’s membership
+        in a project comes with associated permissions. These permissions (whether
+        a user has full access to the project or comment-only access) are accessible
+        through the project memberships endpoints described here.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          example: membership
+        user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id004
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id006
+        member:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *member* object represents either a team or user.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              type: string
+              description: The type of the member (team or user)
+              example: user
+            name:
+              type: string
+              description: The name of the member
+              example: Greg Sanchez
+          x-docs-overrides: *id013
+        access_level:
+          description: >-
+            Whether the member has admin, editor, commenter, or viewer
+            access to the project.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          readOnly: true
+          example: admin
+        resource_subtype:
+          description: Type of the membership.
+          type: string
+          example: project_membership
+      x-docs-overrides: *id020
+    ProjectMembershipNormalResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        With the introduction of “comment-only” projects in Asana, a user’s membership
+        in a project comes with associated permissions. These permissions (whether
+        a user has full access to the project or comment-only access) are accessible
+        through the project memberships endpoints described here.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          example: project_membership
+        user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id004
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id006
+        member:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *member* object represents either a team or user.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              type: string
+              description: The type of the member (team or user)
+              example: user
+            name:
+              type: string
+              description: The name of the member
+              example: Greg Sanchez
+          x-docs-overrides: *id013
+        access_level:
+          description: >-
+            Whether the member has admin, editor, commenter, or viewer
+            access to the project.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          readOnly: true
+          example: admin
+        project:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id006
+        write_access:
+          description: >-
+            Whether the member has full access or comment-only
+            access to the project.
+          type: string
+          enum:
+            - full_write
+            - comment_only
+          readOnly: true
+          example: full_write
+      x-docs-overrides: *id020
     ProjectRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12555,7 +13123,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id017
+          x-docs-overrides: *id018
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -13481,24 +14049,148 @@ components:
           nullable: true
           format: date
           example: '2019-09-14'
+        custom_fields:
+          description: >-
+            An object where each key is a Custom Field GID and each value is
+            an enum GID, string, number, or object.
+          type: object
+          additionalProperties:
+            type: string
+            description: >-
+              "{custom_field_gid}" => Value (Can be text, number, etc.)
+          example:
+            5678904321: On Hold
+            4578152156: Not Started
+        followers:
+          description: >-
+            *Create-only*. Comma separated string of users. Followers
+            are a subset of members who have opted in to receive "tasks
+            added" notifications for a project.
+          type: string
+          example: 12345,23456
+        owner:
+          description: >-
+            The current owner of the project, may be null.
+          nullable: true
+          type: string
+          example: '12345'
+        team:
+          description: >-
+            The team that this project is shared with.
+          type: string
+          example: '12345'
+        default_access_level:
+          description: >-
+            The default access users for users who join or are added as members to
+            the project.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          example: admin
         workspace:
+          type: string
+          description: >-
+            The `gid` of a workspace.
+          example: '12345'
+      x-docs-overrides: *id006
+    ProjectUpdateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *project* represents a prioritized list of tasks in Asana or a board with
+        columns of tasks represented as cards. It exists in a single workspace or
+        organization and is accessible to a subset of users in that workspace or organization,
+        depending on its permissions.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the project. This is generally a short sentence fragment
+            that fits on a line in the UI for maximum readability. However, it
+            can be longer.
+          type: string
+          example: Stuff to buy
+        archived:
+          description: >-
+            True if the project is archived, false if not. Archived projects
+            do not show in the UI by default and may be treated differently
+            for queries.
+          type: boolean
+          example: false
+        color:
+          description: Color of the project.
+          type: string
+          nullable: true
+          enum:
+            - dark-pink
+            - dark-green
+            - dark-blue
+            - dark-red
+            - dark-teal
+            - dark-brown
+            - dark-orange
+            - dark-purple
+            - dark-warm-gray
+            - light-pink
+            - light-green
+            - light-blue
+            - light-red
+            - light-teal
+            - light-brown
+            - light-orange
+            - light-purple
+            - light-warm-gray
+            - none
+            - null
+          example: light-green
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        current_status:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.A generic Asana Resource, containing
-            a globally unique identifier.A generic Asana Resource, containing a globally
-            unique identifier.
+            *Deprecated: new integrations should prefer the `status_update` resource.*
 
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.
+            A *project status* is an update on the progress of a particular project,
+            and is sent out to all project followers when created. These updates include
+            both text describing the update and a color code intended to represent
+            the overall state of the project: "green" for projects that are on track,
+            "yellow" for projects at risk, and "red" for projects that are behind.A
+            generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
 
-            *Create-only*. The workspace or organization this project is associated
-            with. Once created, projects cannot be moved to a different workspace.
-            This attribute can only be specified at creation time. If the workspace
-            for your project is an organization, you must also supply a `team` in
-            the request body.
+            *Deprecated: new integrations should prefer the `status_update` resource.*
+
+            A *project status* is an update on the progress of a particular project,
+            and is sent out to all project followers when created. These updates include
+            both text describing the update and a color code intended to represent
+            the overall state of the project: "green" for projects that are on track,
+            "yellow" for projects at risk, and "red" for projects that are behind.
+
+            *Deprecated: new integrations should prefer the `current_status_update`
+            resource.*
           type: object
           properties:
             gid:
@@ -13514,11 +14206,1087 @@ components:
               readOnly: true
               example: task
               x-insert-after: gid
-            name:
-              description: The name of the workspace.
+            title:
+              description: The title of the project status update.
               type: string
-              example: My Company Workspace
-          x-docs-overrides: *id013
+              example: Status Update - Jun 15
+            text:
+              description: The text content of the status update.
+              type: string
+              example: The project is moving forward according to plan...
+            html_text:
+              description: >-
+                [Opt
+                In](/docs/inputoutput-options).
+                The text content of the status update with formatting as HTML.
+              type: string
+              example: >-
+                <body>The project <strong>is</strong> moving forward according to
+                plan...</body>
+            color:
+              description: The color associated with the status update.
+              type: string
+              enum:
+                - green
+                - yellow
+                - red
+                - blue
+            author:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+            created_at:
+              description: The time at which this resource was created.
+              type: string
+              format: date-time
+              readOnly: true
+              example: '2012-02-22T02:06:58.147Z'
+            created_by:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+            modified_at:
+              description: >-
+                The time at which this project status was last modified.
+
+                *Note: This does not currently reflect any changes in
+                associations such as comments that may have been added or
+                removed from the project status.*
+              type: string
+              format: date-time
+              readOnly: true
+              example: '2012-02-22T02:06:58.147Z'
+          x-docs-overrides: *id021
+          required:
+            - text
+            - color
+          nullable: true
+        current_status_update:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *status update* is an update on the progress of a particular project,
+            portfolio, or goal, and is sent out to all of its parent's followers when
+            created. These updates include both text describing the update and a `status_type`
+            intended to represent the overall state of the project.A generic Asana
+            Resource, containing a globally unique identifier.A generic Asana Resource,
+            containing a globally unique identifier.
+
+            A *status update* is an update on the progress of a particular project,
+            portfolio, or goal, and is sent out to all of its parent's followers when
+            created. These updates include both text describing the update and a `status_type`
+            intended to represent the overall state of the project.
+
+            The latest `status_update` posted to this project.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            title:
+              description: The title of the status update.
+              type: string
+              example: Status Update - Jun 15
+            resource_subtype:
+              type: string
+              description: >-
+                The subtype of this resource. Different subtypes retain many of
+                the same fields and behavior, but may render differently in Asana
+                or represent resources with different semantic meaning.
+
+                The `resource_subtype`s for `status` objects represent the type of
+                their parent.
+              enum:
+                - project_status_update
+                - portfolio_status_update
+                - goal_status_update
+              example: project_status_update
+              readOnly: true
+          x-docs-overrides: *id018
+          nullable: true
+        custom_field_settings:
+          description: Array of Custom Field Settings (in compact form).
+          readOnly: true
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              Custom Fields Settings objects represent the many-to-many join of the
+              Custom Field and Project as well as stores information that is relevant
+              to that particular pairing.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              project:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.A
+                  generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.
+
+                  *Deprecated: new integrations should prefer the `parent` field.*
+                  The id of the project that this custom field settings refers to.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: >-
+                      Name of the project. This is generally a short sentence fragment
+                      that fits on a line in the UI for maximum readability. However,
+                      it
+                      can be longer.
+                    type: string
+                    example: Stuff to buy
+                x-docs-overrides: *id006
+                readOnly: true
+              is_important:
+                description: >-
+                  `is_important` is used in the Asana web application to determine
+                  if this custom field is displayed in the list/grid view of a project
+                  or portfolio.
+                type: boolean
+                readOnly: true
+                example: false
+              parent:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.A
+                  generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.
+
+                  The parent to which the custom field is applied. This can be a project
+                  or portfolio and indicates that the tasks or projects that the parent
+                  contains may be given custom field values for this custom field.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: >-
+                      Name of the project. This is generally a short sentence fragment
+                      that fits on a line in the UI for maximum readability. However,
+                      it
+                      can be longer.
+                    type: string
+                    example: Stuff to buy
+                x-docs-overrides: *id006
+                readOnly: true
+              custom_field:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  Custom Fields store the metadata that is used in order to add user-specified
+                  information to tasks in Asana. Be sure to reference the [custom
+                  fields](/reference/custom-fields) developer documentation for more
+                  information about how custom fields relate to various resources
+                  in Asana.
+
+
+                  Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
+                  which will make them read-only when accessed by other users. Attempting
+                  to edit a locked custom field will return HTTP error code `403 Forbidden`.A
+                  generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  Custom Fields store the metadata that is used in order to add user-specified
+                  information to tasks in Asana. Be sure to reference the [custom
+                  fields](/reference/custom-fields) developer documentation for more
+                  information about how custom fields relate to various resources
+                  in Asana.
+
+
+                  Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
+                  which will make them read-only when accessed by other users. Attempting
+                  to edit a locked custom field will return HTTP error code `403 Forbidden`.
+
+                  The custom field that is applied to the `parent`.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: The name of the custom field.
+                    type: string
+                    example: Status
+                  resource_subtype:
+                    description: >
+                      The type of the custom field. Must be one of the given values.
+                    type: string
+                    readOnly: true
+                    example: text
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                  type:
+                    description: >
+                      *Deprecated: new integrations should prefer the resource_subtype
+                      field.* The type of the custom field. Must be one of the given
+                      values.
+                    type: string
+                    readOnly: true
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                  enum_options:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `enum`.
+                      This array specifies the possible values which an `enum` custom
+                      field can adopt. To modify the enum options, refer to [working
+                      with enum
+                      options](/reference/createenumoptionforcustomfield).
+                    type: array
+                    items:
+                      description: >-
+                        A generic Asana Resource, containing a globally unique identifier.A
+                        generic Asana Resource, containing a globally unique identifier.
+
+                        Enum options are the possible values which an enum custom
+                        field can adopt. An enum custom field must contain at least
+                        1 enum option but no more than 500.
+
+
+                        You can add enum options to a custom field by using the `POST
+                        /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                        **It is not possible to remove or delete an enum option**.
+                        Instead, enum options can be disabled by updating the `enabled`
+                        field to false with the `PUT /enum_options/enum_option_gid`
+                        endpoint. Other attributes can be updated similarly.
+
+
+                        On creation of an enum option, `enabled` is always set to
+                        `true`, meaning the enum option is a selectable value for
+                        the custom field. Setting `enabled=false` is equivalent to
+                        “trashing” the enum option in the Asana web app within the
+                        “Edit Fields” dialog. The enum option will no longer be selectable
+                        but, if the enum option value was previously set within a
+                        task, the task will retain the value.
+
+
+                        Enum options are an ordered list and by default new enum options
+                        are inserted at the end. Ordering in relation to existing
+                        enum options can be specified on creation by using `insert_before`
+                        or `insert_after` to reference an existing enum option. Only
+                        one of `insert_before` and `insert_after` can be provided
+                        when creating a new enum option.
+
+
+                        An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                        endpoint.
+                      type: object
+                      properties:
+                        gid:
+                          description: >-
+                            Globally unique identifier of the resource, as a string.
+                          type: string
+                          readOnly: true
+                          example: '12345'
+                          x-insert-after: false
+                        resource_type:
+                          description: The base type of this resource.
+                          type: string
+                          readOnly: true
+                          example: task
+                          x-insert-after: gid
+                        name:
+                          description: The name of the enum option.
+                          type: string
+                          example: Low
+                        enabled:
+                          description: >-
+                            Whether or not the enum option is a selectable value for
+                            the
+                            custom field.
+                          type: boolean
+                          example: true
+                        color:
+                          description: >-
+                            The color of the enum option. Defaults to ‘none’.
+                          type: string
+                          example: blue
+                      x-docs-overrides: *id002
+                  enabled:
+                    description: >-
+                      *Conditional*. Determines if the custom field is enabled or
+                      not.
+                    type: boolean
+                    readOnly: true
+                    example: true
+                  is_formula_field:
+                    description: >-
+                      *Conditional*. This flag describes whether a custom field is
+                      a formula custom field.
+                    type: boolean
+                    example: false
+                  date_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `date`.
+                      This object reflects the chosen date (and optionally, time)
+                      value
+                      of a `date` custom field. If no date is selected, the value
+                      of
+                      `date_value` will be `null`.
+                    type: object
+                    nullable: true
+                    properties:
+                      date:
+                        type: string
+                        description: >-
+                          A string representing the date in YYYY-MM-DD format.
+                        example: '2024-08-23'
+                      date_time:
+                        type: string
+                        description: >-
+                          A string representing the date in ISO 8601 format. If no
+                          time value
+                          is selected, the value of `date-time` will be `null`.
+                        example: '2024-08-23T22:00:00.000Z'
+                  enum_value:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      Enum options are the possible values which an enum custom field
+                      can adopt. An enum custom field must contain at least 1 enum
+                      option but no more than 500.
+
+
+                      You can add enum options to a custom field by using the `POST
+                      /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                      **It is not possible to remove or delete an enum option**. Instead,
+                      enum options can be disabled by updating the `enabled` field
+                      to false with the `PUT /enum_options/enum_option_gid` endpoint.
+                      Other attributes can be updated similarly.
+
+
+                      On creation of an enum option, `enabled` is always set to `true`,
+                      meaning the enum option is a selectable value for the custom
+                      field. Setting `enabled=false` is equivalent to “trashing” the
+                      enum option in the Asana web app within the “Edit Fields” dialog.
+                      The enum option will no longer be selectable but, if the enum
+                      option value was previously set within a task, the task will
+                      retain the value.
+
+
+                      Enum options are an ordered list and by default new enum options
+                      are inserted at the end. Ordering in relation to existing enum
+                      options can be specified on creation by using `insert_before`
+                      or `insert_after` to reference an existing enum option. Only
+                      one of `insert_before` and `insert_after` can be provided when
+                      creating a new enum option.
+
+
+                      An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                      endpoint.A generic Asana Resource, containing a globally unique
+                      identifier.A generic Asana Resource, containing a globally unique
+                      identifier.
+
+                      Enum options are the possible values which an enum custom field
+                      can adopt. An enum custom field must contain at least 1 enum
+                      option but no more than 500.
+
+
+                      You can add enum options to a custom field by using the `POST
+                      /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                      **It is not possible to remove or delete an enum option**. Instead,
+                      enum options can be disabled by updating the `enabled` field
+                      to false with the `PUT /enum_options/enum_option_gid` endpoint.
+                      Other attributes can be updated similarly.
+
+
+                      On creation of an enum option, `enabled` is always set to `true`,
+                      meaning the enum option is a selectable value for the custom
+                      field. Setting `enabled=false` is equivalent to “trashing” the
+                      enum option in the Asana web app within the “Edit Fields” dialog.
+                      The enum option will no longer be selectable but, if the enum
+                      option value was previously set within a task, the task will
+                      retain the value.
+
+
+                      Enum options are an ordered list and by default new enum options
+                      are inserted at the end. Ordering in relation to existing enum
+                      options can be specified on creation by using `insert_before`
+                      or `insert_after` to reference an existing enum option. Only
+                      one of `insert_before` and `insert_after` can be provided when
+                      creating a new enum option.
+
+
+                      An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                      endpoint.
+
+                      *Conditional*. Only relevant for custom fields of type `enum`.
+                      This object is the chosen value of an `enum` custom field.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: The name of the enum option.
+                        type: string
+                        example: Low
+                      enabled:
+                        description: >-
+                          Whether or not the enum option is a selectable value for
+                          the
+                          custom field.
+                        type: boolean
+                        example: true
+                      color:
+                        description: >-
+                          The color of the enum option. Defaults to ‘none’.
+                        type: string
+                        example: blue
+                    x-docs-overrides: *id002
+                    nullable: true
+                  multi_enum_values:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type
+                      `multi_enum`. This object is the chosen values of a `multi_enum`
+                      custom
+                      field.
+                    type: array
+                    items:
+                      description: >-
+                        A generic Asana Resource, containing a globally unique identifier.A
+                        generic Asana Resource, containing a globally unique identifier.
+
+                        Enum options are the possible values which an enum custom
+                        field can adopt. An enum custom field must contain at least
+                        1 enum option but no more than 500.
+
+
+                        You can add enum options to a custom field by using the `POST
+                        /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                        **It is not possible to remove or delete an enum option**.
+                        Instead, enum options can be disabled by updating the `enabled`
+                        field to false with the `PUT /enum_options/enum_option_gid`
+                        endpoint. Other attributes can be updated similarly.
+
+
+                        On creation of an enum option, `enabled` is always set to
+                        `true`, meaning the enum option is a selectable value for
+                        the custom field. Setting `enabled=false` is equivalent to
+                        “trashing” the enum option in the Asana web app within the
+                        “Edit Fields” dialog. The enum option will no longer be selectable
+                        but, if the enum option value was previously set within a
+                        task, the task will retain the value.
+
+
+                        Enum options are an ordered list and by default new enum options
+                        are inserted at the end. Ordering in relation to existing
+                        enum options can be specified on creation by using `insert_before`
+                        or `insert_after` to reference an existing enum option. Only
+                        one of `insert_before` and `insert_after` can be provided
+                        when creating a new enum option.
+
+
+                        An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                        endpoint.
+                      type: object
+                      properties:
+                        gid:
+                          description: >-
+                            Globally unique identifier of the resource, as a string.
+                          type: string
+                          readOnly: true
+                          example: '12345'
+                          x-insert-after: false
+                        resource_type:
+                          description: The base type of this resource.
+                          type: string
+                          readOnly: true
+                          example: task
+                          x-insert-after: gid
+                        name:
+                          description: The name of the enum option.
+                          type: string
+                          example: Low
+                        enabled:
+                          description: >-
+                            Whether or not the enum option is a selectable value for
+                            the
+                            custom field.
+                          type: boolean
+                          example: true
+                        color:
+                          description: >-
+                            The color of the enum option. Defaults to ‘none’.
+                          type: string
+                          example: blue
+                      x-docs-overrides: *id002
+                  number_value:
+                    description: >-
+                      *Conditional*. This number is the value of a `number` custom
+                      field.
+                    type: number
+                    nullable: true
+                    example: 5.2
+                  text_value:
+                    description: >-
+                      *Conditional*. This string is the value of a `text` custom field.
+                    type: string
+                    nullable: true
+                    example: Some Value
+                  display_value:
+                    description: >-
+                      A string representation for the value of the custom field.
+                      Integrations that don't require the underlying type should
+                      use this field to read values. Using this field will future-proof
+                      an app against new custom field types.
+                    type: string
+                    readOnly: true
+                    example: blue
+                    nullable: true
+                  description:
+                    description: >-
+                      [Opt
+                      In](/docs/inputoutput-options).
+                      The description of the custom field.
+                    type: string
+                    example: Development team priority
+                  precision:
+                    description: >-
+                      Only relevant for custom fields of type ‘Number’. This field
+                      dictates the number of places after the decimal to round to,
+                      i.e.
+                      0 is integer values, 1 rounds to the nearest tenth, and so on.
+                      Must be between 0 and 6, inclusive.
+
+                      For percentage format, this may be unintuitive, as a value of
+                      0.25
+                      has a precision of 0, while a value of 0.251 has a precision
+                      of 1.
+                      This is due to 0.25 being displayed as 25%.
+
+                      The identifier format will always have a precision of 0.
+                    type: integer
+                    example: 2
+                  format:
+                    description: >-
+                      The format of this custom field.
+                    type: string
+                    enum:
+                      - currency
+                      - identifier
+                      - percentage
+                      - custom
+                      - duration
+                      - none
+                    example: custom
+                  currency_code:
+                    description: >-
+                      ISO 4217 currency code to format this custom field. This will
+                      be
+                      null if the `format` is not `currency`.
+                    type: string
+                    nullable: true
+                    example: EUR
+                  custom_label:
+                    description: >-
+                      This is the string that appears next to the custom field value.
+                      This will be null if the `format` is not `custom`.
+                    type: string
+                    nullable: true
+                    example: gold pieces
+                  custom_label_position:
+                    description: >-
+                      Only relevant for custom fields with `custom` format. This depicts
+                      where to place the custom label. This will be null if the `format`
+                      is not `custom`.
+                    type: string
+                    nullable: true
+                    enum:
+                      - prefix
+                      - suffix
+                      - null
+                    example: suffix
+                  is_global_to_workspace:
+                    description: >-
+                      This flag describes whether this custom field is available to
+                      every container in the workspace. Before project-specific custom
+                      fields, this field was always true.
+                    type: boolean
+                    example: true
+                    readOnly: true
+                  has_notifications_enabled:
+                    description: >-
+                      *Conditional*. This flag describes whether a follower of a task
+                      with this field should receive inbox notifications from changes
+                      to this field.
+                    type: boolean
+                    example: true
+                  asana_created_field:
+                    description: >-
+                      *Conditional*. A unique identifier to associate this field with
+                      the
+                      template source of truth.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    enum:
+                      - a_v_requirements
+                      - account_name
+                      - actionable
+                      - align_shipping_link
+                      - align_status
+                      - allotted_time
+                      - appointment
+                      - approval_stage
+                      - approved
+                      - article_series
+                      - board_committee
+                      - browser
+                      - campaign_audience
+                      - campaign_project_status
+                      - campaign_regions
+                      - channel_primary
+                      - client_topic_type
+                      - complete_by
+                      - contact
+                      - contact_email_address
+                      - content_channels
+                      - content_channels_needed
+                      - content_stage
+                      - content_type
+                      - contract
+                      - contract_status
+                      - cost
+                      - creation_stage
+                      - creative_channel
+                      - creative_needed
+                      - creative_needs
+                      - data_sensitivity
+                      - deal_size
+                      - delivery_appt
+                      - delivery_appt_date
+                      - department
+                      - department_responsible
+                      - design_request_needed
+                      - design_request_type
+                      - discussion_category
+                      - do_this_task
+                      - editorial_content_status
+                      - editorial_content_tag
+                      - editorial_content_type
+                      - effort
+                      - effort_level
+                      - est_completion_date
+                      - estimated_time
+                      - estimated_value
+                      - expected_cost
+                      - external_steps_needed
+                      - favorite_idea
+                      - feedback_type
+                      - financial
+                      - funding_amount
+                      - grant_application_process
+                      - hiring_candidate_status
+                      - idea_status
+                      - ids_link
+                      - ids_patient_link
+                      - implementation_stage
+                      - insurance
+                      - interview_area
+                      - interview_question_score
+                      - itero_scan_link
+                      - job_s_applied_to
+                      - lab
+                      - launch_status
+                      - lead_status
+                      - localization_language
+                      - localization_market_team
+                      - localization_status
+                      - meeting_minutes
+                      - meeting_needed
+                      - minutes
+                      - mrr
+                      - must_localize
+                      - name_of_foundation
+                      - need_to_follow_up
+                      - next_appointment
+                      - next_steps_sales
+                      - num_people
+                      - number_of_user_reports
+                      - office_location
+                      - onboarding_activity
+                      - owner
+                      - participants_needed
+                      - patient_date_of_birth
+                      - patient_email
+                      - patient_phone
+                      - patient_status
+                      - phone_number
+                      - planning_category
+                      - point_of_contact
+                      - position
+                      - post_format
+                      - prescription
+                      - priority
+                      - priority_level
+                      - product
+                      - product_stage
+                      - progress
+                      - project_size
+                      - project_status
+                      - proposed_budget
+                      - publish_status
+                      - reason_for_scan
+                      - referral
+                      - request_type
+                      - research_status
+                      - responsible_department
+                      - responsible_team
+                      - risk_assessment_status
+                      - room_name
+                      - sales_counterpart
+                      - sentiment
+                      - shipping_link
+                      - social_channels
+                      - stage
+                      - status
+                      - status_design
+                      - status_of_initiative
+                      - system_setup
+                      - task_progress
+                      - team
+                      - team_marketing
+                      - team_responsible
+                      - time_it_takes_to_complete_tasks
+                      - timeframe
+                      - treatment_type
+                      - type_work_requests_it
+                      - use_agency
+                      - user_name
+                      - vendor_category
+                      - vendor_type
+                      - word_count
+                      - null
+                    example: priority
+                  is_value_read_only:
+                    description: >-
+                      *Conditional*. This flag describes whether a custom field is
+                      read only.
+                    type: boolean
+                    example: false
+                  created_by:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      A *user* object represents an account in Asana that can be given
+                      access to various workspaces, projects, and tasks.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        type: string
+                        description: >-
+                          *Read-only except when same user as requester*. The user’s
+                          name.
+                        example: Greg Sanchez
+                    x-docs-overrides: *id004
+                    nullable: true
+                  people_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `people`.
+                      This array of [compact user](/reference/users) objects reflects
+                      the values
+                      of a `people` custom field.
+                    type: array
+                    items:
+                      description: >-
+                        A generic Asana Resource, containing a globally unique identifier.A
+                        generic Asana Resource, containing a globally unique identifier.
+
+                        A *user* object represents an account in Asana that can be
+                        given access to various workspaces, projects, and tasks.
+                      type: object
+                      properties:
+                        gid:
+                          description: >-
+                            Globally unique identifier of the resource, as a string.
+                          type: string
+                          readOnly: true
+                          example: '12345'
+                          x-insert-after: false
+                        resource_type:
+                          description: The base type of this resource.
+                          type: string
+                          readOnly: true
+                          example: task
+                          x-insert-after: gid
+                        name:
+                          type: string
+                          description: >-
+                            *Read-only except when same user as requester*. The user’s
+                            name.
+                          example: Greg Sanchez
+                      x-docs-overrides: *id004
+                x-docs-overrides: *id003
+                readOnly: true
+            x-docs-overrides: *id005
+        default_view:
+          description: The default view (list, board, calendar, or timeline) of a
+            project.
+          type: string
+          enum:
+            - list
+            - board
+            - calendar
+            - timeline
+          example: calendar
+        due_date:
+          description: >-
+            *Deprecated: new integrations should prefer the `due_on` field.*
+          type: string
+          nullable: true
+          format: date
+          example: '2019-09-15'
+        due_on:
+          description: >-
+            The day on which this project is due. This takes a date with
+            format YYYY-MM-DD.
+          type: string
+          nullable: true
+          format: date
+          example: '2019-09-15'
+        html_notes:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            The notes of the project with formatting as HTML.
+          type: string
+          example: <body>These are things we need to purchase.</body>
+        members:
+          description: Array of users who are members of this project.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              A *user* object represents an account in Asana that can be given access
+              to various workspaces, projects, and tasks.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              name:
+                type: string
+                description: >-
+                  *Read-only except when same user as requester*. The user’s name.
+                example: Greg Sanchez
+            x-docs-overrides: *id004
+          readOnly: true
+        modified_at:
+          description: >-
+            The time at which this project was last modified.
+
+            *Note: This does not currently reflect any changes in
+            associations such as tasks or comments that may have been added or
+            removed from the project.*
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2012-02-22T02:06:58.147Z'
+        notes:
+          description: >-
+            Free-form textual information associated with the
+            project (ie., its description).
+          type: string
+          example: These are things we need to purchase.
+        public:
+          description: >-
+            True if the project is public to its team.
+          type: boolean
+          example: false
+        start_on:
+          description: >-
+            The day on which work for this project begins, or null if the
+            project has no start date. This takes a date with `YYYY-MM-DD`
+            format. *Note: `due_on` or `due_at` must be present in the
+            request when setting or unsetting the `start_on` parameter.
+            Additionally, `start_on` and `due_on` cannot be the same date.*
+          type: string
+          nullable: true
+          format: date
+          example: '2019-09-14'
         custom_fields:
           description: >-
             An object where each key is a Custom Field GID and each value is
@@ -13815,7 +15583,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id017
+          x-docs-overrides: *id018
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -14741,44 +16509,6 @@ components:
           nullable: true
           format: date
           example: '2019-09-14'
-        workspace:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.A generic Asana Resource, containing
-            a globally unique identifier.A generic Asana Resource, containing a globally
-            unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.
-
-            *Create-only*. The workspace or organization this project is associated
-            with. Once created, projects cannot be moved to a different workspace.
-            This attribute can only be specified at creation time. If the workspace
-            for your project is an organization, you must also supply a `team` in
-            the request body.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              description: The name of the workspace.
-              type: string
-              example: My Company Workspace
-          x-docs-overrides: *id013
         custom_fields:
           description: Array of Custom Fields.
           readOnly: true
@@ -15389,7 +17119,7 @@ components:
               readOnly: true
               example: task
               x-insert-after: gid
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
           nullable: true
         created_from_template:
           description: >-
@@ -15433,6 +17163,56 @@ components:
               example: Packing list
           x-docs-overrides: *id011
           nullable: true
+        default_access_level:
+          description: >-
+            The default access users for users who join or are added as members to
+            the project.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          example: admin
+        workspace:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.
+
+            *Create-only*. The workspace or organization this project is associated
+            with. Once created, projects cannot be moved to a different workspace.
+            This attribute can only be specified at creation time. If the workspace
+            for your project is an organization, you must also supply a `team` in
+            the request body.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the workspace.
+              type: string
+              example: My Company Workspace
+          x-docs-overrides: *id014
+          readOnly: true
       x-docs-overrides: *id006
     ProjectSectionInsertRequest:
       type: object
@@ -16651,7 +18431,7 @@ components:
             - partial
             - missed
             - dropped
-      x-docs-overrides: *id017
+      x-docs-overrides: *id018
       required:
         - text
         - status_type
@@ -16698,7 +18478,7 @@ components:
             - goal_status_update
           example: project_status_update
           readOnly: true
-      x-docs-overrides: *id017
+      x-docs-overrides: *id018
     StatusUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -16774,7 +18554,7 @@ components:
           description: >-
             The id of parent to send this status update to. This can be a project,
             goal or portfolio.
-      x-docs-overrides: *id017
+      x-docs-overrides: *id018
       required:
         - text
         - status_type
@@ -17076,7 +18856,7 @@ components:
               type: string
               example: Stuff to buy
           x-docs-overrides: *id006
-      x-docs-overrides: *id017
+      x-docs-overrides: *id018
       required:
         - text
         - status_type
@@ -19340,7 +21120,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
         permalink_url:
           type: string
           readOnly: true
@@ -22093,7 +23873,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           readOnly: true
         permalink_url:
           type: string
@@ -22660,7 +24440,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
         permalink_url:
           type: string
           readOnly: true
@@ -23243,7 +25023,7 @@ components:
                 description: The name of the workspace.
                 type: string
                 example: My Company Workspace
-            x-docs-overrides: *id013
+            x-docs-overrides: *id014
       x-docs-overrides: *id004
     UserTaskListBase:
       description: >-
@@ -23334,7 +25114,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id013
+              x-docs-overrides: *id014
       x-docs-overrides: &id029
         properties.resource_type.example: user_task_list
     UserTaskListCompact:
@@ -23426,7 +25206,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id013
+              x-docs-overrides: *id014
       x-docs-overrides: *id029
     UserTaskListRequest:
       description: >-
@@ -23517,7 +25297,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id013
+              x-docs-overrides: *id014
       x-docs-overrides: *id029
     UserTaskListResponse:
       description: >-
@@ -23608,7 +25388,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id013
+              x-docs-overrides: *id014
       x-docs-overrides: *id029
     WebhookCompact:
       description: >-
@@ -24043,7 +25823,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id013
+      x-docs-overrides: *id014
     WorkspaceCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24070,7 +25850,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id013
+      x-docs-overrides: *id014
     WorkspaceMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24146,7 +25926,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
       x-docs-overrides: &id031
         properties.resource_type.example: workspace_membership
     WorkspaceMembershipCompact:
@@ -24224,7 +26004,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
       x-docs-overrides: *id031
     WorkspaceMembershipRequest:
       description: >-
@@ -24301,7 +26081,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
       x-docs-overrides: *id031
     WorkspaceMembershipResponse:
       description: >-
@@ -24378,7 +26158,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
         user_task_list:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24469,7 +26249,7 @@ components:
                       description: The name of the workspace.
                       type: string
                       example: My Company Workspace
-                  x-docs-overrides: *id013
+                  x-docs-overrides: *id014
           x-docs-overrides: *id029
           readOnly: true
         is_active:
@@ -24554,7 +26334,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id013
+      x-docs-overrides: *id014
     WorkspaceResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24593,7 +26373,7 @@ components:
           description: Whether the workspace is an *organization*.
           type: boolean
           example: false
-      x-docs-overrides: *id013
+      x-docs-overrides: *id014
     GoalMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24615,6 +26395,11 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
+        resource_subtype:
+          type: string
+          readOnly: true
+          description: The type of membership.
+          example: goal_membership
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24638,8 +26423,8 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id020
-        goal:
+          x-docs-overrides: *id013
+        parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
           type: object
@@ -24691,16 +26476,75 @@ components:
               x-docs-overrides: *id004
               nullable: true
           x-docs-overrides: *id008
-        is_commenter:
-          type: boolean
-          description: Describes if the member is comment only in goal.
-          example: false
-        is_editor:
-          type: boolean
-          description: Describes if the member is editor in goal.
-          example: false
-      x-docs-overrides: &id032
-        properties.resource_type.example: goal_membership
+          readOnly: true
+        role:
+          type: string
+          description: >-
+            Describes if the member is a commenter or editor in goal.
+          enum:
+            - commenter
+            - editor
+          example: editor
+        goal:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            *Deprecated: new integrations should prefer the `parent` field.* A *Goal*
+            is an object in the goal-tracking system that helps your organization
+            drive measurable results.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: The name of the goal.
+              example: Grow web traffic by 30%
+            owner:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+              nullable: true
+          x-docs-overrides: *id008
+          readOnly: true
+          deprecated: true
+      x-docs-overrides: *id032
     GoalMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24722,6 +26566,11 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
+        resource_subtype:
+          type: string
+          readOnly: true
+          description: The type of membership.
+          example: goal_membership
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24745,8 +26594,8 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id020
-        goal:
+          x-docs-overrides: *id013
+        parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
           type: object
@@ -24798,13 +26647,89 @@ components:
               x-docs-overrides: *id004
               nullable: true
           x-docs-overrides: *id008
+          readOnly: true
+        role:
+          type: string
+          description: >-
+            Describes if the member is a commenter or editor in goal.
+          enum:
+            - commenter
+            - editor
+          example: editor
+        goal:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            *Deprecated: new integrations should prefer the `parent` field.* A *Goal*
+            is an object in the goal-tracking system that helps your organization
+            drive measurable results.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: The name of the goal.
+              example: Grow web traffic by 30%
+            owner:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+              nullable: true
+          x-docs-overrides: *id008
+          readOnly: true
+          deprecated: true
         is_commenter:
           type: boolean
-          description: Describes if the member is comment only in goal.
+          deprecated: true
+          readOnly: true
+          description: >-
+            *Deprecated: new integrations should prefer the `role` field.*
+            Describes if the member is comment only in goal.
           example: false
         is_editor:
           type: boolean
-          description: Describes if the member is editor in goal.
+          deprecated: true
+          readOnly: true
+          description: >-
+            *Deprecated: new integrations should prefer the `role` field.*
+            Describes if the member is editor in goal.
           example: false
       x-docs-overrides: *id032
     GoalMembershipResponse:
@@ -24828,6 +26753,11 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
+        resource_subtype:
+          type: string
+          readOnly: true
+          description: The type of membership.
+          example: goal_membership
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24851,8 +26781,8 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id020
-        goal:
+          x-docs-overrides: *id013
+        parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
           type: object
@@ -24904,14 +26834,150 @@ components:
               x-docs-overrides: *id004
               nullable: true
           x-docs-overrides: *id008
-        is_commenter:
-          type: boolean
-          description: Describes if the member is comment only in goal.
-          example: false
-        is_editor:
-          type: boolean
-          description: Describes if the member is editor in goal.
-          example: false
+          readOnly: true
+        role:
+          type: string
+          description: >-
+            Describes if the member is a commenter or editor in goal.
+          enum:
+            - commenter
+            - editor
+          example: editor
+        goal:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            *Deprecated: new integrations should prefer the `parent` field.* A *Goal*
+            is an object in the goal-tracking system that helps your organization
+            drive measurable results.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: The name of the goal.
+              example: Grow web traffic by 30%
+            owner:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+              nullable: true
+          x-docs-overrides: *id008
+          readOnly: true
+          deprecated: true
+        user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            *Deprecated: new integrations should prefer the `member` field.* A *user*
+            object represents an account in Asana that can be given access to various
+            workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id004
+          deprecated: true
+          readOnly: true
+        workspace:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.
+
+            *Deprecated:* A *workspace* is the highest-level organizational unit in
+            Asana. All projects and tasks have an associated workspace.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the workspace.
+              type: string
+              example: My Company Workspace
+          x-docs-overrides: *id014
+          deprecated: true
+          readOnly: true
       x-docs-overrides: *id032
     MembershipRequest:
       type: object
@@ -24959,6 +27025,11 @@ components:
               readOnly: true
               example: task
               x-insert-after: gid
+            resource_subtype:
+              type: string
+              readOnly: true
+              description: The type of membership.
+              example: goal_membership
             member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -24982,8 +27053,8 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id020
-            goal:
+              x-docs-overrides: *id013
+            parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.
               type: object
@@ -25036,15 +27107,275 @@ components:
                   x-docs-overrides: *id004
                   nullable: true
               x-docs-overrides: *id008
-            is_commenter:
-              type: boolean
-              description: Describes if the member is comment only in goal.
-              example: false
-            is_editor:
-              type: boolean
-              description: Describes if the member is editor in goal.
-              example: false
+              readOnly: true
+            role:
+              type: string
+              description: >-
+                Describes if the member is a commenter or editor in goal.
+              enum:
+                - commenter
+                - editor
+              example: editor
+            goal:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                *Deprecated: new integrations should prefer the `parent` field.* A
+                *Goal* is an object in the goal-tracking system that helps your organization
+                drive measurable results.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: The name of the goal.
+                  example: Grow web traffic by 30%
+                owner:
+                  description: >-
+                    A generic Asana Resource, containing a globally unique identifier.A
+                    generic Asana Resource, containing a globally unique identifier.
+
+                    A *user* object represents an account in Asana that can be given
+                    access to various workspaces, projects, and tasks.
+                  type: object
+                  properties:
+                    gid:
+                      description: >-
+                        Globally unique identifier of the resource, as a string.
+                      type: string
+                      readOnly: true
+                      example: '12345'
+                      x-insert-after: false
+                    resource_type:
+                      description: The base type of this resource.
+                      type: string
+                      readOnly: true
+                      example: task
+                      x-insert-after: gid
+                    name:
+                      type: string
+                      description: >-
+                        *Read-only except when same user as requester*. The user’s
+                        name.
+                      example: Greg Sanchez
+                  x-docs-overrides: *id004
+                  nullable: true
+              x-docs-overrides: *id008
+              readOnly: true
+              deprecated: true
+            user:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.A generic Asana Resource,
+                containing a globally unique identifier.A generic Asana Resource,
+                containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+
+                *Deprecated: new integrations should prefer the `member` field.* A
+                *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+              deprecated: true
+              readOnly: true
+            workspace:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *workspace* is the highest-level organizational unit in Asana. All
+                projects and tasks have an associated workspace.A generic Asana Resource,
+                containing a globally unique identifier.A generic Asana Resource,
+                containing a globally unique identifier.
+
+                A *workspace* is the highest-level organizational unit in Asana. All
+                projects and tasks have an associated workspace.
+
+                *Deprecated:* A *workspace* is the highest-level organizational unit
+                in Asana. All projects and tasks have an associated workspace.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: The name of the workspace.
+                  type: string
+                  example: My Company Workspace
+              x-docs-overrides: *id014
+              deprecated: true
+              readOnly: true
           x-docs-overrides: *id032
+        - description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            With the introduction of “comment-only” projects in Asana, a user’s membership
+            in a project comes with associated permissions. These permissions (whether
+            a user has full access to the project or comment-only access) are accessible
+            through the project memberships endpoints described here.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              example: membership
+            user:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+            parent:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *project* represents a prioritized list of tasks in Asana or a board
+                with columns of tasks represented as cards. It exists in a single
+                workspace or organization and is accessible to a subset of users in
+                that workspace or organization, depending on its permissions.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: >-
+                    Name of the project. This is generally a short sentence fragment
+                    that fits on a line in the UI for maximum readability. However,
+                    it
+                    can be longer.
+                  type: string
+                  example: Stuff to buy
+              x-docs-overrides: *id006
+            member:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *member* object represents either a team or user.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  type: string
+                  description: The type of the member (team or user)
+                  example: user
+                name:
+                  type: string
+                  description: The name of the member
+                  example: Greg Sanchez
+              x-docs-overrides: *id013
+            access_level:
+              description: >-
+                Whether the member has admin, editor, commenter, or viewer
+                access to the project.
+              type: string
+              enum:
+                - admin
+                - editor
+                - commenter
+                - viewer
+              readOnly: true
+              example: admin
+            resource_subtype:
+              description: Type of the membership.
+              type: string
+              example: project_membership
+          x-docs-overrides: *id020
     UpdateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -25463,14 +27794,14 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/ProjectBriefResponse'
-    ProjectMembershipResponseData:
+    ProjectMembershipNormalResponseData:
       type: object
       required:
         - data
       properties:
         data:
-          $ref: '#/components/schemas/ProjectMembershipResponse'
-    ProjectMembershipResponseArray:
+          $ref: '#/components/schemas/ProjectMembershipNormalResponse'
+    ProjectMembershipCompactArray:
       type: object
       required:
         - data
@@ -25478,7 +27809,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/ProjectMembershipResponse'
+            $ref: '#/components/schemas/ProjectMembershipCompact'
         next_page:
           $ref: '#/components/schemas/NextPage'
     ProjectStatusResponseData:
@@ -26628,6 +28959,7 @@ paths:
           explode: false
       requestBody:
         description: The custom field object to create.
+        required: true
         content:
           application/json; charset=UTF-8:
             schema:
@@ -30364,6 +32696,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -30484,6 +32817,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -31345,6 +33679,8 @@ paths:
             - access_level
             - member
             - member.name
+            - parent
+            - parent.name
             - project
             - project.name
             - user
@@ -31358,6 +33694,8 @@ paths:
                 - access_level
                 - member
                 - member.name
+                - parent
+                - parent.name
                 - project
                 - project.name
                 - user
@@ -31367,7 +33705,7 @@ paths:
           explode: false
       responses:
         200:
-          $ref: '#/components/responses/ProjectMembershipResponseData'
+          $ref: '#/components/responses/ProjectMembershipNormalResponseData'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -31404,13 +33742,12 @@ paths:
             - member
             - member.name
             - offset
+            - parent
+            - parent.name
             - path
-            - project
-            - project.name
             - uri
             - user
             - user.name
-            - write_access
           schema:
             type: array
             items:
@@ -31420,18 +33757,17 @@ paths:
                 - member
                 - member.name
                 - offset
+                - parent
+                - parent.name
                 - path
-                - project
-                - project.name
                 - uri
                 - user
                 - user.name
-                - write_access
           style: form
           explode: false
       responses:
         200:
-          $ref: '#/components/responses/ProjectMembershipResponseArray'
+          $ref: '#/components/responses/ProjectMembershipCompactArray'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -32114,6 +34450,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -32234,6 +34571,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -32390,6 +34728,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -32507,6 +34846,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -32662,6 +35002,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -32779,6 +35120,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -32930,6 +35272,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -33047,6 +35390,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -33079,7 +35423,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/ProjectRequest'
+                  $ref: '#/components/schemas/ProjectUpdateRequest'
       responses:
         200:
           $ref: '#/components/responses/ProjectResponseData'
@@ -33295,6 +35639,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -33415,6 +35760,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -33567,6 +35913,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -33687,6 +36034,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -33835,6 +36183,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -33952,6 +36301,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -34114,6 +36464,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -34234,6 +36585,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -34385,6 +36737,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -34502,6 +36855,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -34796,6 +37150,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -34913,6 +37268,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -35071,6 +37427,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -35188,6 +37545,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -35350,6 +37708,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -35467,6 +37826,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
@@ -35626,6 +37986,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - default_view
             - due_date
             - due_on
@@ -35743,6 +38104,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - default_view
                 - due_date
                 - due_on
