@@ -1978,6 +1978,22 @@ components:
               type: string
               example: default_task
               nullable: true
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: &id010
             properties.resource_type.example: task
           nullable: true
@@ -7813,6 +7829,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           nullable: true
         new_project_template:
@@ -7962,6 +7994,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           nullable: true
         new_project_template:
@@ -8109,6 +8157,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           nullable: true
         new_project_template:
@@ -19706,6 +19770,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           readOnly: true
         project:
@@ -20646,6 +20726,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           readOnly: true
         duplicated_from:
@@ -20689,6 +20785,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           readOnly: true
         dependency:
@@ -20732,6 +20844,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           readOnly: true
         source:
@@ -20794,6 +20922,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           readOnly: true
       x-docs-overrides: *id024
@@ -21225,6 +21369,22 @@ components:
             - section
             - approval
           example: default_task
+        created_by:
+          type: object
+          readOnly: true
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            A *user* object represents an account in Asana that can be given
+            access to various workspaces, projects, and tasks.
+          properties:
+            gid:
+              description: Globally unique identifier of the resource.
+              type: string
+              example: '1111'
+            resource_type:
+              description: The type of resource.
+              type: string
+              example: user
         approval_status:
           type: string
           description: >-
@@ -21726,6 +21886,22 @@ components:
             - section
             - approval
           example: default_task
+        created_by:
+          type: object
+          readOnly: true
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            A *user* object represents an account in Asana that can be given
+            access to various workspaces, projects, and tasks.
+          properties:
+            gid:
+              description: Globally unique identifier of the resource.
+              type: string
+              example: '1111'
+            resource_type:
+              description: The type of resource.
+              type: string
+              example: user
       x-docs-overrides: *id010
     TaskCountResponse:
       description: A response object returned from the task count endpoint.
@@ -21868,6 +22044,22 @@ components:
             - section
             - approval
           example: default_task
+        created_by:
+          type: object
+          readOnly: true
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            A *user* object represents an account in Asana that can be given
+            access to various workspaces, projects, and tasks.
+          properties:
+            gid:
+              description: Globally unique identifier of the resource.
+              type: string
+              example: '1111'
+            resource_type:
+              description: The type of resource.
+              type: string
+              example: user
         approval_status:
           type: string
           description: >-
@@ -22456,6 +22648,22 @@ components:
             - section
             - approval
           example: default_task
+        created_by:
+          type: object
+          readOnly: true
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            A *user* object represents an account in Asana that can be given
+            access to various workspaces, projects, and tasks.
+          properties:
+            gid:
+              description: Globally unique identifier of the resource.
+              type: string
+              example: '1111'
+            resource_type:
+              description: The type of resource.
+              type: string
+              example: user
         approval_status:
           type: string
           description: >-
@@ -23755,6 +23963,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           readOnly: true
           nullable: true
@@ -27563,6 +27787,22 @@ components:
                 - section
                 - approval
               example: default_task
+            created_by:
+              type: object
+              readOnly: true
+              description: >-
+                [Opt In](/docs/inputoutput-options).
+                A *user* object represents an account in Asana that can be given
+                access to various workspaces, projects, and tasks.
+              properties:
+                gid:
+                  description: Globally unique identifier of the resource.
+                  type: string
+                  example: '1111'
+                resource_type:
+                  description: The type of resource.
+                  type: string
+                  example: user
           x-docs-overrides: *id010
           readOnly: true
         created_at:
@@ -28179,6 +28419,7 @@ paths:
             - host
             - name
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permanent_url
@@ -28196,6 +28437,7 @@ paths:
                 - host
                 - name
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permanent_url
@@ -28301,6 +28543,7 @@ paths:
             - name
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -28321,6 +28564,7 @@ paths:
                 - name
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -28381,6 +28625,7 @@ paths:
             - host
             - name
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permanent_url
@@ -28398,6 +28643,7 @@ paths:
                 - host
                 - name
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permanent_url
@@ -31230,6 +31476,7 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_task
+            - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
             - resource_subtype
@@ -31244,6 +31491,7 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_task
+                - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
                 - resource_subtype
@@ -34277,6 +34525,7 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_task
+            - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
             - resource_subtype
@@ -34291,6 +34540,7 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_task
+                - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
                 - resource_subtype
@@ -35484,6 +35734,7 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_task
+            - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
             - resource_subtype
@@ -35498,6 +35749,7 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_task
+                - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
                 - resource_subtype
@@ -38177,6 +38429,7 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_task
+            - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
             - resource_subtype
@@ -38191,6 +38444,7 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_task
+                - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
                 - resource_subtype
@@ -38952,12 +39206,15 @@ paths:
             - custom_field.text_value
             - custom_field.type
             - dependency
+            - dependency.created_by
             - dependency.name
             - dependency.resource_subtype
             - duplicate_of
+            - duplicate_of.created_by
             - duplicate_of.name
             - duplicate_of.resource_subtype
             - duplicated_from
+            - duplicated_from.created_by
             - duplicated_from.name
             - duplicated_from.resource_subtype
             - follower
@@ -39043,9 +39300,11 @@ paths:
             - tag
             - tag.name
             - target
+            - target.created_by
             - target.name
             - target.resource_subtype
             - task
+            - task.created_by
             - task.name
             - task.resource_subtype
             - text
@@ -39085,12 +39344,15 @@ paths:
                 - custom_field.text_value
                 - custom_field.type
                 - dependency
+                - dependency.created_by
                 - dependency.name
                 - dependency.resource_subtype
                 - duplicate_of
+                - duplicate_of.created_by
                 - duplicate_of.name
                 - duplicate_of.resource_subtype
                 - duplicated_from
+                - duplicated_from.created_by
                 - duplicated_from.name
                 - duplicated_from.resource_subtype
                 - follower
@@ -39176,9 +39438,11 @@ paths:
                 - tag
                 - tag.name
                 - target
+                - target.created_by
                 - target.name
                 - target.resource_subtype
                 - task
+                - task.created_by
                 - task.name
                 - task.resource_subtype
                 - text
@@ -39247,12 +39511,15 @@ paths:
             - custom_field.text_value
             - custom_field.type
             - dependency
+            - dependency.created_by
             - dependency.name
             - dependency.resource_subtype
             - duplicate_of
+            - duplicate_of.created_by
             - duplicate_of.name
             - duplicate_of.resource_subtype
             - duplicated_from
+            - duplicated_from.created_by
             - duplicated_from.name
             - duplicated_from.resource_subtype
             - follower
@@ -39338,9 +39605,11 @@ paths:
             - tag
             - tag.name
             - target
+            - target.created_by
             - target.name
             - target.resource_subtype
             - task
+            - task.created_by
             - task.name
             - task.resource_subtype
             - text
@@ -39380,12 +39649,15 @@ paths:
                 - custom_field.text_value
                 - custom_field.type
                 - dependency
+                - dependency.created_by
                 - dependency.name
                 - dependency.resource_subtype
                 - duplicate_of
+                - duplicate_of.created_by
                 - duplicate_of.name
                 - duplicate_of.resource_subtype
                 - duplicated_from
+                - duplicated_from.created_by
                 - duplicated_from.name
                 - duplicated_from.resource_subtype
                 - follower
@@ -39471,9 +39743,11 @@ paths:
                 - tag
                 - tag.name
                 - target
+                - target.created_by
                 - target.name
                 - target.resource_subtype
                 - task
+                - task.created_by
                 - task.name
                 - task.resource_subtype
                 - text
@@ -39576,12 +39850,15 @@ paths:
             - custom_field.text_value
             - custom_field.type
             - dependency
+            - dependency.created_by
             - dependency.name
             - dependency.resource_subtype
             - duplicate_of
+            - duplicate_of.created_by
             - duplicate_of.name
             - duplicate_of.resource_subtype
             - duplicated_from
+            - duplicated_from.created_by
             - duplicated_from.name
             - duplicated_from.resource_subtype
             - follower
@@ -39669,9 +39946,11 @@ paths:
             - tag
             - tag.name
             - target
+            - target.created_by
             - target.name
             - target.resource_subtype
             - task
+            - task.created_by
             - task.name
             - task.resource_subtype
             - text
@@ -39712,12 +39991,15 @@ paths:
                 - custom_field.text_value
                 - custom_field.type
                 - dependency
+                - dependency.created_by
                 - dependency.name
                 - dependency.resource_subtype
                 - duplicate_of
+                - duplicate_of.created_by
                 - duplicate_of.name
                 - duplicate_of.resource_subtype
                 - duplicated_from
+                - duplicated_from.created_by
                 - duplicated_from.name
                 - duplicated_from.resource_subtype
                 - follower
@@ -39805,9 +40087,11 @@ paths:
                 - tag
                 - tag.name
                 - target
+                - target.created_by
                 - target.name
                 - target.resource_subtype
                 - task
+                - task.created_by
                 - task.name
                 - task.resource_subtype
                 - text
@@ -39878,12 +40162,15 @@ paths:
             - custom_field.text_value
             - custom_field.type
             - dependency
+            - dependency.created_by
             - dependency.name
             - dependency.resource_subtype
             - duplicate_of
+            - duplicate_of.created_by
             - duplicate_of.name
             - duplicate_of.resource_subtype
             - duplicated_from
+            - duplicated_from.created_by
             - duplicated_from.name
             - duplicated_from.resource_subtype
             - follower
@@ -39969,9 +40256,11 @@ paths:
             - tag
             - tag.name
             - target
+            - target.created_by
             - target.name
             - target.resource_subtype
             - task
+            - task.created_by
             - task.name
             - task.resource_subtype
             - text
@@ -40011,12 +40300,15 @@ paths:
                 - custom_field.text_value
                 - custom_field.type
                 - dependency
+                - dependency.created_by
                 - dependency.name
                 - dependency.resource_subtype
                 - duplicate_of
+                - duplicate_of.created_by
                 - duplicate_of.name
                 - duplicate_of.resource_subtype
                 - duplicated_from
+                - duplicated_from.created_by
                 - duplicated_from.name
                 - duplicated_from.resource_subtype
                 - follower
@@ -40102,9 +40394,11 @@ paths:
                 - tag
                 - tag.name
                 - target
+                - target.created_by
                 - target.name
                 - target.resource_subtype
                 - task
+                - task.created_by
                 - task.name
                 - task.resource_subtype
                 - text
@@ -40719,6 +41013,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -40788,6 +41083,7 @@ paths:
             - num_subtasks
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -40819,6 +41115,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -40888,6 +41185,7 @@ paths:
                 - num_subtasks
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -40951,6 +41249,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -41019,6 +41318,7 @@ paths:
             - num_likes
             - num_subtasks
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permalink_url
@@ -41048,6 +41348,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -41116,6 +41417,7 @@ paths:
                 - num_likes
                 - num_subtasks
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permalink_url
@@ -41183,6 +41485,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -41251,6 +41554,7 @@ paths:
             - num_likes
             - num_subtasks
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permalink_url
@@ -41280,6 +41584,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -41348,6 +41653,7 @@ paths:
                 - num_likes
                 - num_subtasks
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permalink_url
@@ -41411,6 +41717,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -41479,6 +41786,7 @@ paths:
             - num_likes
             - num_subtasks
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permalink_url
@@ -41508,6 +41816,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -41576,6 +41885,7 @@ paths:
                 - num_likes
                 - num_subtasks
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permalink_url
@@ -41662,6 +41972,7 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_task
+            - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
             - resource_subtype
@@ -41676,6 +41987,7 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_task
+                - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
                 - resource_subtype
@@ -41742,6 +42054,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -41811,6 +42124,7 @@ paths:
             - num_subtasks
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -41842,6 +42156,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -41911,6 +42226,7 @@ paths:
                 - num_subtasks
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -41974,6 +42290,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -42043,6 +42360,7 @@ paths:
             - num_subtasks
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -42074,6 +42392,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -42143,6 +42462,7 @@ paths:
                 - num_subtasks
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -42206,6 +42526,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -42275,6 +42596,7 @@ paths:
             - num_subtasks
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -42306,6 +42628,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -42375,6 +42698,7 @@ paths:
                 - num_subtasks
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -42448,6 +42772,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -42517,6 +42842,7 @@ paths:
             - num_subtasks
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -42548,6 +42874,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -42617,6 +42944,7 @@ paths:
                 - num_subtasks
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -42679,6 +43007,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -42748,6 +43077,7 @@ paths:
             - num_subtasks
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -42779,6 +43109,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -42848,6 +43179,7 @@ paths:
                 - num_subtasks
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -42906,6 +43238,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -42974,6 +43307,7 @@ paths:
             - num_likes
             - num_subtasks
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permalink_url
@@ -43003,6 +43337,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -43071,6 +43406,7 @@ paths:
                 - num_likes
                 - num_subtasks
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permalink_url
@@ -43141,6 +43477,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -43209,6 +43546,7 @@ paths:
             - num_likes
             - num_subtasks
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permalink_url
@@ -43238,6 +43576,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -43306,6 +43645,7 @@ paths:
                 - num_likes
                 - num_subtasks
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permalink_url
@@ -43376,6 +43716,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -43445,6 +43786,7 @@ paths:
             - num_subtasks
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -43476,6 +43818,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -43545,6 +43888,7 @@ paths:
                 - num_subtasks
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -43680,6 +44024,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -43749,6 +44094,7 @@ paths:
             - num_subtasks
             - offset
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - path
@@ -43780,6 +44126,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -43849,6 +44196,7 @@ paths:
                 - num_subtasks
                 - offset
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - path
@@ -44135,6 +44483,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -44203,6 +44552,7 @@ paths:
             - num_likes
             - num_subtasks
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permalink_url
@@ -44232,6 +44582,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -44300,6 +44651,7 @@ paths:
                 - num_likes
                 - num_subtasks
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permalink_url
@@ -44369,6 +44721,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -44437,6 +44790,7 @@ paths:
             - num_likes
             - num_subtasks
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permalink_url
@@ -44466,6 +44820,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -44534,6 +44889,7 @@ paths:
                 - num_likes
                 - num_subtasks
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permalink_url
@@ -45094,6 +45450,7 @@ paths:
             - completed_by
             - completed_by.name
             - created_at
+            - created_by
             - custom_fields
             - custom_fields.asana_created_field
             - custom_fields.created_by
@@ -45162,6 +45519,7 @@ paths:
             - num_likes
             - num_subtasks
             - parent
+            - parent.created_by
             - parent.name
             - parent.resource_subtype
             - permalink_url
@@ -45191,6 +45549,7 @@ paths:
                 - completed_by
                 - completed_by.name
                 - created_at
+                - created_by
                 - custom_fields
                 - custom_fields.asana_created_field
                 - custom_fields.created_by
@@ -45259,6 +45618,7 @@ paths:
                 - num_likes
                 - num_subtasks
                 - parent
+                - parent.created_by
                 - parent.name
                 - parent.resource_subtype
                 - permalink_url
@@ -46238,6 +46598,7 @@ paths:
             - duration_minutes
             - entered_on
             - task
+            - task.created_by
             - task.name
             - task.resource_subtype
           schema:
@@ -46251,6 +46612,7 @@ paths:
                 - duration_minutes
                 - entered_on
                 - task
+                - task.created_by
                 - task.name
                 - task.resource_subtype
           style: form
@@ -46303,6 +46665,7 @@ paths:
             - duration_minutes
             - entered_on
             - task
+            - task.created_by
             - task.name
             - task.resource_subtype
           schema:
@@ -46316,6 +46679,7 @@ paths:
                 - duration_minutes
                 - entered_on
                 - task
+                - task.created_by
                 - task.name
                 - task.resource_subtype
           style: form
@@ -46363,6 +46727,7 @@ paths:
             - duration_minutes
             - entered_on
             - task
+            - task.created_by
             - task.name
             - task.resource_subtype
           schema:
@@ -46376,6 +46741,7 @@ paths:
                 - duration_minutes
                 - entered_on
                 - task
+                - task.created_by
                 - task.name
                 - task.resource_subtype
           style: form
