@@ -1428,6 +1428,11 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/MembershipResponseData'
+    ProjectMembershipCompactResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/ProjectMembershipCompactResponseData'
     OrganizationExportResponseData:
       content:
         application/json; charset=UTF-8:
@@ -8465,10 +8470,8 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            With the introduction of “comment-only” projects in Asana, a user’s membership
-            in a project comes with associated permissions. These permissions (whether
-            a user has full access to the project or comment-only access) are accessible
-            through the project memberships endpoints described here.
+            This object describes a team or a user's membership to a project  including
+            their level of access (Admin, Editor, Commenter, or  Viewer).
           type: object
           properties:
             gid:
@@ -8482,34 +8485,6 @@ components:
               description: The base type of this resource.
               type: string
               example: membership
-            user:
-              description: >-
-                A generic Asana Resource, containing a globally unique identifier.A
-                generic Asana Resource, containing a globally unique identifier.
-
-                A *user* object represents an account in Asana that can be given access
-                to various workspaces, projects, and tasks.
-              type: object
-              properties:
-                gid:
-                  description: >-
-                    Globally unique identifier of the resource, as a string.
-                  type: string
-                  readOnly: true
-                  example: '12345'
-                  x-insert-after: false
-                resource_type:
-                  description: The base type of this resource.
-                  type: string
-                  readOnly: true
-                  example: task
-                  x-insert-after: gid
-                name:
-                  type: string
-                  description: >-
-                    *Read-only except when same user as requester*. The user’s name.
-                  example: Greg Sanchez
-              x-docs-overrides: *id004
             parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -12412,10 +12387,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        With the introduction of “comment-only” projects in Asana, a user’s membership
-        in a project comes with associated permissions. These permissions (whether
-        a user has full access to the project or comment-only access) are accessible
-        through the project memberships endpoints described here.
+        This object describes a team or a user's membership to a project  including
+        their level of access (Admin, Editor, Commenter, or  Viewer).
       type: object
       properties:
         gid:
@@ -12431,34 +12404,6 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-        user:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user’s name.
-              example: Greg Sanchez
-          x-docs-overrides: *id004
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12533,10 +12478,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        With the introduction of “comment-only” projects in Asana, a user’s membership
-        in a project comes with associated permissions. These permissions (whether
-        a user has full access to the project or comment-only access) are accessible
-        through the project memberships endpoints described here.
+        This object describes a team or a user's membership to a project  including
+        their level of access (Admin, Editor, Commenter, or  Viewer).
       type: object
       properties:
         gid:
@@ -12552,34 +12495,6 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-        user:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user’s name.
-              example: Greg Sanchez
-          x-docs-overrides: *id004
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12654,10 +12569,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        With the introduction of “comment-only” projects in Asana, a user’s membership
-        in a project comes with associated permissions. These permissions (whether
-        a user has full access to the project or comment-only access) are accessible
-        through the project memberships endpoints described here.
+        This object describes a team or a user's membership to a project  including
+        their level of access (Admin, Editor, Commenter, or  Viewer).
       type: object
       properties:
         gid:
@@ -12671,34 +12584,6 @@ components:
           description: The base type of this resource.
           type: string
           example: membership
-        user:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user’s name.
-              example: Greg Sanchez
-          x-docs-overrides: *id004
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12777,10 +12662,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        With the introduction of “comment-only” projects in Asana, a user’s membership
-        in a project comes with associated permissions. These permissions (whether
-        a user has full access to the project or comment-only access) are accessible
-        through the project memberships endpoints described here.
+        This object describes a team or a user's membership to a project  including
+        their level of access (Admin, Editor, Commenter, or  Viewer).
       type: object
       properties:
         gid:
@@ -12794,34 +12677,6 @@ components:
           description: The base type of this resource.
           type: string
           example: project_membership
-        user:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user’s name.
-              example: Greg Sanchez
-          x-docs-overrides: *id004
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12890,6 +12745,34 @@ components:
             - viewer
           readOnly: true
           example: admin
+        user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id004
         project:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27503,10 +27386,8 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            With the introduction of “comment-only” projects in Asana, a user’s membership
-            in a project comes with associated permissions. These permissions (whether
-            a user has full access to the project or comment-only access) are accessible
-            through the project memberships endpoints described here.
+            This object describes a team or a user's membership to a project  including
+            their level of access (Admin, Editor, Commenter, or  Viewer).
           type: object
           properties:
             gid:
@@ -27520,34 +27401,6 @@ components:
               description: The base type of this resource.
               type: string
               example: membership
-            user:
-              description: >-
-                A generic Asana Resource, containing a globally unique identifier.A
-                generic Asana Resource, containing a globally unique identifier.
-
-                A *user* object represents an account in Asana that can be given access
-                to various workspaces, projects, and tasks.
-              type: object
-              properties:
-                gid:
-                  description: >-
-                    Globally unique identifier of the resource, as a string.
-                  type: string
-                  readOnly: true
-                  example: '12345'
-                  x-insert-after: false
-                resource_type:
-                  description: The base type of this resource.
-                  type: string
-                  readOnly: true
-                  example: task
-                  x-insert-after: gid
-                name:
-                  type: string
-                  description: >-
-                    *Read-only except when same user as requester*. The user’s name.
-                  example: Greg Sanchez
-              x-docs-overrides: *id004
             parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -27988,6 +27841,13 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/MembershipResponse'
+    ProjectMembershipCompactResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/ProjectMembershipCompactResponse'
     OrganizationExportResponseData:
       type: object
       required:
@@ -31631,6 +31491,55 @@ paths:
   /memberships/{membership_gid}:
     parameters:
       - $ref: '#/components/parameters/membership_path_gid'
+    get:
+      summary: Get a membership
+      description: >-
+        Returns compact `project_membership` record for a single membership. `GET`
+        only supports project memberships currently
+      tags:
+        - Memberships
+      operationId: getMembership
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - access_level
+            - member
+            - member.name
+            - parent
+            - parent.name
+            - resource_subtype
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - access_level
+                - member
+                - member.name
+                - parent
+                - parent.name
+                - resource_subtype
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/ProjectMembershipCompactResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
     delete:
       summary: Delete a membership
       description: |-
@@ -34018,8 +33927,6 @@ paths:
             - parent.name
             - path
             - uri
-            - user
-            - user.name
           schema:
             type: array
             items:
@@ -34033,8 +33940,6 @@ paths:
                 - parent.name
                 - path
                 - uri
-                - user
-                - user.name
           style: form
           explode: false
       responses:
