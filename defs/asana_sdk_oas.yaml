@@ -8470,8 +8470,8 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            This object describes a team or a user's membership to a project  including
-            their level of access (Admin, Editor, Commenter, or  Viewer).
+            This object describes a team or a user's membership to a project including
+            their level of access (Admin, Editor, Commenter, or Viewer).
           type: object
           properties:
             gid:
@@ -11095,9 +11095,6 @@ components:
               example: '2012-02-22T02:06:58.147Z'
           x-docs-overrides: &id021
             properties.resource_type.example: project_status
-          required:
-            - text
-            - color
           nullable: true
         current_status_update:
           description: >-
@@ -12387,8 +12384,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        This object describes a team or a user's membership to a project  including
-        their level of access (Admin, Editor, Commenter, or  Viewer).
+        This object describes a team or a user's membership to a project including
+        their level of access (Admin, Editor, Commenter, or Viewer).
       type: object
       properties:
         gid:
@@ -12478,8 +12475,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        This object describes a team or a user's membership to a project  including
-        their level of access (Admin, Editor, Commenter, or  Viewer).
+        This object describes a team or a user's membership to a project including
+        their level of access (Admin, Editor, Commenter, or Viewer).
       type: object
       properties:
         gid:
@@ -12569,8 +12566,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        This object describes a team or a user's membership to a project  including
-        their level of access (Admin, Editor, Commenter, or  Viewer).
+        This object describes a team or a user's membership to a project including
+        their level of access (Admin, Editor, Commenter, or Viewer).
       type: object
       properties:
         gid:
@@ -12662,8 +12659,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        This object describes a team or a user's membership to a project  including
-        their level of access (Admin, Editor, Commenter, or  Viewer).
+        This object describes a team or a user's membership to a project including
+        their level of access (Admin, Editor, Commenter, or Viewer).
       type: object
       properties:
         gid:
@@ -13025,9 +13022,6 @@ components:
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
           x-docs-overrides: *id021
-          required:
-            - text
-            - color
           nullable: true
         current_status_update:
           description: >-
@@ -14263,9 +14257,6 @@ components:
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
           x-docs-overrides: *id021
-          required:
-            - text
-            - color
           nullable: true
         current_status_update:
           description: >-
@@ -15496,9 +15487,6 @@ components:
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
           x-docs-overrides: *id021
-          required:
-            - text
-            - color
           nullable: true
         current_status_update:
           description: >-
@@ -17257,9 +17245,6 @@ components:
             - red
             - blue
       x-docs-overrides: *id021
-      required:
-        - text
-        - color
     ProjectStatusCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17345,9 +17330,6 @@ components:
             - red
             - blue
       x-docs-overrides: *id021
-      required:
-        - text
-        - color
     ProjectStatusResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17474,9 +17456,6 @@ components:
           readOnly: true
           example: '2012-02-22T02:06:58.147Z'
       x-docs-overrides: *id021
-      required:
-        - text
-        - color
     ProjectTemplateCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27386,8 +27365,8 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            This object describes a team or a user's membership to a project  including
-            their level of access (Admin, Editor, Commenter, or  Viewer).
+            This object describes a team or a user's membership to a project including
+            their level of access (Admin, Editor, Commenter, or Viewer).
           type: object
           properties:
             gid:
