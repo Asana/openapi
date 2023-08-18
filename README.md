@@ -25,4 +25,6 @@ To build (i.e., update) the OpenAPI specifications for the REST API (`./defs/asa
 ./bin/build_spec.sh
 ```
 
-Then, create a pull request with the result of the above operation.
+_Note for internal Asanas: If you see errors regarding `OPENAPI_DIR` not being set, see this task: [https://app.asana.com/0/0/1200652548580470/f](https://app.asana.com/0/0/1200652548580470/f)_
+
+The script may take a few moments to fully run. When complete, create a pull request in this repository with the result.
