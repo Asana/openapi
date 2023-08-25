@@ -12085,6 +12085,24 @@ components:
             - commenter
             - viewer
           example: admin
+        minimum_access_level_for_customization:
+          description: >-
+            The minimum access level needed for project members to modify this project's
+            workflow and appearance.
+          type: string
+          enum:
+            - admin
+            - editor
+          example: admin
+        minimum_access_level_for_sharing:
+          description: >-
+            The minimum access level needed for project members to share the project
+            and manage project memberships.
+          type: string
+          enum:
+            - admin
+            - editor
+          example: admin
       x-docs-overrides: *id006
     ProjectBriefBase:
       description: >-
@@ -14012,6 +14030,24 @@ components:
             - commenter
             - viewer
           example: admin
+        minimum_access_level_for_customization:
+          description: >-
+            The minimum access level needed for project members to modify this project's
+            workflow and appearance.
+          type: string
+          enum:
+            - admin
+            - editor
+          example: admin
+        minimum_access_level_for_sharing:
+          description: >-
+            The minimum access level needed for project members to share the project
+            and manage project memberships.
+          type: string
+          enum:
+            - admin
+            - editor
+          example: admin
         custom_fields:
           description: >-
             An object where each key is a Custom Field GID and each value is
@@ -15247,6 +15283,24 @@ components:
             - commenter
             - viewer
           example: admin
+        minimum_access_level_for_customization:
+          description: >-
+            The minimum access level needed for project members to modify this project's
+            workflow and appearance.
+          type: string
+          enum:
+            - admin
+            - editor
+          example: admin
+        minimum_access_level_for_sharing:
+          description: >-
+            The minimum access level needed for project members to share the project
+            and manage project memberships.
+          type: string
+          enum:
+            - admin
+            - editor
+          example: admin
         custom_fields:
           description: >-
             An object where each key is a Custom Field GID and each value is
@@ -16476,6 +16530,24 @@ components:
             - editor
             - commenter
             - viewer
+          example: admin
+        minimum_access_level_for_customization:
+          description: >-
+            The minimum access level needed for project members to modify this project's
+            workflow and appearance.
+          type: string
+          enum:
+            - admin
+            - editor
+          example: admin
+        minimum_access_level_for_sharing:
+          description: >-
+            The minimum access level needed for project members to share the project
+            and manage project memberships.
+          type: string
+          enum:
+            - admin
+            - editor
           example: admin
         custom_fields:
           description: Array of Custom Fields.
@@ -32866,6 +32938,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -32987,6 +33061,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -34618,6 +34694,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -34739,6 +34817,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -34896,6 +34976,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -35014,6 +35096,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -35170,6 +35254,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -35288,6 +35374,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -35440,6 +35528,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -35558,6 +35648,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -35809,6 +35901,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -35930,6 +36024,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -36083,6 +36179,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -36204,6 +36302,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -36353,6 +36453,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -36471,6 +36573,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -36634,6 +36738,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -36755,6 +36861,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -36907,6 +37015,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -37025,6 +37135,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -37320,6 +37432,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -37438,6 +37552,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -37597,6 +37713,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -37715,6 +37833,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -37878,6 +37998,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -37996,6 +38118,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -38156,6 +38280,8 @@ paths:
             - icon
             - members
             - members.name
+            - minimum_access_level_for_customization
+            - minimum_access_level_for_sharing
             - modified_at
             - name
             - notes
@@ -38274,6 +38400,8 @@ paths:
                 - icon
                 - members
                 - members.name
+                - minimum_access_level_for_customization
+                - minimum_access_level_for_sharing
                 - modified_at
                 - name
                 - notes
@@ -42169,6 +42297,7 @@ paths:
       - $ref: '#/components/parameters/section_path_gid'
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/offset'
+      - $ref: '#/components/parameters/completed_since'
     get:
       summary: Get tasks from a section
       description: >-
