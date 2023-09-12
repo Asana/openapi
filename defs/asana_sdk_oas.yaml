@@ -744,6 +744,15 @@ tags:
       retrieve *all* fields or *specific set* of the fields, use
       [field selectors](/docs/inputoutput-options) to manipulate what data is included
       in a response.
+  - name: Task templates
+    description: >-
+      A task template is an object that allows new tasks to be created
+      with a predefined setup, which may include followers, dependencies, custom fields,
+      etc.
+      It simplifies the process of running a workflow that involves a similar
+      set of work every time.
+
+      Task templates are contained within a single project.
   - name: Teams
     description: >-
       A team is used to group related projects and people together within an
@@ -1558,6 +1567,16 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TagResponseData'
+    TaskTemplateResponseArray:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/TaskTemplateResponseArray'
+    TaskTemplateResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/TaskTemplateResponseData'
     TaskResponseArray:
       content:
         application/json; charset=UTF-8:
@@ -7015,7 +7034,7 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: &id028
+          x-docs-overrides: &id029
             properties.resource_type.example: time_period
           nullable: true
         metric:
@@ -8464,7 +8483,7 @@ components:
                 *Deprecated: new integrations should prefer the `role` field.*
                 Describes if the member is editor in goal.
               example: false
-          x-docs-overrides: &id032
+          x-docs-overrides: &id033
             properties.resource_type.example: membership
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -11020,6 +11039,7 @@ components:
                 - yellow
                 - red
                 - blue
+                - complete
             author:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -12966,6 +12986,7 @@ components:
                 - yellow
                 - red
                 - blue
+                - complete
             author:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -14061,10 +14082,12 @@ components:
           additionalProperties:
             type: string
             description: >-
-              "{custom_field_gid}" => Value (Can be text, number, etc.)
+              "{custom_field_gid}" => Value (can be text, a number, etc.). For date,
+              use format "YYYY-MM-DD" (e.g., 2019-09-15). For date-time, use ISO 8601
+              date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
           example:
-            5678904321: On Hold
-            4578152156: Not Started
+            '5678904321': On Hold
+            '4578152156': Not Started
         followers:
           description: >-
             *Create-only*. Comma separated string of users. Followers
@@ -14224,6 +14247,7 @@ components:
                 - yellow
                 - red
                 - blue
+                - complete
             author:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -15319,10 +15343,12 @@ components:
           additionalProperties:
             type: string
             description: >-
-              "{custom_field_gid}" => Value (Can be text, number, etc.)
+              "{custom_field_gid}" => Value (can be text, a number, etc.). For date,
+              use format "YYYY-MM-DD" (e.g., 2019-09-15). For date-time, use ISO 8601
+              date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
           example:
-            5678904321: On Hold
-            4578152156: Not Started
+            '5678904321': On Hold
+            '4578152156': Not Started
         followers:
           description: >-
             *Create-only*. Comma separated string of users. Followers
@@ -15477,6 +15503,7 @@ components:
                 - yellow
                 - red
                 - blue
+                - complete
             author:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -17326,6 +17353,7 @@ components:
             - yellow
             - red
             - blue
+            - complete
       x-docs-overrides: *id021
     ProjectStatusCompact:
       description: >-
@@ -17411,6 +17439,7 @@ components:
             - yellow
             - red
             - blue
+            - complete
       x-docs-overrides: *id021
     ProjectStatusResponse:
       description: >-
@@ -17464,6 +17493,7 @@ components:
             - yellow
             - red
             - blue
+            - complete
         author:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -21029,6 +21059,77 @@ components:
           type: string
           example: Stuff to buy
       x-docs-overrides: *id026
+    TagCreateTagForWorkspaceRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *tag* is a label that can be attached to any task in Asana. It exists in
+        a single workspace or organization.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the tag. This is generally a short sentence fragment that
+            fits on a line in the UI for maximum readability. However, it can
+            be longer.
+          type: string
+          example: Stuff to buy
+        color:
+          type: string
+          description: Color of the tag.
+          nullable: true
+          enum:
+            - dark-pink
+            - dark-green
+            - dark-blue
+            - dark-red
+            - dark-teal
+            - dark-brown
+            - dark-orange
+            - dark-purple
+            - dark-warm-gray
+            - light-pink
+            - light-green
+            - light-blue
+            - light-red
+            - light-teal
+            - light-brown
+            - light-orange
+            - light-purple
+            - light-warm-gray
+            - null
+          example: light-green
+        notes:
+          description: >-
+            Free-form textual information associated with the
+            tag (i.e. its description).
+          type: string
+          example: Mittens really likes the stuff from Humboldt.
+        followers:
+          type: array
+          description: >-
+            An array of strings identifying users. These can either be the
+            string "me", an email, or the gid of a user.
+          items:
+            type: string
+          example:
+            - '12345'
+            - '42563'
+      x-docs-overrides: *id026
     TagRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -21869,6 +21970,1423 @@ components:
               type: string
               example: user
       x-docs-overrides: *id010
+    TaskTemplateCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *task template* is an object that allows new tasks to be created with a
+        predefined setup.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the task template.
+          type: string
+          example: Packing list
+      x-docs-overrides: &id027
+        properties.resource_type.example: task_template
+    TaskTemplateBase:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *task template* is an object that allows new tasks to be created with a
+        predefined setup.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the task template.
+          type: string
+          example: Packing list
+      x-docs-overrides: *id027
+    TaskTemplateRecipeCompact:
+      type: object
+      properties:
+        name:
+          description: >-
+            Name of the task that will be created from this template.
+          type: string
+          example: Bug Report
+        task_resource_subtype:
+          type: string
+          description: >-
+            The subtype of the task that will be created from this template.
+          enum:
+            - default_task
+            - milestone_task
+            - approval_task
+          example: default_task
+    TaskTemplateRecipe:
+      type: object
+      properties:
+        name:
+          description: >-
+            Name of the task that will be created from this template.
+          type: string
+          example: Bug Report
+        task_resource_subtype:
+          type: string
+          description: >-
+            The subtype of the task that will be created from this template.
+          enum:
+            - default_task
+            - milestone_task
+            - approval_task
+          example: default_task
+        description:
+          description: >-
+            Description of the task that will be created from this template.
+          type: string
+          example: >-
+            Please describe the bug you found and how to reproduce it.
+        html_description:
+          description: >-
+            HTML description of the task that will be created from this template.
+          type: string
+          example: >-
+            Please describe the bug you found and how to reproduce it.
+        memberships:
+          description: >-
+            Array of projects that the task created from this template will be added
+            to
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              A *project* represents a prioritized list of tasks in Asana or a board
+              with columns of tasks represented as cards. It exists in a single workspace
+              or organization and is accessible to a subset of users in that workspace
+              or organization, depending on its permissions.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              name:
+                description: >-
+                  Name of the project. This is generally a short sentence fragment
+                  that fits on a line in the UI for maximum readability. However,
+                  it
+                  can be longer.
+                type: string
+                example: Stuff to buy
+            x-docs-overrides: *id006
+        relative_start_on:
+          nullable: true
+          description: >-
+            The number of days after the task has been instantiated on which that
+            the task will start
+          type: integer
+          example: 1
+        relative_due_on:
+          nullable: true
+          description: >-
+            The number of days after the task has been instantiated on which that
+            the task will be due
+          type: integer
+          example: 2
+        due_time:
+          nullable: true
+          description: >-
+            The time of day that the task will be due
+          type: string
+          example: 13:15:00.000Z
+        dependencies:
+          description: >-
+            Array of task templates that the task created from this template will
+            depend on
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: >-
+                  Name of the task that will be created from this template.
+                type: string
+                example: Bug Report
+              task_resource_subtype:
+                type: string
+                description: >-
+                  The subtype of the task that will be created from this template.
+                enum:
+                  - default_task
+                  - milestone_task
+                  - approval_task
+                example: default_task
+        dependents:
+          description: >-
+            Array of task templates that will depend on the task created from this
+            template
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: >-
+                  Name of the task that will be created from this template.
+                type: string
+                example: Bug Report
+              task_resource_subtype:
+                type: string
+                description: >-
+                  The subtype of the task that will be created from this template.
+                enum:
+                  - default_task
+                  - milestone_task
+                  - approval_task
+                example: default_task
+        followers:
+          description: >-
+            Array of users that will be added as followers to the task created from
+            this template
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              A *user* object represents an account in Asana that can be given access
+              to various workspaces, projects, and tasks.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              name:
+                type: string
+                description: >-
+                  *Read-only except when same user as requester*. The user’s name.
+                example: Greg Sanchez
+            x-docs-overrides: *id004
+        attachments:
+          description: >-
+            Array of attachments that will be added to the task created from this
+            template
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              An *attachment* object represents any file attached to a task in Asana,
+              whether it’s an uploaded file or one associated via a third-party service
+              such as Dropbox or Google Drive.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              name:
+                description: The name of the file.
+                type: string
+                readOnly: true
+                example: Screenshot.png
+              resource_subtype:
+                description: >-
+                  The service hosting the attachment. Valid values are `asana`,
+                  `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
+                type: string
+                example: dropbox
+            x-docs-overrides: *id001
+        subtasks:
+          description: >-
+            Array of subtasks that will be added to the task created from this template
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                description: >-
+                  Name of the task that will be created from this template.
+                type: string
+                example: Bug Report
+              task_resource_subtype:
+                type: string
+                description: >-
+                  The subtype of the task that will be created from this template.
+                enum:
+                  - default_task
+                  - milestone_task
+                  - approval_task
+                example: default_task
+        custom_fields:
+          description: >-
+            Array of custom fields that will be added to the task created from this
+            template
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              Custom Fields store the metadata that is used in order to add user-specified
+              information to tasks in Asana. Be sure to reference the [custom fields](/reference/custom-fields)
+              developer documentation for more information about how custom fields
+              relate to various resources in Asana.
+
+
+              Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
+              which will make them read-only when accessed by other users. Attempting
+              to edit a locked custom field will return HTTP error code `403 Forbidden`.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              name:
+                description: The name of the custom field.
+                type: string
+                example: Status
+              resource_subtype:
+                description: >
+                  The type of the custom field. Must be one of the given values.
+                type: string
+                readOnly: true
+                example: text
+                enum:
+                  - text
+                  - enum
+                  - multi_enum
+                  - number
+                  - date
+                  - people
+              type:
+                description: >
+                  *Deprecated: new integrations should prefer the resource_subtype
+                  field.* The type of the custom field. Must be one of the given
+                  values.
+                type: string
+                readOnly: true
+                enum:
+                  - text
+                  - enum
+                  - multi_enum
+                  - number
+                  - date
+                  - people
+              enum_options:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type `enum`.
+                  This array specifies the possible values which an `enum` custom
+                  field can adopt. To modify the enum options, refer to [working
+                  with enum
+                  options](/reference/createenumoptionforcustomfield).
+                type: array
+                items:
+                  description: >-
+                    A generic Asana Resource, containing a globally unique identifier.A
+                    generic Asana Resource, containing a globally unique identifier.
+
+                    Enum options are the possible values which an enum custom field
+                    can adopt. An enum custom field must contain at least 1 enum option
+                    but no more than 500.
+
+
+                    You can add enum options to a custom field by using the `POST
+                    /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                    **It is not possible to remove or delete an enum option**. Instead,
+                    enum options can be disabled by updating the `enabled` field to
+                    false with the `PUT /enum_options/enum_option_gid` endpoint. Other
+                    attributes can be updated similarly.
+
+
+                    On creation of an enum option, `enabled` is always set to `true`,
+                    meaning the enum option is a selectable value for the custom field.
+                    Setting `enabled=false` is equivalent to “trashing” the enum option
+                    in the Asana web app within the “Edit Fields” dialog. The enum
+                    option will no longer be selectable but, if the enum option value
+                    was previously set within a task, the task will retain the value.
+
+
+                    Enum options are an ordered list and by default new enum options
+                    are inserted at the end. Ordering in relation to existing enum
+                    options can be specified on creation by using `insert_before`
+                    or `insert_after` to reference an existing enum option. Only one
+                    of `insert_before` and `insert_after` can be provided when creating
+                    a new enum option.
+
+
+                    An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                    endpoint.
+                  type: object
+                  properties:
+                    gid:
+                      description: >-
+                        Globally unique identifier of the resource, as a string.
+                      type: string
+                      readOnly: true
+                      example: '12345'
+                      x-insert-after: false
+                    resource_type:
+                      description: The base type of this resource.
+                      type: string
+                      readOnly: true
+                      example: task
+                      x-insert-after: gid
+                    name:
+                      description: The name of the enum option.
+                      type: string
+                      example: Low
+                    enabled:
+                      description: >-
+                        Whether or not the enum option is a selectable value for the
+                        custom field.
+                      type: boolean
+                      example: true
+                    color:
+                      description: >-
+                        The color of the enum option. Defaults to ‘none’.
+                      type: string
+                      example: blue
+                  x-docs-overrides: *id002
+              enabled:
+                description: >-
+                  *Conditional*. Determines if the custom field is enabled or not.
+                type: boolean
+                readOnly: true
+                example: true
+              is_formula_field:
+                description: >-
+                  *Conditional*. This flag describes whether a custom field is a formula
+                  custom field.
+                type: boolean
+                example: false
+              date_value:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type `date`.
+                  This object reflects the chosen date (and optionally, time) value
+                  of a `date` custom field. If no date is selected, the value of
+                  `date_value` will be `null`.
+                type: object
+                nullable: true
+                properties:
+                  date:
+                    type: string
+                    description: >-
+                      A string representing the date in YYYY-MM-DD format.
+                    example: '2024-08-23'
+                  date_time:
+                    type: string
+                    description: >-
+                      A string representing the date in ISO 8601 format. If no time
+                      value
+                      is selected, the value of `date-time` will be `null`.
+                    example: '2024-08-23T22:00:00.000Z'
+              enum_value:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  Enum options are the possible values which an enum custom field
+                  can adopt. An enum custom field must contain at least 1 enum option
+                  but no more than 500.
+
+
+                  You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options`
+                  endpoint.
+
+
+                  **It is not possible to remove or delete an enum option**. Instead,
+                  enum options can be disabled by updating the `enabled` field to
+                  false with the `PUT /enum_options/enum_option_gid` endpoint. Other
+                  attributes can be updated similarly.
+
+
+                  On creation of an enum option, `enabled` is always set to `true`,
+                  meaning the enum option is a selectable value for the custom field.
+                  Setting `enabled=false` is equivalent to “trashing” the enum option
+                  in the Asana web app within the “Edit Fields” dialog. The enum option
+                  will no longer be selectable but, if the enum option value was previously
+                  set within a task, the task will retain the value.
+
+
+                  Enum options are an ordered list and by default new enum options
+                  are inserted at the end. Ordering in relation to existing enum options
+                  can be specified on creation by using `insert_before` or `insert_after`
+                  to reference an existing enum option. Only one of `insert_before`
+                  and `insert_after` can be provided when creating a new enum option.
+
+
+                  An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                  endpoint.A generic Asana Resource, containing a globally unique
+                  identifier.A generic Asana Resource, containing a globally unique
+                  identifier.
+
+                  Enum options are the possible values which an enum custom field
+                  can adopt. An enum custom field must contain at least 1 enum option
+                  but no more than 500.
+
+
+                  You can add enum options to a custom field by using the `POST /custom_fields/custom_field_gid/enum_options`
+                  endpoint.
+
+
+                  **It is not possible to remove or delete an enum option**. Instead,
+                  enum options can be disabled by updating the `enabled` field to
+                  false with the `PUT /enum_options/enum_option_gid` endpoint. Other
+                  attributes can be updated similarly.
+
+
+                  On creation of an enum option, `enabled` is always set to `true`,
+                  meaning the enum option is a selectable value for the custom field.
+                  Setting `enabled=false` is equivalent to “trashing” the enum option
+                  in the Asana web app within the “Edit Fields” dialog. The enum option
+                  will no longer be selectable but, if the enum option value was previously
+                  set within a task, the task will retain the value.
+
+
+                  Enum options are an ordered list and by default new enum options
+                  are inserted at the end. Ordering in relation to existing enum options
+                  can be specified on creation by using `insert_before` or `insert_after`
+                  to reference an existing enum option. Only one of `insert_before`
+                  and `insert_after` can be provided when creating a new enum option.
+
+
+                  An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                  endpoint.
+
+                  *Conditional*. Only relevant for custom fields of type `enum`. This
+                  object is the chosen value of an `enum` custom field.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: The name of the enum option.
+                    type: string
+                    example: Low
+                  enabled:
+                    description: >-
+                      Whether or not the enum option is a selectable value for the
+                      custom field.
+                    type: boolean
+                    example: true
+                  color:
+                    description: >-
+                      The color of the enum option. Defaults to ‘none’.
+                    type: string
+                    example: blue
+                x-docs-overrides: *id002
+                nullable: true
+              multi_enum_values:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type
+                  `multi_enum`. This object is the chosen values of a `multi_enum`
+                  custom
+                  field.
+                type: array
+                items:
+                  description: >-
+                    A generic Asana Resource, containing a globally unique identifier.A
+                    generic Asana Resource, containing a globally unique identifier.
+
+                    Enum options are the possible values which an enum custom field
+                    can adopt. An enum custom field must contain at least 1 enum option
+                    but no more than 500.
+
+
+                    You can add enum options to a custom field by using the `POST
+                    /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                    **It is not possible to remove or delete an enum option**. Instead,
+                    enum options can be disabled by updating the `enabled` field to
+                    false with the `PUT /enum_options/enum_option_gid` endpoint. Other
+                    attributes can be updated similarly.
+
+
+                    On creation of an enum option, `enabled` is always set to `true`,
+                    meaning the enum option is a selectable value for the custom field.
+                    Setting `enabled=false` is equivalent to “trashing” the enum option
+                    in the Asana web app within the “Edit Fields” dialog. The enum
+                    option will no longer be selectable but, if the enum option value
+                    was previously set within a task, the task will retain the value.
+
+
+                    Enum options are an ordered list and by default new enum options
+                    are inserted at the end. Ordering in relation to existing enum
+                    options can be specified on creation by using `insert_before`
+                    or `insert_after` to reference an existing enum option. Only one
+                    of `insert_before` and `insert_after` can be provided when creating
+                    a new enum option.
+
+
+                    An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                    endpoint.
+                  type: object
+                  properties:
+                    gid:
+                      description: >-
+                        Globally unique identifier of the resource, as a string.
+                      type: string
+                      readOnly: true
+                      example: '12345'
+                      x-insert-after: false
+                    resource_type:
+                      description: The base type of this resource.
+                      type: string
+                      readOnly: true
+                      example: task
+                      x-insert-after: gid
+                    name:
+                      description: The name of the enum option.
+                      type: string
+                      example: Low
+                    enabled:
+                      description: >-
+                        Whether or not the enum option is a selectable value for the
+                        custom field.
+                      type: boolean
+                      example: true
+                    color:
+                      description: >-
+                        The color of the enum option. Defaults to ‘none’.
+                      type: string
+                      example: blue
+                  x-docs-overrides: *id002
+              number_value:
+                description: >-
+                  *Conditional*. This number is the value of a `number` custom field.
+                type: number
+                nullable: true
+                example: 5.2
+              text_value:
+                description: >-
+                  *Conditional*. This string is the value of a `text` custom field.
+                type: string
+                nullable: true
+                example: Some Value
+              display_value:
+                description: >-
+                  A string representation for the value of the custom field.
+                  Integrations that don't require the underlying type should
+                  use this field to read values. Using this field will future-proof
+                  an app against new custom field types.
+                type: string
+                readOnly: true
+                example: blue
+                nullable: true
+            x-docs-overrides: *id003
+    TaskTemplateResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *task template* is an object that allows new tasks to be created with a
+        predefined setup.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the task template.
+          type: string
+          example: Bug Report Template
+        project:
+          description: >-
+            The project that this task template belongs to.
+          nullable: true
+          allOf:
+            - description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *project* represents a prioritized list of tasks in Asana or a board
+                with columns of tasks represented as cards. It exists in a single
+                workspace or organization and is accessible to a subset of users in
+                that workspace or organization, depending on its permissions.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: >-
+                    Name of the project. This is generally a short sentence fragment
+                    that fits on a line in the UI for maximum readability. However,
+                    it
+                    can be longer.
+                  type: string
+                  example: Stuff to buy
+              x-docs-overrides: *id006
+        template:
+          description: >-
+            The configuration for the task that will be created from this template.
+          allOf:
+            - type: object
+              properties:
+                name:
+                  description: >-
+                    Name of the task that will be created from this template.
+                  type: string
+                  example: Bug Report
+                task_resource_subtype:
+                  type: string
+                  description: >-
+                    The subtype of the task that will be created from this template.
+                  enum:
+                    - default_task
+                    - milestone_task
+                    - approval_task
+                  example: default_task
+                description:
+                  description: >-
+                    Description of the task that will be created from this template.
+                  type: string
+                  example: >-
+                    Please describe the bug you found and how to reproduce it.
+                html_description:
+                  description: >-
+                    HTML description of the task that will be created from this template.
+                  type: string
+                  example: >-
+                    Please describe the bug you found and how to reproduce it.
+                memberships:
+                  description: >-
+                    Array of projects that the task created from this template will
+                    be added to
+                  type: array
+                  items:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      A *project* represents a prioritized list of tasks in Asana
+                      or a board with columns of tasks represented as cards. It exists
+                      in a single workspace or organization and is accessible to a
+                      subset of users in that workspace or organization, depending
+                      on its permissions.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: >-
+                          Name of the project. This is generally a short sentence
+                          fragment
+                          that fits on a line in the UI for maximum readability. However,
+                          it
+                          can be longer.
+                        type: string
+                        example: Stuff to buy
+                    x-docs-overrides: *id006
+                relative_start_on:
+                  nullable: true
+                  description: >-
+                    The number of days after the task has been instantiated on which
+                    that the task will start
+                  type: integer
+                  example: 1
+                relative_due_on:
+                  nullable: true
+                  description: >-
+                    The number of days after the task has been instantiated on which
+                    that the task will be due
+                  type: integer
+                  example: 2
+                due_time:
+                  nullable: true
+                  description: >-
+                    The time of day that the task will be due
+                  type: string
+                  example: 13:15:00.000Z
+                dependencies:
+                  description: >-
+                    Array of task templates that the task created from this template
+                    will depend on
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: >-
+                          Name of the task that will be created from this template.
+                        type: string
+                        example: Bug Report
+                      task_resource_subtype:
+                        type: string
+                        description: >-
+                          The subtype of the task that will be created from this template.
+                        enum:
+                          - default_task
+                          - milestone_task
+                          - approval_task
+                        example: default_task
+                dependents:
+                  description: >-
+                    Array of task templates that will depend on the task created from
+                    this template
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: >-
+                          Name of the task that will be created from this template.
+                        type: string
+                        example: Bug Report
+                      task_resource_subtype:
+                        type: string
+                        description: >-
+                          The subtype of the task that will be created from this template.
+                        enum:
+                          - default_task
+                          - milestone_task
+                          - approval_task
+                        example: default_task
+                followers:
+                  description: >-
+                    Array of users that will be added as followers to the task created
+                    from this template
+                  type: array
+                  items:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      A *user* object represents an account in Asana that can be given
+                      access to various workspaces, projects, and tasks.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        type: string
+                        description: >-
+                          *Read-only except when same user as requester*. The user’s
+                          name.
+                        example: Greg Sanchez
+                    x-docs-overrides: *id004
+                attachments:
+                  description: >-
+                    Array of attachments that will be added to the task created from
+                    this template
+                  type: array
+                  items:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      An *attachment* object represents any file attached to a task
+                      in Asana, whether it’s an uploaded file or one associated via
+                      a third-party service such as Dropbox or Google Drive.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: The name of the file.
+                        type: string
+                        readOnly: true
+                        example: Screenshot.png
+                      resource_subtype:
+                        description: >-
+                          The service hosting the attachment. Valid values are `asana`,
+                          `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
+                        type: string
+                        example: dropbox
+                    x-docs-overrides: *id001
+                subtasks:
+                  description: >-
+                    Array of subtasks that will be added to the task created from
+                    this template
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: >-
+                          Name of the task that will be created from this template.
+                        type: string
+                        example: Bug Report
+                      task_resource_subtype:
+                        type: string
+                        description: >-
+                          The subtype of the task that will be created from this template.
+                        enum:
+                          - default_task
+                          - milestone_task
+                          - approval_task
+                        example: default_task
+                custom_fields:
+                  description: >-
+                    Array of custom fields that will be added to the task created
+                    from this template
+                  type: array
+                  items:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      Custom Fields store the metadata that is used in order to add
+                      user-specified information to tasks in Asana. Be sure to reference
+                      the [custom fields](/reference/custom-fields) developer documentation
+                      for more information about how custom fields relate to various
+                      resources in Asana.
+
+
+                      Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
+                      which will make them read-only when accessed by other users.
+                      Attempting to edit a locked custom field will return HTTP error
+                      code `403 Forbidden`.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: The name of the custom field.
+                        type: string
+                        example: Status
+                      resource_subtype:
+                        description: >
+                          The type of the custom field. Must be one of the given values.
+                        type: string
+                        readOnly: true
+                        example: text
+                        enum:
+                          - text
+                          - enum
+                          - multi_enum
+                          - number
+                          - date
+                          - people
+                      type:
+                        description: >
+                          *Deprecated: new integrations should prefer the resource_subtype
+                          field.* The type of the custom field. Must be one of the
+                          given
+                          values.
+                        type: string
+                        readOnly: true
+                        enum:
+                          - text
+                          - enum
+                          - multi_enum
+                          - number
+                          - date
+                          - people
+                      enum_options:
+                        description: >-
+                          *Conditional*. Only relevant for custom fields of type `enum`.
+                          This array specifies the possible values which an `enum`
+                          custom
+                          field can adopt. To modify the enum options, refer to [working
+                          with enum
+                          options](/reference/createenumoptionforcustomfield).
+                        type: array
+                        items:
+                          description: >-
+                            A generic Asana Resource, containing a globally unique
+                            identifier.A generic Asana Resource, containing a globally
+                            unique identifier.
+
+                            Enum options are the possible values which an enum custom
+                            field can adopt. An enum custom field must contain at
+                            least 1 enum option but no more than 500.
+
+
+                            You can add enum options to a custom field by using the
+                            `POST /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                            **It is not possible to remove or delete an enum option**.
+                            Instead, enum options can be disabled by updating the
+                            `enabled` field to false with the `PUT /enum_options/enum_option_gid`
+                            endpoint. Other attributes can be updated similarly.
+
+
+                            On creation of an enum option, `enabled` is always set
+                            to `true`, meaning the enum option is a selectable value
+                            for the custom field. Setting `enabled=false` is equivalent
+                            to “trashing” the enum option in the Asana web app within
+                            the “Edit Fields” dialog. The enum option will no longer
+                            be selectable but, if the enum option value was previously
+                            set within a task, the task will retain the value.
+
+
+                            Enum options are an ordered list and by default new enum
+                            options are inserted at the end. Ordering in relation
+                            to existing enum options can be specified on creation
+                            by using `insert_before` or `insert_after` to reference
+                            an existing enum option. Only one of `insert_before` and
+                            `insert_after` can be provided when creating a new enum
+                            option.
+
+
+                            An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                            endpoint.
+                          type: object
+                          properties:
+                            gid:
+                              description: >-
+                                Globally unique identifier of the resource, as a string.
+                              type: string
+                              readOnly: true
+                              example: '12345'
+                              x-insert-after: false
+                            resource_type:
+                              description: The base type of this resource.
+                              type: string
+                              readOnly: true
+                              example: task
+                              x-insert-after: gid
+                            name:
+                              description: The name of the enum option.
+                              type: string
+                              example: Low
+                            enabled:
+                              description: >-
+                                Whether or not the enum option is a selectable value
+                                for the
+                                custom field.
+                              type: boolean
+                              example: true
+                            color:
+                              description: >-
+                                The color of the enum option. Defaults to ‘none’.
+                              type: string
+                              example: blue
+                          x-docs-overrides: *id002
+                      enabled:
+                        description: >-
+                          *Conditional*. Determines if the custom field is enabled
+                          or not.
+                        type: boolean
+                        readOnly: true
+                        example: true
+                      is_formula_field:
+                        description: >-
+                          *Conditional*. This flag describes whether a custom field
+                          is a formula custom field.
+                        type: boolean
+                        example: false
+                      date_value:
+                        description: >-
+                          *Conditional*. Only relevant for custom fields of type `date`.
+                          This object reflects the chosen date (and optionally, time)
+                          value
+                          of a `date` custom field. If no date is selected, the value
+                          of
+                          `date_value` will be `null`.
+                        type: object
+                        nullable: true
+                        properties:
+                          date:
+                            type: string
+                            description: >-
+                              A string representing the date in YYYY-MM-DD format.
+                            example: '2024-08-23'
+                          date_time:
+                            type: string
+                            description: >-
+                              A string representing the date in ISO 8601 format. If
+                              no time value
+                              is selected, the value of `date-time` will be `null`.
+                            example: '2024-08-23T22:00:00.000Z'
+                      enum_value:
+                        description: >-
+                          A generic Asana Resource, containing a globally unique identifier.A
+                          generic Asana Resource, containing a globally unique identifier.
+
+                          Enum options are the possible values which an enum custom
+                          field can adopt. An enum custom field must contain at least
+                          1 enum option but no more than 500.
+
+
+                          You can add enum options to a custom field by using the
+                          `POST /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                          **It is not possible to remove or delete an enum option**.
+                          Instead, enum options can be disabled by updating the `enabled`
+                          field to false with the `PUT /enum_options/enum_option_gid`
+                          endpoint. Other attributes can be updated similarly.
+
+
+                          On creation of an enum option, `enabled` is always set to
+                          `true`, meaning the enum option is a selectable value for
+                          the custom field. Setting `enabled=false` is equivalent
+                          to “trashing” the enum option in the Asana web app within
+                          the “Edit Fields” dialog. The enum option will no longer
+                          be selectable but, if the enum option value was previously
+                          set within a task, the task will retain the value.
+
+
+                          Enum options are an ordered list and by default new enum
+                          options are inserted at the end. Ordering in relation to
+                          existing enum options can be specified on creation by using
+                          `insert_before` or `insert_after` to reference an existing
+                          enum option. Only one of `insert_before` and `insert_after`
+                          can be provided when creating a new enum option.
+
+
+                          An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                          endpoint.A generic Asana Resource, containing a globally
+                          unique identifier.A generic Asana Resource, containing a
+                          globally unique identifier.
+
+                          Enum options are the possible values which an enum custom
+                          field can adopt. An enum custom field must contain at least
+                          1 enum option but no more than 500.
+
+
+                          You can add enum options to a custom field by using the
+                          `POST /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                          **It is not possible to remove or delete an enum option**.
+                          Instead, enum options can be disabled by updating the `enabled`
+                          field to false with the `PUT /enum_options/enum_option_gid`
+                          endpoint. Other attributes can be updated similarly.
+
+
+                          On creation of an enum option, `enabled` is always set to
+                          `true`, meaning the enum option is a selectable value for
+                          the custom field. Setting `enabled=false` is equivalent
+                          to “trashing” the enum option in the Asana web app within
+                          the “Edit Fields” dialog. The enum option will no longer
+                          be selectable but, if the enum option value was previously
+                          set within a task, the task will retain the value.
+
+
+                          Enum options are an ordered list and by default new enum
+                          options are inserted at the end. Ordering in relation to
+                          existing enum options can be specified on creation by using
+                          `insert_before` or `insert_after` to reference an existing
+                          enum option. Only one of `insert_before` and `insert_after`
+                          can be provided when creating a new enum option.
+
+
+                          An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                          endpoint.
+
+                          *Conditional*. Only relevant for custom fields of type `enum`.
+                          This object is the chosen value of an `enum` custom field.
+                        type: object
+                        properties:
+                          gid:
+                            description: >-
+                              Globally unique identifier of the resource, as a string.
+                            type: string
+                            readOnly: true
+                            example: '12345'
+                            x-insert-after: false
+                          resource_type:
+                            description: The base type of this resource.
+                            type: string
+                            readOnly: true
+                            example: task
+                            x-insert-after: gid
+                          name:
+                            description: The name of the enum option.
+                            type: string
+                            example: Low
+                          enabled:
+                            description: >-
+                              Whether or not the enum option is a selectable value
+                              for the
+                              custom field.
+                            type: boolean
+                            example: true
+                          color:
+                            description: >-
+                              The color of the enum option. Defaults to ‘none’.
+                            type: string
+                            example: blue
+                        x-docs-overrides: *id002
+                        nullable: true
+                      multi_enum_values:
+                        description: >-
+                          *Conditional*. Only relevant for custom fields of type
+                          `multi_enum`. This object is the chosen values of a `multi_enum`
+                          custom
+                          field.
+                        type: array
+                        items:
+                          description: >-
+                            A generic Asana Resource, containing a globally unique
+                            identifier.A generic Asana Resource, containing a globally
+                            unique identifier.
+
+                            Enum options are the possible values which an enum custom
+                            field can adopt. An enum custom field must contain at
+                            least 1 enum option but no more than 500.
+
+
+                            You can add enum options to a custom field by using the
+                            `POST /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                            **It is not possible to remove or delete an enum option**.
+                            Instead, enum options can be disabled by updating the
+                            `enabled` field to false with the `PUT /enum_options/enum_option_gid`
+                            endpoint. Other attributes can be updated similarly.
+
+
+                            On creation of an enum option, `enabled` is always set
+                            to `true`, meaning the enum option is a selectable value
+                            for the custom field. Setting `enabled=false` is equivalent
+                            to “trashing” the enum option in the Asana web app within
+                            the “Edit Fields” dialog. The enum option will no longer
+                            be selectable but, if the enum option value was previously
+                            set within a task, the task will retain the value.
+
+
+                            Enum options are an ordered list and by default new enum
+                            options are inserted at the end. Ordering in relation
+                            to existing enum options can be specified on creation
+                            by using `insert_before` or `insert_after` to reference
+                            an existing enum option. Only one of `insert_before` and
+                            `insert_after` can be provided when creating a new enum
+                            option.
+
+
+                            An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                            endpoint.
+                          type: object
+                          properties:
+                            gid:
+                              description: >-
+                                Globally unique identifier of the resource, as a string.
+                              type: string
+                              readOnly: true
+                              example: '12345'
+                              x-insert-after: false
+                            resource_type:
+                              description: The base type of this resource.
+                              type: string
+                              readOnly: true
+                              example: task
+                              x-insert-after: gid
+                            name:
+                              description: The name of the enum option.
+                              type: string
+                              example: Low
+                            enabled:
+                              description: >-
+                                Whether or not the enum option is a selectable value
+                                for the
+                                custom field.
+                              type: boolean
+                              example: true
+                            color:
+                              description: >-
+                                The color of the enum option. Defaults to ‘none’.
+                              type: string
+                              example: blue
+                          x-docs-overrides: *id002
+                      number_value:
+                        description: >-
+                          *Conditional*. This number is the value of a `number` custom
+                          field.
+                        type: number
+                        nullable: true
+                        example: 5.2
+                      text_value:
+                        description: >-
+                          *Conditional*. This string is the value of a `text` custom
+                          field.
+                        type: string
+                        nullable: true
+                        example: Some Value
+                      display_value:
+                        description: >-
+                          A string representation for the value of the custom field.
+                          Integrations that don't require the underlying type should
+                          use this field to read values. Using this field will future-proof
+                          an app against new custom field types.
+                        type: string
+                        readOnly: true
+                        example: blue
+                        nullable: true
+                    x-docs-overrides: *id003
+        created_by:
+          description: >-
+            The user who created this task template.
+          allOf:
+            - description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id004
+        created_at:
+          description: >-
+            The time at which this task template was created.
+          type: string
+          format: date-time
+          example: '2019-01-01T00:00:00.000Z'
+      x-docs-overrides: *id027
     TaskCountResponse:
       description: A response object returned from the task count endpoint.
       type: object
@@ -21967,6 +23485,14 @@ components:
           example: '13579'
       required:
         - tag
+    TaskTemplateInstantiateTaskRequest:
+      type: object
+      properties:
+        name:
+          description: The name of the new task. If not provided, the name of the
+            task template will be used.
+          type: string
+          example: New Task
     TaskRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -22521,10 +24047,12 @@ components:
           additionalProperties:
             type: string
             description: >-
-              "{custom_field_gid}" => Value (Can be text, number, etc.)
+              "{custom_field_gid}" => Value (can be text, a number, etc.). For date,
+              use format "YYYY-MM-DD" (e.g., 2019-09-15). For date-time, use ISO 8601
+              date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
           example:
-            5678904321: On Hold
-            4578152156: Not Started
+            '5678904321': On Hold
+            '4578152156': Not Started
         followers:
           type: array
           description: >-
@@ -24257,7 +25785,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: &id027
+      x-docs-overrides: &id028
         properties.resource_type.example: team_membership
     TeamMembershipCompact:
       description: >-
@@ -24352,7 +25880,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     TeamMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24446,7 +25974,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     TeamRemoveUserRequest:
       type: object
       description: A user identification object for specification with the addUser/removeUser
@@ -24817,9 +26345,9 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: *id028
+          x-docs-overrides: *id029
           nullable: true
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     TimePeriodCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -24867,7 +26395,7 @@ components:
           description: >-
             A string representing the cadence code and the fiscal year.
           example: Q1 FY22
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     TimePeriodResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -24962,9 +26490,9 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: *id028
+          x-docs-overrides: *id029
           nullable: true
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     UserBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -25310,7 +26838,7 @@ components:
                   type: string
                   example: My Company Workspace
               x-docs-overrides: *id014
-      x-docs-overrides: &id029
+      x-docs-overrides: &id030
         properties.resource_type.example: user_task_list
     UserTaskListCompact:
       description: >-
@@ -25402,7 +26930,7 @@ components:
                   type: string
                   example: My Company Workspace
               x-docs-overrides: *id014
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     UserTaskListRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -25493,7 +27021,7 @@ components:
                   type: string
                   example: My Company Workspace
               x-docs-overrides: *id014
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     UserTaskListResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -25584,7 +27112,7 @@ components:
                   type: string
                   example: My Company Workspace
               x-docs-overrides: *id014
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     WebhookCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -25644,7 +27172,7 @@ components:
           format: uri
           readOnly: true
           example: https://example.com/receive-webhook/7654
-      x-docs-overrides: &id030
+      x-docs-overrides: &id031
         properties.resource_type.example: webhook
     WebhookFilter:
       type: object
@@ -25917,7 +27445,7 @@ components:
                   - due_at
                   - due_on
                   - dependencies
-      x-docs-overrides: *id030
+      x-docs-overrides: *id031
     WebhookUpdateRequest:
       type: object
       properties:
@@ -26122,7 +27650,7 @@ components:
               type: string
               example: My Company Workspace
           x-docs-overrides: *id014
-      x-docs-overrides: &id031
+      x-docs-overrides: &id032
         properties.resource_type.example: workspace_membership
     WorkspaceMembershipCompact:
       description: >-
@@ -26200,7 +27728,7 @@ components:
               type: string
               example: My Company Workspace
           x-docs-overrides: *id014
-      x-docs-overrides: *id031
+      x-docs-overrides: *id032
     WorkspaceMembershipRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -26277,7 +27805,7 @@ components:
               type: string
               example: My Company Workspace
           x-docs-overrides: *id014
-      x-docs-overrides: *id031
+      x-docs-overrides: *id032
     WorkspaceMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -26445,7 +27973,7 @@ components:
                       type: string
                       example: My Company Workspace
                   x-docs-overrides: *id014
-          x-docs-overrides: *id029
+          x-docs-overrides: *id030
           readOnly: true
         is_active:
           type: boolean
@@ -26491,7 +28019,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T02:06:58.147Z'
-      x-docs-overrides: *id031
+      x-docs-overrides: *id032
     WorkspaceRemoveUserRequest:
       type: object
       description: A user identification object for specification with the addUser/removeUser
@@ -26739,7 +28267,7 @@ components:
           x-docs-overrides: *id008
           readOnly: true
           deprecated: true
-      x-docs-overrides: *id032
+      x-docs-overrides: *id033
     GoalMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -26926,7 +28454,7 @@ components:
             *Deprecated: new integrations should prefer the `role` field.*
             Describes if the member is editor in goal.
           example: false
-      x-docs-overrides: *id032
+      x-docs-overrides: *id033
     GoalMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27173,7 +28701,7 @@ components:
           x-docs-overrides: *id014
           deprecated: true
           readOnly: true
-      x-docs-overrides: *id032
+      x-docs-overrides: *id033
     MembershipRequest:
       type: object
       properties:
@@ -27447,7 +28975,7 @@ components:
               x-docs-overrides: *id014
               deprecated: true
               readOnly: true
-          x-docs-overrides: *id032
+          x-docs-overrides: *id033
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -28129,6 +29657,24 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TagResponse'
+    TaskTemplateResponseArray:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskTemplateResponse'
+        next_page:
+          $ref: '#/components/schemas/NextPage'
+    TaskTemplateResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/TaskTemplateResponse'
     TaskResponseArray:
       type: object
       required:
@@ -40949,10 +42495,186 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TagResponse'
+                  $ref: '#/components/schemas/TagCreateTagForWorkspaceRequest'
       responses:
         201:
           $ref: '#/components/responses/TagResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /task_templates:
+    get:
+      summary: Get multiple task templates
+      description: >-
+        Returns the compact task template records for some filtered set of task templates.
+        You must specify a `project`
+      tags:
+        - Task templates
+      operationId: getTaskTemplates
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: project
+          in: query
+          description: >-
+            The project to filter task templates on.
+          schema:
+            type: string
+          example: '321654'
+          x-env-variable: project
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - created_at
+            - created_by
+            - name
+            - project
+            - template
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - created_by
+                - name
+                - project
+                - template
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/TaskTemplateResponseArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /task_templates/{task_template_gid}:
+    parameters:
+      - $ref: '#/components/parameters/task_template_path_gid'
+    get:
+      summary: Get a task template
+      description: >-
+        Returns the complete task template record for a single task template.
+      tags:
+        - Task templates
+      operationId: getTaskTemplate
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - created_at
+            - created_by
+            - name
+            - project
+            - template
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - created_by
+                - name
+                - project
+                - template
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/TaskTemplateResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /task_templates/{task_template_gid}/instantiateTask:
+    parameters:
+      - $ref: '#/components/parameters/task_template_path_gid'
+    post:
+      summary: Instantiate a task from a task template
+      description: >-
+        Creates and returns a job that will asynchronously handle the task instantiation.
+      tags:
+        - Task templates
+      operationId: instantiateTask
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - new_project
+            - new_project.name
+            - new_project_template
+            - new_project_template.name
+            - new_task
+            - new_task.created_by
+            - new_task.name
+            - new_task.resource_subtype
+            - resource_subtype
+            - status
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - new_project
+                - new_project.name
+                - new_project_template
+                - new_project_template.name
+                - new_task
+                - new_task.created_by
+                - new_task.name
+                - new_task.resource_subtype
+                - resource_subtype
+                - status
+          style: form
+          explode: false
+      requestBody:
+        description: >-
+          Describes the inputs used for instantiating a task - the task's name.
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/TaskTemplateInstantiateTaskRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/JobResponseData'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
