@@ -744,6 +744,15 @@ tags:
       retrieve *all* fields or *specific set* of the fields, use
       [field selectors](/docs/inputoutput-options) to manipulate what data is included
       in a response.
+  - name: Task templates
+    description: >-
+      A task template is an object that allows new tasks to be created
+      with a predefined setup, which may include followers, dependencies, custom fields,
+      etc.
+      It simplifies the process of running a workflow that involves a similar
+      set of work every time.
+
+      Task templates are contained within a single project.
   - name: Teams
     description: >-
       A team is used to group related projects and people together within an
@@ -1082,6 +1091,16 @@ components:
         type: string
       example: '321654'
       x-env-variable: task
+    task_template_path_gid:
+      name: task_template_gid
+      in: path
+      description: >-
+        Globally unique identifier for the task template.
+      required: true
+      schema:
+        type: string
+      example: '1331'
+      x-env-variable: task_template
     team_path_gid:
       name: team_gid
       in: path
@@ -3948,10 +3967,12 @@ components:
               additionalProperties:
                 type: string
                 description: >-
-                  "{custom_field_gid}" => Value (Can be text, number, etc.)
+                  "{custom_field_gid}" => Value (can be text, a number, etc.). For
+                  date, use format "YYYY-MM-DD" (e.g., 2019-09-15). For date-time,
+                  use ISO 8601 date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
               example:
-                5678904321: On Hold
-                4578152156: Not Started
+                '5678904321': On Hold
+                '4578152156': Not Started
             followers:
               description: >-
                 *Create-only*. Comma separated string of users. Followers
@@ -3993,10 +4014,12 @@ components:
               additionalProperties:
                 type: string
                 description: >-
-                  "{custom_field_gid}" => Value (Can be text, number, etc.)
+                  "{custom_field_gid}" => Value (can be text, a number, etc.). For
+                  date, use format "YYYY-MM-DD" (e.g., 2019-09-15). For date-time,
+                  use ISO 8601 date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
               example:
-                5678904321: On Hold
-                4578152156: Not Started
+                '5678904321': On Hold
+                '4578152156': Not Started
             followers:
               description: >-
                 *Create-only*. Comma separated string of users. Followers
@@ -4192,6 +4215,7 @@ components:
                 - yellow
                 - red
                 - blue
+                - complete
     ProjectStatusCompact:
       allOf:
         - $ref: '#/components/schemas/AsanaResource'
@@ -5237,6 +5261,21 @@ components:
                 be longer.
               type: string
               example: Stuff to buy
+    TagCreateTagForWorkspaceRequest:
+      allOf:
+        - $ref: '#/components/schemas/TagBase'
+        - type: object
+          properties:
+            followers:
+              type: array
+              description: >-
+                An array of strings identifying users. These can either be the
+                string "me", an email, or the gid of a user.
+              items:
+                type: string
+              example:
+                - '12345'
+                - '42563'
     TagRequest:
       allOf:
         - $ref: '#/components/schemas/TagBase'
@@ -5664,6 +5703,160 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
+    TaskTemplateCompact:
+      allOf:
+        - $ref: '#/components/schemas/AsanaResource'
+        - type: object
+          description: >-
+            A *task template* is an object that allows new tasks to be created
+            with a predefined setup.
+          x-docs-overrides:
+            properties.resource_type.example: task_template
+          properties:
+            name:
+              description: >-
+                Name of the task template.
+              type: string
+              example: Packing list
+    TaskTemplateBase:
+      allOf:
+        - $ref: '#/components/schemas/TaskTemplateCompact'
+    TaskTemplateRecipeCompact:
+      allOf:
+        - type: object
+          properties:
+            name:
+              description: >-
+                Name of the task that will be created from this template.
+              type: string
+              example: Bug Report
+            task_resource_subtype:
+              type: string
+              description: >-
+                The subtype of the task that will be created from this template.
+              enum:
+                - default_task
+                - milestone_task
+                - approval_task
+              example: default_task
+    TaskTemplateRecipe:
+      allOf:
+        - $ref: '#/components/schemas/TaskTemplateRecipeCompact'
+        - type: object
+          properties:
+            description:
+              description: >-
+                Description of the task that will be created from this template.
+              type: string
+              example: >-
+                Please describe the bug you found and how to reproduce it.
+            html_description:
+              description: >-
+                HTML description of the task that will be created from this template.
+              type: string
+              example: >-
+                Please describe the bug you found and how to reproduce it.
+            memberships:
+              description: >-
+                Array of projects that the task created from this template will be
+                added to
+              type: array
+              items:
+                $ref: '#/components/schemas/ProjectCompact'
+            relative_start_on:
+              nullable: true
+              description: >-
+                The number of days after the task has been instantiated on which that
+                the task will start
+              type: integer
+              example: 1
+            relative_due_on:
+              nullable: true
+              description: >-
+                The number of days after the task has been instantiated on which that
+                the task will be due
+              type: integer
+              example: 2
+            due_time:
+              nullable: true
+              description: >-
+                The time of day that the task will be due
+              type: string
+              example: 13:15:00.000Z
+            dependencies:
+              description: >-
+                Array of task templates that the task created from this template will
+                depend on
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskTemplateRecipeCompact'
+            dependents:
+              description: >-
+                Array of task templates that will depend on the task created from
+                this template
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskTemplateRecipeCompact'
+            followers:
+              description: >-
+                Array of users that will be added as followers to the task created
+                from this template
+              type: array
+              items:
+                $ref: '#/components/schemas/UserCompact'
+            attachments:
+              description: >-
+                Array of attachments that will be added to the task created from this
+                template
+              type: array
+              items:
+                $ref: '#/components/schemas/AttachmentCompact'
+            subtasks:
+              description: >-
+                Array of subtasks that will be added to the task created from this
+                template
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskTemplateRecipeCompact'
+            custom_fields:
+              description: >-
+                Array of custom fields that will be added to the task created from
+                this template
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomFieldCompact'
+    TaskTemplateResponse:
+      allOf:
+        - $ref: '#/components/schemas/TaskTemplateBase'
+        - type: object
+          properties:
+            name:
+              description: >-
+                Name of the task template.
+              type: string
+              example: Bug Report Template
+            project:
+              description: >-
+                The project that this task template belongs to.
+              nullable: true
+              allOf:
+                - $ref: '#/components/schemas/ProjectCompact'
+            template:
+              description: >-
+                The configuration for the task that will be created from this template.
+              allOf:
+                - $ref: '#/components/schemas/TaskTemplateRecipe'
+            created_by:
+              description: >-
+                The user who created this task template.
+              allOf:
+                - $ref: '#/components/schemas/UserCompact'
+            created_at:
+              description: >-
+                The time at which this task template was created.
+              type: string
+              format: date-time
+              example: '2019-01-01T00:00:00.000Z'
     TaskCountResponse:
       description: A response object returned from the task count endpoint.
       type: object
@@ -5762,6 +5955,14 @@ components:
           example: '13579'
       required:
         - tag
+    TaskTemplateInstantiateTaskRequest:
+      type: object
+      properties:
+        name:
+          description: The name of the new task. If not provided, the name of the
+            task template will be used.
+          type: string
+          example: New Task
     TaskRequest:
       allOf:
         - $ref: '#/components/schemas/TaskBase'
@@ -5804,10 +6005,12 @@ components:
               additionalProperties:
                 type: string
                 description: >-
-                  "{custom_field_gid}" => Value (Can be text, number, etc.)
+                  "{custom_field_gid}" => Value (can be text, a number, etc.). For
+                  date, use format "YYYY-MM-DD" (e.g., 2019-09-15). For date-time,
+                  use ISO 8601 date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
               example:
-                5678904321: On Hold
-                4578152156: Not Started
+                '5678904321': On Hold
+                '4578152156': Not Started
             followers:
               type: array
               description: >-
@@ -13940,6 +14143,7 @@ paths:
             - new_task.name
             - new_task.resource_subtype
             - new_task_template
+            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -13956,6 +14160,7 @@ paths:
                 - new_task.name
                 - new_task.resource_subtype
                 - new_task_template
+                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -21319,6 +21524,7 @@ paths:
             - new_task.name
             - new_task.resource_subtype
             - new_task_template
+            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -21335,6 +21541,7 @@ paths:
                 - new_task.name
                 - new_task.resource_subtype
                 - new_task_template
+                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -23297,6 +23504,7 @@ paths:
             - new_task.name
             - new_task.resource_subtype
             - new_task_template
+            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -23313,6 +23521,7 @@ paths:
                 - new_task.name
                 - new_task.resource_subtype
                 - new_task_template
+                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -27685,6 +27894,7 @@ paths:
             - new_task.name
             - new_task.resource_subtype
             - new_task_template
+            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -27701,6 +27911,7 @@ paths:
                 - new_task.name
                 - new_task.resource_subtype
                 - new_task_template
+                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -33162,7 +33373,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TagResponse'
+                  $ref: '#/components/schemas/TagCreateTagForWorkspaceRequest'
       responses:
         201:
           description: Successfully created the newly specified tag.
@@ -33300,6 +33511,292 @@ paths:
 
               result = client.tags.create_tag_for_workspace(workspace_gid: 'workspace_gid',
               field: "value", field: "value", options: {pretty: true})
+  /task_templates:
+    parameters:
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get multiple task templates
+      description: >-
+        Returns the compact task template records for some filtered set of task templates.
+        You must specify a `project`
+      tags:
+        - Task templates
+      operationId: getTaskTemplates
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: project
+          in: query
+          description: >-
+            The project to filter task templates on.
+          schema:
+            type: string
+          example: '321654'
+          x-env-variable: project
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - created_at
+            - created_by
+            - name
+            - project
+            - template
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - created_by
+                - name
+                - project
+                - template
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Successfully retrieved requested task templates
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TaskTemplateCompact'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: python
+            install: pip install asana
+            code: |-
+              import asana
+              from asana.rest import ApiException
+              from pprint import pprint
+
+              # Configure OAuth2 access token for authorization: oauth2
+              configuration = asana.Configuration()
+              configuration.access_token = '<YOUR_PERSONAL_ACCESS_TOKEN>'
+              api_client = asana.ApiClient(configuration)
+
+              # create an instance of the API class
+              api_instance = asana.TaskTemplatesApi(api_client)
+              limit = 50 # int | Results per page. The number of objects to return per page. The value must be between 1 and 100. (optional)
+              offset = 'eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9' # str | Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. 'Note: You can only pass in an offset that was returned to you via a previously paginated request.' (optional)
+              project = '321654' # str | The project to filter task templates on. (optional)
+              opt_fields = ["created_at","created_by","name","project","template"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
+
+              try:
+                  # Get multiple task templates
+                  api_response = api_instance.get_task_templates(limit=limit, offset=offset, project=project, opt_fields=opt_fields)
+                  pprint(api_response)
+              except ApiException as e:
+                  print("Exception when calling TaskTemplatesApi->get_task_templates: %s\n" % e)
+  /task_templates/{task_template_gid}:
+    parameters:
+      - $ref: '#/components/parameters/task_template_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get a task template
+      description: >-
+        Returns the complete task template record for a single task template.
+      tags:
+        - Task templates
+      operationId: getTaskTemplate
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - created_at
+            - created_by
+            - name
+            - project
+            - template
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - created_by
+                - name
+                - project
+                - template
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Successfully retrieved requested task template
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TaskTemplateResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: python
+            install: pip install asana
+            code: |-
+              import asana
+              from asana.rest import ApiException
+              from pprint import pprint
+
+              # Configure OAuth2 access token for authorization: oauth2
+              configuration = asana.Configuration()
+              configuration.access_token = '<YOUR_PERSONAL_ACCESS_TOKEN>'
+              api_client = asana.ApiClient(configuration)
+
+              # create an instance of the API class
+              api_instance = asana.TaskTemplatesApi(api_client)
+              task_template_gid = '1331' # str | Globally unique identifier for the task template.
+              opt_fields = ["created_at","created_by","name","project","template"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
+
+              try:
+                  # Get a task template
+                  api_response = api_instance.get_task_template(task_template_gid, opt_fields=opt_fields)
+                  pprint(api_response)
+              except ApiException as e:
+                  print("Exception when calling TaskTemplatesApi->get_task_template: %s\n" % e)
+  /task_templates/{task_template_gid}/instantiateTask:
+    parameters:
+      - $ref: '#/components/parameters/task_template_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    post:
+      summary: Instantiate a task from a task template
+      description: >-
+        Creates and returns a job that will asynchronously handle the task instantiation.
+      tags:
+        - Task templates
+      operationId: instantiateTask
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - new_project
+            - new_project.name
+            - new_project_template
+            - new_project_template.name
+            - new_task
+            - new_task.created_by
+            - new_task.name
+            - new_task.resource_subtype
+            - new_task_template
+            - new_task_template.name
+            - resource_subtype
+            - status
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - new_project
+                - new_project.name
+                - new_project_template
+                - new_project_template.name
+                - new_task
+                - new_task.created_by
+                - new_task.name
+                - new_task.resource_subtype
+                - new_task_template
+                - new_task_template.name
+                - resource_subtype
+                - status
+          style: form
+          explode: false
+      requestBody:
+        description: >-
+          Describes the inputs used for instantiating a task - the task's name.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/TaskTemplateInstantiateTaskRequest'
+      responses:
+        201:
+          description: >-
+            Successfully created the job to handle task instantiation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/JobResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: python
+            install: pip install asana
+            code: |-
+              import asana
+              from asana.rest import ApiException
+              from pprint import pprint
+
+              # Configure OAuth2 access token for authorization: oauth2
+              configuration = asana.Configuration()
+              configuration.access_token = '<YOUR_PERSONAL_ACCESS_TOKEN>'
+              api_client = asana.ApiClient(configuration)
+
+              # create an instance of the API class
+              api_instance = asana.TaskTemplatesApi(api_client)
+              task_template_gid = '1331' # str | Globally unique identifier for the task template.
+              body = asana.TaskTemplateGidInstantiateTaskBody({"param1": "value1", "param2": "value2",}) # TaskTemplateGidInstantiateTaskBody | Describes the inputs used for instantiating a task - the task's name. (optional)
+              opt_fields = ["new_project","new_project.name","new_project_template","new_project_template.name","new_task","new_task.created_by","new_task.name","new_task.resource_subtype","resource_subtype","status"] # list[str] | This endpoint returns a compact resource, which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include. (optional)
+
+              try:
+                  # Instantiate a task from a task template
+                  api_response = api_instance.instantiate_task(task_template_gid, body=body, opt_fields=opt_fields)
+                  pprint(api_response)
+              except ApiException as e:
+                  print("Exception when calling TaskTemplatesApi->instantiate_task: %s\n" % e)
   /tasks:
     parameters:
       - $ref: '#/components/parameters/pretty'
@@ -34986,6 +35483,7 @@ paths:
             - new_task.name
             - new_task.resource_subtype
             - new_task_template
+            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -35002,6 +35500,7 @@ paths:
                 - new_task.name
                 - new_task.resource_subtype
                 - new_task_template
+                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
