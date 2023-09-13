@@ -1050,6 +1050,16 @@ components:
         type: string
       example: '321654'
       x-env-variable: task
+    task_template_path_gid:
+      name: task_template_gid
+      in: path
+      description: >-
+        Globally unique identifier for the task template.
+      required: true
+      schema:
+        type: string
+      example: '1331'
+      x-env-variable: task_template
     team_path_gid:
       name: team_gid
       in: path
