@@ -6976,6 +6976,13 @@ components:
                     *Deprecated:* A *workspace* is the highest-level organizational
                     unit in Asana. All
                     projects and tasks have an associated workspace.
+    MembershipUpdateRequest:
+      type: object
+      properties:
+        role:
+          description: The role given to the member. Can be `editor` or `commenter`.
+          type: string
+          example: editor
     MembershipRequest:
       type: object
       properties:
@@ -6997,6 +7004,11 @@ components:
               description: The gid of the `goal`
               type: string
               example: '987654'
+            role:
+              description: The role given to the member. Optional argument, will default
+                to commenter. Can be `editor` or `commenter`.
+              type: string
+              example: editor
     MembershipResponse:
       anyOf:
         - $ref: '#/components/schemas/GoalMembershipResponse'
@@ -14487,7 +14499,7 @@ paths:
                 data:
                   $ref: '#/components/schemas/CreateMembershipRequest'
       responses:
-        200:
+        201:
           description: >-
             Successfully created the requested membership.
           content:

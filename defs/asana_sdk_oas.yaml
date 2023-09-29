@@ -28712,6 +28712,13 @@ components:
           deprecated: true
           readOnly: true
       x-docs-overrides: *id033
+    MembershipUpdateRequest:
+      type: object
+      properties:
+        role:
+          description: The role given to the member. Can be `editor` or `commenter`.
+          type: string
+          example: editor
     MembershipRequest:
       type: object
       properties:
@@ -28736,6 +28743,11 @@ components:
           description: The gid of the `goal`
           type: string
           example: '987654'
+        role:
+          description: The role given to the member. Optional argument, will default
+            to commenter. Can be `editor` or `commenter`.
+          type: string
+          example: editor
     MembershipResponse:
       anyOf:
         - description: >-
@@ -33098,7 +33110,7 @@ paths:
                 data:
                   $ref: '#/components/schemas/CreateMembershipRequest'
       responses:
-        200:
+        201:
           $ref: '#/components/responses/MembershipResponseData'
         400:
           $ref: '#/components/responses/BadRequest'
