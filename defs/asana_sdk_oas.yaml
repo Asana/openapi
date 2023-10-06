@@ -93,7 +93,7 @@ servers:
   - url: https://app.asana.com/api/1.0
     description: Main endpoint.
 security:
-  - oauth2: []
+  - personalAccessToken: []
 x-readme:
   proxy-enabled: false
 tags:
@@ -28712,6 +28712,13 @@ components:
           deprecated: true
           readOnly: true
       x-docs-overrides: *id033
+    MembershipUpdateRequest:
+      type: object
+      properties:
+        role:
+          description: The role given to the member. Can be `editor` or `commenter`.
+          type: string
+          example: editor
     MembershipRequest:
       type: object
       properties:
@@ -28736,6 +28743,11 @@ components:
           description: The gid of the `goal`
           type: string
           example: '987654'
+        role:
+          description: The role given to the member. Optional argument, will default
+            to commenter. Can be `editor` or `commenter`.
+          type: string
+          example: editor
     MembershipResponse:
       anyOf:
         - description: >-
@@ -29873,31 +29885,13 @@ components:
         data:
           $ref: '#/components/schemas/UserBaseResponse'
   securitySchemes:
-    oauth2:
-      type: oauth2
+    personalAccessToken:
+      type: http
       description: >-
-        We require that applications designed to access the Asana API on behalf
-        of multiple users implement OAuth 2.0.
-
-        Asana supports the Authorization Code Grant flow.
-      flows:
-        authorizationCode:
-          authorizationUrl: https://app.asana.com/-/oauth_authorize
-          tokenUrl: https://app.asana.com/-/oauth_token
-          refreshUrl: https://app.asana.com/-/oauth_token
-          scopes:
-            default: >-
-              Provides access to all endpoints documented in our API reference.
-              If no scopes are requested, this scope is assumed by default.
-            openid: >-
-              Provides access to OpenID Connect ID tokens and the OpenID Connect
-              user info endpoint.
-            email: >-
-              Provides access to the user’s email through the OpenID Connect
-              user info endpoint.
-            profile: >-
-              Provides access to the user’s name and profile photo through the
-              OpenID Connect user info endpoint.
+        A personal access token allows access to the api for the user who
+        created it. This should be kept a secret and be treated like a
+        password.
+      scheme: bearer
 paths:
   /attachments/{attachment_gid}:
     parameters:
@@ -33098,7 +33092,7 @@ paths:
                 data:
                   $ref: '#/components/schemas/CreateMembershipRequest'
       responses:
-        200:
+        201:
           $ref: '#/components/responses/MembershipResponseData'
         400:
           $ref: '#/components/responses/BadRequest'
