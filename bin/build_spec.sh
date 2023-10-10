@@ -20,7 +20,7 @@ checkout_client_lib() (
 	git clone "$url" "$dest"
 )
 
-checkout_old_client_lib() (
+checkout_version_client_lib() (
 	url="$1"
 	dest="$2"
 	tag="$3"
@@ -38,14 +38,14 @@ checkout_old_client_lib() (
 )
 
 checkout_client_lib "https://github.com/Asana/java-asana.git" build/java
-checkout_client_lib "https://github.com/Asana/node-asana.git" build/node
-checkout_client_lib "https://github.com/Asana/python-asana.git" build/python
+checkout_version_client_lib "https://github.com/Asana/node-asana.git" build/node v1.0.2
+checkout_version_client_lib "https://github.com/Asana/python-asana.git" build/python v3.2.2
 checkout_client_lib "https://github.com/Asana/php-asana.git" build/php
 checkout_client_lib "https://github.com/Asana/ruby-asana.git" build/ruby
 
-# Old Client Libraries
-checkout_old_client_lib "https://github.com/Asana/node-asana.git" build/node-old v1.0.2
-checkout_old_client_lib "https://github.com/Asana/python-asana.git" build/python-old v3.2.1
+# Beta Client Libraries
+checkout_client_lib "https://github.com/Asana/node-asana.git" build/node-beta
+checkout_version_client_lib "https://github.com/Asana/python-asana.git" build/python-beta v4.0.11
 
 # Run script to add client library sample code to OpenAPI Spec file
 python add_code_samples_to_oas.py
