@@ -38,13 +38,13 @@ checkout_version_client_lib() (
 )
 
 checkout_client_lib "https://github.com/Asana/java-asana.git" build/java
-checkout_version_client_lib "https://github.com/Asana/node-asana.git" build/node v1.0.2
+checkout_client_lib "https://github.com/Asana/node-asana.git" build/node
 checkout_version_client_lib "https://github.com/Asana/python-asana.git" build/python v3.2.2
 checkout_client_lib "https://github.com/Asana/php-asana.git" build/php
 checkout_client_lib "https://github.com/Asana/ruby-asana.git" build/ruby
 
 # Beta Client Libraries
-checkout_client_lib "https://github.com/Asana/node-asana.git" build/node-beta
+checkout_version_client_lib "https://github.com/Asana/node-asana.git" build/node-v1 v1.0.2
 checkout_version_client_lib "https://github.com/Asana/python-asana.git" build/python-beta v4.0.11
 
 # Run script to add client library sample code to OpenAPI Spec file
