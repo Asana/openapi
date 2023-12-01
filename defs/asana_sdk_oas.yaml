@@ -555,7 +555,7 @@ tags:
   - name: Goal relationships
     description: >-
       A goal relationship is an object representing the relationship between a goal
-      and another goal, a project, or a portfolio.
+      and another goal, a project, a task, or a portfolio.
   - name: Jobs
     description: >-
       Jobs represent processes that handle asynchronous work. A job created when an
@@ -6127,7 +6127,7 @@ components:
       properties:
         supporting_work:
           description: >-
-            The project/portfolio gid to add as supporting work for a goal
+            The project/task/portfolio gid to add as supporting work for a goal
           type: string
           example: '1331'
     GoalBase:
@@ -6330,7 +6330,7 @@ components:
           description: >-
             This field defines how the progress value of a goal metric is being calculated.
             A goal's progress can be provided manually by the user,
-            calculated automatically from contributing subgoals or projects,
+            calculated automatically from contributing subgoals, projects, or tasks,
             or managed by an integration with an external data source, such as Salesforce.
           type: string
           enum:
@@ -6338,6 +6338,7 @@ components:
             - subgoal_progress
             - project_task_completion
             - project_milestone_completion
+            - task_completion
             - external
           example: manual
     GoalRemoveSupportingRelationshipRequest:
@@ -6348,7 +6349,7 @@ components:
         supporting_resource:
           description: >-
             The gid of the supporting resource to remove from the parent goal. Must
-            be the gid of a goal, project, or portfolio.
+            be the gid of a goal, project, task, or portfolio.
           type: string
           example: '12345'
     GoalAddSupportingRelationshipRequest:
@@ -6359,7 +6360,7 @@ components:
         supporting_resource:
           description: >-
             The gid of the supporting resource to add to the parent goal. Must be
-            the gid of a goal, project, or portfolio.
+            the gid of a goal, project, task, or portfolio.
           type: string
           example: '12345'
         insert_before:
@@ -6491,7 +6492,7 @@ components:
           description: >-
             This field defines how the progress value of a goal metric is being calculated.
             A goal's progress can be provided manually by the user,
-            calculated automatically from contributing subgoals or projects,
+            calculated automatically from contributing subgoals, projects, or tasks,
             or managed by an integration with an external data source, such as Salesforce.
           type: string
           enum:
@@ -6499,6 +6500,7 @@ components:
             - subgoal_progress
             - project_task_completion
             - project_milestone_completion
+            - task_completion
             - external
           example: manual
     GoalRemoveSubgoalRequest:
@@ -7133,7 +7135,8 @@ components:
                 This field defines how the progress value of a goal metric is being
                 calculated.
                 A goal's progress can be provided manually by the user,
-                calculated automatically from contributing subgoals or projects,
+                calculated automatically from contributing subgoals, projects, or
+                tasks,
                 or managed by an integration with an external data source, such as
                 Salesforce.
               type: string
@@ -7142,6 +7145,7 @@ components:
                 - subgoal_progress
                 - project_task_completion
                 - project_milestone_completion
+                - task_completion
                 - external
               example: manual
             can_manage:
@@ -7258,7 +7262,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         A *goal relationship* is an object representing the relationship between a
-        goal and another goal, a project, or a portfolio.
+        goal and another goal, a project, a task, or a portfolio.
       type: object
       properties:
         gid:
@@ -7303,7 +7307,7 @@ components:
             or organization, depending on its permissions.
 
             The supporting resource that supports the goal. This can be either a project,
-            portfolio, or goal.
+            task, portfolio, or goal.
           type: object
           properties:
             gid:
@@ -7397,7 +7401,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         A *goal relationship* is an object representing the relationship between a
-        goal and another goal, a project, or a portfolio.
+        goal and another goal, a project, a task, or a portfolio.
       type: object
       properties:
         gid:
@@ -7442,7 +7446,7 @@ components:
             or organization, depending on its permissions.
 
             The supporting resource that supports the goal. This can be either a project,
-            portfolio, or goal.
+            task, portfolio, or goal.
           type: object
           properties:
             gid:
@@ -7479,7 +7483,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         A *goal relationship* is an object representing the relationship between a
-        goal and another goal, a project, or a portfolio.
+        goal and another goal, a project, a task, or a portfolio.
       type: object
       properties:
         gid:
@@ -7524,7 +7528,7 @@ components:
             or organization, depending on its permissions.
 
             The supporting resource that supports the goal. This can be either a project,
-            portfolio, or goal.
+            task, portfolio, or goal.
           type: object
           properties:
             gid:
@@ -7617,7 +7621,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         A *goal relationship* is an object representing the relationship between a
-        goal and another goal, a project, or a portfolio.
+        goal and another goal, a project, a task, or a portfolio.
       type: object
       properties:
         gid:
@@ -7662,7 +7666,7 @@ components:
             or organization, depending on its permissions.
 
             The supporting resource that supports the goal. This can be either a project,
-            portfolio, or goal.
+            task, portfolio, or goal.
           type: object
           properties:
             gid:
@@ -32033,6 +32037,12 @@ paths:
           schema:
             type: string
           example: '512241'
+        - name: task
+          in: query
+          description: Globally unique identifier for supporting task.
+          schema:
+            type: string
+          example: '78424'
         - name: is_workspace_level
           in: query
           description: Filter to goals with is_workspace_level set to query value.
