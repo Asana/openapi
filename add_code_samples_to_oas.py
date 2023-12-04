@@ -16,14 +16,14 @@ readme_code_config = {
     'node': {
         'install': 'npm install asana',
     },
-    'node-v1': {
+    'node-sdk-v1': {
         'install': 'npm install asana@1.0.2',
     },
     'python': {
-        'install': 'pip install asana==3.2.2',
+        'install': 'pip install asana',
     },
-    'python-beta': {
-        'install': 'pip install asana==4.0.11',
+    'python-sdk-v3': {
+        'install': 'pip install asana==3.2.2',
     },
     'php': {
         'install': 'composer require asana/asana',
@@ -52,7 +52,7 @@ def camel_case(s):
 print('Gathering sample code')
 code_samples = {}
 for language in LANGUAGES:
-    if language == "node":
+    if language in ["node", "python"]:
         # Add sample code for new Node library
         for dirpath,_,filenames in os.walk(f'./build/{language}/docs'):
                 for filename in filenames:
@@ -67,41 +67,26 @@ for language in LANGUAGES:
                                 code_samples.setdefault(resource_name, {})
                                 # Loop through each operation
                                 for operation, code_sample in operations.items():
+                                    # Convert operation name from snake case to camel case
+                                    # NOTE: the python generator snake cases all opertionIDs we need to
+                                    # change this to camel case so we can find a matching resource in our OpenAPI Spec
+                                    operation_name_camel_case = camel_case(operation)
                                     # Set operation name
-                                    code_samples[resource_name].setdefault(operation, [])
+                                    code_samples[resource_name].setdefault(operation_name_camel_case, [])
                                     # Add sample code
-                                    code_samples[resource_name][operation].append(
+                                    code_samples[resource_name][operation_name_camel_case].append(
                                         {
                                             "language": language,
-                                            "install": readme_code_config[f'{language}']['install'],
+                                            "install": readme_code_config[language]['install'],
                                             "code": code_sample,
                                         }
                                     )
+        # if language == "python":
+        #     import pdb; pdb.set_trace()
         # Add sample for Node v1 library
-        for dirpath,_,filenames in os.walk(f'./build/{language}-v1/samples'):
-            for filename in filenames:
-                with open(f'{dirpath}/{filename}') as fp:
-                    data = yaml.load(fp)
-                    for resource, operations in data.items():
-                        # Set resource key in code_samples dict
-                        resource_name = resource
-                        code_samples.setdefault(resource_name, {})
-                        # Loop through each operation
-                        for operation, code_sample in operations.items():
-                            # Set operation name
-                            code_samples[resource_name].setdefault(operation, [])
-                            # Add sample code
-                            code_samples[resource_name][operation].append(
-                                {
-                                    "language": language,
-                                    "install": readme_code_config[f'{language}-v1']['install'],
-                                    "code": code_sample,
-                                    "name": f'{language}-v1'
-                                }
-                            )
-    if language == "python":
-        # Add sample code for Python
-        for dirpath,_,filenames in os.walk(f'./build/{language}/samples'):
+        version = 'v1' if language == "node" else "v3"
+        sample_name = f"{language}-sdk-{version}"
+        for dirpath,_,filenames in os.walk(f'./build/{sample_name}/samples'):
             for filename in filenames:
                 with open(f'{dirpath}/{filename}') as fp:
                     data = yaml.load(fp)
@@ -119,39 +104,11 @@ for language in LANGUAGES:
                             code_samples[resource_name][operation_name_camel_case].append(
                                 {
                                     "language": language,
-                                    "install": readme_code_config[f'{language}']['install'],
+                                    "install": readme_code_config[sample_name]['install'],
                                     "code": code_sample,
+                                    "name": sample_name
                                 }
                             )
-        # Add sample code for Python Beta
-        for dirpath,_,filenames in os.walk(f'./build/{language}-beta/docs'):
-            for filename in filenames:
-                if re.search("^.*Api.yaml$", filename):
-                    with open(f'{dirpath}/{filename}') as fp:
-                        data = yaml.load(fp)
-                        for resource, operations in data.items():
-                            # Swagger Codegen Generator adds "Api" suffix to end of resource names we need
-                            # to remove it so we can find a matching resource in our OpenAPI Spec
-                            resource_name = resource.replace("Api", '').lower()
-                            # Set resource key in code_samples dict
-                            code_samples.setdefault(resource_name, {})
-                            # Loop through each operation
-                            for operation, code_sample in operations.items():
-                                # Convert operation name from snake case to camel case
-                                # NOTE: the python generator snake cases all opertionIDs we need to
-                                # change this to camel case so we can find a matching resource in our OpenAPI Spec
-                                operation_name_camel_case = camel_case(operation)
-                                # Set operation name
-                                code_samples[resource_name].setdefault(operation_name_camel_case, [])
-                                # Add sample code
-                                code_samples[resource_name][operation_name_camel_case].append(
-                                    {
-                                        "language": language,
-                                        "install": readme_code_config[f'{language}-beta']['install'],
-                                        "code": code_sample,
-                                        "name": f'{language}-beta'
-                                    }
-                                )
     else:
         # Add sample code for current client libraries
         for dirpath,_,filenames in os.walk(f'./build/{language}/samples'):
