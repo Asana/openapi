@@ -54,6 +54,8 @@ code_samples = {}
 for language in LANGUAGES:
     if language in ["node", "python"]:
         # Add sample code for new Node library
+        version = 'v3' if language == "node" else "v5"
+        sample_name = f"{language}-sdk-{version}"
         for dirpath,_,filenames in os.walk(f'./build/{language}/docs'):
                 for filename in filenames:
                     if re.search("^.*Api.yaml$", filename):
@@ -79,10 +81,9 @@ for language in LANGUAGES:
                                             "language": language,
                                             "install": readme_code_config[language]['install'],
                                             "code": code_sample,
+                                            "name": sample_name
                                         }
                                     )
-        # if language == "python":
-        #     import pdb; pdb.set_trace()
         # Add sample for Node v1 library
         version = 'v1' if language == "node" else "v3"
         sample_name = f"{language}-sdk-{version}"
