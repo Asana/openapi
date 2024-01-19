@@ -872,6 +872,15 @@ components:
         type: string
       example: '12345'
       x-env-variable: custom_field
+    custom_id:
+      name: custom_id
+      in: path
+      description: >-
+        Generated custom ID for a task.
+      required: true
+      schema:
+        type: string
+      example: EX-1
     goal_path_gid:
       name: goal_gid
       in: path
@@ -8648,7 +8657,8 @@ components:
           format: uri
           readOnly: true
           description: A full uri containing the query parameters to fetch for next_page
-          example: https://app.asana.com/api/1.0/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
+          example: 
+            https://app.asana.com/api/1.0/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
     OrganizationExportBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12400,7 +12410,8 @@ components:
 
             - task_tags
           type: string
-          pattern: ([members|notes|forms|task_notes|task_assignee|task_subtasks|task_attachments|task_dates|task_dependencies|task_followers|task_tags|task_projects])(,\1)*
+          pattern: 
+            ([members|notes|forms|task_notes|task_assignee|task_subtasks|task_attachments|task_dates|task_dependencies|task_followers|task_tags|task_projects])(,\1)*
           example:
             - members,notes,forms,task_notes,task_assignee,task_subtasks,task_attachments,task_dates,task_dependencies,task_followers,task_tags,task_projects
         schedule_dates:
@@ -23463,7 +23474,8 @@ components:
 
             - tags
           type: string
-          pattern: ([notes|assignee|subtasks|attachments|tags|followers|projects|dates|dependencies|parent])(,\1)*
+          pattern: 
+            ([notes|assignee|subtasks|attachments|tags|followers|projects|dates|dependencies|parent])(,\1)*
           example:
             - notes,assignee,subtasks,attachments,tags,followers,projects,dates,dependencies,parent
     TaskRemoveFollowersRequest:
@@ -32715,10 +32727,10 @@ paths:
       - $ref: '#/components/parameters/goal_path_gid'
     post:
       summary: Remove a collaborator from a goal
-      description: "Removes followers from a goal. Returns the goal the followers\
-        \ were removed from.\nEach goal can be associated with zero or more followers\
-        \ in the system.\nRequests to add/remove followers, if successful, will return\
-        \ the complete updated goal record, described above."
+      description: "Removes followers from a goal. Returns the goal the followers
+        were removed from.\nEach goal can be associated with zero or more followers
+        in the system.\nRequests to add/remove followers, if successful, will return
+        the complete updated goal record, described above."
       tags:
         - Goals
       operationId: removeFollowers
