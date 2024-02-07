@@ -8217,7 +8217,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let batchApiApiInstance = new Asana.BatchAPIApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The requests to batch together via the Batch API.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The requests to batch together via the Batch API.
               let opts = { 
                   'opt_fields': "body,headers,status_code"
               };
@@ -9021,7 +9021,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let customFieldsApiInstance = new Asana.CustomFieldsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The custom field object to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The custom field object to create.
               let opts = { 
                   'opt_fields': "asana_created_field,created_by,created_by.name,currency_code,custom_label,custom_label_position,date_value,date_value.date,date_value.date_time,description,display_value,enabled,enum_options,enum_options.color,enum_options.enabled,enum_options.name,enum_value,enum_value.color,enum_value.enabled,enum_value.name,format,has_notifications_enabled,is_formula_field,is_global_to_workspace,is_value_read_only,multi_enum_values,multi_enum_values.color,multi_enum_values.enabled,multi_enum_values.name,name,number_value,people_value,people_value.name,precision,resource_subtype,text_value,type"
               };
@@ -9532,7 +9532,7 @@ paths:
               let customFieldsApiInstance = new Asana.CustomFieldsApi();
               let custom_field_gid = "12345"; // String | Globally unique identifier for the custom field.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "asana_created_field,created_by,created_by.name,currency_code,custom_label,custom_label_position,date_value,date_value.date,date_value.date_time,description,display_value,enabled,enum_options,enum_options.color,enum_options.enabled,enum_options.name,enum_value,enum_value.color,enum_value.enabled,enum_value.name,format,has_notifications_enabled,is_formula_field,is_global_to_workspace,is_value_read_only,multi_enum_values,multi_enum_values.color,multi_enum_values.enabled,multi_enum_values.name,name,number_value,people_value,people_value.name,precision,resource_subtype,text_value,type"
               };
               customFieldsApiInstance.updateCustomField(custom_field_gid, opts).then((result) => {
@@ -10119,7 +10119,7 @@ paths:
               let customFieldsApiInstance = new Asana.CustomFieldsApi();
               let custom_field_gid = "12345"; // String | Globally unique identifier for the custom field.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "color,enabled,name"
               };
               customFieldsApiInstance.createEnumOptionForCustomField(custom_field_gid, opts).then((result) => {
@@ -10303,7 +10303,7 @@ paths:
               let customFieldsApiInstance = new Asana.CustomFieldsApi();
               let custom_field_gid = "12345"; // String | Globally unique identifier for the custom field.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "color,enabled,name"
               };
               customFieldsApiInstance.insertEnumOptionForCustomField(custom_field_gid, opts).then((result) => {
@@ -10496,7 +10496,7 @@ paths:
               let customFieldsApiInstance = new Asana.CustomFieldsApi();
               let enum_option_gid = "124578"; // String | Globally unique identifier for the enum option.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "color,enabled,name"
               };
               customFieldsApiInstance.updateEnumOption(enum_option_gid, opts).then((result) => {
@@ -11121,7 +11121,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalRelationshipsApiInstance = new Asana.GoalRelationshipsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The updated fields for the goal relationship.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated fields for the goal relationship.
               let goal_relationship_gid = "12345"; // String | Globally unique identifier for the goal relationship.
               let opts = { 
                   'opt_fields': "contribution_weight,resource_subtype,supported_goal,supported_goal.name,supported_goal.owner,supported_goal.owner.name,supporting_resource,supporting_resource.name"
@@ -11494,7 +11494,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalRelationshipsApiInstance = new Asana.GoalRelationshipsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The supporting resource to be added to the goal
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The supporting resource to be added to the goal
               let goal_gid = "12345"; // String | Globally unique identifier for the goal.
               let opts = { 
                   'opt_fields': "contribution_weight,resource_subtype,supported_goal,supported_goal.name,supported_goal.owner,supported_goal.owner.name,supporting_resource,supporting_resource.name"
@@ -11638,7 +11638,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalRelationshipsApiInstance = new Asana.GoalRelationshipsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The supporting resource to be removed from the goal
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The supporting resource to be removed from the goal
               let goal_gid = "12345"; // String | Globally unique identifier for the goal.
 
               goalRelationshipsApiInstance.removeSupportingRelationship(body, goal_gid).then((result) => {
@@ -12111,7 +12111,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalsApiInstance = new Asana.GoalsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The updated fields for the goal.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated fields for the goal.
               let goal_gid = "12345"; // String | Globally unique identifier for the goal.
               let opts = { 
                   'opt_fields': "current_status_update,current_status_update.resource_subtype,current_status_update.title,due_on,followers,followers.name,html_notes,is_workspace_level,liked,likes,likes.user,likes.user.name,metric,metric.can_manage,metric.currency_code,metric.current_display_value,metric.current_number_value,metric.initial_number_value,metric.precision,metric.progress_source,metric.resource_subtype,metric.target_number_value,metric.unit,name,notes,num_likes,owner,owner.name,start_on,status,team,team.name,time_period,time_period.display_name,time_period.end_on,time_period.period,time_period.start_on,workspace,workspace.name"
@@ -12552,6 +12552,7 @@ paths:
               let opts = { 
                   'portfolio': "159874", 
                   'project': "512241", 
+                  'task': "78424", 
                   'is_workspace_level': false, 
                   'team': "31326", 
                   'workspace': "31326", 
@@ -12814,7 +12815,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalsApiInstance = new Asana.GoalsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The goal to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The goal to create.
               let opts = { 
                   'opt_fields': "current_status_update,current_status_update.resource_subtype,current_status_update.title,due_on,followers,followers.name,html_notes,is_workspace_level,liked,likes,likes.user,likes.user.name,metric,metric.can_manage,metric.currency_code,metric.current_display_value,metric.current_number_value,metric.initial_number_value,metric.precision,metric.progress_source,metric.resource_subtype,metric.target_number_value,metric.unit,name,notes,num_likes,owner,owner.name,start_on,status,team,team.name,time_period,time_period.display_name,time_period.end_on,time_period.period,time_period.start_on,workspace,workspace.name"
               };
@@ -13066,7 +13067,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalsApiInstance = new Asana.GoalsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The goal metric to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The goal metric to create.
               let goal_gid = "12345"; // String | Globally unique identifier for the goal.
               let opts = { 
                   'opt_fields': "current_status_update,current_status_update.resource_subtype,current_status_update.title,due_on,followers,followers.name,html_notes,is_workspace_level,liked,likes,likes.user,likes.user.name,metric,metric.can_manage,metric.currency_code,metric.current_display_value,metric.current_number_value,metric.initial_number_value,metric.precision,metric.progress_source,metric.resource_subtype,metric.target_number_value,metric.unit,name,notes,num_likes,owner,owner.name,start_on,status,team,team.name,time_period,time_period.display_name,time_period.end_on,time_period.period,time_period.start_on,workspace,workspace.name"
@@ -13323,7 +13324,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalsApiInstance = new Asana.GoalsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The updated fields for the goal metric.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated fields for the goal metric.
               let goal_gid = "12345"; // String | Globally unique identifier for the goal.
               let opts = { 
                   'opt_fields': "current_status_update,current_status_update.resource_subtype,current_status_update.title,due_on,followers,followers.name,html_notes,is_workspace_level,liked,likes,likes.user,likes.user.name,metric,metric.can_manage,metric.currency_code,metric.current_display_value,metric.current_number_value,metric.initial_number_value,metric.precision,metric.progress_source,metric.resource_subtype,metric.target_number_value,metric.unit,name,notes,num_likes,owner,owner.name,start_on,status,team,team.name,time_period,time_period.display_name,time_period.end_on,time_period.period,time_period.start_on,workspace,workspace.name"
@@ -13582,7 +13583,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalsApiInstance = new Asana.GoalsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The followers to be added as collaborators
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The followers to be added as collaborators
               let goal_gid = "12345"; // String | Globally unique identifier for the goal.
               let opts = { 
                   'opt_fields': "current_status_update,current_status_update.resource_subtype,current_status_update.title,due_on,followers,followers.name,html_notes,is_workspace_level,liked,likes,likes.user,likes.user.name,metric,metric.can_manage,metric.currency_code,metric.current_display_value,metric.current_number_value,metric.initial_number_value,metric.precision,metric.progress_source,metric.resource_subtype,metric.target_number_value,metric.unit,name,notes,num_likes,owner,owner.name,start_on,status,team,team.name,time_period,time_period.display_name,time_period.end_on,time_period.period,time_period.start_on,workspace,workspace.name"
@@ -13838,7 +13839,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let goalsApiInstance = new Asana.GoalsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The followers to be removed as collaborators
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The followers to be removed as collaborators
               let goal_gid = "12345"; // String | Globally unique identifier for the goal.
               let opts = { 
                   'opt_fields': "current_status_update,current_status_update.resource_subtype,current_status_update.title,due_on,followers,followers.name,html_notes,is_workspace_level,liked,likes,likes.user,likes.user.name,metric,metric.can_manage,metric.currency_code,metric.current_display_value,metric.current_number_value,metric.initial_number_value,metric.precision,metric.progress_source,metric.resource_subtype,metric.target_number_value,metric.unit,name,notes,num_likes,owner,owner.name,start_on,status,team,team.name,time_period,time_period.display_name,time_period.end_on,time_period.period,time_period.start_on,workspace,workspace.name"
@@ -14577,7 +14578,7 @@ paths:
 
               let membershipsApiInstance = new Asana.MembershipsApi();
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}
               };
               membershipsApiInstance.createMembership(opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -14960,7 +14961,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let organizationExportsApiInstance = new Asana.OrganizationExportsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The organization to export.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The organization to export.
               let opts = { 
                   'opt_fields': "created_at,download_url,organization,organization.name,state"
               };
@@ -16430,7 +16431,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let portfoliosApiInstance = new Asana.PortfoliosApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The portfolio to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The portfolio to create.
               let opts = { 
                   'opt_fields': "color,created_at,created_by,created_by.name,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,due_on,members,members.name,name,owner,owner.name,permalink_url,project_templates,project_templates.name,public,start_on,workspace,workspace.name"
               };
@@ -17129,7 +17130,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let portfoliosApiInstance = new Asana.PortfoliosApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The updated fields for the portfolio.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated fields for the portfolio.
               let portfolio_gid = "12345"; // String | Globally unique identifier for the portfolio.
               let opts = { 
                   'opt_fields': "color,created_at,created_by,created_by.name,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,due_on,members,members.name,name,owner,owner.name,permalink_url,project_templates,project_templates.name,public,start_on,workspace,workspace.name"
@@ -17844,7 +17845,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let portfoliosApiInstance = new Asana.PortfoliosApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the item being inserted.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the item being inserted.
               let portfolio_gid = "12345"; // String | Globally unique identifier for the portfolio.
 
               portfoliosApiInstance.addItemForPortfolio(body, portfolio_gid).then((result) => {
@@ -18000,7 +18001,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let portfoliosApiInstance = new Asana.PortfoliosApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the item being removed.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the item being removed.
               let portfolio_gid = "12345"; // String | Globally unique identifier for the portfolio.
 
               portfoliosApiInstance.removeItemForPortfolio(body, portfolio_gid).then((result) => {
@@ -18156,7 +18157,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let portfoliosApiInstance = new Asana.PortfoliosApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the custom field setting.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the custom field setting.
               let portfolio_gid = "12345"; // String | Globally unique identifier for the portfolio.
 
               portfoliosApiInstance.addCustomFieldSettingForPortfolio(body, portfolio_gid).then((result) => {
@@ -18311,7 +18312,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let portfoliosApiInstance = new Asana.PortfoliosApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the custom field setting being removed.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the custom field setting being removed.
               let portfolio_gid = "12345"; // String | Globally unique identifier for the portfolio.
 
               portfoliosApiInstance.removeCustomFieldSettingForPortfolio(body, portfolio_gid).then((result) => {
@@ -18668,7 +18669,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let portfoliosApiInstance = new Asana.PortfoliosApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the members being added.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the members being added.
               let portfolio_gid = "12345"; // String | Globally unique identifier for the portfolio.
               let opts = { 
                   'opt_fields': "color,created_at,created_by,created_by.name,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,due_on,members,members.name,name,owner,owner.name,permalink_url,project_templates,project_templates.name,public,start_on,workspace,workspace.name"
@@ -19029,7 +19030,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let portfoliosApiInstance = new Asana.PortfoliosApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the members being removed.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the members being removed.
               let portfolio_gid = "12345"; // String | Globally unique identifier for the portfolio.
               let opts = { 
                   'opt_fields': "color,created_at,created_by,created_by.name,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,due_on,members,members.name,name,owner,owner.name,permalink_url,project_templates,project_templates.name,public,start_on,workspace,workspace.name"
@@ -19399,7 +19400,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectBriefsApiInstance = new Asana.ProjectBriefsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The updated fields for the project brief.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated fields for the project brief.
               let project_brief_gid = "12345"; // String | Globally unique identifier for the project brief.
               let opts = { 
                   'opt_fields': "html_text,permalink_url,project,project.name,text,title"
@@ -19728,7 +19729,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectBriefsApiInstance = new Asana.ProjectBriefsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The project brief to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The project brief to create.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'opt_fields': "html_text,permalink_url,project,project.name,text,title"
@@ -20823,7 +20824,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectStatusesApiInstance = new Asana.ProjectStatusesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The project status to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The project status to create.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'opt_fields': "author,author.name,color,created_at,created_by,created_by.name,html_text,modified_at,text,title"
@@ -21715,7 +21716,7 @@ paths:
               let projectTemplatesApiInstance = new Asana.ProjectTemplatesApi();
               let project_template_gid = "1331"; // String | Globally unique identifier for the project template.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               projectTemplatesApiInstance.instantiateProject(project_template_gid, opts).then((result) => {
@@ -22573,7 +22574,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The project to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The project to create.
               let opts = { 
                   'opt_fields': "archived,color,completed,completed_at,completed_by,completed_by.name,created_at,created_from_template,created_from_template.name,current_status,current_status.author,current_status.author.name,current_status.color,current_status.created_at,current_status.created_by,current_status.created_by.name,current_status.html_text,current_status.modified_at,current_status.text,current_status.title,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,default_access_level,default_view,due_date,due_on,followers,followers.name,html_notes,icon,members,members.name,minimum_access_level_for_customization,minimum_access_level_for_sharing,modified_at,name,notes,owner,permalink_url,project_brief,public,start_on,team,team.name,workspace,workspace.name"
               };
@@ -23388,7 +23389,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The updated fields for the project.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated fields for the project.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'opt_fields': "archived,color,completed,completed_at,completed_by,completed_by.name,created_at,created_from_template,created_from_template.name,current_status,current_status.author,current_status.author.name,current_status.color,current_status.created_at,current_status.created_by,current_status.created_by.name,current_status.html_text,current_status.modified_at,current_status.text,current_status.title,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,default_access_level,default_view,due_date,due_on,followers,followers.name,html_notes,icon,members,members.name,minimum_access_level_for_customization,minimum_access_level_for_sharing,modified_at,name,notes,owner,permalink_url,project_brief,public,start_on,team,team.name,workspace,workspace.name"
@@ -23725,7 +23726,7 @@ paths:
               let projectsApiInstance = new Asana.ProjectsApi();
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               projectsApiInstance.duplicateProject(project_gid, opts).then((result) => {
@@ -24973,7 +24974,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The new project to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The new project to create.
               let team_gid = "159874"; // String | Globally unique identifier for the team.
               let opts = { 
                   'opt_fields': "archived,color,completed,completed_at,completed_by,completed_by.name,created_at,created_from_template,created_from_template.name,current_status,current_status.author,current_status.author.name,current_status.color,current_status.created_at,current_status.created_by,current_status.created_by.name,current_status.html_text,current_status.modified_at,current_status.text,current_status.title,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,default_access_level,default_view,due_date,due_on,followers,followers.name,html_notes,icon,members,members.name,minimum_access_level_for_customization,minimum_access_level_for_sharing,modified_at,name,notes,owner,permalink_url,project_brief,public,start_on,team,team.name,workspace,workspace.name"
@@ -25814,7 +25815,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The new project to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The new project to create.
               let workspace_gid = "12345"; // String | Globally unique identifier for the workspace or organization.
               let opts = { 
                   'opt_fields': "archived,color,completed,completed_at,completed_by,completed_by.name,created_at,created_from_template,created_from_template.name,current_status,current_status.author,current_status.author.name,current_status.color,current_status.created_at,current_status.created_by,current_status.created_by.name,current_status.html_text,current_status.modified_at,current_status.text,current_status.title,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,default_access_level,default_view,due_date,due_on,followers,followers.name,html_notes,icon,members,members.name,minimum_access_level_for_customization,minimum_access_level_for_sharing,modified_at,name,notes,owner,permalink_url,project_brief,public,start_on,team,team.name,workspace,workspace.name"
@@ -26080,10 +26081,12 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the custom field setting.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the custom field setting.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
-
-              projectsApiInstance.addCustomFieldSettingForProject(body, project_gid).then((result) => {
+              let opts = { 
+                  'opt_fields': "custom_field,custom_field.asana_created_field,custom_field.created_by,custom_field.created_by.name,custom_field.currency_code,custom_field.custom_label,custom_field.custom_label_position,custom_field.date_value,custom_field.date_value.date,custom_field.date_value.date_time,custom_field.description,custom_field.display_value,custom_field.enabled,custom_field.enum_options,custom_field.enum_options.color,custom_field.enum_options.enabled,custom_field.enum_options.name,custom_field.enum_value,custom_field.enum_value.color,custom_field.enum_value.enabled,custom_field.enum_value.name,custom_field.format,custom_field.has_notifications_enabled,custom_field.is_formula_field,custom_field.is_global_to_workspace,custom_field.is_value_read_only,custom_field.multi_enum_values,custom_field.multi_enum_values.color,custom_field.multi_enum_values.enabled,custom_field.multi_enum_values.name,custom_field.name,custom_field.number_value,custom_field.people_value,custom_field.people_value.name,custom_field.precision,custom_field.resource_subtype,custom_field.text_value,custom_field.type,is_important,parent,parent.name,project,project.name"
+              };
+              projectsApiInstance.addCustomFieldSettingForProject(body, project_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
               }, (error) => {
                   console.error(error.response.body);
@@ -26237,7 +26240,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the custom field setting being removed.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the custom field setting being removed.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
 
               projectsApiInstance.removeCustomFieldSettingForProject(body, project_gid).then((result) => {
@@ -26840,7 +26843,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the members being added.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the members being added.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'opt_fields': "archived,color,completed,completed_at,completed_by,completed_by.name,created_at,created_from_template,created_from_template.name,current_status,current_status.author,current_status.author.name,current_status.color,current_status.created_at,current_status.created_by,current_status.created_by.name,current_status.html_text,current_status.modified_at,current_status.text,current_status.title,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,default_access_level,default_view,due_date,due_on,followers,followers.name,html_notes,icon,members,members.name,minimum_access_level_for_customization,minimum_access_level_for_sharing,modified_at,name,notes,owner,permalink_url,project_brief,public,start_on,team,team.name,workspace,workspace.name"
@@ -27256,7 +27259,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the members being removed.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the members being removed.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'opt_fields': "archived,color,completed,completed_at,completed_by,completed_by.name,created_at,created_from_template,created_from_template.name,current_status,current_status.author,current_status.author.name,current_status.color,current_status.created_at,current_status.created_by,current_status.created_by.name,current_status.html_text,current_status.modified_at,current_status.text,current_status.title,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,default_access_level,default_view,due_date,due_on,followers,followers.name,html_notes,icon,members,members.name,minimum_access_level_for_customization,minimum_access_level_for_sharing,modified_at,name,notes,owner,permalink_url,project_brief,public,start_on,team,team.name,workspace,workspace.name"
@@ -27676,7 +27679,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the followers being added.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the followers being added.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'opt_fields': "archived,color,completed,completed_at,completed_by,completed_by.name,created_at,created_from_template,created_from_template.name,current_status,current_status.author,current_status.author.name,current_status.color,current_status.created_at,current_status.created_by,current_status.created_by.name,current_status.html_text,current_status.modified_at,current_status.text,current_status.title,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,default_access_level,default_view,due_date,due_on,followers,followers.name,html_notes,icon,members,members.name,minimum_access_level_for_customization,minimum_access_level_for_sharing,modified_at,name,notes,owner,permalink_url,project_brief,public,start_on,team,team.name,workspace,workspace.name"
@@ -28093,7 +28096,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the followers being removed.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the followers being removed.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'opt_fields': "archived,color,completed,completed_at,completed_by,completed_by.name,created_at,created_from_template,created_from_template.name,current_status,current_status.author,current_status.author.name,current_status.color,current_status.created_at,current_status.created_by,current_status.created_by.name,current_status.html_text,current_status.modified_at,current_status.text,current_status.title,current_status_update,current_status_update.resource_subtype,current_status_update.title,custom_field_settings,custom_field_settings.custom_field,custom_field_settings.custom_field.asana_created_field,custom_field_settings.custom_field.created_by,custom_field_settings.custom_field.created_by.name,custom_field_settings.custom_field.currency_code,custom_field_settings.custom_field.custom_label,custom_field_settings.custom_field.custom_label_position,custom_field_settings.custom_field.date_value,custom_field_settings.custom_field.date_value.date,custom_field_settings.custom_field.date_value.date_time,custom_field_settings.custom_field.description,custom_field_settings.custom_field.display_value,custom_field_settings.custom_field.enabled,custom_field_settings.custom_field.enum_options,custom_field_settings.custom_field.enum_options.color,custom_field_settings.custom_field.enum_options.enabled,custom_field_settings.custom_field.enum_options.name,custom_field_settings.custom_field.enum_value,custom_field_settings.custom_field.enum_value.color,custom_field_settings.custom_field.enum_value.enabled,custom_field_settings.custom_field.enum_value.name,custom_field_settings.custom_field.format,custom_field_settings.custom_field.has_notifications_enabled,custom_field_settings.custom_field.is_formula_field,custom_field_settings.custom_field.is_global_to_workspace,custom_field_settings.custom_field.is_value_read_only,custom_field_settings.custom_field.multi_enum_values,custom_field_settings.custom_field.multi_enum_values.color,custom_field_settings.custom_field.multi_enum_values.enabled,custom_field_settings.custom_field.multi_enum_values.name,custom_field_settings.custom_field.name,custom_field_settings.custom_field.number_value,custom_field_settings.custom_field.people_value,custom_field_settings.custom_field.people_value.name,custom_field_settings.custom_field.precision,custom_field_settings.custom_field.resource_subtype,custom_field_settings.custom_field.text_value,custom_field_settings.custom_field.type,custom_field_settings.is_important,custom_field_settings.parent,custom_field_settings.parent.name,custom_field_settings.project,custom_field_settings.project.name,custom_fields,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.is_formula_field,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,default_access_level,default_view,due_date,due_on,followers,followers.name,html_notes,icon,members,members.name,minimum_access_level_for_customization,minimum_access_level_for_sharing,modified_at,name,notes,owner,permalink_url,project_brief,public,start_on,team,team.name,workspace,workspace.name"
@@ -28297,7 +28300,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let projectsApiInstance = new Asana.ProjectsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Describes the inputs used for creating a project template, such as the resulting project template's name, which team it should be created in.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Describes the inputs used for creating a project template, such as the resulting project template's name, which team it should be created in.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
@@ -28441,7 +28444,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let rulesApiInstance = new Asana.RulesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | A dictionary of variables accessible from within the rule.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | A dictionary of variables accessible from within the rule.
               let rule_trigger_gid = "12345"; // String | The ID of the incoming web request trigger. This value is a path parameter that is automatically generated for the API endpoint.
 
               rulesApiInstance.triggerRule(body, rule_trigger_gid).then((result) => {
@@ -28748,7 +28751,7 @@ paths:
               let sectionsApiInstance = new Asana.SectionsApi();
               let section_gid = "321654"; // String | The globally unique identifier for the section.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "created_at,name,project,project.name,projects,projects.name"
               };
               sectionsApiInstance.updateSection(section_gid, opts).then((result) => {
@@ -29261,7 +29264,7 @@ paths:
               let sectionsApiInstance = new Asana.SectionsApi();
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "created_at,name,project,project.name,projects,projects.name"
               };
               sectionsApiInstance.createSectionForProject(project_gid, opts).then((result) => {
@@ -29422,7 +29425,7 @@ paths:
               let sectionsApiInstance = new Asana.SectionsApi();
               let section_gid = "321654"; // String | The globally unique identifier for the section.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}
               };
               sectionsApiInstance.addTaskForSection(section_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -29582,7 +29585,7 @@ paths:
               let sectionsApiInstance = new Asana.SectionsApi();
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}
               };
               sectionsApiInstance.insertSectionForProject(project_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -30381,7 +30384,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let statusUpdatesApiInstance = new Asana.StatusUpdatesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The status update to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The status update to create.
               let opts = { 
                   'limit': 50, 
                   'offset': "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9", 
@@ -31255,7 +31258,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let storiesApiInstance = new Asana.StoriesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The comment story to update.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The comment story to update.
               let story_gid = "35678"; // String | Globally unique identifier for the story.
               let opts = { 
                   'opt_fields': "assignee,assignee.name,created_at,created_by,created_by.name,custom_field,custom_field.date_value,custom_field.date_value.date,custom_field.date_value.date_time,custom_field.display_value,custom_field.enabled,custom_field.enum_options,custom_field.enum_options.color,custom_field.enum_options.enabled,custom_field.enum_options.name,custom_field.enum_value,custom_field.enum_value.color,custom_field.enum_value.enabled,custom_field.enum_value.name,custom_field.is_formula_field,custom_field.multi_enum_values,custom_field.multi_enum_values.color,custom_field.multi_enum_values.enabled,custom_field.multi_enum_values.name,custom_field.name,custom_field.number_value,custom_field.resource_subtype,custom_field.text_value,custom_field.type,dependency,dependency.created_by,dependency.name,dependency.resource_subtype,duplicate_of,duplicate_of.created_by,duplicate_of.name,duplicate_of.resource_subtype,duplicated_from,duplicated_from.created_by,duplicated_from.name,duplicated_from.resource_subtype,follower,follower.name,hearted,hearts,hearts.user,hearts.user.name,html_text,is_editable,is_edited,is_pinned,liked,likes,likes.user,likes.user.name,new_approval_status,new_date_value,new_dates,new_dates.due_at,new_dates.due_on,new_dates.start_on,new_enum_value,new_enum_value.color,new_enum_value.enabled,new_enum_value.name,new_multi_enum_values,new_multi_enum_values.color,new_multi_enum_values.enabled,new_multi_enum_values.name,new_name,new_number_value,new_people_value,new_people_value.name,new_resource_subtype,new_section,new_section.name,new_text_value,num_hearts,num_likes,old_approval_status,old_date_value,old_dates,old_dates.due_at,old_dates.due_on,old_dates.start_on,old_enum_value,old_enum_value.color,old_enum_value.enabled,old_enum_value.name,old_multi_enum_values,old_multi_enum_values.color,old_multi_enum_values.enabled,old_multi_enum_values.name,old_name,old_number_value,old_people_value,old_people_value.name,old_resource_subtype,old_section,old_section.name,old_text_value,previews,previews.fallback,previews.footer,previews.header,previews.header_link,previews.html_text,previews.text,previews.title,previews.title_link,project,project.name,resource_subtype,source,sticker_name,story,story.created_at,story.created_by,story.created_by.name,story.resource_subtype,story.text,tag,tag.name,target,target.created_by,target.name,target.resource_subtype,task,task.created_by,task.name,task.resource_subtype,text,type"
@@ -32282,7 +32285,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let storiesApiInstance = new Asana.StoriesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The story to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The story to create.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
                   'opt_fields': "assignee,assignee.name,created_at,created_by,created_by.name,custom_field,custom_field.date_value,custom_field.date_value.date,custom_field.date_value.date_time,custom_field.display_value,custom_field.enabled,custom_field.enum_options,custom_field.enum_options.color,custom_field.enum_options.enabled,custom_field.enum_options.name,custom_field.enum_value,custom_field.enum_value.color,custom_field.enum_value.enabled,custom_field.enum_value.name,custom_field.is_formula_field,custom_field.multi_enum_values,custom_field.multi_enum_values.color,custom_field.multi_enum_values.enabled,custom_field.multi_enum_values.name,custom_field.name,custom_field.number_value,custom_field.resource_subtype,custom_field.text_value,custom_field.type,dependency,dependency.created_by,dependency.name,dependency.resource_subtype,duplicate_of,duplicate_of.created_by,duplicate_of.name,duplicate_of.resource_subtype,duplicated_from,duplicated_from.created_by,duplicated_from.name,duplicated_from.resource_subtype,follower,follower.name,hearted,hearts,hearts.user,hearts.user.name,html_text,is_editable,is_edited,is_pinned,liked,likes,likes.user,likes.user.name,new_approval_status,new_date_value,new_dates,new_dates.due_at,new_dates.due_on,new_dates.start_on,new_enum_value,new_enum_value.color,new_enum_value.enabled,new_enum_value.name,new_multi_enum_values,new_multi_enum_values.color,new_multi_enum_values.enabled,new_multi_enum_values.name,new_name,new_number_value,new_people_value,new_people_value.name,new_resource_subtype,new_section,new_section.name,new_text_value,num_hearts,num_likes,old_approval_status,old_date_value,old_dates,old_dates.due_at,old_dates.due_on,old_dates.start_on,old_enum_value,old_enum_value.color,old_enum_value.enabled,old_enum_value.name,old_multi_enum_values,old_multi_enum_values.color,old_multi_enum_values.enabled,old_multi_enum_values.name,old_name,old_number_value,old_people_value,old_people_value.name,old_resource_subtype,old_section,old_section.name,old_text_value,previews,previews.fallback,previews.footer,previews.header,previews.header_link,previews.html_text,previews.text,previews.title,previews.title_link,project,project.name,resource_subtype,source,sticker_name,story,story.created_at,story.created_by,story.created_by.name,story.resource_subtype,story.text,tag,tag.name,target,target.created_by,target.name,target.resource_subtype,task,task.created_by,task.name,task.resource_subtype,text,type"
@@ -32678,7 +32681,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tagsApiInstance = new Asana.TagsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The tag to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The tag to create.
               let opts = { 
                   'opt_fields': "color,created_at,followers,followers.name,name,notes,permalink_url,workspace,workspace.name"
               };
@@ -33758,7 +33761,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tagsApiInstance = new Asana.TagsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The tag to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The tag to create.
               let workspace_gid = "12345"; // String | Globally unique identifier for the workspace or organization.
               let opts = { 
                   'opt_fields': "color,created_at,followers,followers.name,name,notes,permalink_url,workspace,workspace.name"
@@ -34169,7 +34172,7 @@ paths:
               let taskTemplatesApiInstance = new Asana.TaskTemplatesApi();
               let task_template_gid = "1331"; // String | Globally unique identifier for the task template.
               let opts = { 
-                  'body': {"data": {"param1": "value1", "param2": "value2",}}, 
+                  'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
                   'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               taskTemplatesApiInstance.instantiateTask(task_template_gid, opts).then((result) => {
@@ -34930,7 +34933,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The task to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The task to create.
               let opts = { 
                   'opt_fields': "actual_time_minutes,approval_status,assignee,assignee.name,assignee_section,assignee_section.name,assignee_status,completed,completed_at,completed_by,completed_by.name,created_at,created_by,custom_fields,custom_fields.asana_created_field,custom_fields.created_by,custom_fields.created_by.name,custom_fields.currency_code,custom_fields.custom_label,custom_fields.custom_label_position,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.description,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.format,custom_fields.has_notifications_enabled,custom_fields.is_formula_field,custom_fields.is_global_to_workspace,custom_fields.is_value_read_only,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.people_value,custom_fields.people_value.name,custom_fields.precision,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,dependencies,dependents,due_at,due_on,external,external.data,followers,followers.name,hearted,hearts,hearts.user,hearts.user.name,html_notes,is_rendered_as_separator,liked,likes,likes.user,likes.user.name,memberships,memberships.project,memberships.project.name,memberships.section,memberships.section.name,modified_at,name,notes,num_hearts,num_likes,num_subtasks,parent,parent.created_by,parent.name,parent.resource_subtype,permalink_url,projects,projects.name,resource_subtype,start_at,start_on,tags,tags.name,workspace,workspace.name"
               };
@@ -35648,7 +35651,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The task to update.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The task to update.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
                   'opt_fields': "actual_time_minutes,approval_status,assignee,assignee.name,assignee_section,assignee_section.name,assignee_status,completed,completed_at,completed_by,completed_by.name,created_at,created_by,custom_fields,custom_fields.asana_created_field,custom_fields.created_by,custom_fields.created_by.name,custom_fields.currency_code,custom_fields.custom_label,custom_fields.custom_label_position,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.description,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.format,custom_fields.has_notifications_enabled,custom_fields.is_formula_field,custom_fields.is_global_to_workspace,custom_fields.is_value_read_only,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.people_value,custom_fields.people_value.name,custom_fields.precision,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,dependencies,dependents,due_at,due_on,external,external.data,followers,followers.name,hearted,hearts,hearts.user,hearts.user.name,html_notes,is_rendered_as_separator,liked,likes,likes.user,likes.user.name,memberships,memberships.project,memberships.project.name,memberships.section,memberships.section.name,modified_at,name,notes,num_hearts,num_likes,num_subtasks,parent,parent.created_by,parent.name,parent.resource_subtype,permalink_url,projects,projects.name,resource_subtype,start_at,start_on,tags,tags.name,workspace,workspace.name"
@@ -35986,7 +35989,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Describes the duplicate's name and the fields that will be duplicated.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Describes the duplicate's name and the fields that will be duplicated.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
                   'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
@@ -38223,7 +38226,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The new subtask to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The new subtask to create.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
                   'opt_fields': "actual_time_minutes,approval_status,assignee,assignee.name,assignee_section,assignee_section.name,assignee_status,completed,completed_at,completed_by,completed_by.name,created_at,created_by,custom_fields,custom_fields.asana_created_field,custom_fields.created_by,custom_fields.created_by.name,custom_fields.currency_code,custom_fields.custom_label,custom_fields.custom_label_position,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.description,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.format,custom_fields.has_notifications_enabled,custom_fields.is_formula_field,custom_fields.is_global_to_workspace,custom_fields.is_value_read_only,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.people_value,custom_fields.people_value.name,custom_fields.precision,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,dependencies,dependents,due_at,due_on,external,external.data,followers,followers.name,hearted,hearts,hearts.user,hearts.user.name,html_notes,is_rendered_as_separator,liked,likes,likes.user,likes.user.name,memberships,memberships.project,memberships.project.name,memberships.section,memberships.section.name,modified_at,name,notes,num_hearts,num_likes,num_subtasks,parent,parent.created_by,parent.name,parent.resource_subtype,permalink_url,projects,projects.name,resource_subtype,start_at,start_on,tags,tags.name,workspace,workspace.name"
@@ -38591,7 +38594,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The new parent of the subtask.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The new parent of the subtask.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
                   'opt_fields': "actual_time_minutes,approval_status,assignee,assignee.name,assignee_section,assignee_section.name,assignee_status,completed,completed_at,completed_by,completed_by.name,created_at,created_by,custom_fields,custom_fields.asana_created_field,custom_fields.created_by,custom_fields.created_by.name,custom_fields.currency_code,custom_fields.custom_label,custom_fields.custom_label_position,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.description,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.format,custom_fields.has_notifications_enabled,custom_fields.is_formula_field,custom_fields.is_global_to_workspace,custom_fields.is_value_read_only,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.people_value,custom_fields.people_value.name,custom_fields.precision,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,dependencies,dependents,due_at,due_on,external,external.data,followers,followers.name,hearted,hearts,hearts.user,hearts.user.name,html_notes,is_rendered_as_separator,liked,likes,likes.user,likes.user.name,memberships,memberships.project,memberships.project.name,memberships.section,memberships.section.name,modified_at,name,notes,num_hearts,num_likes,num_subtasks,parent,parent.created_by,parent.name,parent.resource_subtype,permalink_url,projects,projects.name,resource_subtype,start_at,start_on,tags,tags.name,workspace,workspace.name"
@@ -39124,7 +39127,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The list of tasks to set as dependencies.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The list of tasks to set as dependencies.
               let task_gid = "321654"; // String | The task to operate on.
 
               tasksApiInstance.addDependenciesForTask(body, task_gid).then((result) => {
@@ -39280,7 +39283,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The list of tasks to unlink as dependencies.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The list of tasks to unlink as dependencies.
               let task_gid = "321654"; // String | The task to operate on.
 
               tasksApiInstance.removeDependenciesForTask(body, task_gid).then((result) => {
@@ -39810,7 +39813,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The list of tasks to add as dependents.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The list of tasks to add as dependents.
               let task_gid = "321654"; // String | The task to operate on.
 
               tasksApiInstance.addDependentsForTask(body, task_gid).then((result) => {
@@ -39967,7 +39970,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The list of tasks to remove as dependents.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The list of tasks to remove as dependents.
               let task_gid = "321654"; // String | The task to operate on.
 
               tasksApiInstance.removeDependentsForTask(body, task_gid).then((result) => {
@@ -40135,7 +40138,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The project to add the task to.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The project to add the task to.
               let task_gid = "321654"; // String | The task to operate on.
 
               tasksApiInstance.addProjectForTask(body, task_gid).then((result) => {
@@ -40293,7 +40296,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The project to remove the task from.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The project to remove the task from.
               let task_gid = "321654"; // String | The task to operate on.
 
               tasksApiInstance.removeProjectForTask(body, task_gid).then((result) => {
@@ -40448,7 +40451,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The tag to add to the task.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The tag to add to the task.
               let task_gid = "321654"; // String | The task to operate on.
 
               tasksApiInstance.addTagForTask(body, task_gid).then((result) => {
@@ -40603,7 +40606,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The tag to remove from the task.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The tag to remove from the task.
               let task_gid = "321654"; // String | The task to operate on.
 
               tasksApiInstance.removeTagForTask(body, task_gid).then((result) => {
@@ -40971,7 +40974,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The followers to add to the task.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The followers to add to the task.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
                   'opt_fields': "actual_time_minutes,approval_status,assignee,assignee.name,assignee_section,assignee_section.name,assignee_status,completed,completed_at,completed_by,completed_by.name,created_at,created_by,custom_fields,custom_fields.asana_created_field,custom_fields.created_by,custom_fields.created_by.name,custom_fields.currency_code,custom_fields.custom_label,custom_fields.custom_label_position,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.description,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.format,custom_fields.has_notifications_enabled,custom_fields.is_formula_field,custom_fields.is_global_to_workspace,custom_fields.is_value_read_only,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.people_value,custom_fields.people_value.name,custom_fields.precision,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,dependencies,dependents,due_at,due_on,external,external.data,followers,followers.name,hearted,hearts,hearts.user,hearts.user.name,html_notes,is_rendered_as_separator,liked,likes,likes.user,likes.user.name,memberships,memberships.project,memberships.project.name,memberships.section,memberships.section.name,modified_at,name,notes,num_hearts,num_likes,num_subtasks,parent,parent.created_by,parent.name,parent.resource_subtype,permalink_url,projects,projects.name,resource_subtype,start_at,start_on,tags,tags.name,workspace,workspace.name"
@@ -41339,7 +41342,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let tasksApiInstance = new Asana.TasksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The followers to remove from the task.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The followers to remove from the task.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
                   'opt_fields': "actual_time_minutes,approval_status,assignee,assignee.name,assignee_section,assignee_section.name,assignee_status,completed,completed_at,completed_by,completed_by.name,created_at,created_by,custom_fields,custom_fields.asana_created_field,custom_fields.created_by,custom_fields.created_by.name,custom_fields.currency_code,custom_fields.custom_label,custom_fields.custom_label_position,custom_fields.date_value,custom_fields.date_value.date,custom_fields.date_value.date_time,custom_fields.description,custom_fields.display_value,custom_fields.enabled,custom_fields.enum_options,custom_fields.enum_options.color,custom_fields.enum_options.enabled,custom_fields.enum_options.name,custom_fields.enum_value,custom_fields.enum_value.color,custom_fields.enum_value.enabled,custom_fields.enum_value.name,custom_fields.format,custom_fields.has_notifications_enabled,custom_fields.is_formula_field,custom_fields.is_global_to_workspace,custom_fields.is_value_read_only,custom_fields.multi_enum_values,custom_fields.multi_enum_values.color,custom_fields.multi_enum_values.enabled,custom_fields.multi_enum_values.name,custom_fields.name,custom_fields.number_value,custom_fields.people_value,custom_fields.people_value.name,custom_fields.precision,custom_fields.resource_subtype,custom_fields.text_value,custom_fields.type,dependencies,dependents,due_at,due_on,external,external.data,followers,followers.name,hearted,hearts,hearts.user,hearts.user.name,html_notes,is_rendered_as_separator,liked,likes,likes.user,likes.user.name,memberships,memberships.project,memberships.project.name,memberships.section,memberships.section.name,modified_at,name,notes,num_hearts,num_likes,num_subtasks,parent,parent.created_by,parent.name,parent.resource_subtype,permalink_url,projects,projects.name,resource_subtype,start_at,start_on,tags,tags.name,workspace,workspace.name"
@@ -43309,7 +43312,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let teamsApiInstance = new Asana.TeamsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The team to create.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The team to create.
               let opts = { 
                   'opt_fields': "description,edit_team_name_or_description_access_level,edit_team_visibility_or_trash_team_access_level,guest_invite_management_access_level,html_description,join_request_management_access_level,member_invite_management_access_level,name,organization,organization.name,permalink_url,team_member_removal_access_level,visibility"
               };
@@ -43687,7 +43690,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let teamsApiInstance = new Asana.TeamsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The team to update.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The team to update.
               let team_gid = "159874"; // String | Globally unique identifier for the team.
               let opts = { 
                   'opt_fields': "description,edit_team_name_or_description_access_level,edit_team_visibility_or_trash_team_access_level,guest_invite_management_access_level,html_description,join_request_management_access_level,member_invite_management_access_level,name,organization,organization.name,permalink_url,team_member_removal_access_level,visibility"
@@ -44287,7 +44290,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let teamsApiInstance = new Asana.TeamsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The user to add to the team.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The user to add to the team.
               let team_gid = "159874"; // String | Globally unique identifier for the team.
               let opts = { 
                   'opt_fields': "is_admin,is_guest,is_limited_access,team,team.name,user,user.name"
@@ -44447,7 +44450,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let teamsApiInstance = new Asana.TeamsApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The user to remove from the team.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The user to remove from the team.
               let team_gid = "159874"; // String | Globally unique identifier for the team.
 
               teamsApiInstance.removeUserForTeam(body, team_gid).then((result) => {
@@ -45136,7 +45139,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let timeTrackingEntriesApiInstance = new Asana.TimeTrackingEntriesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | Information about the time tracking entry.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the time tracking entry.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
                   'opt_fields': "created_at,created_by,created_by.name,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype"
@@ -45376,7 +45379,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let timeTrackingEntriesApiInstance = new Asana.TimeTrackingEntriesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The updated fields for the time tracking entry.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated fields for the time tracking entry.
               let time_tracking_entry_gid = "917392"; // String | Globally unique identifier for the time tracking entry.
               let opts = { 
                   'opt_fields': "created_at,created_by,created_by.name,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype"
@@ -47477,7 +47480,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let webhooksApiInstance = new Asana.WebhooksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The webhook workspace and target.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The webhook workspace and target.
               let opts = { 
                   'opt_fields': "active,created_at,filters,filters.action,filters.fields,filters.resource_subtype,last_failure_at,last_failure_content,last_success_at,resource,resource.name,target"
               };
@@ -47857,7 +47860,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let webhooksApiInstance = new Asana.WebhooksApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The updated filters for the webhook.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated filters for the webhook.
               let webhook_gid = "12345"; // String | Globally unique identifier for the webhook.
               let opts = { 
                   'opt_fields': "active,created_at,filters,filters.action,filters.fields,filters.resource_subtype,last_failure_at,last_failure_content,last_success_at,resource,resource.name,target"
@@ -49128,7 +49131,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let workspacesApiInstance = new Asana.WorkspacesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The workspace object with all updated properties.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The workspace object with all updated properties.
               let workspace_gid = "12345"; // String | Globally unique identifier for the workspace or organization.
               let opts = { 
                   'opt_fields': "email_domains,is_organization,name"
@@ -49324,7 +49327,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let workspacesApiInstance = new Asana.WorkspacesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The user to add to the workspace.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The user to add to the workspace.
               let workspace_gid = "12345"; // String | Globally unique identifier for the workspace or organization.
               let opts = { 
                   'opt_fields': "email,name,photo,photo.image_1024x1024,photo.image_128x128,photo.image_21x21,photo.image_27x27,photo.image_36x36,photo.image_60x60"
@@ -49488,7 +49491,7 @@ paths:
               token.accessToken = '<YOUR_ACCESS_TOKEN>';
 
               let workspacesApiInstance = new Asana.WorkspacesApi();
-              let body = {"data": {"param1": "value1", "param2": "value2",}}; // Object | The user to remove from the workspace.
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The user to remove from the workspace.
               let workspace_gid = "12345"; // String | Globally unique identifier for the workspace or organization.
 
               workspacesApiInstance.removeUserForWorkspace(body, workspace_gid).then((result) => {
