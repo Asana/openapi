@@ -40394,7 +40394,7 @@ paths:
         - Tasks
       operationId: addTagForTask
       requestBody:
-        description: The tag to add to the task.
+        description: The tag's gid to add to the task.
         required: true
         content:
           application/json:
@@ -40549,7 +40549,7 @@ paths:
         - Tasks
       operationId: removeTagForTask
       requestBody:
-        description: The tag to remove from the task.
+        description: The tag's gid to remove from the task.
         required: true
         content:
           application/json:
