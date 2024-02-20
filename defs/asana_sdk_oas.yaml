@@ -21406,7 +21406,7 @@ components:
       type: object
       properties:
         tag:
-          description: The tag to add to the task.
+          description: The tag's gid to add to the task.
           type: string
           example: '13579'
       required:
@@ -23499,7 +23499,7 @@ components:
       type: object
       properties:
         tag:
-          description: The tag to remove from the task.
+          description: The tag's gid to remove from the task.
           type: string
           example: '13579'
       required:
