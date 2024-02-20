@@ -5384,7 +5384,7 @@ components:
       type: object
       properties:
         tag:
-          description: The tag to add to the task.
+          description: The tag's gid to add to the task.
           type: string
           example: '13579'
       required:
@@ -5964,7 +5964,7 @@ components:
       type: object
       properties:
         tag:
-          description: The tag to remove from the task.
+          description: The tag's gid to remove from the task.
           type: string
           example: '13579'
       required:
@@ -6913,6 +6913,10 @@ components:
           x-docs-overrides:
             properties.resource_type.example: membership
           properties:
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              example: membership
             resource_subtype:
               type: string
               readOnly: true
@@ -14527,8 +14531,8 @@ paths:
     post:
       summary: Create a membership
       description: |-
-        Creates a new membership in a `goal`. `Teams` or `users` can be a member
-        of `goals`.
+        Creates a new membership in a `goal` or `project`. `Teams` or `users` can be a member
+        of `goals` or `projects`.
 
         Returns the full record of the newly created membership.
       tags:
@@ -14554,7 +14558,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/MembershipResponse'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MembershipResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -14759,7 +14765,7 @@ paths:
     delete:
       summary: Delete a membership
       description: |-
-        A specific, existing membership can be deleted by making a `DELETE` request
+        A specific, existing membership for a `goal` or `project` can be deleted by making a `DELETE` request
         on the URL for that membership.
 
         Returns an empty data record.

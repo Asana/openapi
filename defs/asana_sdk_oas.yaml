@@ -1451,11 +1451,6 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/MembershipResponseArray'
-    MembershipResponseData:
-      content:
-        application/json; charset=UTF-8:
-          schema:
-            $ref: '#/components/schemas/MembershipResponseData'
     ProjectMembershipCompactResponseData:
       content:
         application/json; charset=UTF-8:
@@ -8336,9 +8331,7 @@ components:
             resource_type:
               description: The base type of this resource.
               type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
+              example: membership
             resource_subtype:
               type: string
               readOnly: true
@@ -21413,7 +21406,7 @@ components:
       type: object
       properties:
         tag:
-          description: The tag to add to the task.
+          description: The tag's gid to add to the task.
           type: string
           example: '13579'
       required:
@@ -23506,7 +23499,7 @@ components:
       type: object
       properties:
         tag:
-          description: The tag to remove from the task.
+          description: The tag's gid to remove from the task.
           type: string
           example: '13579'
       required:
@@ -28141,9 +28134,7 @@ components:
         resource_type:
           description: The base type of this resource.
           type: string
-          readOnly: true
-          example: task
-          x-insert-after: gid
+          example: membership
         resource_subtype:
           type: string
           readOnly: true
@@ -28312,9 +28303,7 @@ components:
         resource_type:
           description: The base type of this resource.
           type: string
-          readOnly: true
-          example: task
-          x-insert-after: gid
+          example: membership
         resource_subtype:
           type: string
           readOnly: true
@@ -28499,9 +28488,7 @@ components:
         resource_type:
           description: The base type of this resource.
           type: string
-          readOnly: true
-          example: task
-          x-insert-after: gid
+          example: membership
         resource_subtype:
           type: string
           readOnly: true
@@ -28783,9 +28770,7 @@ components:
             resource_type:
               description: The base type of this resource.
               type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
+              example: membership
             resource_subtype:
               type: string
               readOnly: true
@@ -29466,13 +29451,6 @@ components:
             $ref: '#/components/schemas/MembershipResponse'
         next_page:
           $ref: '#/components/schemas/NextPage'
-    MembershipResponseData:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          $ref: '#/components/schemas/MembershipResponse'
     ProjectMembershipCompactResponseData:
       type: object
       required:
@@ -33096,8 +33074,8 @@ paths:
     post:
       summary: Create a membership
       description: |-
-        Creates a new membership in a `goal`. `Teams` or `users` can be a member
-        of `goals`.
+        Creates a new membership in a `goal` or `project`. `Teams` or `users` can be a member
+        of `goals` or `projects`.
 
         Returns the full record of the newly created membership.
       tags:
@@ -33115,7 +33093,7 @@ paths:
                   $ref: '#/components/schemas/CreateMembershipRequest'
       responses:
         201:
-          $ref: '#/components/responses/MembershipResponseData'
+          $ref: '#/components/responses/MembershipResponseArray'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -33181,7 +33159,7 @@ paths:
     delete:
       summary: Delete a membership
       description: |-
-        A specific, existing membership can be deleted by making a `DELETE` request
+        A specific, existing membership for a `goal` or `project` can be deleted by making a `DELETE` request
         on the URL for that membership.
 
         Returns an empty data record.
