@@ -2190,6 +2190,27 @@ components:
               type: boolean
               readOnly: true
               example: true
+            representation_type:
+              description: >-
+                This field tells the type of the custom field.
+              type: string
+              example: number
+              readOnly: true
+              enum:
+                - text
+                - enum
+                - multi_enum
+                - number
+                - date
+                - people
+                - formula
+                - custom_id
+            id_prefix:
+              description: >-
+                This field is the unique custom ID string for the custom field.
+              type: string
+              nullable: true
+              example: ID
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -2293,6 +2314,27 @@ components:
         - $ref: '#/components/schemas/CustomFieldBase'
         - type: object
           properties:
+            representation_type:
+              description: >-
+                This field tells the type of the custom field.
+              type: string
+              example: number
+              readOnly: true
+              enum:
+                - text
+                - enum
+                - multi_enum
+                - number
+                - date
+                - people
+                - formula
+                - custom_id
+            id_prefix:
+              description: >-
+                This field is the unique custom ID string for the custom field.
+              type: string
+              nullable: true
+              example: ID
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -7015,16 +7057,19 @@ components:
         - type: object
           properties:
             member:
-              description: The gid of the user or team
+              description: The gid of the user or team.
               type: string
               example: 12345
             parent:
-              description: The gid of the `goal`
+              description: The gid of the `goal` or `project` to add the member to.
               type: string
               example: '987654'
             role:
-              description: The role given to the member. Optional argument, will default
-                to commenter. Can be `editor` or `commenter`.
+              description: >-
+                The role given to the member. Optional argument, will default to `commenter`
+                for goals and the default project role for projects.
+                Can be `editor` or `commenter` for goals. Can be `admin`,`editor`
+                or `commenter` for projects.
               type: string
               example: editor
     MembershipResponse:
@@ -41438,6 +41483,38 @@ paths:
 
               result = client.tasks.remove_follower_for_task(task_gid: 'task_gid',
               field: "value", field: "value", options: {pretty: true})
+  /workspaces/{workspace_gid}/tasks/custom_id/{custom_id}:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/custom_id'
+    get:
+      summary: Get a task for a given custom ID
+      description: >-
+        Returns a task given a custom ID shortcode.
+      tags:
+        - Tasks
+      operationId: getTaskForCustomID
+      responses:
+        200:
+          description: >-
+            Successfully retrieved task for given custom ID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TaskResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /workspaces/{workspace_gid}/tasks/search:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
@@ -45502,7 +45579,7 @@ paths:
         in: query
         description: >-
           The type of values the typeahead should return. You can choose from one
-          of the following: `custom_field`, `project`, `project_template`,
+          of the following: `custom_field`, `goal`, `project`, `project_template`,
           `portfolio`, `tag`, `task`, and `user`. Note that unlike in the names
           of endpoints, the types listed here are in singular form (e.g. `task`).
           Using multiple types is not yet supported.
@@ -45511,6 +45588,7 @@ paths:
           type: string
           enum:
             - custom_field
+            - goal
             - project
             - project_template
             - portfolio

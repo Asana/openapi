@@ -2621,6 +2621,27 @@ components:
           type: boolean
           readOnly: true
           example: true
+        representation_type:
+          description: >-
+            This field tells the type of the custom field.
+          type: string
+          example: number
+          readOnly: true
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+            - formula
+            - custom_id
+        id_prefix:
+          description: >-
+            This field is the unique custom ID string for the custom field.
+          type: string
+          nullable: true
+          example: ID
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -3213,6 +3234,27 @@ components:
           type: boolean
           readOnly: true
           example: true
+        representation_type:
+          description: >-
+            This field tells the type of the custom field.
+          type: string
+          example: number
+          readOnly: true
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+            - formula
+            - custom_id
+        id_prefix:
+          description: >-
+            This field is the unique custom ID string for the custom field.
+          type: string
+          nullable: true
+          example: ID
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -3584,6 +3626,27 @@ components:
           type: boolean
           readOnly: true
           example: true
+        representation_type:
+          description: >-
+            This field tells the type of the custom field.
+          type: string
+          example: number
+          readOnly: true
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+            - formula
+            - custom_id
+        id_prefix:
+          description: >-
+            This field is the unique custom ID string for the custom field.
+          type: string
+          nullable: true
+          example: ID
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -4202,6 +4265,27 @@ components:
           type: boolean
           readOnly: true
           example: true
+        representation_type:
+          description: >-
+            This field tells the type of the custom field.
+          type: string
+          example: number
+          readOnly: true
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+            - formula
+            - custom_id
+        id_prefix:
+          description: >-
+            This field is the unique custom ID string for the custom field.
+          type: string
+          nullable: true
+          example: ID
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -5044,6 +5128,27 @@ components:
               type: boolean
               readOnly: true
               example: true
+            representation_type:
+              description: >-
+                This field tells the type of the custom field.
+              type: string
+              example: number
+              readOnly: true
+              enum:
+                - text
+                - enum
+                - multi_enum
+                - number
+                - date
+                - people
+                - formula
+                - custom_id
+            id_prefix:
+              description: >-
+                This field is the unique custom ID string for the custom field.
+              type: string
+              nullable: true
+              example: ID
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -9741,6 +9846,27 @@ components:
                     type: boolean
                     readOnly: true
                     example: true
+                  representation_type:
+                    description: >-
+                      This field tells the type of the custom field.
+                    type: string
+                    example: number
+                    readOnly: true
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                      - formula
+                      - custom_id
+                  id_prefix:
+                    description: >-
+                      This field is the unique custom ID string for the custom field.
+                    type: string
+                    nullable: true
+                    example: ID
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -10491,6 +10617,27 @@ components:
                 type: boolean
                 readOnly: true
                 example: true
+              representation_type:
+                description: >-
+                  This field tells the type of the custom field.
+                type: string
+                example: number
+                readOnly: true
+                enum:
+                  - text
+                  - enum
+                  - multi_enum
+                  - number
+                  - date
+                  - people
+                  - formula
+                  - custom_id
+              id_prefix:
+                description: >-
+                  This field is the unique custom ID string for the custom field.
+                type: string
+                nullable: true
+                example: ID
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -11473,6 +11620,27 @@ components:
                     type: boolean
                     readOnly: true
                     example: true
+                  representation_type:
+                    description: >-
+                      This field tells the type of the custom field.
+                    type: string
+                    example: number
+                    readOnly: true
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                      - formula
+                      - custom_id
+                  id_prefix:
+                    description: >-
+                      This field is the unique custom ID string for the custom field.
+                    type: string
+                    nullable: true
+                    example: ID
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -13420,6 +13588,27 @@ components:
                     type: boolean
                     readOnly: true
                     example: true
+                  representation_type:
+                    description: >-
+                      This field tells the type of the custom field.
+                    type: string
+                    example: number
+                    readOnly: true
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                      - formula
+                      - custom_id
+                  id_prefix:
+                    description: >-
+                      This field is the unique custom ID string for the custom field.
+                    type: string
+                    nullable: true
+                    example: ID
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -14681,6 +14870,27 @@ components:
                     type: boolean
                     readOnly: true
                     example: true
+                  representation_type:
+                    description: >-
+                      This field tells the type of the custom field.
+                    type: string
+                    example: number
+                    readOnly: true
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                      - formula
+                      - custom_id
+                  id_prefix:
+                    description: >-
+                      This field is the unique custom ID string for the custom field.
+                    type: string
+                    nullable: true
+                    example: ID
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -15937,6 +16147,27 @@ components:
                     type: boolean
                     readOnly: true
                     example: true
+                  representation_type:
+                    description: >-
+                      This field tells the type of the custom field.
+                    type: string
+                    example: number
+                    readOnly: true
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                      - formula
+                      - custom_id
+                  id_prefix:
+                    description: >-
+                      This field is the unique custom ID string for the custom field.
+                    type: string
+                    nullable: true
+                    example: ID
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -16751,6 +16982,27 @@ components:
                 type: boolean
                 readOnly: true
                 example: true
+              representation_type:
+                description: >-
+                  This field tells the type of the custom field.
+                type: string
+                example: number
+                readOnly: true
+                enum:
+                  - text
+                  - enum
+                  - multi_enum
+                  - number
+                  - date
+                  - people
+                  - formula
+                  - custom_id
+              id_prefix:
+                description: >-
+                  This field is the unique custom ID string for the custom field.
+                type: string
+                nullable: true
+                example: ID
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -20009,6 +20261,27 @@ components:
               type: boolean
               readOnly: true
               example: true
+            representation_type:
+              description: >-
+                This field tells the type of the custom field.
+              type: string
+              example: number
+              readOnly: true
+              enum:
+                - text
+                - enum
+                - multi_enum
+                - number
+                - date
+                - people
+                - formula
+                - custom_id
+            id_prefix:
+              description: >-
+                This field is the unique custom ID string for the custom field.
+              type: string
+              nullable: true
+              example: ID
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -22435,6 +22708,27 @@ components:
                 type: boolean
                 readOnly: true
                 example: true
+              representation_type:
+                description: >-
+                  This field tells the type of the custom field.
+                type: string
+                example: number
+                readOnly: true
+                enum:
+                  - text
+                  - enum
+                  - multi_enum
+                  - number
+                  - date
+                  - people
+                  - formula
+                  - custom_id
+              id_prefix:
+                description: >-
+                  This field is the unique custom ID string for the custom field.
+                type: string
+                nullable: true
+                example: ID
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -23121,6 +23415,28 @@ components:
                         type: boolean
                         readOnly: true
                         example: true
+                      representation_type:
+                        description: >-
+                          This field tells the type of the custom field.
+                        type: string
+                        example: number
+                        readOnly: true
+                        enum:
+                          - text
+                          - enum
+                          - multi_enum
+                          - number
+                          - date
+                          - people
+                          - formula
+                          - custom_id
+                      id_prefix:
+                        description: >-
+                          This field is the unique custom ID string for the custom
+                          field.
+                        type: string
+                        nullable: true
+                        example: ID
                       is_formula_field:
                         description: >-
                           *Conditional*. This flag describes whether a custom field
@@ -24873,6 +25189,27 @@ components:
                 type: boolean
                 readOnly: true
                 example: true
+              representation_type:
+                description: >-
+                  This field tells the type of the custom field.
+                type: string
+                example: number
+                readOnly: true
+                enum:
+                  - text
+                  - enum
+                  - multi_enum
+                  - number
+                  - date
+                  - people
+                  - formula
+                  - custom_id
+              id_prefix:
+                description: >-
+                  This field is the unique custom ID string for the custom field.
+                type: string
+                nullable: true
+                example: ID
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -28739,16 +29076,19 @@ components:
           type: boolean
           example: true
         member:
-          description: The gid of the user or team
+          description: The gid of the user or team.
           type: string
           example: 12345
         parent:
-          description: The gid of the `goal`
+          description: The gid of the `goal` or `project` to add the member to.
           type: string
           example: '987654'
         role:
-          description: The role given to the member. Optional argument, will default
-            to commenter. Can be `editor` or `commenter`.
+          description: >-
+            The role given to the member. Optional argument, will default to `commenter`
+            for goals and the default project role for projects.
+            Can be `editor` or `commenter` for goals. Can be `admin`,`editor` or `commenter`
+            for projects.
           type: string
           example: editor
     MembershipResponse:
@@ -30365,6 +30705,7 @@ paths:
             - custom_field.enum_value.name
             - custom_field.format
             - custom_field.has_notifications_enabled
+            - custom_field.id_prefix
             - custom_field.is_formula_field
             - custom_field.is_global_to_workspace
             - custom_field.is_value_read_only
@@ -30377,6 +30718,7 @@ paths:
             - custom_field.people_value
             - custom_field.people_value.name
             - custom_field.precision
+            - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
@@ -30416,6 +30758,7 @@ paths:
                 - custom_field.enum_value.name
                 - custom_field.format
                 - custom_field.has_notifications_enabled
+                - custom_field.id_prefix
                 - custom_field.is_formula_field
                 - custom_field.is_global_to_workspace
                 - custom_field.is_value_read_only
@@ -30428,6 +30771,7 @@ paths:
                 - custom_field.people_value
                 - custom_field.people_value.name
                 - custom_field.precision
+                - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
@@ -30499,6 +30843,7 @@ paths:
             - custom_field.enum_value.name
             - custom_field.format
             - custom_field.has_notifications_enabled
+            - custom_field.id_prefix
             - custom_field.is_formula_field
             - custom_field.is_global_to_workspace
             - custom_field.is_value_read_only
@@ -30511,6 +30856,7 @@ paths:
             - custom_field.people_value
             - custom_field.people_value.name
             - custom_field.precision
+            - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
@@ -30550,6 +30896,7 @@ paths:
                 - custom_field.enum_value.name
                 - custom_field.format
                 - custom_field.has_notifications_enabled
+                - custom_field.id_prefix
                 - custom_field.is_formula_field
                 - custom_field.is_global_to_workspace
                 - custom_field.is_value_read_only
@@ -30562,6 +30909,7 @@ paths:
                 - custom_field.people_value
                 - custom_field.people_value.name
                 - custom_field.precision
+                - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
@@ -30636,6 +30984,7 @@ paths:
             - enum_value.name
             - format
             - has_notifications_enabled
+            - id_prefix
             - is_formula_field
             - is_global_to_workspace
             - is_value_read_only
@@ -30648,6 +30997,7 @@ paths:
             - people_value
             - people_value.name
             - precision
+            - representation_type
             - resource_subtype
             - text_value
             - type
@@ -30678,6 +31028,7 @@ paths:
                 - enum_value.name
                 - format
                 - has_notifications_enabled
+                - id_prefix
                 - is_formula_field
                 - is_global_to_workspace
                 - is_value_read_only
@@ -30690,6 +31041,7 @@ paths:
                 - people_value
                 - people_value.name
                 - precision
+                - representation_type
                 - resource_subtype
                 - text_value
                 - type
@@ -30766,6 +31118,7 @@ paths:
             - enum_value.name
             - format
             - has_notifications_enabled
+            - id_prefix
             - is_formula_field
             - is_global_to_workspace
             - is_value_read_only
@@ -30778,6 +31131,7 @@ paths:
             - people_value
             - people_value.name
             - precision
+            - representation_type
             - resource_subtype
             - text_value
             - type
@@ -30808,6 +31162,7 @@ paths:
                 - enum_value.name
                 - format
                 - has_notifications_enabled
+                - id_prefix
                 - is_formula_field
                 - is_global_to_workspace
                 - is_value_read_only
@@ -30820,6 +31175,7 @@ paths:
                 - people_value
                 - people_value.name
                 - precision
+                - representation_type
                 - resource_subtype
                 - text_value
                 - type
@@ -30893,6 +31249,7 @@ paths:
             - enum_value.name
             - format
             - has_notifications_enabled
+            - id_prefix
             - is_formula_field
             - is_global_to_workspace
             - is_value_read_only
@@ -30905,6 +31262,7 @@ paths:
             - people_value
             - people_value.name
             - precision
+            - representation_type
             - resource_subtype
             - text_value
             - type
@@ -30935,6 +31293,7 @@ paths:
                 - enum_value.name
                 - format
                 - has_notifications_enabled
+                - id_prefix
                 - is_formula_field
                 - is_global_to_workspace
                 - is_value_read_only
@@ -30947,6 +31306,7 @@ paths:
                 - people_value
                 - people_value.name
                 - precision
+                - representation_type
                 - resource_subtype
                 - text_value
                 - type
@@ -31043,6 +31403,7 @@ paths:
             - enum_value.name
             - format
             - has_notifications_enabled
+            - id_prefix
             - is_formula_field
             - is_global_to_workspace
             - is_value_read_only
@@ -31057,6 +31418,7 @@ paths:
             - people_value
             - people_value.name
             - precision
+            - representation_type
             - resource_subtype
             - text_value
             - type
@@ -31088,6 +31450,7 @@ paths:
                 - enum_value.name
                 - format
                 - has_notifications_enabled
+                - id_prefix
                 - is_formula_field
                 - is_global_to_workspace
                 - is_value_read_only
@@ -31102,6 +31465,7 @@ paths:
                 - people_value
                 - people_value.name
                 - precision
+                - representation_type
                 - resource_subtype
                 - text_value
                 - type
@@ -33519,6 +33883,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -33531,6 +33896,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -33553,6 +33919,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -33560,6 +33927,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -33615,6 +33983,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -33627,6 +33996,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -33649,6 +34019,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -33656,6 +34027,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -33743,6 +34115,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -33755,6 +34128,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -33777,6 +34151,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -33784,6 +34159,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -33836,6 +34212,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -33848,6 +34225,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -33870,6 +34248,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -33877,6 +34256,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -33967,6 +34347,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -33979,6 +34360,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -34001,6 +34383,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -34008,6 +34391,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -34060,6 +34444,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -34072,6 +34457,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -34094,6 +34480,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -34101,6 +34488,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -34183,6 +34571,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -34195,6 +34584,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -34217,6 +34607,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -34224,6 +34615,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -34276,6 +34668,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -34288,6 +34681,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -34310,6 +34704,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -34317,6 +34712,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -34449,6 +34845,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -34461,6 +34858,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -34483,6 +34881,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -34490,6 +34889,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -34572,6 +34972,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -34584,6 +34985,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -34606,6 +35008,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -34613,6 +35016,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -34847,6 +35251,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -34859,6 +35264,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -34881,6 +35287,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -34888,6 +35295,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -34940,6 +35348,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -34952,6 +35361,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -34974,6 +35384,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -34981,6 +35392,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -35074,6 +35486,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -35086,6 +35499,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -35108,6 +35522,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -35115,6 +35530,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -35167,6 +35583,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -35179,6 +35596,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -35201,6 +35619,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -35208,6 +35627,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -36205,6 +36625,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -36217,6 +36638,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -36239,6 +36661,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -36246,6 +36669,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -36328,6 +36752,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -36340,6 +36765,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -36362,6 +36788,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -36369,6 +36796,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -36487,6 +36915,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -36499,6 +36928,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -36521,6 +36951,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -36528,6 +36959,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -36607,6 +37039,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -36619,6 +37052,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -36641,6 +37075,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -36648,6 +37083,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -36765,6 +37201,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -36777,6 +37214,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -36799,6 +37237,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -36806,6 +37245,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -36885,6 +37325,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -36897,6 +37338,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -36919,6 +37361,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -36926,6 +37369,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -37039,6 +37483,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -37051,6 +37496,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -37073,6 +37519,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -37080,6 +37527,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -37159,6 +37607,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -37171,6 +37620,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -37193,6 +37643,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -37200,6 +37651,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -37412,6 +37864,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -37424,6 +37877,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -37446,6 +37900,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -37453,6 +37908,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -37535,6 +37991,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -37547,6 +38004,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -37569,6 +38027,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -37576,6 +38035,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -37690,6 +38150,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -37702,6 +38163,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -37724,6 +38186,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -37731,6 +38194,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -37813,6 +38277,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -37825,6 +38290,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -37847,6 +38313,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -37854,6 +38321,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -37964,6 +38432,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -37976,6 +38445,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -37998,6 +38468,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -38005,6 +38476,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -38084,6 +38556,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -38096,6 +38569,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -38118,6 +38592,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -38125,6 +38600,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -38249,6 +38725,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -38261,6 +38738,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -38283,6 +38761,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -38290,6 +38769,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -38372,6 +38852,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -38384,6 +38865,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -38406,6 +38888,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -38413,6 +38896,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -38526,6 +39010,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -38538,6 +39023,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -38560,6 +39046,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -38567,6 +39054,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -38646,6 +39134,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -38658,6 +39147,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -38680,6 +39170,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -38687,6 +39178,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -38782,6 +39274,7 @@ paths:
             - custom_field.enum_value.name
             - custom_field.format
             - custom_field.has_notifications_enabled
+            - custom_field.id_prefix
             - custom_field.is_formula_field
             - custom_field.is_global_to_workspace
             - custom_field.is_value_read_only
@@ -38794,6 +39287,7 @@ paths:
             - custom_field.people_value
             - custom_field.people_value.name
             - custom_field.precision
+            - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
@@ -38830,6 +39324,7 @@ paths:
                 - custom_field.enum_value.name
                 - custom_field.format
                 - custom_field.has_notifications_enabled
+                - custom_field.id_prefix
                 - custom_field.is_formula_field
                 - custom_field.is_global_to_workspace
                 - custom_field.is_value_read_only
@@ -38842,6 +39337,7 @@ paths:
                 - custom_field.people_value
                 - custom_field.people_value.name
                 - custom_field.precision
+                - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
@@ -39045,6 +39541,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -39057,6 +39554,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -39079,6 +39577,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -39086,6 +39585,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -39165,6 +39665,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -39177,6 +39678,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -39199,6 +39701,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -39206,6 +39709,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -39326,6 +39830,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -39338,6 +39843,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -39360,6 +39866,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -39367,6 +39874,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -39446,6 +39954,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -39458,6 +39967,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -39480,6 +39990,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -39487,6 +39998,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -39611,6 +40123,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -39623,6 +40136,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -39645,6 +40159,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -39652,6 +40167,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -39731,6 +40247,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -39743,6 +40260,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -39765,6 +40283,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -39772,6 +40291,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -39893,6 +40413,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
             - custom_field_settings.custom_field.is_value_read_only
@@ -39905,6 +40426,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
@@ -39927,6 +40449,7 @@ paths:
             - custom_fields.enum_value.color
             - custom_fields.enum_value.enabled
             - custom_fields.enum_value.name
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -39934,6 +40457,7 @@ paths:
             - custom_fields.multi_enum_values.name
             - custom_fields.name
             - custom_fields.number_value
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -40013,6 +40537,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
                 - custom_field_settings.custom_field.is_value_read_only
@@ -40025,6 +40550,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
@@ -40047,6 +40573,7 @@ paths:
                 - custom_fields.enum_value.color
                 - custom_fields.enum_value.enabled
                 - custom_fields.enum_value.name
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -40054,6 +40581,7 @@ paths:
                 - custom_fields.multi_enum_values.name
                 - custom_fields.name
                 - custom_fields.number_value
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -40898,6 +41426,7 @@ paths:
             - custom_field.enum_value.color
             - custom_field.enum_value.enabled
             - custom_field.enum_value.name
+            - custom_field.id_prefix
             - custom_field.is_formula_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -40905,6 +41434,7 @@ paths:
             - custom_field.multi_enum_values.name
             - custom_field.name
             - custom_field.number_value
+            - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
@@ -41036,6 +41566,7 @@ paths:
                 - custom_field.enum_value.color
                 - custom_field.enum_value.enabled
                 - custom_field.enum_value.name
+                - custom_field.id_prefix
                 - custom_field.is_formula_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -41043,6 +41574,7 @@ paths:
                 - custom_field.multi_enum_values.name
                 - custom_field.name
                 - custom_field.number_value
+                - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
@@ -41203,6 +41735,7 @@ paths:
             - custom_field.enum_value.color
             - custom_field.enum_value.enabled
             - custom_field.enum_value.name
+            - custom_field.id_prefix
             - custom_field.is_formula_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -41210,6 +41743,7 @@ paths:
             - custom_field.multi_enum_values.name
             - custom_field.name
             - custom_field.number_value
+            - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
@@ -41341,6 +41875,7 @@ paths:
                 - custom_field.enum_value.color
                 - custom_field.enum_value.enabled
                 - custom_field.enum_value.name
+                - custom_field.id_prefix
                 - custom_field.is_formula_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -41348,6 +41883,7 @@ paths:
                 - custom_field.multi_enum_values.name
                 - custom_field.name
                 - custom_field.number_value
+                - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
@@ -41542,6 +42078,7 @@ paths:
             - custom_field.enum_value.color
             - custom_field.enum_value.enabled
             - custom_field.enum_value.name
+            - custom_field.id_prefix
             - custom_field.is_formula_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -41549,6 +42086,7 @@ paths:
             - custom_field.multi_enum_values.name
             - custom_field.name
             - custom_field.number_value
+            - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
@@ -41683,6 +42221,7 @@ paths:
                 - custom_field.enum_value.color
                 - custom_field.enum_value.enabled
                 - custom_field.enum_value.name
+                - custom_field.id_prefix
                 - custom_field.is_formula_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -41690,6 +42229,7 @@ paths:
                 - custom_field.multi_enum_values.name
                 - custom_field.name
                 - custom_field.number_value
+                - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
@@ -41854,6 +42394,7 @@ paths:
             - custom_field.enum_value.color
             - custom_field.enum_value.enabled
             - custom_field.enum_value.name
+            - custom_field.id_prefix
             - custom_field.is_formula_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -41861,6 +42402,7 @@ paths:
             - custom_field.multi_enum_values.name
             - custom_field.name
             - custom_field.number_value
+            - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
@@ -41992,6 +42534,7 @@ paths:
                 - custom_field.enum_value.color
                 - custom_field.enum_value.enabled
                 - custom_field.enum_value.name
+                - custom_field.id_prefix
                 - custom_field.is_formula_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -41999,6 +42542,7 @@ paths:
                 - custom_field.multi_enum_values.name
                 - custom_field.name
                 - custom_field.number_value
+                - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
@@ -42916,6 +43460,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -42928,6 +43473,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -43018,6 +43564,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -43030,6 +43577,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -43152,6 +43700,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -43164,6 +43713,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -43251,6 +43801,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -43263,6 +43814,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -43388,6 +43940,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -43400,6 +43953,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -43487,6 +44041,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -43499,6 +44054,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -43620,6 +44176,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -43632,6 +44189,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -43719,6 +44277,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -43731,6 +44290,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -43957,6 +44517,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -43969,6 +44530,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -44059,6 +44621,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -44071,6 +44634,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -44194,6 +44758,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -44206,6 +44771,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -44296,6 +44862,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -44308,6 +44875,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -44430,6 +44998,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -44442,6 +45011,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -44532,6 +45102,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -44544,6 +45115,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -44676,6 +45248,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -44688,6 +45261,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -44778,6 +45352,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -44790,6 +45365,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -44911,6 +45487,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -44923,6 +45500,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -45013,6 +45591,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -45025,6 +45604,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -45142,6 +45722,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -45154,6 +45735,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -45241,6 +45823,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -45253,6 +45836,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -45381,6 +45965,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -45393,6 +45978,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -45480,6 +46066,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -45492,6 +46079,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -45620,6 +46208,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -45632,6 +46221,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -45722,6 +46312,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -45734,6 +46325,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -45928,6 +46520,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -45940,6 +46533,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -46030,6 +46624,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -46042,6 +46637,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -46387,6 +46983,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -46399,6 +46996,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -46486,6 +47084,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -46498,6 +47097,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -46625,6 +47225,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -46637,6 +47238,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -46724,6 +47326,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -46736,6 +47339,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -46794,6 +47398,30 @@ paths:
               properties:
                 data:
                   $ref: '#/components/schemas/TaskRemoveFollowersRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/TaskResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /workspaces/{workspace_gid}/tasks/custom_id/{custom_id}:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/custom_id'
+    get:
+      summary: Get a task for a given custom ID
+      description: >-
+        Returns a task given a custom ID shortcode.
+      tags:
+        - Tasks
+      operationId: getTaskForCustomID
       responses:
         200:
           $ref: '#/components/responses/TaskResponseData'
@@ -47354,6 +47982,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.id_prefix
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
             - custom_fields.is_value_read_only
@@ -47366,6 +47995,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
@@ -47453,6 +48083,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.id_prefix
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
                 - custom_fields.is_value_read_only
@@ -47465,6 +48096,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
@@ -48679,7 +49311,7 @@ paths:
         in: query
         description: >-
           The type of values the typeahead should return. You can choose from one
-          of the following: `custom_field`, `project`, `project_template`,
+          of the following: `custom_field`, `goal`, `project`, `project_template`,
           `portfolio`, `tag`, `task`, and `user`. Note that unlike in the names
           of endpoints, the types listed here are in singular form (e.g. `task`).
           Using multiple types is not yet supported.
@@ -48688,6 +49320,7 @@ paths:
           type: string
           enum:
             - custom_field
+            - goal
             - project
             - project_template
             - portfolio
