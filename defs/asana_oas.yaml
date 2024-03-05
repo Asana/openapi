@@ -10640,7 +10640,7 @@ paths:
         in: query
         required: true
         description: >-
-          A resource ID to subscribe to. The resource can be a task or project.
+          A resource ID to subscribe to. The resource can be a task, project, or goal.
         schema:
           type: string
         example: '12345'
@@ -34127,6 +34127,37 @@ paths:
               except ApiException as e:
                   print("Exception when calling TaskTemplatesApi->get_task_template: %s\n" % e)
             name: python-sdk-v5
+    delete:
+      summary: Delete a task template
+      description: >-
+        A specific, existing task template can be deleted by making a DELETE request
+        on the URL for that task template.
+        Returns an empty data record.
+      tags:
+        - Task templates
+      operationId: deleteTaskTemplate
+      responses:
+        200:
+          description: Successfully deleted the specified task template.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /task_templates/{task_template_gid}/instantiateTask:
     parameters:
       - $ref: '#/components/parameters/task_template_path_gid'
