@@ -29576,19 +29576,21 @@ components:
     MembershipRequest:
       type: object
       properties:
-        is_active:
+        access_level:
           description: >-
-            *Optional*. Denotes if a member is active. Applies to all memberships
-          type: boolean
-          example: true
+            Sets the access level for the member. Can be `editor` or `commenter`.
+            Projects can have `admin` in addition.
+          type: string
+          example: editor
     CreateMembershipRequest:
       type: object
       properties:
-        is_active:
+        access_level:
           description: >-
-            *Optional*. Denotes if a member is active. Applies to all memberships
-          type: boolean
-          example: true
+            Sets the access level for the member. Can be `editor` or `commenter`.
+            Projects can have `admin` in addition.
+          type: string
+          example: editor
         member:
           description: The gid of the user or team.
           type: string
@@ -29599,8 +29601,9 @@ components:
           example: '987654'
         role:
           description: >-
-            The role given to the member. Optional argument, will default to `commenter`
-            for goals and the default project role for projects.
+            *Deprecated: new integrations should use access_level* The role given
+            to the member. Optional argument, will default to `commenter` for goals
+            and the default project role for projects.
             Can be `editor` or `commenter` for goals. Can be `admin`,`editor` or `commenter`
             for projects.
           type: string
