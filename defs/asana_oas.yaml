@@ -7307,6 +7307,376 @@ components:
               Provides access to the user’s name and profile photo through the
               OpenID Connect user info endpoint.
 paths:
+  /allocations/{allocation_gid}:
+    parameters:
+      - $ref: '#/components/parameters/allocation_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get an allocation
+      description: Returns the complete allocation record for a single allocation.
+      tags:
+        - Allocations
+      operationId: getAllocation
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - assignee
+            - assignee.name
+            - created_by
+            - created_by.name
+            - effort
+            - effort.type
+            - effort.value
+            - end_date
+            - parent
+            - parent.name
+            - resource_subtype
+            - start_date
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - assignee
+                - assignee.name
+                - created_by
+                - created_by.name
+                - effort
+                - effort.type
+                - effort.value
+                - end_date
+                - parent
+                - parent.name
+                - resource_subtype
+                - start_date
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Successfully retrieved the record for a single allocation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AllocationResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update an allocation
+      description: |-
+        An existing allocation can be updated by making a PUT request on the URL for
+        that allocation. Only the fields provided in the `data` block will be updated;
+        any unspecified fields will remain unchanged.
+
+        Returns the complete updated allocation record.
+      tags:
+        - Allocations
+      operationId: updateAllocation
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - assignee
+            - assignee.name
+            - created_by
+            - created_by.name
+            - effort
+            - effort.type
+            - effort.value
+            - end_date
+            - parent
+            - parent.name
+            - resource_subtype
+            - start_date
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - assignee
+                - assignee.name
+                - created_by
+                - created_by.name
+                - effort
+                - effort.type
+                - effort.value
+                - end_date
+                - parent
+                - parent.name
+                - resource_subtype
+                - start_date
+          style: form
+          explode: false
+      requestBody:
+        description: The updated fields for the allocation.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/AllocationRequest'
+      responses:
+        200:
+          description: Successfully updated the allocation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AllocationResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete an allocation
+      description: |-
+        A specific, existing allocation can be deleted by making a DELETE request on the URL for that allocation.
+
+        Returns an empty data record.
+      tags:
+        - Allocations
+      operationId: deleteAllocation
+      responses:
+        200:
+          description: Successfully deleted the specified allocation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /allocations:
+    parameters:
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get multiple allocations
+      description: >-
+        Returns a list of allocations filtered to a specific project or user.
+      tags:
+        - Allocations
+      operationId: getAllocations
+      parameters:
+        - name: parent
+          in: query
+          description: Globally unique identifier for the project to filter allocations
+            by.
+          schema:
+            type: string
+          example: '77688'
+        - name: assignee
+          in: query
+          description: Globally unique identifier for the user the allocation is assigned
+            to.
+          schema:
+            type: string
+          example: '12345'
+        - name: workspace
+          in: query
+          description: Globally unique identifier for the workspace.
+          schema:
+            type: string
+          example: '98765'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - assignee
+            - assignee.name
+            - created_by
+            - created_by.name
+            - effort
+            - effort.type
+            - effort.value
+            - end_date
+            - offset
+            - parent
+            - parent.name
+            - path
+            - resource_subtype
+            - start_date
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - assignee
+                - assignee.name
+                - created_by
+                - created_by.name
+                - effort
+                - effort.type
+                - effort.value
+                - end_date
+                - offset
+                - parent
+                - parent.name
+                - path
+                - resource_subtype
+                - start_date
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved the requested allocations.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AllocationResponse'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create an allocation
+      description: |-
+        Creates a new allocation.
+
+        Returns the full record of the newly created allocation.
+      tags:
+        - Allocations
+      operationId: createAllocation
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a compact resource, which excludes some
+            properties by default. To include those optional properties, set this
+            query parameter to a comma-separated list of the properties you wish to
+            include.
+          required: false
+          example:
+            - assignee
+            - assignee.name
+            - created_by
+            - created_by.name
+            - effort
+            - effort.type
+            - effort.value
+            - end_date
+            - parent
+            - parent.name
+            - resource_subtype
+            - start_date
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - assignee
+                - assignee.name
+                - created_by
+                - created_by.name
+                - effort
+                - effort.type
+                - effort.value
+                - end_date
+                - parent
+                - parent.name
+                - resource_subtype
+                - start_date
+          style: form
+          explode: false
+      requestBody:
+        description: The allocation to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/AllocationRequest'
+      responses:
+        201:
+          description: Successfully created a new allocation.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AllocationResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /attachments/{attachment_gid}:
     parameters:
       - $ref: '#/components/parameters/attachment_path_gid'
