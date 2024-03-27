@@ -1429,16 +1429,65 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    AllocationBase:
+      allOf:
+        - $ref: '#/components/schemas/AsanaResource'
+        - type: object
+          x-docs-overrides:
+            properties.resource_type.example: allocation
+          properties:
+            start_date:
+              type: string
+              format: date
+              description: >-
+                The localized day on which the allocation starts.
+              example: '2024-02-28'
+            end_date:
+              type: string
+              format: date
+              description: >-
+                The localized day on which the allocation ends.
+              example: '2024-02-28'
+            effort:
+              type: object
+              nullable: true
+              description: >-
+                The amount of time associated with the allocation, represented as
+                a percentage or number of hours
+              properties:
+                type:
+                  type: string
+                  description: >-
+                    The units used for tracking effort on an allocation, either "hours"
+                    or "percent".
+                  enum:
+                    - hours
+                    - percent
+                value:
+                  type: number
+                  description: >-
+                    The numeric effort value on the allocation.
+                  example: 50
     AllocationResponse:
       allOf:
-        - $ref: '#/components/schemas/AllocationCompact'
+        - $ref: '#/components/schemas/AllocationBase'
         - type: object
           properties:
+            assignee:
+              $ref: '#/components/schemas/UserCompact'
+              type: object
+              description: >-
+                The user who is assigned to the allocation.
             created_by:
               $ref: '#/components/schemas/UserCompact'
               type: object
               description: >-
                 The user who created the allocation.
+            parent:
+              $ref: '#/components/schemas/ProjectCompact'
+              type: object
+              description: >-
+                The project the allocation is on.
             resource_subtype:
               description: The subtype of the allocation.
               type: string
@@ -1456,54 +1505,6 @@ components:
               type: string
               description: >-
                 Globally unique identifier for the project the allocation is on.
-            effort:
-              $ref: '#/components/schemas/EffortCompact'
-              type: object
-              description: >-
-                The amount of time associated with the allocation, represented as
-                a percentage or number of hours
-              nullable: true
-    AllocationBase:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          properties:
-            start_date:
-              type: string
-              format: date
-              description: >-
-                The localized day on which the allocation starts.
-              example: '2024-02-28'
-            end_date:
-              type: string
-              format: date
-              description: >-
-                The localized day on which the allocation ends.
-              example: '2024-02-28'
-    AllocationCompact:
-      allOf:
-        - $ref: '#/components/schemas/AllocationBase'
-        - type: object
-          x-docs-overrides:
-            properties.resource_type.example: allocation
-          properties:
-            assignee:
-              $ref: '#/components/schemas/UserCompact'
-              type: object
-              description: >-
-                The user who is assigned to the allocation.
-            parent:
-              $ref: '#/components/schemas/ProjectCompact'
-              type: object
-              description: >-
-                The project the allocation is on.
-            effort:
-              $ref: '#/components/schemas/EffortCompact'
-              type: object
-              description: >-
-                The amount of time associated with the allocation, represented as
-                a percentage or number of hours
-              nullable: true
     AddCustomFieldSettingRequest:
       type: object
       required:
@@ -1856,6 +1857,17 @@ components:
     AuditLogEventDetails:
       description: Event specific details. The schema will vary depending on the `event_type`.
       type: object
+      properties:
+        old_value:
+          type: string
+          nullable: true
+        new_value:
+          type: string
+          nullable: true
+        group:
+          type: object
+          additionalProperties: true
+      additionalProperties: true
     AuditLogEventResource:
       description: The primary object that was affected by this event.
       type: object
@@ -2502,26 +2514,6 @@ components:
                   description: >-
                     The custom field that is applied to the `parent`.
                   readOnly: true
-    EffortCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          x-docs-overrides:
-            properties.resource_type.example: effort
-          properties:
-            type:
-              type: string
-              description: >-
-                The units used for tracking effort on an allocation, either "hours"
-                or "percent".
-              enum:
-                - hours
-                - percent
-            value:
-              type: number
-              description: >-
-                The numeric effort value on the allocation.
-              example: 50
     EmptyResponse:
       type: object
       description: >-
@@ -7102,6 +7094,7 @@ components:
               enum:
                 - commenter
                 - editor
+              deprecated: true
               example: editor
             access_level:
               type: string
@@ -7205,6 +7198,7 @@ components:
                 Can be `editor` or `commenter` for goals. Can be `admin`,`editor`
                 or `commenter` for projects.
               type: string
+              deprecated: true
               example: editor
     MembershipResponse:
       anyOf:
@@ -7849,7 +7843,14 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/AllocationRequest'
+                  allOf:
+                    - $ref: '#/components/schemas/AllocationRequest'
+                    - type: object
+                      required:
+                        - assignee
+                        - end_date
+                        - parent
+                        - start_date
       responses:
         201:
           description: Successfully created a new allocation.
