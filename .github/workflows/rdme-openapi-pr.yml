@@ -1,7 +1,12 @@
-name: Build and sync docs on merge
+name: Build and sync docs on PR merge or pushes to master branch
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
+    branches:
+      - master
     types:
       - closed
 
@@ -11,8 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repo 📚
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v4
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v8
         with:
