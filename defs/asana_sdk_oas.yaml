@@ -47641,6 +47641,8 @@ paths:
         particular place, specify `insert_before` or `insert_after` and a task
         within the section to anchor the position of this task.
 
+        A task can have at most 20 projects multi-homed to it.
+
         Returns an empty data block.
       tags:
         - Tasks
