@@ -10,7 +10,6 @@ defaults:
     shell: bash
 
 permissions:
-  contents: read
   id-token: write
 
 jobs:
