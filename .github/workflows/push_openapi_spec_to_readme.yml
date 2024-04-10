@@ -5,6 +5,14 @@ on:
     branches:
       - master
 
+defaults:
+  run:
+    shell: bash
+
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   rdme-openapi-pr:
     runs-on: ubuntu-latest
