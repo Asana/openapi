@@ -1,0 +1,36 @@
+name: Build and sync docs on PR merge or pushes to master branch
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+    types:
+      - closed
+
+jobs:
+  rdme-openapi-pr:
+    # Only trigger this job if it was a pushed event OR a PR merged event
+    if: github.event_name == 'push' || github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Authenticate to AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::403483446840:role/autogen_github_actions_beta_push_openapi_spec_to_readme
+      - name: Load secrets
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        with:
+          secret-ids: README_API,prod/github_push_openapi_spec_to_readme/readme_api_key
+          # readme_api_key secret is stored as {key:"***..."}.
+          # GitHub Actions environment variable name is README_API so to access "key" from the json we can use README_API_KEY
+          parse-json-secrets: true
+      - name: Check out repo 📚
+        uses: actions/checkout@v4
+      - name: Run `openapi` command 🚀
+        uses: readmeio/rdme@v8
+        with:
+          rdme: openapi defs/asana_oas.yaml --key=${{ env.README_API_KEY }} --id=64a8a031f326ee000e3a92f3
