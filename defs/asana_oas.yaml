@@ -4552,6 +4552,16 @@ components:
             Sets the project to public to its team.
           type: boolean
           example: true
+        privacy_setting:
+          description: >-
+            The privacy setting of the project. *Note: Administrators in your organization
+            may restrict the values of `privacy_setting`.*
+          type: string
+          enum:
+            - public_to_workspace
+            - private_to_team
+            - private
+          example: public_to_workspace
         is_strict:
           description: >-
             *Optional*. If set to `true`, the endpoint returns an "Unprocessable Entity"
