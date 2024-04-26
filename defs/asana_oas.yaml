@@ -7405,6 +7405,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.allocations.getAllocation(allocationGid, {param: "value", param:
+              "value", opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -7546,6 +7561,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.allocations.updateAllocation(allocationGid, {field: "value",
+              field: "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -7635,6 +7665,20 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.allocations.deleteAllocation(allocationGid)
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -7800,6 +7844,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.allocations.getAllocations({param: "value", param: "value", opt_pretty:
+              true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -7952,6 +8011,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.allocations.createAllocation({field: "value", field: "value",
+              pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -8107,7 +8181,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -8247,7 +8321,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -8469,7 +8543,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -8693,6 +8767,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.attachments.createAttachmentForObject({field: "value", field:
+              "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -8905,7 +8994,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -9093,7 +9182,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -9365,7 +9454,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -9635,7 +9724,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -9897,7 +9986,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -10144,7 +10233,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -10407,7 +10496,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -10553,7 +10642,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -10804,7 +10893,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -10994,7 +11083,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -11178,7 +11267,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -11371,7 +11460,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -11644,7 +11733,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -11821,6 +11910,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.goalrelationships.getGoalRelationship(goalRelationshipGid, {param:
+              "value", param: "value", opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -11997,6 +12101,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.goalrelationships.updateGoalRelationship(goalRelationshipGid,
+              {field: "value", field: "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -12189,6 +12308,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.goalrelationships.getGoalRelationships({param: "value", param:
+              "value", opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -12370,6 +12504,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.goalrelationships.addSupportingRelationship(goalGid, {field:
+              "value", field: "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -12512,6 +12661,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.goalrelationships.removeSupportingRelationship(goalGid, {field:
+              "value", field: "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -12737,7 +12901,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -12988,7 +13152,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -13131,7 +13295,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -13433,7 +13597,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -13691,7 +13855,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -13944,7 +14108,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -14201,7 +14365,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -14460,7 +14624,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -14716,7 +14880,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -14959,7 +15123,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -15144,7 +15308,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -15322,6 +15486,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.memberships.getMemberships({param: "value", param: "value", opt_pretty:
+              true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -15452,6 +15631,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.memberships.createMembership({field: "value", field: "value",
+              pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -15597,6 +15791,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.memberships.getMembership(membershipGid, {param: "value", param:
+              "value", opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -15697,6 +15906,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.memberships.updateMembership(membershipGid, {field: "value",
+              field: "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -15810,6 +16034,20 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.memberships.deleteMembership(membershipGid)
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -15975,7 +16213,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -16145,7 +16383,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -16335,7 +16573,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -16509,7 +16747,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -16697,7 +16935,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -17082,7 +17320,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -17445,7 +17683,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -17788,7 +18026,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -18145,7 +18383,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -18287,7 +18525,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -18697,7 +18935,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -18858,7 +19096,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -19014,7 +19252,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -19170,7 +19408,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -19325,7 +19563,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -19684,7 +19922,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -20045,7 +20283,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -20228,7 +20466,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -20415,7 +20653,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -20558,7 +20796,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -20744,7 +20982,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -20926,7 +21164,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -21116,7 +21354,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -21303,7 +21541,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -21447,7 +21685,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -21642,7 +21880,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -21839,7 +22077,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -22027,7 +22265,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -22157,6 +22395,20 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.projecttemplates.deleteProjectTemplate(projectTemplateGid)
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -22320,7 +22572,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -22525,7 +22777,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -22741,7 +22993,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -23177,7 +23429,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -23600,7 +23852,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -23999,7 +24251,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -24416,7 +24668,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -24558,7 +24810,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -24751,7 +25003,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -25167,7 +25419,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -25586,7 +25838,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -26001,7 +26253,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -26422,7 +26674,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -26842,7 +27094,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -27108,7 +27360,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -27265,7 +27517,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -27450,7 +27702,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -27870,7 +28122,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -28286,7 +28538,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -28706,7 +28958,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -29123,7 +29375,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -29327,7 +29579,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -29468,6 +29720,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.rules.triggerRule(ruleTriggerGid, {field: "value", field: "value",
+              pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -29599,7 +29866,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -29788,7 +30055,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -29934,7 +30201,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -30116,7 +30383,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -30301,7 +30568,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -30461,7 +30728,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -30621,7 +30888,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -30827,7 +31094,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -30835,8 +31102,8 @@ paths:
               const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
 
 
-              client.statusupdates.getStatus(statusGid, {param: "value", param: "value",
-              opt_pretty: true})
+              client.statusupdates.getStatus(statusUpdateGid, {param: "value", param:
+              "value", opt_pretty: true})
                   .then((result) => {
                       console.log(result);
                   });
@@ -30967,7 +31234,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -30975,7 +31242,7 @@ paths:
               const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
 
 
-              client.statusupdates.deleteStatus(statusGid)
+              client.statusupdates.deleteStatus(statusUpdateGid)
                   .then((result) => {
                       console.log(result);
                   });
@@ -31202,7 +31469,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -31424,7 +31691,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -31855,7 +32122,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -32297,7 +32564,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -32438,7 +32705,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -32878,7 +33145,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -33324,7 +33591,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -33524,7 +33791,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -33719,7 +33986,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -33895,7 +34162,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -34078,7 +34345,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -34219,7 +34486,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -34407,7 +34674,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -34603,7 +34870,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -34800,7 +35067,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -34971,6 +35238,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.tasktemplates.getTaskTemplates({param: "value", param: "value",
+              opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -35090,6 +35372,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.tasktemplates.getTaskTemplate(taskTemplateGid, {param: "value",
+              param: "value", opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -35178,6 +35475,20 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.tasktemplates.deleteTaskTemplate(taskTemplateGid)
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -35318,6 +35629,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.tasktemplates.instantiateTask(taskTemplateGid, {field: "value",
+              field: "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -35720,7 +36046,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -36093,7 +36419,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -36443,7 +36769,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -36812,7 +37138,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -36956,7 +37282,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -37150,7 +37476,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -37521,7 +37847,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -37895,7 +38221,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -38267,7 +38593,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -38650,7 +38976,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -39022,7 +39348,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -39387,7 +39713,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -39755,7 +40081,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -40124,7 +40450,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -40286,7 +40612,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -40442,7 +40768,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -40810,7 +41136,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -40972,7 +41298,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -41129,7 +41455,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -41299,7 +41625,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -41457,7 +41783,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -41612,7 +41938,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -41767,7 +42093,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -42137,7 +42463,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -42505,7 +42831,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -42636,6 +42962,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.tasks.getTaskForCustomID(workspaceGid, customId, {param: "value",
+              param: "value", opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
   /workspaces/{workspace_gid}/tasks/search:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
@@ -43476,7 +43817,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -43711,7 +44052,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -43927,7 +44268,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -44121,7 +44462,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -44324,7 +44665,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -44527,7 +44868,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -44711,7 +45052,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -44905,6 +45246,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.teams.updateTeam(teamGid, {field: "value", field: "value", pretty:
+              true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -45095,7 +45451,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -45308,7 +45664,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -45506,7 +45862,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -45664,7 +46020,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -45840,7 +46196,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -46058,7 +46414,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -46230,6 +46586,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.timetrackingentries.getTimeTrackingEntriesForTask(taskGid, {param:
+              "value", param: "value", opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -46366,6 +46737,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.timetrackingentries.createTimeTrackingEntry(taskGid, {field:
+              "value", field: "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -46491,6 +46877,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.timetrackingentries.getTimeTrackingEntry(timeTrackingEntryGid,
+              {param: "value", param: "value", opt_pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -46630,6 +47031,21 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.timetrackingentries.updateTimeTrackingEntry(timeTrackingEntryGid,
+              {field: "value", field: "value", pretty: true})
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -46718,6 +47134,20 @@ paths:
                   console.error(error.response.body);
               });
             name: node-sdk-v3
+          - language: node
+            install: npm install asana@1.0.5
+            code: >-
+              const asana = require('asana');
+
+
+              const client = asana.Client.create().useAccessToken('PERSONAL_ACCESS_TOKEN');
+
+
+              client.timetrackingentries.deleteTimeTrackingEntry(timeTrackingEntryGid)
+                  .then((result) => {
+                      console.log(result);
+                  });
+            name: node-sdk-v1
           - language: python
             install: pip install asana
             code: |-
@@ -46940,7 +47370,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -47114,7 +47544,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -47293,7 +47723,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -47510,7 +47940,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -47695,7 +48125,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -47899,7 +48329,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -48096,7 +48526,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -48289,7 +48719,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -48505,7 +48935,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -48758,7 +49188,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -48943,7 +49373,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -49139,7 +49569,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -49280,7 +49710,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -49467,7 +49897,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -49674,7 +50104,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -49876,7 +50306,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -50060,7 +50490,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -50228,7 +50658,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -50410,7 +50840,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -50606,7 +51036,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
@@ -50768,7 +51198,7 @@ paths:
               });
             name: node-sdk-v3
           - language: node
-            install: npm install asana@1.0.2
+            install: npm install asana@1.0.5
             code: >-
               const asana = require('asana');
 
