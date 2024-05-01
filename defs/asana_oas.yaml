@@ -3002,6 +3002,16 @@ components:
                 - task_completion
                 - external
               example: manual
+            is_custom_weight:
+              description: >-
+                *Conditional*. Only relevant if `metric.progress_source` is one of
+                `subgoal_progress`,
+                `project_task_completion`, `project_milestone_completion`, or `task_completion`.
+                If true, we use the supporting object's custom weight to calculate
+                the goal's progress.
+                If false, we treat all supporting objects as equally weighted
+              type: boolean
+              example: false
     GoalRemoveSupportingRelationshipRequest:
       type: object
       required:
@@ -3042,7 +3052,7 @@ components:
           example: '1331'
         contribution_weight:
           description: The weight that the supporting resource's progress will contribute
-            to the supported goal's progress. This can only be 0 or 1.
+            to the supported goal's progress. This can be 0, 1, or any value in between.
           type: number
           example: 1.0
     GoalMetricCurrentValueRequest:
@@ -3249,9 +3259,10 @@ components:
                     a project, task, portfolio, or goal.
             contribution_weight:
               description: The weight that the supporting resource's progress contributes
-                to the supported goal's progress. This can only be 0 or 1.
+                to the supported goal's progress. This can be 0, 1, or any value in
+                between.
               type: number
-              example: 1
+              example: 1.0
     GoalRelationshipRequest:
       allOf:
         - $ref: '#/components/schemas/GoalRelationshipBase'
@@ -12776,6 +12787,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -12820,6 +12832,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
@@ -13016,6 +13029,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -13060,6 +13074,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
@@ -13452,6 +13467,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -13499,6 +13515,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
@@ -13718,6 +13735,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -13762,6 +13780,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
@@ -13970,6 +13989,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -14014,6 +14034,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
@@ -14227,6 +14248,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -14271,6 +14293,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
@@ -14486,6 +14509,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -14530,6 +14554,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
@@ -14742,6 +14767,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -14786,6 +14812,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
@@ -14996,6 +15023,7 @@ paths:
             - metric.current_display_value
             - metric.current_number_value
             - metric.initial_number_value
+            - metric.is_custom_weight
             - metric.precision
             - metric.progress_source
             - metric.resource_subtype
@@ -15040,6 +15068,7 @@ paths:
                 - metric.current_display_value
                 - metric.current_number_value
                 - metric.initial_number_value
+                - metric.is_custom_weight
                 - metric.precision
                 - metric.progress_source
                 - metric.resource_subtype
