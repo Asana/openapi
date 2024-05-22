@@ -50932,7 +50932,8 @@ paths:
             "last_success_at": null,
             "last_failure_at": null,
             "last_failure_content": null
-          }
+          },
+          "X-Hook-Secret": "b537207f20cbfa02357cf448134da559e8bd39d61597dcd5631b8012eae53e81"
         }
         ```
       tags:
