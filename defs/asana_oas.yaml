@@ -6851,6 +6851,9 @@ components:
             filter when the resource is changed. These can be any combination of
             the fields on the resources themselves. This field is only valid for
             `action` of type `changed`
+
+            *Note: Subscriptions created on higher-level resources such as a
+            Workspace, Team, or Portfolio do not support fields.*
           items:
             type: string
           example:
