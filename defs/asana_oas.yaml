@@ -700,6 +700,11 @@ tags:
       The ‘memberships’ property when [getting a task](/reference/gettask)
       will return the information for the section or the column under
       ‘section’ in the response.
+  - name: SSPM
+    description: >-
+      SSPM (SaaS Security Posture Management) is a set of APIs which allows
+      centralized inspection and management of a customer's deployed SaaS apps
+      via an SSPM provider.
   - name: Status updates
     description: |-
       A status update is an update on the progress of a particular object,
