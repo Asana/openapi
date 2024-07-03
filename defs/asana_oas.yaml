@@ -1859,6 +1859,11 @@ components:
 
             Only present if the `api_authentication_method` is `oauth`.
           type: string
+        rule_name:
+          description: >-
+            The name of the automation rule that initiated the event.
+          type: string
+          example: When Task is added to this project
     AuditLogEventDetails:
       description: Event specific details. The schema will vary depending on the `event_type`.
       type: object
