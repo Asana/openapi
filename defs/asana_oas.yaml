@@ -4570,7 +4570,8 @@ components:
           example: '12345'
         public:
           description: >-
-            Sets the project to public to its team.
+            *Deprecated:* new integrations use `privacy_setting` instead.
+          deprecated: true
           type: boolean
           example: true
         privacy_setting:
