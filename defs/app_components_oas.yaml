@@ -1701,8 +1701,8 @@ paths:
         When the user types into a rule action form field, Asana will send a request containing the entered string to the application's `typeahead_url`. The list of [TypeaheadItem](/reference/lookups#typeaheaditem)s in the response will then be rendered in a dropdown list.
         <br>
         <br>
-        <a href="../images/ac-rule-typeahead.png">
-          <img src="../images/ac-rule-typeahead.png" alt="App components rule typeahead request flow"/>
+        <a href="https://d3ki9tyy5l5ruj.cloudfront.net/obj/9f4a9e93ba7e91e44c4ab09eeecf440992a5d789/ac-rule-typeahead.png">
+          <img src="https://d3ki9tyy5l5ruj.cloudfront.net/obj/9f4a9e93ba7e91e44c4ab09eeecf440992a5d789/ac-rule-typeahead.png" alt="App components rule typeahead request flow"/>
         </a>
       tags:
         - Rule actions
