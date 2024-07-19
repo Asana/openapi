@@ -44573,6 +44573,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
     post:
       summary: Create a task
       description: |-
@@ -45047,6 +45050,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
     put:
       summary: Update a task
       description: |-
@@ -45630,6 +45636,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /sections/{section_gid}/tasks:
     parameters:
       - $ref: '#/components/parameters/section_path_gid'
@@ -45871,6 +45880,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /tags/{tag_gid}/tasks:
     parameters:
       - $ref: '#/components/parameters/tag_path_gid'
@@ -46111,6 +46123,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /user_task_lists/{user_task_list_gid}/tasks:
     parameters:
       - $ref: '#/components/parameters/completed_since'
@@ -46361,6 +46376,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /tasks/{task_gid}/subtasks:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -46600,6 +46618,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
     post:
       summary: Create a subtask
       description: >-
@@ -47323,6 +47344,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /tasks/{task_gid}/addDependencies:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -47635,6 +47659,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /tasks/{task_gid}/addDependents:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48355,6 +48382,9 @@ paths:
       tags:
         - Tasks
       operationId: getTaskForCustomID
+      security:
+        - oauth2:
+            - tasks:read
       responses:
         200:
           $ref: '#/components/responses/TaskResponseData'
@@ -49091,6 +49121,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /team_memberships/{team_membership_gid}:
     parameters:
       - $ref: '#/components/parameters/team_membership_path_gid'

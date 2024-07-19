@@ -7335,6 +7335,7 @@ components:
             profile: >-
               Provides access to the user’s name and profile photo through the
               OpenID Connect user info endpoint.
+            tasks:read: Read access to tasks
 paths:
   /allocations/{allocation_gid}:
     parameters:
@@ -36045,6 +36046,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -36776,6 +36780,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -37851,6 +37858,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -38225,6 +38235,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -38598,6 +38611,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -38979,6 +38995,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -39353,6 +39372,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -40455,6 +40477,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -41141,6 +41166,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -42963,6 +42991,9 @@ paths:
       tags:
         - Tasks
       operationId: getTaskForCustomID
+      security:
+        - oauth2:
+            - tasks:read
       responses:
         200:
           description: >-
@@ -43754,6 +43785,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
