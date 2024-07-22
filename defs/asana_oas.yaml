@@ -6537,6 +6537,13 @@ components:
               enum:
                 - all_team_members
                 - only_team_admins
+            team_content_management_access_level:
+              description: >
+                Controls who can create and share content with the team
+              type: string
+              enum:
+                - no_restriction
+                - only_team_admins
     TeamResponse:
       allOf:
         - $ref: '#/components/schemas/TeamBase'
@@ -6626,6 +6633,13 @@ components:
               readOnly: true
               enum:
                 - all_team_members
+                - only_team_admins
+            team_content_management_access_level:
+              description: >
+                Controls who can create and share content with the team
+              type: string
+              enum:
+                - no_restriction
                 - only_team_admins
     TemplateRole:
       allOf:
@@ -44855,6 +44869,7 @@ paths:
             - organization
             - organization.name
             - permalink_url
+            - team_content_management_access_level
             - team_member_removal_access_level
             - visibility
           schema:
@@ -44873,6 +44888,7 @@ paths:
                 - organization
                 - organization.name
                 - permalink_url
+                - team_content_management_access_level
                 - team_member_removal_access_level
                 - visibility
           style: form
@@ -45051,6 +45067,7 @@ paths:
             - organization
             - organization.name
             - permalink_url
+            - team_content_management_access_level
             - team_member_removal_access_level
             - visibility
           schema:
@@ -45069,6 +45086,7 @@ paths:
                 - organization
                 - organization.name
                 - permalink_url
+                - team_content_management_access_level
                 - team_member_removal_access_level
                 - visibility
           style: form
@@ -45233,6 +45251,7 @@ paths:
             - organization
             - organization.name
             - permalink_url
+            - team_content_management_access_level
             - team_member_removal_access_level
             - visibility
           schema:
@@ -45251,6 +45270,7 @@ paths:
                 - organization
                 - organization.name
                 - permalink_url
+                - team_content_management_access_level
                 - team_member_removal_access_level
                 - visibility
           style: form
@@ -45438,6 +45458,7 @@ paths:
             - organization.name
             - path
             - permalink_url
+            - team_content_management_access_level
             - team_member_removal_access_level
             - uri
             - visibility
@@ -45459,6 +45480,7 @@ paths:
                 - organization.name
                 - path
                 - permalink_url
+                - team_content_management_access_level
                 - team_member_removal_access_level
                 - uri
                 - visibility
@@ -45650,6 +45672,7 @@ paths:
             - organization.name
             - path
             - permalink_url
+            - team_content_management_access_level
             - team_member_removal_access_level
             - uri
             - visibility
@@ -45671,6 +45694,7 @@ paths:
                 - organization.name
                 - path
                 - permalink_url
+                - team_content_management_access_level
                 - team_member_removal_access_level
                 - uri
                 - visibility
