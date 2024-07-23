@@ -47993,6 +47993,7 @@ paths:
                       $ref: '#/components/schemas/UserCompact'
                   next_page:
                     $ref: '#/components/schemas/NextPage'
+        400:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
