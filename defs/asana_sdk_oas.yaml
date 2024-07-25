@@ -45338,6 +45338,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:delete
   /tasks/{task_gid}/duplicate:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
