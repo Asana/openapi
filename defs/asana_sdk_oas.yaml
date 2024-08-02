@@ -50985,7 +50985,7 @@ paths:
         receive and complete the webhook *while* the POST request is in-flight
         (in other words, have a server that can handle requests asynchronously).
 
-        Invalid hostnames like localhost will recieve a 403 Forbidden status code.
+        Invalid hostnames like localhost will receive a 403 Forbidden status code.
 
         ```
         # Request
