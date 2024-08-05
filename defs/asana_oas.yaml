@@ -7351,6 +7351,7 @@ components:
               OpenID Connect user info endpoint.
             tasks:read: Read access to tasks
             tasks:delete: Delete access to tasks
+            projects:read: Read access to projects
 paths:
   /allocations/{allocation_gid}:
     parameters:
@@ -23448,6 +23449,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
@@ -24274,6 +24278,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
@@ -25440,6 +25447,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
@@ -25858,6 +25868,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
@@ -26693,6 +26706,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
@@ -27725,6 +27741,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
