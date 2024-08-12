@@ -6954,6 +6954,30 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
+            delivery_retry_count:
+              description: >-
+                The number of times the webhook has retried delivery of events to
+                the target (resets after a successful attempt).
+              type: integer
+              readOnly: true
+              example: 3
+            next_attempt_after:
+              description: >-
+                The timestamp after which the webhook will next attempt to deliver
+                an
+                event to the target.
+              type: string
+              format: date-time
+              readOnly: true
+              example: '2012-02-22T02:06:58.147Z'
+            failure_deletion_timestamp:
+              description: >-
+                The timestamp when the webhook will be deleted if there is no successful
+                attempt to deliver events to the target
+              type: string
+              format: date-time
+              readOnly: true
+              example: '2012-02-22T02:06:58.147Z'
             filters:
               description: >-
                 Whitelist of filters to apply to events from this webhook. If a
@@ -48962,6 +48986,8 @@ paths:
           example:
             - active
             - created_at
+            - delivery_retry_count
+            - failure_deletion_timestamp
             - filters
             - filters.action
             - filters.fields
@@ -48969,6 +48995,7 @@ paths:
             - last_failure_at
             - last_failure_content
             - last_success_at
+            - next_attempt_after
             - offset
             - path
             - resource
@@ -48982,6 +49009,8 @@ paths:
               enum:
                 - active
                 - created_at
+                - delivery_retry_count
+                - failure_deletion_timestamp
                 - filters
                 - filters.action
                 - filters.fields
@@ -48989,6 +49018,7 @@ paths:
                 - last_failure_at
                 - last_failure_content
                 - last_success_at
+                - next_attempt_after
                 - offset
                 - path
                 - resource
@@ -49217,6 +49247,8 @@ paths:
           example:
             - active
             - created_at
+            - delivery_retry_count
+            - failure_deletion_timestamp
             - filters
             - filters.action
             - filters.fields
@@ -49224,6 +49256,7 @@ paths:
             - last_failure_at
             - last_failure_content
             - last_success_at
+            - next_attempt_after
             - resource
             - resource.name
             - target
@@ -49234,6 +49267,8 @@ paths:
               enum:
                 - active
                 - created_at
+                - delivery_retry_count
+                - failure_deletion_timestamp
                 - filters
                 - filters.action
                 - filters.fields
@@ -49241,6 +49276,7 @@ paths:
                 - last_failure_at
                 - last_failure_content
                 - last_success_at
+                - next_attempt_after
                 - resource
                 - resource.name
                 - target
@@ -49419,6 +49455,8 @@ paths:
           example:
             - active
             - created_at
+            - delivery_retry_count
+            - failure_deletion_timestamp
             - filters
             - filters.action
             - filters.fields
@@ -49426,6 +49464,7 @@ paths:
             - last_failure_at
             - last_failure_content
             - last_success_at
+            - next_attempt_after
             - resource
             - resource.name
             - target
@@ -49436,6 +49475,8 @@ paths:
               enum:
                 - active
                 - created_at
+                - delivery_retry_count
+                - failure_deletion_timestamp
                 - filters
                 - filters.action
                 - filters.fields
@@ -49443,6 +49484,7 @@ paths:
                 - last_failure_at
                 - last_failure_content
                 - last_success_at
+                - next_attempt_after
                 - resource
                 - resource.name
                 - target
@@ -49602,6 +49644,8 @@ paths:
           example:
             - active
             - created_at
+            - delivery_retry_count
+            - failure_deletion_timestamp
             - filters
             - filters.action
             - filters.fields
@@ -49609,6 +49653,7 @@ paths:
             - last_failure_at
             - last_failure_content
             - last_success_at
+            - next_attempt_after
             - resource
             - resource.name
             - target
@@ -49619,6 +49664,8 @@ paths:
               enum:
                 - active
                 - created_at
+                - delivery_retry_count
+                - failure_deletion_timestamp
                 - filters
                 - filters.action
                 - filters.fields
@@ -49626,6 +49673,7 @@ paths:
                 - last_failure_at
                 - last_failure_content
                 - last_success_at
+                - next_attempt_after
                 - resource
                 - resource.name
                 - target
