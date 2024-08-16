@@ -3357,6 +3357,7 @@ components:
       anyOf:
         - $ref: '#/components/schemas/GoalMembershipCompact'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
+        - $ref: '#/components/schemas/PortfolioMembershipCompactResponse'
     ModifyDependenciesRequest:
       type: object
       properties:
@@ -3569,6 +3570,31 @@ components:
               $ref: '#/components/schemas/PortfolioCompact'
             user:
               $ref: '#/components/schemas/UserCompact'
+            access_level:
+              description: >-
+                Whether the member has admin, editor, or viewer
+                access to the portfolio. Portfolios do not support commenter access
+                yet.
+              type: string
+              enum:
+                - admin
+                - editor
+                - viewer
+              readOnly: true
+              example: admin
+    PortfolioMembershipCompactResponse:
+      allOf:
+        - $ref: '#/components/schemas/PortfolioMembershipCompact'
+        - type: object
+          properties:
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              example: membership
+            resource_subtype:
+              description: Type of the membership.
+              type: string
+              example: project_membership
     PortfolioMembershipResponse:
       $ref: '#/components/schemas/PortfolioMembershipBase'
     PortfolioRemoveItemRequest:
@@ -7277,6 +7303,7 @@ components:
       anyOf:
         - $ref: '#/components/schemas/GoalMembershipResponse'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
+        - $ref: '#/components/schemas/PortfolioMembershipCompactResponse'
     UpdateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -15475,11 +15502,12 @@ paths:
     get:
       summary: Get multiple memberships
       description: >-
-        Returns compact `goal_membership` or `project_membership` records. The possible
-        types
-        for `parent` in this request are `goal` or `project`. An additional member
-        (user GID or
-        team GID) can be passed in to filter to a specific membership.
+        Returns compact `goal_membership`, `project_membership`, or `portfolio_membership`
+        records. The possible types
+        for `parent` in this request are `goal`, `project`, or `portfolio`. An additional
+        member (user GID or
+        team GID) can be passed in to filter to a specific membership. Teams are not
+        supported for portfolios yet.
       tags:
         - Memberships
       operationId: getMemberships
@@ -15487,7 +15515,7 @@ paths:
         - name: parent
           in: query
           description: >-
-            Globally unique identifier for `goal` or `project`.
+            Globally unique identifier for `goal`, `project`, or `portfolio`.
           schema:
             type: string
           example: '159874'
@@ -16571,6 +16599,7 @@ paths:
             include.
           required: false
           example:
+            - access_level
             - offset
             - path
             - portfolio
@@ -16583,6 +16612,7 @@ paths:
             items:
               type: string
               enum:
+                - access_level
                 - offset
                 - path
                 - portfolio
@@ -16759,6 +16789,7 @@ paths:
             include.
           required: false
           example:
+            - access_level
             - portfolio
             - portfolio.name
             - user
@@ -16768,6 +16799,7 @@ paths:
             items:
               type: string
               enum:
+                - access_level
                 - portfolio
                 - portfolio.name
                 - user
@@ -16933,6 +16965,7 @@ paths:
             include.
           required: false
           example:
+            - access_level
             - offset
             - path
             - portfolio
@@ -16945,6 +16978,7 @@ paths:
             items:
               type: string
               enum:
+                - access_level
                 - offset
                 - path
                 - portfolio

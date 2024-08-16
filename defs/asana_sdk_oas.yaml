@@ -9059,6 +9059,103 @@ components:
               example: project_membership
           x-docs-overrides: &id021
             properties.resource_type.example: project_membership
+        - description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            This object determines if a user is a member of a portfolio.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              example: membership
+            portfolio:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *portfolio* gives a high-level overview of the status of multiple
+                initiatives in Asana. Portfolios provide a dashboard overview of the
+                state of multiple projects, including a progress report and the most
+                recent [project status](/reference/project-statuses) update.
+
+                Portfolios have some restrictions on size. Each portfolio has a max
+                of 500 items and, like projects, a max of 20 custom fields.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: The name of the portfolio.
+                  type: string
+                  example: Bug Portfolio
+              x-docs-overrides: &id017
+                properties.resource_type.example: portfolio
+            user:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id001
+            access_level:
+              description: >-
+                Whether the member has admin, editor, or viewer
+                access to the portfolio. Portfolios do not support commenter access
+                yet.
+              type: string
+              enum:
+                - admin
+                - editor
+                - viewer
+              readOnly: true
+              example: admin
+            resource_subtype:
+              description: Type of the membership.
+              type: string
+              example: project_membership
+          x-docs-overrides: &id018
+            properties.resource_type.example: portfolio_membership
     ModifyDependenciesRequest:
       type: object
       properties:
@@ -9463,8 +9560,7 @@ components:
             - light-purple
             - light-warm-gray
           example: light-green
-      x-docs-overrides: &id017
-        properties.resource_type.example: portfolio
+      x-docs-overrides: *id017
     PortfolioCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -9578,8 +9674,18 @@ components:
                 *Read-only except when same user as requester*. The user’s name.
               example: Greg Sanchez
           x-docs-overrides: *id001
-      x-docs-overrides: &id018
-        properties.resource_type.example: portfolio_membership
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
+      x-docs-overrides: *id018
     PortfolioMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -9661,6 +9767,112 @@ components:
                 *Read-only except when same user as requester*. The user’s name.
               example: Greg Sanchez
           x-docs-overrides: *id001
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
+      x-docs-overrides: *id018
+    PortfolioMembershipCompactResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        This object determines if a user is a member of a portfolio.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          example: membership
+        portfolio:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *portfolio* gives a high-level overview of the status of multiple initiatives
+            in Asana. Portfolios provide a dashboard overview of the state of multiple
+            projects, including a progress report and the most recent [project status](/reference/project-statuses)
+            update.
+
+            Portfolios have some restrictions on size. Each portfolio has a max of
+            500 items and, like projects, a max of 20 custom fields.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the portfolio.
+              type: string
+              example: Bug Portfolio
+          x-docs-overrides: *id017
+        user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
+        resource_subtype:
+          description: Type of the membership.
+          type: string
+          example: project_membership
       x-docs-overrides: *id018
     PortfolioMembershipResponse:
       description: >-
@@ -9743,6 +9955,17 @@ components:
                 *Read-only except when same user as requester*. The user’s name.
               example: Greg Sanchez
           x-docs-overrides: *id001
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
       x-docs-overrides: *id018
     PortfolioRemoveItemRequest:
       type: object
@@ -29937,6 +30160,101 @@ components:
               type: string
               example: project_membership
           x-docs-overrides: *id021
+        - description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            This object determines if a user is a member of a portfolio.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              example: membership
+            portfolio:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *portfolio* gives a high-level overview of the status of multiple
+                initiatives in Asana. Portfolios provide a dashboard overview of the
+                state of multiple projects, including a progress report and the most
+                recent [project status](/reference/project-statuses) update.
+
+                Portfolios have some restrictions on size. Each portfolio has a max
+                of 500 items and, like projects, a max of 20 custom fields.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: The name of the portfolio.
+                  type: string
+                  example: Bug Portfolio
+              x-docs-overrides: *id017
+            user:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user’s name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id001
+            access_level:
+              description: >-
+                Whether the member has admin, editor, or viewer
+                access to the portfolio. Portfolios do not support commenter access
+                yet.
+              type: string
+              enum:
+                - admin
+                - editor
+                - viewer
+              readOnly: true
+              example: admin
+            resource_subtype:
+              description: Type of the membership.
+              type: string
+              example: project_membership
+          x-docs-overrides: *id018
     UpdateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -34259,11 +34577,12 @@ paths:
     get:
       summary: Get multiple memberships
       description: >-
-        Returns compact `goal_membership` or `project_membership` records. The possible
-        types
-        for `parent` in this request are `goal` or `project`. An additional member
-        (user GID or
-        team GID) can be passed in to filter to a specific membership.
+        Returns compact `goal_membership`, `project_membership`, or `portfolio_membership`
+        records. The possible types
+        for `parent` in this request are `goal`, `project`, or `portfolio`. An additional
+        member (user GID or
+        team GID) can be passed in to filter to a specific membership. Teams are not
+        supported for portfolios yet.
       tags:
         - Memberships
       operationId: getMemberships
@@ -34271,7 +34590,7 @@ paths:
         - name: parent
           in: query
           description: >-
-            Globally unique identifier for `goal` or `project`.
+            Globally unique identifier for `goal`, `project`, or `portfolio`.
           schema:
             type: string
           example: '159874'
@@ -34590,6 +34909,7 @@ paths:
             include.
           required: false
           example:
+            - access_level
             - offset
             - path
             - portfolio
@@ -34602,6 +34922,7 @@ paths:
             items:
               type: string
               enum:
+                - access_level
                 - offset
                 - path
                 - portfolio
@@ -34643,6 +34964,7 @@ paths:
             include.
           required: false
           example:
+            - access_level
             - portfolio
             - portfolio.name
             - user
@@ -34652,6 +34974,7 @@ paths:
             items:
               type: string
               enum:
+                - access_level
                 - portfolio
                 - portfolio.name
                 - user
@@ -34693,6 +35016,7 @@ paths:
             include.
           required: false
           example:
+            - access_level
             - offset
             - path
             - portfolio
@@ -34705,6 +35029,7 @@ paths:
             items:
               type: string
               enum:
+                - access_level
                 - offset
                 - path
                 - portfolio
