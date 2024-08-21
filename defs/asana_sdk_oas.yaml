@@ -11577,6 +11577,15 @@ components:
             - editor
             - viewer
           example: viewer
+        privacy_setting:
+          description: >-
+            The privacy setting of the portfolio. *Note: Administrators in your organization
+            may restrict the values of `privacy_setting`.*
+          type: string
+          enum:
+            - public_to_domain
+            - members_only
+          example: members_only
         project_templates:
           description: >-
             Array of project templates that are in the portfolio
@@ -35190,6 +35199,7 @@ paths:
             - owner.name
             - path
             - permalink_url
+            - privacy_setting
             - project_templates
             - project_templates.name
             - public
@@ -35291,6 +35301,7 @@ paths:
                 - owner.name
                 - path
                 - permalink_url
+                - privacy_setting
                 - project_templates
                 - project_templates.name
                 - public
@@ -35422,6 +35433,7 @@ paths:
             - owner
             - owner.name
             - permalink_url
+            - privacy_setting
             - project_templates
             - project_templates.name
             - public
@@ -35520,6 +35532,7 @@ paths:
                 - owner
                 - owner.name
                 - permalink_url
+                - privacy_setting
                 - project_templates
                 - project_templates.name
                 - public
@@ -35656,6 +35669,7 @@ paths:
             - owner
             - owner.name
             - permalink_url
+            - privacy_setting
             - project_templates
             - project_templates.name
             - public
@@ -35754,6 +35768,7 @@ paths:
                 - owner
                 - owner.name
                 - permalink_url
+                - privacy_setting
                 - project_templates
                 - project_templates.name
                 - public
@@ -35882,6 +35897,7 @@ paths:
             - owner
             - owner.name
             - permalink_url
+            - privacy_setting
             - project_templates
             - project_templates.name
             - public
@@ -35980,6 +35996,7 @@ paths:
                 - owner
                 - owner.name
                 - permalink_url
+                - privacy_setting
                 - project_templates
                 - project_templates.name
                 - public
@@ -36566,6 +36583,7 @@ paths:
             - owner
             - owner.name
             - permalink_url
+            - privacy_setting
             - project_templates
             - project_templates.name
             - public
@@ -36664,6 +36682,7 @@ paths:
                 - owner
                 - owner.name
                 - permalink_url
+                - privacy_setting
                 - project_templates
                 - project_templates.name
                 - public
@@ -36803,6 +36822,7 @@ paths:
             - owner
             - owner.name
             - permalink_url
+            - privacy_setting
             - project_templates
             - project_templates.name
             - public
@@ -36901,6 +36921,7 @@ paths:
                 - owner
                 - owner.name
                 - permalink_url
+                - privacy_setting
                 - project_templates
                 - project_templates.name
                 - public
