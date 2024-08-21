@@ -11569,6 +11569,14 @@ components:
             True if the portfolio is public to its workspace members.
           type: boolean
           example: false
+        default_access_level:
+          description: The default access level when inviting new members to the portfolio
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          example: viewer
         project_templates:
           description: >-
             Array of project templates that are in the portfolio
@@ -35172,6 +35180,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - due_on
             - members
             - members.name
@@ -35272,6 +35281,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - due_on
                 - members
                 - members.name
@@ -35404,6 +35414,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - due_on
             - members
             - members.name
@@ -35501,6 +35512,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - due_on
                 - members
                 - members.name
@@ -35636,6 +35648,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - due_on
             - members
             - members.name
@@ -35733,6 +35746,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - due_on
                 - members
                 - members.name
@@ -35860,6 +35874,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - due_on
             - members
             - members.name
@@ -35957,6 +35972,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - due_on
                 - members
                 - members.name
@@ -36542,6 +36558,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - due_on
             - members
             - members.name
@@ -36639,6 +36656,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - due_on
                 - members
                 - members.name
@@ -36777,6 +36795,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - due_on
             - members
             - members.name
@@ -36874,6 +36893,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - due_on
                 - members
                 - members.name
