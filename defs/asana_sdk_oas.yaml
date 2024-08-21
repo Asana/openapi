@@ -610,7 +610,7 @@ tags:
       state of multiple projects, including a progress report and the most
       recent [status update](/reference/status-updates).
 
-      Portfolios have some restrictions on size. Each portfolio has a max of 500
+      Portfolios have some restrictions on size. Each portfolio has a max of 1500
       items and, like projects, a maximum of 20 custom fields.
   - name: Portfolio memberships
     description: >-
@@ -9088,7 +9088,7 @@ components:
                 recent [project status](/reference/project-statuses) update.
 
                 Portfolios have some restrictions on size. Each portfolio has a max
-                of 500 items and, like projects, a max of 20 custom fields.
+                of 1500 items and, like projects, a max of 20 custom fields.
               type: object
               properties:
                 gid:
@@ -9516,7 +9516,7 @@ components:
         projects, including a progress report and the most recent [project status](/reference/project-statuses)
         update.
 
-        Portfolios have some restrictions on size. Each portfolio has a max of 500
+        Portfolios have some restrictions on size. Each portfolio has a max of 1500
         items and, like projects, a max of 20 custom fields.
       type: object
       properties:
@@ -9571,7 +9571,7 @@ components:
         projects, including a progress report and the most recent [project status](/reference/project-statuses)
         update.
 
-        Portfolios have some restrictions on size. Each portfolio has a max of 500
+        Portfolios have some restrictions on size. Each portfolio has a max of 1500
         items and, like projects, a max of 20 custom fields.
       type: object
       properties:
@@ -9625,7 +9625,7 @@ components:
             update.
 
             Portfolios have some restrictions on size. Each portfolio has a max of
-            500 items and, like projects, a max of 20 custom fields.
+            1500 items and, like projects, a max of 20 custom fields.
           type: object
           properties:
             gid:
@@ -9718,7 +9718,7 @@ components:
             update.
 
             Portfolios have some restrictions on size. Each portfolio has a max of
-            500 items and, like projects, a max of 20 custom fields.
+            1500 items and, like projects, a max of 20 custom fields.
           type: object
           properties:
             gid:
@@ -9809,7 +9809,7 @@ components:
             update.
 
             Portfolios have some restrictions on size. Each portfolio has a max of
-            500 items and, like projects, a max of 20 custom fields.
+            1500 items and, like projects, a max of 20 custom fields.
           type: object
           properties:
             gid:
@@ -9906,7 +9906,7 @@ components:
             update.
 
             Portfolios have some restrictions on size. Each portfolio has a max of
-            500 items and, like projects, a max of 20 custom fields.
+            1500 items and, like projects, a max of 20 custom fields.
           type: object
           properties:
             gid:
@@ -9987,7 +9987,7 @@ components:
         projects, including a progress report and the most recent [project status](/reference/project-statuses)
         update.
 
-        Portfolios have some restrictions on size. Each portfolio has a max of 500
+        Portfolios have some restrictions on size. Each portfolio has a max of 1500
         items and, like projects, a max of 20 custom fields.
       type: object
       properties:
@@ -10065,7 +10065,7 @@ components:
         projects, including a progress report and the most recent [project status](/reference/project-statuses)
         update.
 
-        Portfolios have some restrictions on size. Each portfolio has a max of 500
+        Portfolios have some restrictions on size. Each portfolio has a max of 1500
         items and, like projects, a max of 20 custom fields.
       type: object
       properties:
@@ -30197,7 +30197,7 @@ components:
                 recent [project status](/reference/project-statuses) update.
 
                 Portfolios have some restrictions on size. Each portfolio has a max
-                of 500 items and, like projects, a max of 20 custom fields.
+                of 1500 items and, like projects, a max of 20 custom fields.
               type: object
               properties:
                 gid:

@@ -610,7 +610,7 @@ tags:
       state of multiple projects, including a progress report and the most
       recent [status update](/reference/status-updates).
 
-      Portfolios have some restrictions on size. Each portfolio has a max of 500
+      Portfolios have some restrictions on size. Each portfolio has a max of 1500
       items and, like projects, a maximum of 20 custom fields.
   - name: Portfolio memberships
     description: >-
@@ -3544,7 +3544,7 @@ components:
             update.
 
             Portfolios have some restrictions on size. Each portfolio has a max of
-            500 items and, like projects, a max of 20 custom fields.
+            1500 items and, like projects, a max of 20 custom fields.
           x-docs-overrides:
             properties.resource_type.example: portfolio
           properties:
