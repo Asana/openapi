@@ -51019,6 +51019,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - users:read
   /users/{user_gid}:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
@@ -51080,6 +51083,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - users:read
   /users/{user_gid}/favorites:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
@@ -51154,6 +51160,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - users:read
   /teams/{team_gid}/users:
     parameters:
       - $ref: '#/components/parameters/team_path_gid'
@@ -51219,6 +51228,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - users:read
   /workspaces/{workspace_gid}/users:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
@@ -51286,6 +51298,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - users:read
   /webhooks:
     get:
       summary: >-
