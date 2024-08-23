@@ -3508,6 +3508,13 @@ components:
         - $ref: '#/components/schemas/PortfolioCompact'
         - type: object
           properties:
+            archived:
+              description: >-
+                True if the portfolio is archived, false if not. Archived portfolios
+                do not show in the UI by default and may be treated differently
+                for queries.
+              type: boolean
+              example: false
             color:
               description: Color of the portfolio.
               type: string
@@ -17197,6 +17204,7 @@ paths:
             include.
           required: false
           example:
+            - archived
             - color
             - created_at
             - created_by
@@ -17299,6 +17307,7 @@ paths:
             items:
               type: string
               enum:
+                - archived
                 - color
                 - created_at
                 - created_by
@@ -17565,6 +17574,7 @@ paths:
             include.
           required: false
           example:
+            - archived
             - color
             - created_at
             - created_by
@@ -17664,6 +17674,7 @@ paths:
             items:
               type: string
               enum:
+                - archived
                 - color
                 - created_at
                 - created_by
@@ -17924,6 +17935,7 @@ paths:
             include.
           required: false
           example:
+            - archived
             - color
             - created_at
             - created_by
@@ -18023,6 +18035,7 @@ paths:
             items:
               type: string
               enum:
+                - archived
                 - color
                 - created_at
                 - created_by
@@ -18272,6 +18285,7 @@ paths:
             include.
           required: false
           example:
+            - archived
             - color
             - created_at
             - created_by
@@ -18371,6 +18385,7 @@ paths:
             items:
               type: string
               enum:
+                - archived
                 - color
                 - created_at
                 - created_by
@@ -19815,6 +19830,7 @@ paths:
             include.
           required: false
           example:
+            - archived
             - color
             - created_at
             - created_by
@@ -19914,6 +19930,7 @@ paths:
             items:
               type: string
               enum:
+                - archived
                 - color
                 - created_at
                 - created_by
@@ -20180,6 +20197,7 @@ paths:
             include.
           required: false
           example:
+            - archived
             - color
             - created_at
             - created_by
@@ -20279,6 +20297,7 @@ paths:
             items:
               type: string
               enum:
+                - archived
                 - color
                 - created_at
                 - created_by
