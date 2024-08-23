@@ -7429,6 +7429,7 @@ components:
             tasks:delete: Delete access to tasks
             projects:read: View access to projects
             users:read: View access to users
+            stories:read: View access to stories
 paths:
   /allocations/{allocation_gid}:
     parameters:
@@ -32284,6 +32285,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - stories:read
       x-readme:
         code-samples:
           - language: java
@@ -33305,6 +33309,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - stories:read
       x-readme:
         code-samples:
           - language: java
