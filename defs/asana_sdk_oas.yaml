@@ -39058,6 +39058,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:delete
   /projects/{project_gid}/duplicate:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
