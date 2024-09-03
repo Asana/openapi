@@ -7432,6 +7432,7 @@ components:
             projects:write: Create and modify access to projects
             users:read: View access to users
             stories:read: View access to stories
+            workspaces:read: View access to workspaces
 paths:
   /allocations/{allocation_gid}:
     parameters:
@@ -50791,6 +50792,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
@@ -50960,6 +50964,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
