@@ -3510,6 +3510,7 @@ components:
           properties:
             archived:
               description: >-
+                [Opt In](/docs/inputoutput-options).
                 True if the portfolio is archived, false if not. Archived portfolios
                 do not show in the UI by default and may be treated differently
                 for queries.
