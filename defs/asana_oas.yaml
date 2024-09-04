@@ -7431,6 +7431,7 @@ components:
             projects:read: View access to projects
             projects:write: Create and modify access to projects
             users:read: View access to users
+            teams:read: View access to teams
             stories:read: View access to stories
             workspaces:read: View access to workspaces
 paths:
@@ -45303,6 +45304,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - teams:read
       x-readme:
         code-samples:
           - language: java
@@ -45704,6 +45708,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - teams:read
       x-readme:
         code-samples:
           - language: java
@@ -45918,6 +45925,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - teams:read
       x-readme:
         code-samples:
           - language: java

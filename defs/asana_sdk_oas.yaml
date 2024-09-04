@@ -50033,6 +50033,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - teams:read
     put:
       summary: Update a team
       description: |-
@@ -50183,6 +50186,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - teams:read
   /users/{user_gid}/teams:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
@@ -50265,6 +50271,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - teams:read
   /teams/{team_gid}/addUser:
     parameters:
       - $ref: '#/components/parameters/team_path_gid'
