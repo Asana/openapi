@@ -7426,6 +7426,7 @@ components:
             profile: >-
               Provides access to the user’s name and profile photo through the
               OpenID Connect user info endpoint.
+            attachments:write: Create and modify access to attachments
             tasks:read: View access to tasks
             tasks:delete: Delete access to tasks
             projects:delete: Delete access to projects
@@ -8848,6 +8849,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - attachments:write
       x-readme:
         code-samples:
           - language: java
