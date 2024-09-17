@@ -581,6 +581,11 @@ tags:
       is, object properties may
       return different values each time when polled until the job `status` has returned
       a `succeeded` value.
+  - name: Memberships
+    description: |-
+      A membership object represents the relationship between a team or user and an object in Asana. Currently, the
+      supported types of memberships are for goals, projects, and portfolios. For example, a project membership
+      can be used to add a user to a project.
   - name: Organization exports
     description: >-
       An `organization_export` object represents a request to export the
@@ -686,6 +691,16 @@ tags:
 
       Project templates in organizations are shared with a single team. Currently, the
       team of a project template cannot be changed via the API.
+  - name: Rules
+    description: |-
+      [Asana rules](https://help.asana.com/s/article/rules?language=en_US) allow you to automate common patterns
+      and workflows in Asana. Rules comprise triggers that will automatically perform actions. For example, you
+      can create a rule to automatically assign a task (action) when a due date is set (trigger).
+
+      To support cross-application workflows, the API supports
+      [incoming web requests](https://developers.asana.com/docs/incoming-web-requests) as a generic trigger to
+      connect external applications to Asana through rules. This API allows users to set up workflows outside
+      of Asana that can perform operations on data within Asana.
   - name: Sections
     description: >-
       A section is a subdivision of a project that groups tasks together.
@@ -775,6 +790,10 @@ tags:
     description: >-
       A time period is an object that represents a domain-scoped date range that can
       be set on [goals](/reference/goals).
+  - name: Time tracking entries
+    description: >-
+      Asana’s native time tracking feature allows you to estimate the time needed
+      to complete a task, as well as record the actual time spent.
   - name: Typeahead
     description: >-
       The typeahead search API provides search for objects from a single
