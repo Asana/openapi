@@ -37627,6 +37627,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - project_templates:read
     delete:
       summary: Delete a project template
       description: |-
@@ -37725,6 +37728,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - project_templates:read
   /teams/{team_gid}/project_templates:
     parameters:
       - $ref: '#/components/parameters/team_path_gid'
@@ -37799,6 +37805,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - project_templates:read
   /project_templates/{project_template_gid}/instantiateProject:
     parameters:
       - $ref: '#/components/parameters/project_template_path_gid'
