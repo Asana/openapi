@@ -1454,44 +1454,55 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
     AllocationBase:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          x-docs-overrides:
-            properties.resource_type.example: allocation
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: allocation
+          x-insert-after: gid
+        start_date:
+          type: string
+          format: date
+          description: >-
+            The localized day on which the allocation starts.
+          example: '2024-02-28'
+        end_date:
+          type: string
+          format: date
+          description: >-
+            The localized day on which the allocation ends.
+          example: '2024-02-28'
+        effort:
+          type: object
+          nullable: true
+          description: >-
+            The amount of time associated with the allocation, represented as a percentage
+            or number of hours
           properties:
-            start_date:
+            type:
               type: string
-              format: date
               description: >-
-                The localized day on which the allocation starts.
-              example: '2024-02-28'
-            end_date:
-              type: string
-              format: date
+                The units used for tracking effort on an allocation, either "hours"
+                or "percent".
+              enum:
+                - hours
+                - percent
+            value:
+              type: number
               description: >-
-                The localized day on which the allocation ends.
-              example: '2024-02-28'
-            effort:
-              type: object
-              nullable: true
-              description: >-
-                The amount of time associated with the allocation, represented as
-                a percentage or number of hours
-              properties:
-                type:
-                  type: string
-                  description: >-
-                    The units used for tracking effort on an allocation, either "hours"
-                    or "percent".
-                  enum:
-                    - hours
-                    - percent
-                value:
-                  type: number
-                  description: >-
-                    The numeric effort value on the allocation.
-                  example: 50
+                The numeric effort value on the allocation.
+              example: 50
     AllocationResponse:
       allOf:
         - $ref: '#/components/schemas/AllocationBase'
@@ -1581,14 +1592,27 @@ components:
           type: string
           example: 521621,621373
     AsanaNamedResource:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          properties:
-            name:
-              description: The name of the object.
-              type: string
-              example: Bug Task
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: The name of the object.
+          type: string
+          example: Bug Task
     AsanaResource:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -1610,27 +1634,36 @@ components:
     AttachmentBase:
       $ref: '#/components/schemas/AttachmentCompact'
     AttachmentCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        An *attachment* object represents any file attached to a task in
+        Asana, whether it’s an uploaded file or one associated via a
+        third-party service such as Dropbox or Google Drive.
+      type: object
+      properties:
+        gid:
           description: >-
-            An *attachment* object represents any file attached to a task in
-            Asana, whether it’s an uploaded file or one associated via a
-            third-party service such as Dropbox or Google Drive.
-          x-docs-overrides:
-            properties.resource_type.example: attachment
-          properties:
-            name:
-              description: The name of the file.
-              type: string
-              readOnly: true
-              example: Screenshot.png
-            resource_subtype:
-              description: >-
-                The service hosting the attachment. Valid values are `asana`,
-                `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
-              type: string
-              example: dropbox
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: attachment
+          x-insert-after: gid
+        name:
+          description: The name of the file.
+          type: string
+          readOnly: true
+          example: Screenshot.png
+        resource_subtype:
+          description: >-
+            The service hosting the attachment. Valid values are `asana`,
+            `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
+          type: string
+          example: dropbox
     AttachmentRequest:
       type: object
       required:
@@ -2257,158 +2290,166 @@ components:
                 - null
               example: priority
     CustomFieldCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        Custom Fields store the metadata that is used in order to
+        add user-specified information to tasks in Asana. Be sure
+        to reference the [custom fields](/reference/custom-fields)
+        developer documentation for more information about how custom fields
+        relate to various resources in Asana.
+
+
+        Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
+        which will make them read-only when accessed by other users.
+        Attempting to edit a locked custom field will return HTTP error code
+        `403 Forbidden`.
+      type: object
+      properties:
+        gid:
           description: >-
-            Custom Fields store the metadata that is used in order to
-            add user-specified information to tasks in Asana. Be sure
-            to reference the [custom fields](/reference/custom-fields)
-            developer documentation for more information about how custom fields
-            relate to various resources in Asana.
-
-
-            Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
-            which will make them read-only when accessed by other users.
-            Attempting to edit a locked custom field will return HTTP error code
-            `403 Forbidden`.
-          x-docs-overrides:
-            properties.resource_type.example: custom_field
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: custom_field
+          x-insert-after: gid
+        name:
+          description: The name of the custom field.
+          type: string
+          example: Status
+        resource_subtype:
+          description: >
+            The type of the custom field. Must be one of the given values.
+          type: string
+          readOnly: true
+          example: text
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+        type:
+          description: >
+            *Deprecated: new integrations should prefer the resource_subtype
+            field.* The type of the custom field. Must be one of the given
+            values.
+          type: string
+          readOnly: true
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+        enum_options:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type `enum`.
+            This array specifies the possible values which an `enum` custom
+            field can adopt. To modify the enum options, refer to [working
+            with enum
+            options](/reference/createenumoptionforcustomfield).
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumOption'
+        enabled:
+          description: >-
+            *Conditional*. Determines if the custom field is enabled or not.
+          type: boolean
+          readOnly: true
+          example: true
+        representation_type:
+          description: >-
+            This field tells the type of the custom field.
+          type: string
+          example: number
+          readOnly: true
+          enum:
+            - text
+            - enum
+            - multi_enum
+            - number
+            - date
+            - people
+            - formula
+            - custom_id
+        id_prefix:
+          description: >-
+            This field is the unique custom ID string for the custom field.
+          type: string
+          nullable: true
+          example: ID
+        is_formula_field:
+          description: >-
+            *Conditional*. This flag describes whether a custom field is a formula
+            custom field.
+          type: boolean
+          example: false
+        date_value:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type `date`.
+            This object reflects the chosen date (and optionally, time) value
+            of a `date` custom field. If no date is selected, the value of
+            `date_value` will be `null`.
+          type: object
+          nullable: true
           properties:
-            name:
-              description: The name of the custom field.
+            date:
               type: string
-              example: Status
-            resource_subtype:
-              description: >
-                The type of the custom field. Must be one of the given values.
-              type: string
-              readOnly: true
-              example: text
-              enum:
-                - text
-                - enum
-                - multi_enum
-                - number
-                - date
-                - people
-            type:
-              description: >
-                *Deprecated: new integrations should prefer the resource_subtype
-                field.* The type of the custom field. Must be one of the given
-                values.
-              type: string
-              readOnly: true
-              enum:
-                - text
-                - enum
-                - multi_enum
-                - number
-                - date
-                - people
-            enum_options:
               description: >-
-                *Conditional*. Only relevant for custom fields of type `enum`.
-                This array specifies the possible values which an `enum` custom
-                field can adopt. To modify the enum options, refer to [working
-                with enum
-                options](/reference/createenumoptionforcustomfield).
-              type: array
-              items:
-                $ref: '#/components/schemas/EnumOption'
-            enabled:
-              description: >-
-                *Conditional*. Determines if the custom field is enabled or not.
-              type: boolean
-              readOnly: true
-              example: true
-            representation_type:
-              description: >-
-                This field tells the type of the custom field.
+                A string representing the date in YYYY-MM-DD format.
+              example: '2024-08-23'
+            date_time:
               type: string
-              example: number
-              readOnly: true
-              enum:
-                - text
-                - enum
-                - multi_enum
-                - number
-                - date
-                - people
-                - formula
-                - custom_id
-            id_prefix:
               description: >-
-                This field is the unique custom ID string for the custom field.
-              type: string
+                A string representing the date in ISO 8601 format. If no time value
+                is selected, the value of `date-time` will be `null`.
+              example: '2024-08-23T22:00:00.000Z'
+        enum_value:
+          allOf:
+            - $ref: '#/components/schemas/EnumOption'
+            - type: object
               nullable: true
-              example: ID
-            is_formula_field:
-              description: >-
-                *Conditional*. This flag describes whether a custom field is a formula
-                custom field.
-              type: boolean
-              example: false
-            date_value:
-              description: >-
-                *Conditional*. Only relevant for custom fields of type `date`.
-                This object reflects the chosen date (and optionally, time) value
-                of a `date` custom field. If no date is selected, the value of
-                `date_value` will be `null`.
-              type: object
-              nullable: true
-              properties:
-                date:
-                  type: string
-                  description: >-
-                    A string representing the date in YYYY-MM-DD format.
-                  example: '2024-08-23'
-                date_time:
-                  type: string
-                  description: >-
-                    A string representing the date in ISO 8601 format. If no time
-                    value
-                    is selected, the value of `date-time` will be `null`.
-                  example: '2024-08-23T22:00:00.000Z'
-            enum_value:
-              allOf:
-                - $ref: '#/components/schemas/EnumOption'
-                - type: object
-                  nullable: true
-                  description: >-
-                    *Conditional*. Only relevant for custom fields of type
-                    `enum`. This object is the chosen value of an `enum` custom
-                    field.
-            multi_enum_values:
               description: >-
                 *Conditional*. Only relevant for custom fields of type
-                `multi_enum`. This object is the chosen values of a `multi_enum` custom
+                `enum`. This object is the chosen value of an `enum` custom
                 field.
-              type: array
-              items:
-                $ref: '#/components/schemas/EnumOption'
-            number_value:
-              description: >-
-                *Conditional*. This number is the value of a `number` custom field.
-              type: number
-              nullable: true
-              example: 5.2
-            text_value:
-              description: >-
-                *Conditional*. This string is the value of a `text` custom field.
-              type: string
-              nullable: true
-              example: Some Value
-            display_value:
-              description: >-
-                A string representation for the value of the custom field.
-                Integrations that don't require the underlying type should
-                use this field to read values. Using this field will future-proof
-                an app against new custom field types.
-              type: string
-              readOnly: true
-              example: blue
-              nullable: true
+        multi_enum_values:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type
+            `multi_enum`. This object is the chosen values of a `multi_enum` custom
+            field.
+          type: array
+          items:
+            $ref: '#/components/schemas/EnumOption'
+        number_value:
+          description: >-
+            *Conditional*. This number is the value of a `number` custom field.
+          type: number
+          nullable: true
+          example: 5.2
+        text_value:
+          description: >-
+            *Conditional*. This string is the value of a `text` custom field.
+          type: string
+          nullable: true
+          example: Some Value
+        display_value:
+          description: >-
+            A string representation for the value of the custom field.
+            Integrations that don't require the underlying type should
+            use this field to read values. Using this field will future-proof
+            an app against new custom field types.
+          type: string
+          readOnly: true
+          example: blue
+          nullable: true
     CustomFieldRequest:
       allOf:
         - $ref: '#/components/schemas/CustomFieldBase'
@@ -2495,15 +2536,25 @@ components:
     CustomFieldSettingBase:
       $ref: '#/components/schemas/CustomFieldSettingCompact'
     CustomFieldSettingCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        Custom Fields Settings objects represent the many-to-many join of the
+        Custom Field and Project as well as stores information that is
+        relevant to that particular pairing.
+      type: object
+      properties:
+        gid:
           description: >-
-            Custom Fields Settings objects represent the many-to-many join of the
-            Custom Field and Project as well as stores information that is
-            relevant to that particular pairing.
-          x-docs-overrides:
-            properties.resource_type.example: custom_field_setting
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: custom_field_setting
+          x-insert-after: gid
     CustomFieldSettingResponse:
       allOf:
         - $ref: '#/components/schemas/CustomFieldSettingBase'
@@ -2550,60 +2601,69 @@ components:
         success is conveyed through a 2-- status code and returning an empty
         object.
     EnumOption:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        Enum options are the possible values which an enum custom field can
+        adopt. An enum custom field must contain at least 1 enum option but no
+        more than 500.
+
+
+        You can add enum options to a custom field by using the `POST
+        /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+        **It is not possible to remove or delete an enum option**. Instead,
+        enum options can be disabled by updating the `enabled` field to false
+        with the `PUT /enum_options/enum_option_gid` endpoint. Other
+        attributes can be updated similarly.
+
+
+        On creation of an enum option, `enabled` is always set to `true`,
+        meaning the enum option is a selectable value for the custom field.
+        Setting `enabled=false` is equivalent to “trashing” the enum option in
+        the Asana web app within the “Edit Fields” dialog. The enum option
+        will no longer be selectable but, if the enum option value was
+        previously set within a task, the task will retain the value.
+
+
+        Enum options are an ordered list and by default new enum options are
+        inserted at the end. Ordering in relation to existing enum options can
+        be specified on creation by using `insert_before` or `insert_after` to
+        reference an existing enum option. Only one of `insert_before` and
+        `insert_after` can be provided when creating a new enum option.
+
+
+        An enum options list can be reordered with the `POST
+        /custom_fields/custom_field_gid/enum_options/insert` endpoint.
+      type: object
+      properties:
+        gid:
           description: >-
-            Enum options are the possible values which an enum custom field can
-            adopt. An enum custom field must contain at least 1 enum option but no
-            more than 500.
-
-
-            You can add enum options to a custom field by using the `POST
-            /custom_fields/custom_field_gid/enum_options` endpoint.
-
-
-            **It is not possible to remove or delete an enum option**. Instead,
-            enum options can be disabled by updating the `enabled` field to false
-            with the `PUT /enum_options/enum_option_gid` endpoint. Other
-            attributes can be updated similarly.
-
-
-            On creation of an enum option, `enabled` is always set to `true`,
-            meaning the enum option is a selectable value for the custom field.
-            Setting `enabled=false` is equivalent to “trashing” the enum option in
-            the Asana web app within the “Edit Fields” dialog. The enum option
-            will no longer be selectable but, if the enum option value was
-            previously set within a task, the task will retain the value.
-
-
-            Enum options are an ordered list and by default new enum options are
-            inserted at the end. Ordering in relation to existing enum options can
-            be specified on creation by using `insert_before` or `insert_after` to
-            reference an existing enum option. Only one of `insert_before` and
-            `insert_after` can be provided when creating a new enum option.
-
-
-            An enum options list can be reordered with the `POST
-            /custom_fields/custom_field_gid/enum_options/insert` endpoint.
-          x-docs-overrides:
-            properties.resource_type.example: enum_option
-          properties:
-            name:
-              description: The name of the enum option.
-              type: string
-              example: Low
-            enabled:
-              description: >-
-                Whether or not the enum option is a selectable value for the
-                custom field.
-              type: boolean
-              example: true
-            color:
-              description: >-
-                The color of the enum option. Defaults to ‘none’.
-              type: string
-              example: blue
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: enum_option
+          x-insert-after: gid
+        name:
+          description: The name of the enum option.
+          type: string
+          example: Low
+        enabled:
+          description: >-
+            Whether or not the enum option is a selectable value for the
+            custom field.
+          type: boolean
+          example: true
+        color:
+          description: >-
+            The color of the enum option. Defaults to ‘none’.
+          type: string
+          example: blue
     EnumOptionBase:
       $ref: '#/components/schemas/EnumOption'
     EnumOptionInsertRequest:
@@ -2879,168 +2939,197 @@ components:
           type: string
           example: '1331'
     GoalBase:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          x-docs-overrides:
-            properties.resource_type.example: goal
-          properties:
-            name:
-              type: string
-              description: The name of the goal.
-              example: Grow web traffic by 30%
-            html_notes:
-              type: string
-              description: >-
-                The notes of the goal with formatting as HTML.
-              example: <body>Start building brand awareness.</body>
-            notes:
-              type: string
-              description: >-
-                Free-form textual information associated with the
-                goal (i.e. its description).
-              example: Start building brand awareness.
-            due_on:
-              type: string
-              description: >-
-                The localized day on which this goal is due. This takes a
-                date with format `YYYY-MM-DD`.
-              example: '2019-09-15'
-              nullable: true
-            start_on:
-              type: string
-              description: >-
-                The day on which work for this goal begins, or null if the
-                goal has no start date. This takes a date with `YYYY-MM-DD`
-                format, and cannot be set unless there is an accompanying due date.
-              example: '2019-09-14'
-              nullable: true
-            is_workspace_level:
-              type: boolean
-              description: >-
-                *Conditional*. This property is only present when the `workspace`
-                provided is an organization. Whether the goal belongs to the `workspace`
-                (and is listed as part of the workspace’s goals) or not. If it isn’t
-                a workspace-level goal, it is a team-level goal, and is associated
-                with the goal’s team.
-              example: true
-            liked:
-              type: boolean
-              description: >-
-                True if the goal is liked by the authorized user, false if not.
-              example: false
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: goal
+          x-insert-after: gid
+        name:
+          type: string
+          description: The name of the goal.
+          example: Grow web traffic by 30%
+        html_notes:
+          type: string
+          description: >-
+            The notes of the goal with formatting as HTML.
+          example: <body>Start building brand awareness.</body>
+        notes:
+          type: string
+          description: >-
+            Free-form textual information associated with the
+            goal (i.e. its description).
+          example: Start building brand awareness.
+        due_on:
+          type: string
+          description: >-
+            The localized day on which this goal is due. This takes a
+            date with format `YYYY-MM-DD`.
+          example: '2019-09-15'
+          nullable: true
+        start_on:
+          type: string
+          description: >-
+            The day on which work for this goal begins, or null if the
+            goal has no start date. This takes a date with `YYYY-MM-DD`
+            format, and cannot be set unless there is an accompanying due date.
+          example: '2019-09-14'
+          nullable: true
+        is_workspace_level:
+          type: boolean
+          description: >-
+            *Conditional*. This property is only present when the `workspace` provided
+            is an organization. Whether the goal belongs to the `workspace` (and is
+            listed as part of the workspace’s goals) or not. If it isn’t a workspace-level
+            goal, it is a team-level goal, and is associated with the goal’s team.
+          example: true
+        liked:
+          type: boolean
+          description: >-
+            True if the goal is liked by the authorized user, false if not.
+          example: false
     GoalCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          x-docs-overrides:
-            properties.resource_type.example: goal
-          properties:
-            name:
-              type: string
-              description: The name of the goal.
-              example: Grow web traffic by 30%
-            owner:
-              allOf:
-                - $ref: '#/components/schemas/UserCompact'
-                - type: object
-                  nullable: true
-    GoalMetricBase:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          properties:
-            resource_subtype:
-              description: >-
-                The subtype of this resource. Different subtypes retain many of the
-                same fields and behavior, but may render differently in Asana or
-                represent resources with different semantic meaning.
-              type: string
-              readOnly: true
-              example: number
-              enum:
-                - number
-            precision:
-              description: >-
-                *Conditional*. Only relevant for goal metrics of type ‘Number’. This
-                field
-                dictates the number of places after the decimal to round to, i.e.
-                0 is integer values, 1 rounds to the nearest tenth, and so on.
-                Must be between 0 and 6, inclusive.
-
-                For percentage format, this may be unintuitive, as a value of 0.25
-                has a precision of 0, while a value of 0.251 has a precision of 1.
-                This is due to 0.25 being displayed as 25%.
-              type: integer
-              example: 2
-            unit:
-              description: >-
-                A supported unit of measure for the goal metric, or none.
-              type: string
-              enum:
-                - none
-                - currency
-                - percentage
-            currency_code:
-              description: >-
-                ISO 4217 currency code to format this custom field. This will be
-                null if the `unit` is not `currency`.
-              type: string
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: goal
+          x-insert-after: gid
+        name:
+          type: string
+          description: The name of the goal.
+          example: Grow web traffic by 30%
+        owner:
+          allOf:
+            - $ref: '#/components/schemas/UserCompact'
+            - type: object
               nullable: true
-              example: EUR
-            initial_number_value:
-              description: >-
-                This number is the start value of a goal metric of
-                type number.
-              type: number
-              example: 5.2
-            target_number_value:
-              description: >-
-                This number is the end value of a goal metric of
-                type number. This number cannot equal `initial_number_value`.
-              type: number
-              example: 10.2
-            current_number_value:
-              description: >-
-                This number is the current value of a goal metric of
-                type number.
-              type: number
-              example: 8.12
-            current_display_value:
-              description: >-
-                This string is the current value of a goal metric of
-                type string.
-              type: string
-              readOnly: true
-              example: '8.12'
-            progress_source:
-              description: >-
-                This field defines how the progress value of a goal metric is being
-                calculated.
-                A goal's progress can be provided manually by the user,
-                calculated automatically from contributing subgoals, projects, or
-                tasks,
-                or managed by an integration with an external data source, such as
-                Salesforce.
-              type: string
-              enum:
-                - manual
-                - subgoal_progress
-                - project_task_completion
-                - project_milestone_completion
-                - task_completion
-                - external
-              example: manual
-            is_custom_weight:
-              description: >-
-                *Conditional*. Only relevant if `metric.progress_source` is one of
-                `subgoal_progress`,
-                `project_task_completion`, `project_milestone_completion`, or `task_completion`.
-                If true, we use the supporting object's custom weight to calculate
-                the goal's progress.
-                If false, we treat all supporting objects as equally weighted
-              type: boolean
-              example: false
+    GoalMetricBase:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+          example: number
+          enum:
+            - number
+        precision:
+          description: >-
+            *Conditional*. Only relevant for goal metrics of type ‘Number’. This field
+            dictates the number of places after the decimal to round to, i.e.
+            0 is integer values, 1 rounds to the nearest tenth, and so on.
+            Must be between 0 and 6, inclusive.
+
+            For percentage format, this may be unintuitive, as a value of 0.25
+            has a precision of 0, while a value of 0.251 has a precision of 1.
+            This is due to 0.25 being displayed as 25%.
+          type: integer
+          example: 2
+        unit:
+          description: >-
+            A supported unit of measure for the goal metric, or none.
+          type: string
+          enum:
+            - none
+            - currency
+            - percentage
+        currency_code:
+          description: >-
+            ISO 4217 currency code to format this custom field. This will be
+            null if the `unit` is not `currency`.
+          type: string
+          nullable: true
+          example: EUR
+        initial_number_value:
+          description: >-
+            This number is the start value of a goal metric of
+            type number.
+          type: number
+          example: 5.2
+        target_number_value:
+          description: >-
+            This number is the end value of a goal metric of
+            type number. This number cannot equal `initial_number_value`.
+          type: number
+          example: 10.2
+        current_number_value:
+          description: >-
+            This number is the current value of a goal metric of
+            type number.
+          type: number
+          example: 8.12
+        current_display_value:
+          description: >-
+            This string is the current value of a goal metric of
+            type string.
+          type: string
+          readOnly: true
+          example: '8.12'
+        progress_source:
+          description: >-
+            This field defines how the progress value of a goal metric is being calculated.
+            A goal's progress can be provided manually by the user,
+            calculated automatically from contributing subgoals, projects, or tasks,
+            or managed by an integration with an external data source, such as Salesforce.
+          type: string
+          enum:
+            - manual
+            - subgoal_progress
+            - project_task_completion
+            - project_milestone_completion
+            - task_completion
+            - external
+          example: manual
+        is_custom_weight:
+          description: >-
+            *Conditional*. Only relevant if `metric.progress_source` is one of `subgoal_progress`,
+            `project_task_completion`, `project_milestone_completion`, or `task_completion`.
+            If true, we use the supporting object's custom weight to calculate the
+            goal's progress.
+            If false, we treat all supporting objects as equally weighted
+          type: boolean
+          example: false
     GoalRemoveSupportingRelationshipRequest:
       type: object
       required:
@@ -3085,16 +3174,29 @@ components:
           type: number
           example: 1.0
     GoalMetricCurrentValueRequest:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          properties:
-            current_number_value:
-              description: >-
-                *Conditional*. This number is the current value of a goal metric of
-                type number.
-              type: number
-              example: 8.12
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        current_number_value:
+          description: >-
+            *Conditional*. This number is the current value of a goal metric of
+            type number.
+          type: number
+          example: 8.12
     GoalMetricRequest:
       $ref: '#/components/schemas/GoalMetricBase'
     GoalRemoveSubgoalRequest:
@@ -3258,40 +3360,48 @@ components:
                   description: >-
                     The goal that the supporting resource supports.
     GoalRelationshipCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *goal relationship* is an object representing the relationship between a
+        goal and another goal, a project, a task, or a portfolio.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *goal relationship* is an object representing the relationship between
-            a goal and another goal, a project, a task, or a portfolio.
-          x-docs-overrides:
-            properties.resource_type.example: goal_relationship
-          properties:
-            resource_subtype:
-              description: >-
-                The subtype of this resource. Different subtypes retain many of the
-                same fields and behavior, but may render differently in Asana or
-                represent resources with different semantic meaning.
-              type: string
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: goal_relationship
+          x-insert-after: gid
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+          example: subgoal
+          enum:
+            - subgoal
+            - supporting_work
+        supporting_resource:
+          allOf:
+            - $ref: '#/components/schemas/ProjectCompact'
+            - type: object
               readOnly: true
-              example: subgoal
-              enum:
-                - subgoal
-                - supporting_work
-            supporting_resource:
-              allOf:
-                - $ref: '#/components/schemas/ProjectCompact'
-                - type: object
-                  readOnly: true
-                  description: >-
-                    The supporting resource that supports the goal. This can be either
-                    a project, task, portfolio, or goal.
-            contribution_weight:
-              description: The weight that the supporting resource's progress contributes
-                to the supported goal's progress. This can be 0, 1, or any value in
-                between.
-              type: number
-              example: 1.0
+              description: >-
+                The supporting resource that supports the goal. This can be either
+                a project, task, portfolio, or goal.
+        contribution_weight:
+          description: The weight that the supporting resource's progress contributes
+            to the supported goal's progress. This can be 0, 1, or any value in between.
+          type: number
+          example: 1.0
     GoalRelationshipRequest:
       allOf:
         - $ref: '#/components/schemas/GoalRelationshipBase'
@@ -3303,44 +3413,52 @@ components:
     JobBase:
       $ref: '#/components/schemas/JobCompact'
     JobCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *job* is an object representing a process that handles asynchronous work.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *job* is an object representing a process that handles asynchronous
-            work.
-          x-docs-overrides:
-            properties.resource_type.example: job
-          properties:
-            resource_subtype:
-              description: >-
-                The subtype of this resource. Different subtypes retain many of the
-                same fields and behavior, but may render differently in Asana or
-                represent resources with different semantic meaning.
-              type: string
-              readOnly: true
-              example: duplicate_task
-            status:
-              description: >-
-                The current status of this job. The value is one of: `not_started`,
-                `in_progress`, `succeeded`, or `failed`.
-              type: string
-              enum:
-                - not_started
-                - in_progress
-                - succeeded
-                - failed
-              readOnly: true
-              example: in_progress
-            new_project:
-              $ref: '#/components/schemas/ProjectCompact'
-            new_task:
-              allOf:
-                - $ref: '#/components/schemas/TaskCompact'
-                - type: object
-                  nullable: true
-            new_project_template:
-              $ref: '#/components/schemas/ProjectTemplateCompact'
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: job
+          x-insert-after: gid
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+          example: duplicate_task
+        status:
+          description: >-
+            The current status of this job. The value is one of: `not_started`, `in_progress`,
+            `succeeded`, or `failed`.
+          type: string
+          enum:
+            - not_started
+            - in_progress
+            - succeeded
+            - failed
+          readOnly: true
+          example: in_progress
+        new_project:
+          $ref: '#/components/schemas/ProjectCompact'
+        new_task:
+          allOf:
+            - $ref: '#/components/schemas/TaskCompact'
+            - type: object
+              nullable: true
+        new_project_template:
+          $ref: '#/components/schemas/ProjectTemplateCompact'
     JobResponse:
       $ref: '#/components/schemas/JobBase'
     Like:
@@ -3357,21 +3475,24 @@ components:
         user:
           $ref: '#/components/schemas/UserCompact'
     MemberCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          description: A *member* object represents either a team or user.
-          x-docs-overrides:
-            properties.resource_type.example: member
-          properties:
-            name:
-              type: string
-              description: The name of the member
-              example: Greg Sanchez
-            resource_type:
-              type: string
-              description: The type of the member (team or user)
-              example: user
+      description: A *member* object represents either a team or user.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          type: string
+          description: The type of the member (team or user)
+          example: user
+        name:
+          type: string
+          description: The name of the member
+          example: Greg Sanchez
     MembershipCompact:
       anyOf:
         - $ref: '#/components/schemas/GoalMembershipCompact'
@@ -3437,52 +3558,61 @@ components:
     OrganizationExportBase:
       $ref: '#/components/schemas/OrganizationExportCompact'
     OrganizationExportCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        An *organization_export* object represents a request to export the
+        complete data of an Organization in JSON format.
+      type: object
+      properties:
+        gid:
           description: >-
-            An *organization_export* object represents a request to export the
-            complete data of an Organization in JSON format.
-          x-docs-overrides:
-            properties.resource_type.example: organization_export
-          properties:
-            created_at:
-              description: The time at which this resource was created.
-              type: string
-              format: date-time
-              readOnly: true
-              example: '2012-02-22T02:06:58.147Z'
-            download_url:
-              description: |-
-                Download this URL to retreive the full export of the organization
-                in JSON format. It will be compressed in a gzip (.gz) container.
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: organization_export
+          x-insert-after: gid
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        download_url:
+          description: |-
+            Download this URL to retreive the full export of the organization
+            in JSON format. It will be compressed in a gzip (.gz) container.
 
-                *Note: May be null if the export is still in progress or
-                failed.  If present, this URL may only be valid for 1 hour from
-                the time of retrieval. You should avoid persisting this URL
-                somewhere and rather refresh on demand to ensure you do not keep
-                stale URLs.*
-              type: string
-              format: uri
-              readOnly: true
-              nullable: true
-              example: >-
-                https://asana-export-us-east-1.s3.us-east-1.amazonaws.com/2563645399633793/domain_export/7588024658887731/download/
-                domain_export_2563645399633793_7588024658887731_2023018-201726.json.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&
-                X-Amz-Content-Sha256=xxxxxxxx&X-Amz-Date=xxxxxxxx&X-Amz-Expires=300&X-Amz-Security-Token=xxxxxxxx&
-                X-Amz-Signature=xxxxxxxx&X-Amz-SignedHeaders=host&x-id=GetObject#_=_
-            state:
-              description: The current state of the export.
-              type: string
-              enum:
-                - pending
-                - started
-                - finished
-                - error
-              readOnly: true
-              example: started
-            organization:
-              $ref: '#/components/schemas/WorkspaceCompact'
+            *Note: May be null if the export is still in progress or
+            failed.  If present, this URL may only be valid for 1 hour from
+            the time of retrieval. You should avoid persisting this URL
+            somewhere and rather refresh on demand to ensure you do not keep
+            stale URLs.*
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+          example: >-
+            https://asana-export-us-east-1.s3.us-east-1.amazonaws.com/2563645399633793/domain_export/7588024658887731/download/
+            domain_export_2563645399633793_7588024658887731_2023018-201726.json.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&
+            X-Amz-Content-Sha256=xxxxxxxx&X-Amz-Date=xxxxxxxx&X-Amz-Expires=300&X-Amz-Security-Token=xxxxxxxx&
+            X-Amz-Signature=xxxxxxxx&X-Amz-SignedHeaders=host&x-id=GetObject#_=_
+        state:
+          description: The current state of the export.
+          type: string
+          enum:
+            - pending
+            - started
+            - finished
+            - error
+          readOnly: true
+          example: started
+        organization:
+          $ref: '#/components/schemas/WorkspaceCompact'
     OrganizationExportRequest:
       type: object
       description: >-
@@ -3559,56 +3689,73 @@ components:
                 - light-warm-gray
               example: light-green
     PortfolioCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          description: >-
-            A *portfolio* gives a high-level overview of the status of multiple
-            initiatives in Asana. Portfolios provide a dashboard overview of
-            the state of multiple projects, including a progress report and the
-            most recent [project
-            status](/reference/project-statuses)
-            update.
+      description: >-
+        A *portfolio* gives a high-level overview of the status of multiple
+        initiatives in Asana. Portfolios provide a dashboard overview of
+        the state of multiple projects, including a progress report and the
+        most recent [project
+        status](/reference/project-statuses)
+        update.
 
-            Portfolios have some restrictions on size. Each portfolio has a max of
-            1500 items and, like projects, a max of 20 custom fields.
-          x-docs-overrides:
-            properties.resource_type.example: portfolio
-          properties:
-            name:
-              description: The name of the portfolio.
-              type: string
-              example: Bug Portfolio
+        Portfolios have some restrictions on size. Each portfolio has a max of
+        1500 items and, like projects, a max of 20 custom fields.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: portfolio
+          x-insert-after: gid
+        name:
+          description: The name of the portfolio.
+          type: string
+          example: Bug Portfolio
     PortfolioMembershipBase:
       $ref: '#/components/schemas/PortfolioMembershipCompact'
     PortfolioMembershipCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        This object determines if a user is a member of a portfolio.
+      type: object
+      properties:
+        gid:
           description: >-
-            This object determines if a user is a member of a portfolio.
-          x-docs-overrides:
-            properties.resource_type.example: portfolio_membership
-          properties:
-            portfolio:
-              description: >-
-                [Opt In](/docs/inputoutput-options).
-                The portfolio the user is a member of.
-              $ref: '#/components/schemas/PortfolioCompact'
-            user:
-              $ref: '#/components/schemas/UserCompact'
-            access_level:
-              description: >-
-                Whether the member has admin, editor, or viewer
-                access to the portfolio. Portfolios do not support commenter access
-                yet.
-              type: string
-              enum:
-                - admin
-                - editor
-                - viewer
-              readOnly: true
-              example: admin
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: portfolio_membership
+          x-insert-after: gid
+        portfolio:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            The portfolio the user is a member of.
+          $ref: '#/components/schemas/PortfolioCompact'
+        user:
+          $ref: '#/components/schemas/UserCompact'
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
     PortfolioMembershipCompactResponse:
       allOf:
         - $ref: '#/components/schemas/PortfolioMembershipCompact'
@@ -3994,15 +4141,24 @@ components:
               type: string
               example: <body>This is a <strong>project brief</strong>.</body>
     ProjectBriefCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *Project Brief* allows you to explain the what and why of the project to
+        your team.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *Project Brief* allows you to explain the what and why of the project
-            to
-            your team.
-          x-docs-overrides:
-            properties.resource_type.example: project_brief
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: project_brief
+          x-insert-after: gid
     ProjectBriefRequest:
       allOf:
         - $ref: '#/components/schemas/ProjectBriefBase'
@@ -4039,24 +4195,33 @@ components:
                   description: >-
                     The project with which this project brief is associated.
     ProjectCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *project* represents a prioritized list of tasks in Asana or a board
+        with columns of tasks represented as cards. It exists in a single
+        workspace or organization and is accessible to a subset of users in
+        that workspace or organization, depending on its permissions.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *project* represents a prioritized list of tasks in Asana or a board
-            with columns of tasks represented as cards. It exists in a single
-            workspace or organization and is accessible to a subset of users in
-            that workspace or organization, depending on its permissions.
-          x-docs-overrides:
-            properties.resource_type.example: project
-          properties:
-            name:
-              description: >-
-                Name of the project. This is generally a short sentence fragment
-                that fits on a line in the UI for maximum readability. However, it
-                can be longer.
-              type: string
-              example: Stuff to buy
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: project
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the project. This is generally a short sentence fragment
+            that fits on a line in the UI for maximum readability. However, it
+            can be longer.
+          type: string
+          example: Stuff to buy
     ProjectDuplicateRequest:
       type: object
       required:
@@ -4141,37 +4306,46 @@ components:
     ProjectMembershipBase:
       $ref: '#/components/schemas/ProjectMembershipCompact'
     ProjectMembershipCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        This object describes a team or a user's membership to a project
+        including their level of access (Admin, Editor, Commenter, or
+        Viewer).
+      type: object
+      properties:
+        gid:
           description: >-
-            This object describes a team or a user's membership to a project
-            including their level of access (Admin, Editor, Commenter, or
-            Viewer).
-          x-docs-overrides:
-            properties.resource_type.example: project_membership
-          properties:
-            parent:
-              description: >-
-                [Opt
-                In](/docs/inputoutput-options).
-                The project the user is a member of.
-              $ref: '#/components/schemas/ProjectCompact'
-            member:
-              description: Member can be a user or a team.
-              $ref: '#/components/schemas/MemberCompact'
-            access_level:
-              description: >-
-                Whether the member has admin, editor, commenter, or viewer
-                access to the project.
-              type: string
-              enum:
-                - admin
-                - editor
-                - commenter
-                - viewer
-              readOnly: true
-              example: admin
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: project_membership
+          x-insert-after: gid
+        parent:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            The project the user is a member of.
+          $ref: '#/components/schemas/ProjectCompact'
+        member:
+          description: Member can be a user or a team.
+          $ref: '#/components/schemas/MemberCompact'
+        access_level:
+          description: >-
+            Whether the member has admin, editor, commenter, or viewer
+            access to the project.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          readOnly: true
+          example: admin
     ProjectMembershipCompactResponse:
       allOf:
         - $ref: '#/components/schemas/ProjectMembershipCompact'
@@ -4480,25 +4654,34 @@ components:
                 - blue
                 - complete
     ProjectStatusCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          description: >-
-            *Deprecated: new integrations should prefer the `status_update` resource.*
+      description: >-
+        *Deprecated: new integrations should prefer the `status_update` resource.*
 
-            A *project status* is an update on the progress of a particular
-            project, and is sent out to all project followers when created. These
-            updates include both text describing the update and a color code
-            intended to represent the overall state of the project: "green" for
-            projects that are on track, "yellow" for projects at risk, and "red"
-            for projects that are behind.
-          x-docs-overrides:
-            properties.resource_type.example: project_status
-          properties:
-            title:
-              description: The title of the project status update.
-              type: string
-              example: Status Update - Jun 15
+        A *project status* is an update on the progress of a particular
+        project, and is sent out to all project followers when created. These
+        updates include both text describing the update and a color code
+        intended to represent the overall state of the project: "green" for
+        projects that are on track, "yellow" for projects at risk, and "red"
+        for projects that are behind.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: project_status
+          x-insert-after: gid
+        title:
+          description: The title of the project status update.
+          type: string
+          example: Status Update - Jun 15
     ProjectStatusRequest:
       $ref: '#/components/schemas/ProjectStatusBase'
     ProjectStatusResponse:
@@ -4528,22 +4711,31 @@ components:
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
     ProjectTemplateCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *project template* is an object that allows new projects to be created
+        with a predefined setup, which may include tasks, sections, Rules, etc.
+        It simplifies the process of running a workflow that involves a similar
+        set of work every time.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *project template* is an object that allows new projects to be created
-            with a predefined setup, which may include tasks, sections, Rules, etc.
-            It simplifies the process of running a workflow that involves a similar
-            set of work every time.
-          x-docs-overrides:
-            properties.resource_type.example: project_template
-          properties:
-            name:
-              description: >-
-                Name of the project template.
-              type: string
-              example: Packing list
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: project_template
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the project template.
+          type: string
+          example: Packing list
     ProjectTemplateBase:
       allOf:
         - $ref: '#/components/schemas/ProjectTemplateCompact'
@@ -4828,22 +5020,31 @@ components:
     SectionBase:
       $ref: '#/components/schemas/SectionCompact'
     SectionCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *section* is a subdivision of a project that groups tasks together.
+        It can either be a header above a list of tasks in a list view or a
+        column in a board view of a project.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *section* is a subdivision of a project that groups tasks together.
-            It can either be a header above a list of tasks in a list view or a
-            column in a board view of a project.
-          x-docs-overrides:
-            properties.resource_type.example: section
-          properties:
-            name:
-              description: >-
-                The name of the section (i.e. the text displayed as the section
-                header).
-              type: string
-              example: Next Actions
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: section
+          x-insert-after: gid
+        name:
+          description: >-
+            The name of the section (i.e. the text displayed as the section
+            header).
+          type: string
+          example: Next Actions
     SectionRequest:
       type: object
       properties:
@@ -4948,37 +5149,46 @@ components:
                 - missed
                 - dropped
     StatusUpdateCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *status update* is an update on the progress of a particular
+        project, portfolio, or goal, and is sent out to all of its parent's
+        followers when created. These
+        updates include both text describing the update and a `status_type`
+        intended to represent the overall state of the project.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *status update* is an update on the progress of a particular
-            project, portfolio, or goal, and is sent out to all of its parent's
-            followers when created. These
-            updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.
-          x-docs-overrides:
-            properties.resource_type.example: status_update
-          properties:
-            title:
-              description: The title of the status update.
-              type: string
-              example: Status Update - Jun 15
-            resource_subtype:
-              type: string
-              description: >-
-                The subtype of this resource. Different subtypes retain many of
-                the same fields and behavior, but may render differently in Asana
-                or represent resources with different semantic meaning.
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: status_update
+          x-insert-after: gid
+        title:
+          description: The title of the status update.
+          type: string
+          example: Status Update - Jun 15
+        resource_subtype:
+          type: string
+          description: >-
+            The subtype of this resource. Different subtypes retain many of
+            the same fields and behavior, but may render differently in Asana
+            or represent resources with different semantic meaning.
 
-                The `resource_subtype`s for `status` objects represent the type of
-                their parent.
-              enum:
-                - project_status_update
-                - portfolio_status_update
-                - goal_status_update
-              example: project_status_update
-              readOnly: true
+            The `resource_subtype`s for `status` objects represent the type of
+            their parent.
+          enum:
+            - project_status_update
+            - portfolio_status_update
+            - goal_status_update
+          example: project_status_update
+          readOnly: true
     StatusUpdateRequest:
       allOf:
         - $ref: '#/components/schemas/StatusUpdateBase'
@@ -5066,107 +5276,124 @@ components:
                     goal or portfolio, and indicates that this status was sent
                     on that object.
     StoryBase:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A story represents an activity associated with an object in the Asana
+        system.
+      type: object
+      properties:
+        gid:
           description: >-
-            A story represents an activity associated with an object in the Asana
-            system.
-          x-docs-overrides:
-            properties.resource_type.example: story
-          properties:
-            created_at:
-              description: The time at which this resource was created.
-              type: string
-              format: date-time
-              readOnly: true
-              example: '2012-02-22T02:06:58.147Z'
-            resource_subtype:
-              description: >-
-                The subtype of this resource. Different subtypes retain many of the
-                same fields and behavior, but may render differently in Asana or
-                represent resources with different semantic meaning.
-              type: string
-              readOnly: true
-              example: comment_added
-            text:
-              description: The plain text of the comment to add. Cannot be used with
-                html_text.
-              type: string
-              example: This is a comment.
-            html_text:
-              description: >-
-                [Opt In](/docs/inputoutput-options).
-                HTML formatted text for a comment. This will not include the name
-                of the creator.
-              type: string
-              example: <body>This is a comment.</body>
-            is_pinned:
-              description: >-
-                *Conditional*. Whether the story should be pinned on the
-                resource.
-              type: boolean
-              example: false
-            sticker_name:
-              description: >-
-                The name of the sticker in this story. `null` if there is no sticker.
-              type: string
-              enum:
-                - green_checkmark
-                - people_dancing
-                - dancing_unicorn
-                - heart
-                - party_popper
-                - people_waving_flags
-                - splashing_narwhal
-                - trophy
-                - yeti_riding_unicorn
-                - celebrating_people
-                - determined_climbers
-                - phoenix_spreading_love
-              example: dancing_unicorn
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: story
+          x-insert-after: gid
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+          example: comment_added
+        text:
+          description: The plain text of the comment to add. Cannot be used with html_text.
+          type: string
+          example: This is a comment.
+        html_text:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            HTML formatted text for a comment. This will not include the name
+            of the creator.
+          type: string
+          example: <body>This is a comment.</body>
+        is_pinned:
+          description: >-
+            *Conditional*. Whether the story should be pinned on the
+            resource.
+          type: boolean
+          example: false
+        sticker_name:
+          description: >-
+            The name of the sticker in this story. `null` if there is no sticker.
+          type: string
+          enum:
+            - green_checkmark
+            - people_dancing
+            - dancing_unicorn
+            - heart
+            - party_popper
+            - people_waving_flags
+            - splashing_narwhal
+            - trophy
+            - yeti_riding_unicorn
+            - celebrating_people
+            - determined_climbers
+            - phoenix_spreading_love
+          example: dancing_unicorn
     StoryCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A story represents an activity associated with an object in the Asana
+        system.
+      type: object
+      properties:
+        gid:
           description: >-
-            A story represents an activity associated with an object in the Asana
-            system.
-          x-docs-overrides:
-            properties.resource_type.example: story
-          properties:
-            created_at:
-              description: The time at which this resource was created.
-              type: string
-              format: date-time
-              readOnly: true
-              example: '2012-02-22T02:06:58.147Z'
-            created_by:
-              $ref: '#/components/schemas/UserCompact'
-            resource_subtype:
-              description: >-
-                The subtype of this resource. Different subtypes retain many of the
-                same fields and behavior, but may render differently in Asana or
-                represent resources with different semantic meaning.
-              type: string
-              readOnly: true
-              example: comment_added
-            text:
-              description: >-
-                *Create-only*. Human-readable text for the story or comment.
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: story
+          x-insert-after: gid
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        created_by:
+          $ref: '#/components/schemas/UserCompact'
+        resource_subtype:
+          description: >-
+            The subtype of this resource. Different subtypes retain many of the
+            same fields and behavior, but may render differently in Asana or
+            represent resources with different semantic meaning.
+          type: string
+          readOnly: true
+          example: comment_added
+        text:
+          description: >-
+            *Create-only*. Human-readable text for the story or comment.
 
-                This will not include the name of the creator.
+            This will not include the name of the creator.
 
-                *Note: This is not guaranteed to be stable for a given type of
-                story. For example, text for a reassignment may not always say
-                “assigned to …” as the text for a story can both be edited and
-                change based on the language settings of the user making the
-                request.*
+            *Note: This is not guaranteed to be stable for a given type of
+            story. For example, text for a reassignment may not always say
+            “assigned to …” as the text for a story can both be edited and
+            change based on the language settings of the user making the
+            request.*
 
-                Use the `resource_subtype` property to discover the action that
-                created the story.
-              type: string
-              example: marked today
+            Use the `resource_subtype` property to discover the action that
+            created the story.
+          type: string
+          example: marked today
     StoryRequest:
       $ref: '#/components/schemas/StoryBase'
     StoryResponse:
@@ -5519,22 +5746,31 @@ components:
               type: string
               example: Mittens really likes the stuff from Humboldt.
     TagCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *tag* is a label that can be attached to any task in Asana. It
+        exists in a single workspace or organization.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *tag* is a label that can be attached to any task in Asana. It
-            exists in a single workspace or organization.
-          x-docs-overrides:
-            properties.resource_type.example: tag
-          properties:
-            name:
-              description: >-
-                Name of the tag. This is generally a short sentence fragment that
-                fits on a line in the UI for maximum readability. However, it can
-                be longer.
-              type: string
-              example: Stuff to buy
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: tag
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the tag. This is generally a short sentence fragment that
+            fits on a line in the UI for maximum readability. However, it can
+            be longer.
+          type: string
+          example: Stuff to buy
     TagCreateTagForWorkspaceRequest:
       allOf:
         - $ref: '#/components/schemas/TagBase'
@@ -5933,86 +6169,103 @@ components:
               readOnly: true
               nullable: true
     TaskCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        The *task* is the basic object around which many operations in Asana
+        are centered.
+      type: object
+      properties:
+        gid:
           description: >-
-            The *task* is the basic object around which many operations in Asana
-            are centered.
-          x-docs-overrides:
-            properties.resource_type.example: task
-          properties:
-            name:
-              description: The name of the task.
-              type: string
-              example: Bug Task
-            resource_subtype:
-              type: string
-              description: >-
-                The subtype of this resource. Different subtypes retain many of
-                the same fields and behavior, but may render differently in Asana
-                or represent resources with different semantic meaning.
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: The name of the task.
+          type: string
+          example: Bug Task
+        resource_subtype:
+          type: string
+          description: >-
+            The subtype of this resource. Different subtypes retain many of
+            the same fields and behavior, but may render differently in Asana
+            or represent resources with different semantic meaning.
 
-                The resource_subtype `milestone` represent a single moment in
-                time. This means tasks with this subtype cannot have a start_date.
-              enum:
-                - default_task
-                - milestone
-                - section
-                - approval
-              example: default_task
-            created_by:
-              type: object
-              readOnly: true
-              description: >-
-                [Opt In](/docs/inputoutput-options).
-                A *user* object represents an account in Asana that can be given
-                access to various workspaces, projects, and tasks.
-              properties:
-                gid:
-                  description: Globally unique identifier of the resource.
-                  type: string
-                  example: '1111'
-                resource_type:
-                  description: The type of resource.
-                  type: string
-                  example: user
-    TaskTemplateCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+            The resource_subtype `milestone` represent a single moment in
+            time. This means tasks with this subtype cannot have a start_date.
+          enum:
+            - default_task
+            - milestone
+            - section
+            - approval
+          example: default_task
+        created_by:
+          type: object
+          readOnly: true
           description: >-
-            A *task template* is an object that allows new tasks to be created
-            with a predefined setup.
-          x-docs-overrides:
-            properties.resource_type.example: task_template
+            [Opt In](/docs/inputoutput-options).
+            A *user* object represents an account in Asana that can be given
+            access to various workspaces, projects, and tasks.
           properties:
-            name:
-              description: >-
-                Name of the task template.
+            gid:
+              description: Globally unique identifier of the resource.
               type: string
-              example: Packing list
+              example: '1111'
+            resource_type:
+              description: The type of resource.
+              type: string
+              example: user
+    TaskTemplateCompact:
+      description: >-
+        A *task template* is an object that allows new tasks to be created
+        with a predefined setup.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task_template
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the task template.
+          type: string
+          example: Packing list
     TaskTemplateBase:
       allOf:
         - $ref: '#/components/schemas/TaskTemplateCompact'
     TaskTemplateRecipeCompact:
-      allOf:
-        - type: object
-          properties:
-            name:
-              description: >-
-                Name of the task that will be created from this template.
-              type: string
-              example: Bug Report
-            task_resource_subtype:
-              type: string
-              description: >-
-                The subtype of the task that will be created from this template.
-              enum:
-                - default_task
-                - milestone_task
-                - approval_task
-              example: default_task
+      type: object
+      properties:
+        name:
+          description: >-
+            Name of the task that will be created from this template.
+          type: string
+          example: Bug Report
+        task_resource_subtype:
+          type: string
+          description: >-
+            The subtype of the task that will be created from this template.
+          enum:
+            - default_task
+            - milestone_task
+            - approval_task
+          example: default_task
     TaskTemplateRecipe:
       allOf:
         - $ref: '#/components/schemas/TaskTemplateRecipeCompact'
@@ -6470,51 +6723,69 @@ components:
     TeamBase:
       $ref: '#/components/schemas/TeamCompact'
     TeamCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *team* is used to group related projects and people together within
+        an organization. Each project in an organization is associated with a
+        team.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *team* is used to group related projects and people together within
-            an organization. Each project in an organization is associated with a
-            team.
-          x-docs-overrides:
-            properties.resource_type.example: team
-          properties:
-            name:
-              description: The name of the team.
-              type: string
-              example: Marketing
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: team
+          x-insert-after: gid
+        name:
+          description: The name of the team.
+          type: string
+          example: Marketing
     TeamMembershipBase:
       $ref: '#/components/schemas/TeamMembershipCompact'
     TeamMembershipCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        This object represents a user's connection to a team.
+      type: object
+      properties:
+        gid:
           description: >-
-            This object represents a user's connection to a team.
-          x-docs-overrides:
-            properties.resource_type.example: team_membership
-          properties:
-            user:
-              $ref: '#/components/schemas/UserCompact'
-            team:
-              $ref: '#/components/schemas/TeamCompact'
-            is_guest:
-              type: boolean
-              description: >-
-                Describes if the user is a guest in the team.
-              example: false
-            is_limited_access:
-              type: boolean
-              readOnly: true
-              description: >-
-                Describes if the user has limited access to the team.
-              example: false
-            is_admin:
-              type: boolean
-              description: >-
-                Describes if the user is a team admin.
-              example: false
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: team_membership
+          x-insert-after: gid
+        user:
+          $ref: '#/components/schemas/UserCompact'
+        team:
+          $ref: '#/components/schemas/TeamCompact'
+        is_guest:
+          type: boolean
+          description: >-
+            Describes if the user is a guest in the team.
+          example: false
+        is_limited_access:
+          type: boolean
+          readOnly: true
+          description: >-
+            Describes if the user has limited access to the team.
+          example: false
+        is_admin:
+          type: boolean
+          description: >-
+            Describes if the user is a team admin.
+          example: false
     TeamMembershipResponse:
       $ref: '#/components/schemas/TeamMembershipBase'
     TeamRemoveUserRequest:
@@ -6713,15 +6984,28 @@ components:
                 - no_restriction
                 - only_team_admins
     TemplateRole:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          properties:
-            name:
-              type: string
-              description: >-
-                Name of the template role.
-              example: Designer
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          type: string
+          description: >-
+            Name of the template role.
+          example: Designer
     TimePeriodBase:
       allOf:
         - $ref: '#/components/schemas/TimePeriodCompact'
@@ -6732,60 +7016,80 @@ components:
                 - $ref: '#/components/schemas/TimePeriodCompact'
                 - nullable: true
     TimePeriodCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          x-docs-overrides:
-            properties.resource_type.example: time_period
-          properties:
-            end_on:
-              type: string
-              description: >-
-                The localized end date of the time period in `YYYY-MM-DD` format.
-              example: '2019-09-14'
-            start_on:
-              type: string
-              description: >-
-                The localized start date of the time period in `YYYY-MM-DD` format.
-              example: '2019-09-13'
-            period:
-              type: string
-              description: >-
-                The cadence and index of the time period. The value is one of: `FY`,
-                `H1`, `H2`, `Q1`, `Q2`, `Q3`, or `Q4`.
-              enum:
-                - FY
-                - H1
-                - H2
-                - Q1
-                - Q2
-                - Q3
-                - Q4
-              example: Q1
-            display_name:
-              type: string
-              description: >-
-                A string representing the cadence code and the fiscal year.
-              example: Q1 FY22
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: time_period
+          x-insert-after: gid
+        end_on:
+          type: string
+          description: >-
+            The localized end date of the time period in `YYYY-MM-DD` format.
+          example: '2019-09-14'
+        start_on:
+          type: string
+          description: >-
+            The localized start date of the time period in `YYYY-MM-DD` format.
+          example: '2019-09-13'
+        period:
+          type: string
+          description: >-
+            The cadence and index of the time period. The value is one of: `FY`,
+            `H1`, `H2`, `Q1`, `Q2`, `Q3`, or `Q4`.
+          enum:
+            - FY
+            - H1
+            - H2
+            - Q1
+            - Q2
+            - Q3
+            - Q4
+          example: Q1
+        display_name:
+          type: string
+          description: >-
+            A string representing the cadence code and the fiscal year.
+          example: Q1 FY22
     TimePeriodResponse:
       $ref: '#/components/schemas/TimePeriodBase'
     UserBase:
       $ref: '#/components/schemas/UserCompact'
     UserCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *user* object represents an account in Asana that can be given
+        access to various workspaces, projects, and tasks.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *user* object represents an account in Asana that can be given
-            access to various workspaces, projects, and tasks.
-          x-docs-overrides:
-            properties.resource_type.example: user
-          properties:
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user’s name.
-              example: Greg Sanchez
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: user
+          x-insert-after: gid
+        name:
+          type: string
+          description: >-
+            *Read-only except when same user as requester*. The user’s name.
+          example: Greg Sanchez
     UserRequest:
       $ref: '#/components/schemas/UserBase'
     UserBaseResponse:
@@ -6852,64 +7156,82 @@ components:
     UserTaskListBase:
       $ref: '#/components/schemas/UserTaskListCompact'
     UserTaskListCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A user task list represents the tasks assigned to a particular user.
+        It provides API access to a user’s [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
+        view in Asana.
+      type: object
+      properties:
+        gid:
           description: >-
-            A user task list represents the tasks assigned to a particular user.
-            It provides API access to a user’s [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
-            view in Asana.
-          x-docs-overrides:
-            properties.resource_type.example: user_task_list
-          properties:
-            name:
-              description: The name of the user task list.
-              type: string
-              example: My Tasks in My Workspace
-            owner:
-              description: >-
-                The owner of the user task list, i.e. the person whose My
-                Tasks is represented by this resource.
-              readOnly: true
-              allOf:
-                - $ref: '#/components/schemas/UserCompact'
-            workspace:
-              description: The workspace in which the user task list is located.
-              readOnly: true
-              allOf:
-                - $ref: '#/components/schemas/WorkspaceCompact'
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: user_task_list
+          x-insert-after: gid
+        name:
+          description: The name of the user task list.
+          type: string
+          example: My Tasks in My Workspace
+        owner:
+          description: >-
+            The owner of the user task list, i.e. the person whose My
+            Tasks is represented by this resource.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserCompact'
+        workspace:
+          description: The workspace in which the user task list is located.
+          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/WorkspaceCompact'
     UserTaskListRequest:
       $ref: '#/components/schemas/UserTaskListBase'
     UserTaskListResponse:
       $ref: '#/components/schemas/UserTaskListBase'
     WebhookCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        Webhook objects represent the state of an active subscription for a
+        server to be updated with information from Asana. This schema
+        represents the subscription itself, not the objects that are sent to
+        the server. For information on those please refer to the
+        [event](/reference/events) schema.
+      type: object
+      properties:
+        gid:
           description: >-
-            Webhook objects represent the state of an active subscription for a
-            server to be updated with information from Asana. This schema
-            represents the subscription itself, not the objects that are sent to
-            the server. For information on those please refer to the
-            [event](/reference/events) schema.
-          x-docs-overrides:
-            properties.resource_type.example: webhook
-          properties:
-            active:
-              description: >-
-                If true, the webhook will send events - if false it is considered
-                inactive and will not generate events.
-              type: boolean
-              readOnly: true
-              example: false
-            resource:
-              $ref: '#/components/schemas/AsanaNamedResource'
-            target:
-              description: The URL to receive the HTTP POST.
-              type: string
-              format: uri
-              readOnly: true
-              example: https://example.com/receive-webhook/7654
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: webhook
+          x-insert-after: gid
+        active:
+          description: >-
+            If true, the webhook will send events - if false it is considered
+            inactive and will not generate events.
+          type: boolean
+          readOnly: true
+          example: false
+        resource:
+          $ref: '#/components/schemas/AsanaNamedResource'
+        target:
+          description: The URL to receive the HTTP POST.
+          type: string
+          format: uri
+          readOnly: true
+          example: https://example.com/receive-webhook/7654
     WebhookFilter:
       type: object
       description: >-
@@ -7092,34 +7414,52 @@ components:
     WorkspaceBase:
       $ref: '#/components/schemas/WorkspaceCompact'
     WorkspaceCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        A *workspace* is the highest-level organizational unit in Asana. All
+        projects and tasks have an associated workspace.
+      type: object
+      properties:
+        gid:
           description: >-
-            A *workspace* is the highest-level organizational unit in Asana. All
-            projects and tasks have an associated workspace.
-          x-docs-overrides:
-            properties.resource_type.example: workspace
-          properties:
-            name:
-              description: The name of the workspace.
-              type: string
-              example: My Company Workspace
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: workspace
+          x-insert-after: gid
+        name:
+          description: The name of the workspace.
+          type: string
+          example: My Company Workspace
     WorkspaceMembershipBase:
       $ref: '#/components/schemas/WorkspaceMembershipCompact'
     WorkspaceMembershipCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
+      description: >-
+        This object determines if a user is a member of a workspace.
+      type: object
+      properties:
+        gid:
           description: >-
-            This object determines if a user is a member of a workspace.
-          x-docs-overrides:
-            properties.resource_type.example: workspace_membership
-          properties:
-            user:
-              $ref: '#/components/schemas/UserCompact'
-            workspace:
-              $ref: '#/components/schemas/WorkspaceCompact'
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: workspace_membership
+          x-insert-after: gid
+        user:
+          $ref: '#/components/schemas/UserCompact'
+        workspace:
+          $ref: '#/components/schemas/WorkspaceCompact'
     WorkspaceMembershipRequest:
       $ref: '#/components/schemas/WorkspaceMembershipBase'
     WorkspaceMembershipResponse:
@@ -7208,56 +7548,59 @@ components:
               type: boolean
               example: false
     GoalMembershipBase:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          description: This object represents a user's connection to a goal.
-          x-docs-overrides:
-            properties.resource_type.example: membership
-          properties:
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              example: membership
-            resource_subtype:
-              type: string
+      description: This object represents a user's connection to a goal.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          example: membership
+        resource_subtype:
+          type: string
+          readOnly: true
+          description: The type of membership.
+          example: goal_membership
+        member:
+          $ref: '#/components/schemas/MemberCompact'
+        parent:
+          allOf:
+            - $ref: '#/components/schemas/GoalCompact'
+            - type: object
               readOnly: true
-              description: The type of membership.
-              example: goal_membership
-            member:
-              $ref: '#/components/schemas/MemberCompact'
-            parent:
-              allOf:
-                - $ref: '#/components/schemas/GoalCompact'
-                - type: object
-                  readOnly: true
-            role:
-              type: string
-              description: >-
-                *Deprecated: Describes if the member is a commenter or editor in goal.*
-              enum:
-                - commenter
-                - editor
+        role:
+          type: string
+          description: >-
+            *Deprecated: Describes if the member is a commenter or editor in goal.*
+          enum:
+            - commenter
+            - editor
+          deprecated: true
+          example: editor
+        access_level:
+          type: string
+          description: Describes if member is commenter or editor in goal. This is
+            preferred over role
+          enum:
+            - commenter
+            - editor
+          example: editor
+        goal:
+          allOf:
+            - $ref: '#/components/schemas/GoalCompact'
+            - type: object
+              readOnly: true
               deprecated: true
-              example: editor
-            access_level:
-              type: string
-              description: Describes if member is commenter or editor in goal. This
-                is preferred over role
-              enum:
-                - commenter
-                - editor
-              example: editor
-            goal:
-              allOf:
-                - $ref: '#/components/schemas/GoalCompact'
-                - type: object
-                  readOnly: true
-                  deprecated: true
-                  description: >-
-                    *Deprecated: new integrations should prefer the `parent`
-                    field.* A *Goal* is an object in the goal-tracking system
-                    that helps your organization drive measurable results.
+              description: >-
+                *Deprecated: new integrations should prefer the `parent`
+                field.* A *Goal* is an object in the goal-tracking system
+                that helps your organization drive measurable results.
     GoalMembershipCompact:
       allOf:
         - $ref: '#/components/schemas/GoalMembershipBase'
@@ -7380,24 +7723,37 @@ components:
           format: date
           example: '2023-03-19'
     TimeTrackingEntryCompact:
-      allOf:
-        - $ref: '#/components/schemas/AsanaResource'
-        - type: object
-          properties:
-            duration_minutes:
-              description: >-
-                Time in minutes tracked by the entry.
-              type: integer
-              example: 12
-            entered_on:
-              description: >-
-                The day that this entry is logged on.
-              type: string
-              format: date
-              example: '2015-03-14'
-            created_by:
-              $ref: '#/components/schemas/UserCompact'
-              readOnly: true
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        duration_minutes:
+          description: >-
+            Time in minutes tracked by the entry.
+          type: integer
+          example: 12
+        entered_on:
+          description: >-
+            The day that this entry is logged on.
+          type: string
+          format: date
+          example: '2015-03-14'
+        created_by:
+          $ref: '#/components/schemas/UserCompact'
+          readOnly: true
     TimeTrackingEntryBase:
       allOf:
         - $ref: '#/components/schemas/TimeTrackingEntryCompact'
@@ -7446,6 +7802,7 @@ components:
               Provides access to the user’s name and profile photo through the
               OpenID Connect user info endpoint.
             attachments:write: Create and modify access to attachments
+            goals:read: View access to goals
             tasks:read: View access to tasks
             tasks:delete: Delete access to tasks
             project_templates:read: View access to project templates
@@ -13016,6 +13373,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - goals:read
       x-readme:
         code-samples:
           - language: java
@@ -13707,6 +14067,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - goals:read
       x-readme:
         code-samples:
           - language: java
@@ -15254,6 +15617,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - goals:read
       x-readme:
         code-samples:
           - language: java
@@ -28053,7 +28419,7 @@ paths:
         Adds the specified list of users as members of the project. Note that
         a user being added as a member may also be added as a *follower* as a
         result of this operation. This is because the user's default notification
-        settings (i.e., in the "Notifcations" tab of "My Profile Settings") will
+        settings (i.e., in the "Notifications" tab of "My Profile Settings") will
         override this endpoint's default behavior of setting "Tasks added"
         notifications to `false`.
 

@@ -33465,6 +33465,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - goals:read
     put:
       summary: Update a goal
       description: |-
@@ -33791,6 +33794,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - goals:read
     post:
       summary: Create a goal
       description: |-
@@ -34577,6 +34583,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - goals:read
   /jobs/{job_gid}:
     parameters:
       - $ref: '#/components/parameters/job_path_gid'
@@ -40891,7 +40900,7 @@ paths:
         Adds the specified list of users as members of the project. Note that
         a user being added as a member may also be added as a *follower* as a
         result of this operation. This is because the user's default notification
-        settings (i.e., in the "Notifcations" tab of "My Profile Settings") will
+        settings (i.e., in the "Notifications" tab of "My Profile Settings") will
         override this endpoint's default behavior of setting "Tasks added"
         notifications to `false`.
 
