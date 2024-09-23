@@ -42484,6 +42484,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /projects/{project_gid}/sections/insert:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
@@ -45362,6 +45365,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -45841,6 +45847,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
     delete:
       summary: Delete a task
       description: |-
@@ -45939,6 +45948,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /projects/{project_gid}/tasks:
     parameters:
       - $ref: '#/components/parameters/completed_since'
@@ -47405,6 +47417,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/setParent:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -47648,6 +47663,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/dependencies:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -47929,6 +47947,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/removeDependencies:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -47963,6 +47984,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/dependents:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48243,6 +48267,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/removeDependents:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48278,6 +48305,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/addProject:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48326,6 +48356,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/removeProject:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48362,6 +48395,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/addTag:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48395,6 +48431,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/removeTag:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48428,6 +48467,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/addFollowers:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48674,6 +48716,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /tasks/{task_gid}/removeFollowers:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -48916,6 +48961,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
   /workspaces/{workspace_gid}/tasks/custom_id/{custom_id}:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'

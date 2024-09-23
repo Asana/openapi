@@ -7804,6 +7804,7 @@ components:
             attachments:write: Create and modify access to attachments
             goals:read: View access to goals
             tasks:read: View access to tasks
+            tasks:write: Create and modify access to tasks
             tasks:delete: Delete access to tasks
             project_templates:read: View access to project templates
             projects:delete: Delete access to projects
@@ -31332,6 +31333,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -37032,6 +37036,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -37753,6 +37760,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -38094,6 +38104,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -40346,6 +40359,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -40714,6 +40730,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -41250,6 +41269,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -41406,6 +41428,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -41939,6 +41964,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -42096,6 +42124,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -42266,6 +42297,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -42424,6 +42458,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -42579,6 +42616,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -42734,6 +42774,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -43102,6 +43145,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
@@ -43470,6 +43516,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:write
       x-readme:
         code-samples:
           - language: java
