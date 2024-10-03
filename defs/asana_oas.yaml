@@ -3720,7 +3720,11 @@ components:
           example: Bug Portfolio
     PortfolioMembershipBase:
       $ref: '#/components/schemas/PortfolioMembershipCompact'
-    PortfolioMembershipCompact:
+    DeprecatedPortfolioMembershipBase:
+      $ref: '#/components/schemas/DeprecatedPortfolioMembershipCompact'
+    DeprecatedPortfolioMembershipResponse:
+      $ref: '#/components/schemas/DeprecatedPortfolioMembershipBase'
+    DeprecatedPortfolioMembershipCompact:
       description: >-
         This object determines if a user is a member of a portfolio.
       type: object
@@ -3756,6 +3760,41 @@ components:
             - viewer
           readOnly: true
           example: admin
+    PortfolioMembershipCompact:
+      description: >-
+        This object determines if a user is a member of a portfolio.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: portfolio_membership
+          x-insert-after: gid
+        parent:
+          description: >-
+            The portfolio the user is a member of.
+          $ref: '#/components/schemas/PortfolioCompact'
+        member:
+          $ref: '#/components/schemas/UserCompact'
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
     PortfolioMembershipCompactResponse:
       allOf:
         - $ref: '#/components/schemas/PortfolioMembershipCompact'
@@ -3768,7 +3807,7 @@ components:
             resource_subtype:
               description: Type of the membership.
               type: string
-              example: project_membership
+              example: portfolio_membership
     PortfolioMembershipResponse:
       $ref: '#/components/schemas/PortfolioMembershipBase'
     PortfolioRemoveItemRequest:
@@ -7652,7 +7691,10 @@ components:
       type: object
       properties:
         access_level:
-          description: The role given to the member. Can be `editor` or `commenter`.
+          description: The role given to the member. Goals can have access levels
+            `editor` or `commenter`. Projects can have access levels `admin`, `editor`
+            or `commenter`. Portfolios can have access levels `admin`, `editor` or
+            `viewer`.
           type: string
           example: editor
     MembershipRequest:
@@ -7660,8 +7702,9 @@ components:
       properties:
         access_level:
           description: >-
-            Sets the access level for the member. Can be `editor` or `commenter`.
-            Projects can have `admin` in addition.
+            Sets the access level for the member. Goals can have access levels `editor`
+            or `commenter`. Projects can have access levels `admin`, `editor` or `commenter`.
+            Portfolios can have access levels `admin`, `editor` or `viewer`.
           type: string
           example: editor
     CreateMembershipRequest:
@@ -7674,7 +7717,8 @@ components:
               type: string
               example: 12345
             parent:
-              description: The gid of the `goal` or `project` to add the member to.
+              description: The gid of the `goal`, `project`, or `portfolio` to add
+                the member to.
               type: string
               example: '987654'
             role:
@@ -7691,7 +7735,7 @@ components:
       anyOf:
         - $ref: '#/components/schemas/GoalMembershipResponse'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
-        - $ref: '#/components/schemas/PortfolioMembershipCompactResponse'
+        - $ref: '#/components/schemas/PortfolioMembershipResponse'
     UpdateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -16106,8 +16150,7 @@ paths:
     post:
       summary: Create a membership
       description: |-
-        Creates a new membership in a `goal` or `project`. `Teams` or `users` can be a member
-        of `goals` or `projects`.
+        Creates a new membership in a `goal`, `project`, or `portfolio`. Teams or users can be members of `goals` or `projects`. Portfolios only support `users` as members.
 
         Returns the full record of the newly created membership.
       tags:
@@ -16381,9 +16424,8 @@ paths:
     put:
       summary: Update a membership
       description: |-
-        An existing membership can be updated by making a `PUT` request on the URL for
-        that goal. Only the fields provided in the `data` block will be updated;
-        any unspecified fields will remain unchanged. Memberships on `goals` and `projects` can be updated.
+        An existing membership can be updated by making a `PUT` request on the membership. Only the fields provided in the `data` block will be updated;
+        any unspecified fields will remain unchanged. Memberships on `goals`, `projects` and `portfolios` can be updated.
 
         Returns the full record of the updated membership.
       tags:
@@ -16521,7 +16563,7 @@ paths:
     delete:
       summary: Delete a membership
       description: |-
-        A specific, existing membership for a `goal` or `project` can be deleted by making a `DELETE` request
+        A specific, existing membership for a `goal`, `project` and `portfolio` can be deleted by making a `DELETE` request
         on the URL for that membership.
 
         Returns an empty data record.
@@ -17056,7 +17098,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PortfolioMembershipCompact'
+                      $ref: '#/components/schemas/DeprecatedPortfolioMembershipCompact'
                   next_page:
                     $ref: '#/components/schemas/NextPage'
         400:
@@ -17239,7 +17281,7 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/PortfolioMembershipResponse'
+                    $ref: '#/components/schemas/DeprecatedPortfolioMembershipResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -17423,7 +17465,7 @@ paths:
                   data:
                     type: array
                     items:
-                      $ref: '#/components/schemas/PortfolioMembershipCompact'
+                      $ref: '#/components/schemas/DeprecatedPortfolioMembershipCompact'
                   next_page:
                     $ref: '#/components/schemas/NextPage'
         400:

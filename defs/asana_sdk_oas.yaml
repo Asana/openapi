@@ -1516,16 +1516,16 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/OrganizationExportResponseData'
-    PortfolioMembershipResponseArray:
+    DeprecatedPortfolioMembershipResponseArray:
       content:
         application/json; charset=UTF-8:
           schema:
-            $ref: '#/components/schemas/PortfolioMembershipResponseArray'
-    PortfolioMembershipResponseData:
+            $ref: '#/components/schemas/DeprecatedPortfolioMembershipResponseArray'
+    DeprecatedPortfolioMembershipResponseData:
       content:
         application/json; charset=UTF-8:
           schema:
-            $ref: '#/components/schemas/PortfolioMembershipResponseData'
+            $ref: '#/components/schemas/DeprecatedPortfolioMembershipResponseData'
     PortfolioResponseArray:
       content:
         application/json; charset=UTF-8:
@@ -7404,7 +7404,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: &id023
+          x-docs-overrides: &id024
             properties.resource_type.example: team
           nullable: true
         workspace:
@@ -7514,7 +7514,7 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: &id030
+          x-docs-overrides: &id031
             properties.resource_type.example: time_period
           nullable: true
         metric:
@@ -7718,7 +7718,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: &id019
+          x-docs-overrides: &id020
             properties.resource_type.example: status_update
           nullable: true
         status:
@@ -8982,7 +8982,7 @@ components:
                 *Deprecated: new integrations should prefer the `role` field.*
                 Describes if the member is editor in goal.
               example: false
-          x-docs-overrides: &id034
+          x-docs-overrides: &id035
             properties.resource_type.example: membership
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -9076,7 +9076,7 @@ components:
               description: Type of the membership.
               type: string
               example: project_membership
-          x-docs-overrides: &id021
+          x-docs-overrides: &id022
             properties.resource_type.example: project_membership
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -9096,7 +9096,7 @@ components:
               description: The base type of this resource.
               type: string
               example: membership
-            portfolio:
+            parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
                 generic Asana Resource, containing a globally unique identifier.
@@ -9129,7 +9129,7 @@ components:
                   example: Bug Portfolio
               x-docs-overrides: &id017
                 properties.resource_type.example: portfolio
-            user:
+            member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
                 generic Asana Resource, containing a globally unique identifier.
@@ -9172,7 +9172,7 @@ components:
             resource_subtype:
               description: Type of the membership.
               type: string
-              example: project_membership
+              example: portfolio_membership
           x-docs-overrides: &id018
             properties.resource_type.example: portfolio_membership
     ModifyDependenciesRequest:
@@ -9641,6 +9641,99 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *portfolio* gives a high-level overview of the status of multiple initiatives
+            in Asana. Portfolios provide a dashboard overview of the state of multiple
+            projects, including a progress report and the most recent [project status](/reference/project-statuses)
+            update.
+
+            Portfolios have some restrictions on size. Each portfolio has a max of
+            1500 items and, like projects, a max of 20 custom fields.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the portfolio.
+              type: string
+              example: Bug Portfolio
+          x-docs-overrides: *id017
+        member:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
+      x-docs-overrides: *id018
+    DeprecatedPortfolioMembershipBase:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        This object determines if a user is a member of a portfolio.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
         portfolio:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -9712,8 +9805,9 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id018
-    PortfolioMembershipCompact:
+      x-docs-overrides: &id019
+        properties.resource_type.example: portfolio_membership
+    DeprecatedPortfolioMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
@@ -9767,6 +9861,192 @@ components:
               example: Bug Portfolio
           x-docs-overrides: *id017
         user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
+      x-docs-overrides: *id019
+    DeprecatedPortfolioMembershipCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        This object determines if a user is a member of a portfolio.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        portfolio:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *portfolio* gives a high-level overview of the status of multiple initiatives
+            in Asana. Portfolios provide a dashboard overview of the state of multiple
+            projects, including a progress report and the most recent [project status](/reference/project-statuses)
+            update.
+
+            Portfolios have some restrictions on size. Each portfolio has a max of
+            1500 items and, like projects, a max of 20 custom fields.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the portfolio.
+              type: string
+              example: Bug Portfolio
+          x-docs-overrides: *id017
+        user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or viewer
+            access to the portfolio. Portfolios do not support commenter access yet.
+          type: string
+          enum:
+            - admin
+            - editor
+            - viewer
+          readOnly: true
+          example: admin
+      x-docs-overrides: *id019
+    PortfolioMembershipCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        This object determines if a user is a member of a portfolio.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *portfolio* gives a high-level overview of the status of multiple initiatives
+            in Asana. Portfolios provide a dashboard overview of the state of multiple
+            projects, including a progress report and the most recent [project status](/reference/project-statuses)
+            update.
+
+            Portfolios have some restrictions on size. Each portfolio has a max of
+            1500 items and, like projects, a max of 20 custom fields.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the portfolio.
+              type: string
+              example: Bug Portfolio
+          x-docs-overrides: *id017
+        member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -9825,7 +10105,7 @@ components:
           description: The base type of this resource.
           type: string
           example: membership
-        portfolio:
+        parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -9857,7 +10137,7 @@ components:
               type: string
               example: Bug Portfolio
           x-docs-overrides: *id017
-        user:
+        member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -9899,7 +10179,7 @@ components:
         resource_subtype:
           description: Type of the membership.
           type: string
-          example: project_membership
+          example: portfolio_membership
       x-docs-overrides: *id018
     PortfolioMembershipResponse:
       description: >-
@@ -9922,7 +10202,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-        portfolio:
+        parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -9954,7 +10234,7 @@ components:
               type: string
               example: Bug Portfolio
           x-docs-overrides: *id017
-        user:
+        member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -11086,7 +11366,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
           nullable: true
         due_on:
           description: >-
@@ -11919,7 +12199,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
-          x-docs-overrides: &id022
+          x-docs-overrides: &id023
             properties.resource_type.example: project_status
           nullable: true
         current_status_update:
@@ -11974,7 +12254,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -12994,7 +13274,7 @@ components:
             HTML formatted text for the project brief.
           type: string
           example: <body>This is a <strong>project brief</strong>.</body>
-      x-docs-overrides: &id020
+      x-docs-overrides: &id021
         properties.resource_type.example: project_brief
     ProjectBriefCompact:
       description: >-
@@ -13018,7 +13298,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-      x-docs-overrides: *id020
+      x-docs-overrides: *id021
     ProjectBriefRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13058,7 +13338,7 @@ components:
             but not both.
           type: string
           example: This is a project brief.
-      x-docs-overrides: *id020
+      x-docs-overrides: *id021
     ProjectBriefResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13144,7 +13424,7 @@ components:
               type: string
               example: Stuff to buy
           x-docs-overrides: *id007
-      x-docs-overrides: *id020
+      x-docs-overrides: *id021
     ProjectCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13348,7 +13628,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id021
+      x-docs-overrides: *id022
     ProjectMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13439,7 +13719,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id021
+      x-docs-overrides: *id022
     ProjectMembershipCompactResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13532,7 +13812,7 @@ components:
           description: Type of the membership.
           type: string
           example: project_membership
-      x-docs-overrides: *id021
+      x-docs-overrides: *id022
     ProjectMembershipNormalResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13691,7 +13971,7 @@ components:
             - comment_only
           readOnly: true
           example: full_write
-      x-docs-overrides: *id021
+      x-docs-overrides: *id022
     ProjectRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13901,7 +14181,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
-          x-docs-overrides: *id022
+          x-docs-overrides: *id023
           nullable: true
         current_status_update:
           description: >-
@@ -13955,7 +14235,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -15194,7 +15474,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
-          x-docs-overrides: *id022
+          x-docs-overrides: *id023
           nullable: true
         current_status_update:
           description: >-
@@ -15248,7 +15528,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -16482,7 +16762,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
-          x-docs-overrides: *id022
+          x-docs-overrides: *id023
           nullable: true
         current_status_update:
           description: >-
@@ -16536,7 +16816,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -18079,7 +18359,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id023
+          x-docs-overrides: *id024
         icon:
           description: >-
             The icon for a project.
@@ -18154,7 +18434,7 @@ components:
               readOnly: true
               example: task
               x-insert-after: gid
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
           nullable: true
         created_from_template:
           description: >-
@@ -18312,7 +18592,7 @@ components:
             - red
             - blue
             - complete
-      x-docs-overrides: *id022
+      x-docs-overrides: *id023
     ProjectStatusCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18344,7 +18624,7 @@ components:
           description: The title of the project status update.
           type: string
           example: Status Update - Jun 15
-      x-docs-overrides: *id022
+      x-docs-overrides: *id023
     ProjectStatusRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18398,7 +18678,7 @@ components:
             - red
             - blue
             - complete
-      x-docs-overrides: *id022
+      x-docs-overrides: *id023
     ProjectStatusResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18525,7 +18805,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T02:06:58.147Z'
-      x-docs-overrides: *id022
+      x-docs-overrides: *id023
     ProjectTemplateCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18661,7 +18941,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id023
+          x-docs-overrides: *id024
         requested_dates:
           description: >-
             Array of date variables in this project template. Calendar dates
@@ -18854,7 +19134,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id023
+          x-docs-overrides: *id024
         requested_dates:
           description: >-
             Array of date variables in this project template. Calendar dates
@@ -19204,7 +19484,7 @@ components:
             header).
           type: string
           example: Next Actions
-      x-docs-overrides: &id024
+      x-docs-overrides: &id025
         properties.resource_type.example: section
     SectionCompact:
       description: >-
@@ -19235,7 +19515,7 @@ components:
             header).
           type: string
           example: Next Actions
-      x-docs-overrides: *id024
+      x-docs-overrides: *id025
     SectionRequest:
       type: object
       properties:
@@ -19366,7 +19646,7 @@ components:
                 type: string
                 example: Stuff to buy
             x-docs-overrides: *id007
-      x-docs-overrides: *id024
+      x-docs-overrides: *id025
     SectionTaskInsertRequest:
       type: object
       properties:
@@ -19460,7 +19740,7 @@ components:
             - partial
             - missed
             - dropped
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
       required:
         - text
         - status_type
@@ -19507,7 +19787,7 @@ components:
             - goal_status_update
           example: project_status_update
           readOnly: true
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
     StatusUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -19583,7 +19863,7 @@ components:
           description: >-
             The id of parent to send this status update to. This can be a project,
             goal or portfolio.
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
       required:
         - text
         - status_type
@@ -19885,7 +20165,7 @@ components:
               type: string
               example: Stuff to buy
           x-docs-overrides: *id007
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
       required:
         - text
         - status_type
@@ -19959,7 +20239,7 @@ components:
             - determined_climbers
             - phoenix_spreading_love
           example: dancing_unicorn
-      x-docs-overrides: &id025
+      x-docs-overrides: &id026
         properties.resource_type.example: story
     StoryCompact:
       description: >-
@@ -20040,7 +20320,7 @@ components:
             created the story.
           type: string
           example: marked today
-      x-docs-overrides: &id026
+      x-docs-overrides: &id027
         properties.resource_type.example: story
     StoryRequest:
       description: >-
@@ -20112,7 +20392,7 @@ components:
             - determined_climbers
             - phoenix_spreading_love
           example: dancing_unicorn
-      x-docs-overrides: *id025
+      x-docs-overrides: *id026
     StoryResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -20572,7 +20852,7 @@ components:
                 created the story.
               type: string
               example: marked today
-          x-docs-overrides: *id026
+          x-docs-overrides: *id027
           readOnly: true
         assignee:
           description: >-
@@ -20661,7 +20941,7 @@ components:
                 header).
               type: string
               example: Next Actions
-          x-docs-overrides: *id024
+          x-docs-overrides: *id025
           readOnly: true
         new_section:
           description: >-
@@ -20692,7 +20972,7 @@ components:
                 header).
               type: string
               example: Next Actions
-          x-docs-overrides: *id024
+          x-docs-overrides: *id025
           readOnly: true
         task:
           description: >-
@@ -20815,7 +21095,7 @@ components:
                 be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: &id027
+          x-docs-overrides: &id028
             properties.resource_type.example: tag
           readOnly: true
         custom_field:
@@ -21926,7 +22206,7 @@ components:
                   example: user
           x-docs-overrides: *id011
           readOnly: true
-      x-docs-overrides: *id025
+      x-docs-overrides: *id026
     StoryResponseDates:
       description: >-
         *Conditional*
@@ -22018,7 +22298,7 @@ components:
             tag (i.e. its description).
           type: string
           example: Mittens really likes the stuff from Humboldt.
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     TagCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -22048,7 +22328,7 @@ components:
             be longer.
           type: string
           example: Stuff to buy
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     TagCreateTagForWorkspaceRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -22119,7 +22399,7 @@ components:
           example:
             - '12345'
             - '42563'
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     TagRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -22196,7 +22476,7 @@ components:
           description: >-
             Gid of an object.
           example: '12345'
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     TagResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -22328,7 +22608,7 @@ components:
           description: >-
             A url that points directly to the object within Asana.
           example: https://app.asana.com/0/resource/123456789/list
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     TaskAddFollowersRequest:
       type: object
       properties:
@@ -22812,7 +23092,7 @@ components:
                       header).
                     type: string
                     example: Next Actions
-                x-docs-overrides: *id024
+                x-docs-overrides: *id025
         modified_at:
           description: |-
             The time at which this task was last modified.
@@ -22987,7 +23267,7 @@ components:
             Name of the task template.
           type: string
           example: Packing list
-      x-docs-overrides: &id028
+      x-docs-overrides: &id029
         properties.resource_type.example: task_template
     TaskTemplateBase:
       description: >-
@@ -23016,7 +23296,7 @@ components:
             Name of the task template.
           type: string
           example: Packing list
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     TaskTemplateRecipeCompact:
       type: object
       properties:
@@ -24419,7 +24699,7 @@ components:
           type: string
           format: date-time
           example: '2019-01-01T00:00:00.000Z'
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     TaskCountResponse:
       description: A response object returned from the task count endpoint.
       type: object
@@ -24956,7 +25236,7 @@ components:
                       header).
                     type: string
                     example: Next Actions
-                x-docs-overrides: *id024
+                x-docs-overrides: *id025
         modified_at:
           description: |-
             The time at which this task was last modified.
@@ -25567,7 +25847,7 @@ components:
                       header).
                     type: string
                     example: Next Actions
-                x-docs-overrides: *id024
+                x-docs-overrides: *id025
         modified_at:
           description: |-
             The time at which this task was last modified.
@@ -25731,7 +26011,7 @@ components:
                 header).
               type: string
               example: Next Actions
-          x-docs-overrides: *id024
+          x-docs-overrides: *id025
           nullable: true
         custom_fields:
           description: >-
@@ -26612,7 +26892,7 @@ components:
                   be longer.
                 type: string
                 example: Stuff to buy
-            x-docs-overrides: *id027
+            x-docs-overrides: *id028
           example:
             - gid: '59746'
               name: Grade A
@@ -26719,7 +26999,7 @@ components:
           description: The name of the team.
           type: string
           example: Marketing
-      x-docs-overrides: *id023
+      x-docs-overrides: *id024
     TeamCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -26746,7 +27026,7 @@ components:
           description: The name of the team.
           type: string
           example: Marketing
-      x-docs-overrides: *id023
+      x-docs-overrides: *id024
     TeamMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -26823,7 +27103,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id023
+          x-docs-overrides: *id024
         is_guest:
           type: boolean
           description: >-
@@ -26840,7 +27120,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: &id029
+      x-docs-overrides: &id030
         properties.resource_type.example: team_membership
     TeamMembershipCompact:
       description: >-
@@ -26918,7 +27198,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id023
+          x-docs-overrides: *id024
         is_guest:
           type: boolean
           description: >-
@@ -26935,7 +27215,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     TeamMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27012,7 +27292,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id023
+          x-docs-overrides: *id024
         is_guest:
           type: boolean
           description: >-
@@ -27029,7 +27309,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     TeamRemoveUserRequest:
       type: object
       description: A user identification object for specification with the addUser/removeUser
@@ -27149,7 +27429,7 @@ components:
           enum:
             - no_restriction
             - only_team_admins
-      x-docs-overrides: *id023
+      x-docs-overrides: *id024
     TeamResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27296,7 +27576,7 @@ components:
           enum:
             - no_restriction
             - only_team_admins
-      x-docs-overrides: *id023
+      x-docs-overrides: *id024
     TemplateRole:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -27414,9 +27694,9 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: *id030
+          x-docs-overrides: *id031
           nullable: true
-      x-docs-overrides: *id030
+      x-docs-overrides: *id031
     TimePeriodCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -27464,7 +27744,7 @@ components:
           description: >-
             A string representing the cadence code and the fiscal year.
           example: Q1 FY22
-      x-docs-overrides: *id030
+      x-docs-overrides: *id031
     TimePeriodResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -27559,9 +27839,9 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: *id030
+          x-docs-overrides: *id031
           nullable: true
-      x-docs-overrides: *id030
+      x-docs-overrides: *id031
     UserBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27907,7 +28187,7 @@ components:
                   type: string
                   example: My Company Workspace
               x-docs-overrides: *id015
-      x-docs-overrides: &id031
+      x-docs-overrides: &id032
         properties.resource_type.example: user_task_list
     UserTaskListCompact:
       description: >-
@@ -27999,7 +28279,7 @@ components:
                   type: string
                   example: My Company Workspace
               x-docs-overrides: *id015
-      x-docs-overrides: *id031
+      x-docs-overrides: *id032
     UserTaskListRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -28090,7 +28370,7 @@ components:
                   type: string
                   example: My Company Workspace
               x-docs-overrides: *id015
-      x-docs-overrides: *id031
+      x-docs-overrides: *id032
     UserTaskListResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -28181,7 +28461,7 @@ components:
                   type: string
                   example: My Company Workspace
               x-docs-overrides: *id015
-      x-docs-overrides: *id031
+      x-docs-overrides: *id032
     WebhookCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -28241,7 +28521,7 @@ components:
           format: uri
           readOnly: true
           example: https://example.com/receive-webhook/7654
-      x-docs-overrides: &id032
+      x-docs-overrides: &id033
         properties.resource_type.example: webhook
     WebhookFilter:
       type: object
@@ -28546,7 +28826,7 @@ components:
                   - due_at
                   - due_on
                   - dependencies
-      x-docs-overrides: *id032
+      x-docs-overrides: *id033
     WebhookUpdateRequest:
       type: object
       properties:
@@ -28754,7 +29034,7 @@ components:
               type: string
               example: My Company Workspace
           x-docs-overrides: *id015
-      x-docs-overrides: &id033
+      x-docs-overrides: &id034
         properties.resource_type.example: workspace_membership
     WorkspaceMembershipCompact:
       description: >-
@@ -28832,7 +29112,7 @@ components:
               type: string
               example: My Company Workspace
           x-docs-overrides: *id015
-      x-docs-overrides: *id033
+      x-docs-overrides: *id034
     WorkspaceMembershipRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -28909,7 +29189,7 @@ components:
               type: string
               example: My Company Workspace
           x-docs-overrides: *id015
-      x-docs-overrides: *id033
+      x-docs-overrides: *id034
     WorkspaceMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -29077,7 +29357,7 @@ components:
                       type: string
                       example: My Company Workspace
                   x-docs-overrides: *id015
-          x-docs-overrides: *id031
+          x-docs-overrides: *id032
           readOnly: true
         is_active:
           type: boolean
@@ -29123,7 +29403,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T02:06:58.147Z'
-      x-docs-overrides: *id033
+      x-docs-overrides: *id034
     WorkspaceRemoveUserRequest:
       type: object
       description: A user identification object for specification with the addUser/removeUser
@@ -29378,7 +29658,7 @@ components:
           x-docs-overrides: *id009
           readOnly: true
           deprecated: true
-      x-docs-overrides: *id034
+      x-docs-overrides: *id035
     GoalMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -29572,7 +29852,7 @@ components:
             *Deprecated: new integrations should prefer the `role` field.*
             Describes if the member is editor in goal.
           example: false
-      x-docs-overrides: *id034
+      x-docs-overrides: *id035
     GoalMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -29826,12 +30106,15 @@ components:
           x-docs-overrides: *id015
           deprecated: true
           readOnly: true
-      x-docs-overrides: *id034
+      x-docs-overrides: *id035
     MembershipUpdateRequest:
       type: object
       properties:
         access_level:
-          description: The role given to the member. Can be `editor` or `commenter`.
+          description: The role given to the member. Goals can have access levels
+            `editor` or `commenter`. Projects can have access levels `admin`, `editor`
+            or `commenter`. Portfolios can have access levels `admin`, `editor` or
+            `viewer`.
           type: string
           example: editor
     MembershipRequest:
@@ -29839,8 +30122,9 @@ components:
       properties:
         access_level:
           description: >-
-            Sets the access level for the member. Can be `editor` or `commenter`.
-            Projects can have `admin` in addition.
+            Sets the access level for the member. Goals can have access levels `editor`
+            or `commenter`. Projects can have access levels `admin`, `editor` or `commenter`.
+            Portfolios can have access levels `admin`, `editor` or `viewer`.
           type: string
           example: editor
     CreateMembershipRequest:
@@ -29848,8 +30132,9 @@ components:
       properties:
         access_level:
           description: >-
-            Sets the access level for the member. Can be `editor` or `commenter`.
-            Projects can have `admin` in addition.
+            Sets the access level for the member. Goals can have access levels `editor`
+            or `commenter`. Projects can have access levels `admin`, `editor` or `commenter`.
+            Portfolios can have access levels `admin`, `editor` or `viewer`.
           type: string
           example: editor
         member:
@@ -29857,7 +30142,8 @@ components:
           type: string
           example: 12345
         parent:
-          description: The gid of the `goal` or `project` to add the member to.
+          description: The gid of the `goal`, `project`, or `portfolio` to add the
+            member to.
           type: string
           example: '987654'
         role:
@@ -30126,7 +30412,7 @@ components:
               x-docs-overrides: *id015
               deprecated: true
               readOnly: true
-          x-docs-overrides: *id034
+          x-docs-overrides: *id035
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -30219,7 +30505,7 @@ components:
               description: Type of the membership.
               type: string
               example: project_membership
-          x-docs-overrides: *id021
+          x-docs-overrides: *id022
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -30237,8 +30523,10 @@ components:
             resource_type:
               description: The base type of this resource.
               type: string
-              example: membership
-            portfolio:
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
                 generic Asana Resource, containing a globally unique identifier.
@@ -30270,7 +30558,7 @@ components:
                   type: string
                   example: Bug Portfolio
               x-docs-overrides: *id017
-            user:
+            member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
                 generic Asana Resource, containing a globally unique identifier.
@@ -30310,10 +30598,6 @@ components:
                 - viewer
               readOnly: true
               example: admin
-            resource_subtype:
-              description: Type of the membership.
-              type: string
-              example: project_membership
           x-docs-overrides: *id018
     UpdateTimeTrackingEntryRequest:
       type: object
@@ -30713,7 +30997,7 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/OrganizationExportResponse'
-    PortfolioMembershipResponseArray:
+    DeprecatedPortfolioMembershipResponseArray:
       type: object
       required:
         - data
@@ -30721,16 +31005,16 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/PortfolioMembershipResponse'
+            $ref: '#/components/schemas/DeprecatedPortfolioMembershipResponse'
         next_page:
           $ref: '#/components/schemas/NextPage'
-    PortfolioMembershipResponseData:
+    DeprecatedPortfolioMembershipResponseData:
       type: object
       required:
         - data
       properties:
         data:
-          $ref: '#/components/schemas/PortfolioMembershipResponse'
+          $ref: '#/components/schemas/DeprecatedPortfolioMembershipResponse'
     PortfolioResponseArray:
       type: object
       required:
@@ -34711,8 +34995,7 @@ paths:
     post:
       summary: Create a membership
       description: |-
-        Creates a new membership in a `goal` or `project`. `Teams` or `users` can be a member
-        of `goals` or `projects`.
+        Creates a new membership in a `goal`, `project`, or `portfolio`. Teams or users can be members of `goals` or `projects`. Portfolios only support `users` as members.
 
         Returns the full record of the newly created membership.
       tags:
@@ -34796,9 +35079,8 @@ paths:
     put:
       summary: Update a membership
       description: |-
-        An existing membership can be updated by making a `PUT` request on the URL for
-        that goal. Only the fields provided in the `data` block will be updated;
-        any unspecified fields will remain unchanged. Memberships on `goals` and `projects` can be updated.
+        An existing membership can be updated by making a `PUT` request on the membership. Only the fields provided in the `data` block will be updated;
+        any unspecified fields will remain unchanged. Memberships on `goals`, `projects` and `portfolios` can be updated.
 
         Returns the full record of the updated membership.
       tags:
@@ -34830,7 +35112,7 @@ paths:
     delete:
       summary: Delete a membership
       description: |-
-        A specific, existing membership for a `goal` or `project` can be deleted by making a `DELETE` request
+        A specific, existing membership for a `goal`, `project` and `portfolio` can be deleted by making a `DELETE` request
         on the URL for that membership.
 
         Returns an empty data record.
@@ -35006,7 +35288,7 @@ paths:
           explode: false
       responses:
         200:
-          $ref: '#/components/responses/PortfolioMembershipResponseArray'
+          $ref: '#/components/responses/DeprecatedPortfolioMembershipResponseArray'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -35055,7 +35337,7 @@ paths:
           explode: false
       responses:
         200:
-          $ref: '#/components/responses/PortfolioMembershipResponseData'
+          $ref: '#/components/responses/DeprecatedPortfolioMembershipResponseData'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -35113,7 +35395,7 @@ paths:
           explode: false
       responses:
         200:
-          $ref: '#/components/responses/PortfolioMembershipResponseArray'
+          $ref: '#/components/responses/DeprecatedPortfolioMembershipResponseArray'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
