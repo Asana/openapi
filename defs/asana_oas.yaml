@@ -7850,6 +7850,7 @@ components:
             tasks:read: View access to tasks
             tasks:write: Create and modify access to tasks
             tasks:delete: Delete access to tasks
+            portfolios:read: View access to portfolios
             project_templates:read: View access to project templates
             projects:delete: Delete access to projects
             projects:read: View access to projects
@@ -17870,6 +17871,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:read
       x-readme:
         code-samples:
           - language: java
@@ -18591,6 +18595,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:read
       x-readme:
         code-samples:
           - language: java
@@ -19504,6 +19511,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:read
       x-readme:
         code-samples:
           - language: java

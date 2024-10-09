@@ -35663,6 +35663,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:read
     post:
       summary: Create a portfolio
       description: |-
@@ -36133,6 +36136,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:read
     put:
       summary: Update a portfolio
       description: |-
@@ -36683,6 +36689,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:read
   /portfolios/{portfolio_gid}/addItem:
     parameters:
       - $ref: '#/components/parameters/portfolio_path_gid'
