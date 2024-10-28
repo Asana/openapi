@@ -8342,7 +8342,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -8507,7 +8506,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -8670,7 +8668,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -21012,7 +21009,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -21989,7 +21985,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -22048,7 +22043,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -22107,7 +22101,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -22185,7 +22178,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -22703,7 +22695,6 @@ components:
           enum:
             - default_task
             - milestone
-            - section
             - approval
           example: default_task
         created_by:
@@ -23220,7 +23211,6 @@ components:
           enum:
             - default_task
             - milestone
-            - section
             - approval
           example: default_task
         created_by:
@@ -24847,7 +24837,6 @@ components:
           enum:
             - default_task
             - milestone
-            - section
             - approval
           example: default_task
         created_by:
@@ -25458,7 +25447,6 @@ components:
           enum:
             - default_task
             - milestone
-            - section
             - approval
           example: default_task
         created_by:
@@ -26794,7 +26782,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
@@ -30783,7 +30770,6 @@ components:
               enum:
                 - default_task
                 - milestone
-                - section
                 - approval
               example: default_task
             created_by:
