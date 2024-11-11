@@ -5825,9 +5825,11 @@ components:
               example:
                 - '12345'
                 - '42563'
-    TagRequest:
+    TagBaseRequest:
+      $ref: '#/components/schemas/TagBase'
+    TagCreateRequest:
       allOf:
-        - $ref: '#/components/schemas/TagBase'
+        - $ref: '#/components/schemas/TagBaseRequest'
         - type: object
           properties:
             followers:
@@ -5846,6 +5848,8 @@ components:
               description: >-
                 Gid of an object.
               example: '12345'
+    TagUpdateRequest:
+      $ref: '#/components/schemas/TagBaseRequest'
     TagResponse:
       allOf:
         - $ref: '#/components/schemas/TagBase'
@@ -34628,7 +34632,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TagRequest'
+                  $ref: '#/components/schemas/TagCreateRequest'
       responses:
         201:
           description: Successfully created the newly specified tag.
@@ -34988,6 +34992,16 @@ paths:
                 - workspace.name
           style: form
           explode: false
+      requestBody:
+        description: The tag to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/TagUpdateRequest'
       responses:
         200:
           description: Successfully updated the specified tag.

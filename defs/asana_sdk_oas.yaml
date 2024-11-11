@@ -22392,7 +22392,68 @@ components:
             - '12345'
             - '42563'
       x-docs-overrides: *id028
-    TagRequest:
+    TagBaseRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *tag* is a label that can be attached to any task in Asana. It exists in
+        a single workspace or organization.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the tag. This is generally a short sentence fragment that
+            fits on a line in the UI for maximum readability. However, it can
+            be longer.
+          type: string
+          example: Stuff to buy
+        color:
+          type: string
+          description: Color of the tag.
+          nullable: true
+          enum:
+            - dark-pink
+            - dark-green
+            - dark-blue
+            - dark-red
+            - dark-teal
+            - dark-brown
+            - dark-orange
+            - dark-purple
+            - dark-warm-gray
+            - light-pink
+            - light-green
+            - light-blue
+            - light-red
+            - light-teal
+            - light-brown
+            - light-orange
+            - light-purple
+            - light-warm-gray
+            - null
+          example: light-green
+        notes:
+          description: >-
+            Free-form textual information associated with the
+            tag (i.e. its description).
+          type: string
+          example: Mittens really likes the stuff from Humboldt.
+      x-docs-overrides: *id028
+    TagCreateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
@@ -22468,6 +22529,67 @@ components:
           description: >-
             Gid of an object.
           example: '12345'
+      x-docs-overrides: *id028
+    TagUpdateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *tag* is a label that can be attached to any task in Asana. It exists in
+        a single workspace or organization.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the tag. This is generally a short sentence fragment that
+            fits on a line in the UI for maximum readability. However, it can
+            be longer.
+          type: string
+          example: Stuff to buy
+        color:
+          type: string
+          description: Color of the tag.
+          nullable: true
+          enum:
+            - dark-pink
+            - dark-green
+            - dark-blue
+            - dark-red
+            - dark-teal
+            - dark-brown
+            - dark-orange
+            - dark-purple
+            - dark-warm-gray
+            - light-pink
+            - light-green
+            - light-blue
+            - light-red
+            - light-teal
+            - light-brown
+            - light-orange
+            - light-purple
+            - light-warm-gray
+            - null
+          example: light-green
+        notes:
+          description: >-
+            Free-form textual information associated with the
+            tag (i.e. its description).
+          type: string
+          example: Mittens really likes the stuff from Humboldt.
       x-docs-overrides: *id028
     TagResponse:
       description: >-
@@ -44530,7 +44652,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TagRequest'
+                  $ref: '#/components/schemas/TagCreateRequest'
       responses:
         201:
           $ref: '#/components/responses/TagResponseData'
@@ -44648,6 +44770,16 @@ paths:
                 - workspace.name
           style: form
           explode: false
+      requestBody:
+        description: The tag to update.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/TagUpdateRequest'
       responses:
         200:
           $ref: '#/components/responses/TagResponseData'
