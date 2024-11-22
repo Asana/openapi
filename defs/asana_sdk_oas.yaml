@@ -27512,8 +27512,9 @@ components:
             - only_team_admins
         join_request_management_access_level:
           description: >
-            Controls who can accept or deny join team requests for a Membership by
-            Request team
+            Controls who can accept or deny join team requests for a
+            Membership by Request team. This field can only be updated when
+            the team's `visibility` field is `request_to_join`.
           type: string
           enum:
             - all_team_members
@@ -27658,8 +27659,9 @@ components:
             - only_team_admins
         join_request_management_access_level:
           description: >
-            Controls who can accept or deny join team requests for a Membership by
-            Request team
+            Controls who can accept or deny join team requests for a
+            Membership by Request team. This field can only be updated when
+            the team's `visibility` field is `request_to_join`.
           type: string
           enum:
             - all_team_members
