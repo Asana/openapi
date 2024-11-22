@@ -6876,7 +6876,6 @@ components:
               description: >
                 Controls who can edit team name and description
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6884,7 +6883,6 @@ components:
               description: >
                 Controls who can edit team visibility and trash teams
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6892,7 +6890,6 @@ components:
               description: >
                 Controls who can accept or deny member invites for a given team
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6900,7 +6897,6 @@ components:
               description: >
                 Controls who can accept or deny guest invites for a given team
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6909,7 +6905,6 @@ components:
                 Controls who can accept or deny join team requests for a Membership
                 by Request team
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6917,7 +6912,6 @@ components:
               description: >
                 Controls who can remove team members
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6928,6 +6922,11 @@ components:
               enum:
                 - no_restriction
                 - only_team_admins
+            endorsed:
+              description: >
+                Whether the team has been endorsed
+              type: boolean
+              example: false
     TeamResponse:
       allOf:
         - $ref: '#/components/schemas/TeamBase'
@@ -6973,7 +6972,6 @@ components:
               description: >
                 Controls who can edit team name and description
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6981,7 +6979,6 @@ components:
               description: >
                 Controls who can edit team visibility and trash teams
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6989,7 +6986,6 @@ components:
               description: >
                 Controls who can accept or deny member invites for a given team
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -6997,7 +6993,6 @@ components:
               description: >
                 Controls who can accept or deny guest invites for a given team
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -7006,7 +7001,6 @@ components:
                 Controls who can accept or deny join team requests for a Membership
                 by Request team
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -7014,7 +7008,6 @@ components:
               description: >
                 Controls who can remove team members
               type: string
-              readOnly: true
               enum:
                 - all_team_members
                 - only_team_admins
@@ -7025,6 +7018,11 @@ components:
               enum:
                 - no_restriction
                 - only_team_admins
+            endorsed:
+              description: >
+                Whether the team has been endorsed
+              type: boolean
+              example: false
     TemplateRole:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -45566,6 +45564,7 @@ paths:
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
+            - endorsed
             - guest_invite_management_access_level
             - html_description
             - join_request_management_access_level
@@ -45585,6 +45584,7 @@ paths:
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
+                - endorsed
                 - guest_invite_management_access_level
                 - html_description
                 - join_request_management_access_level
@@ -45764,6 +45764,7 @@ paths:
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
+            - endorsed
             - guest_invite_management_access_level
             - html_description
             - join_request_management_access_level
@@ -45783,6 +45784,7 @@ paths:
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
+                - endorsed
                 - guest_invite_management_access_level
                 - html_description
                 - join_request_management_access_level
@@ -45951,6 +45953,7 @@ paths:
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
+            - endorsed
             - guest_invite_management_access_level
             - html_description
             - join_request_management_access_level
@@ -45970,6 +45973,7 @@ paths:
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
+                - endorsed
                 - guest_invite_management_access_level
                 - html_description
                 - join_request_management_access_level
@@ -46156,6 +46160,7 @@ paths:
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
+            - endorsed
             - guest_invite_management_access_level
             - html_description
             - join_request_management_access_level
@@ -46178,6 +46183,7 @@ paths:
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
+                - endorsed
                 - guest_invite_management_access_level
                 - html_description
                 - join_request_management_access_level
@@ -46373,6 +46379,7 @@ paths:
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
+            - endorsed
             - guest_invite_management_access_level
             - html_description
             - join_request_management_access_level
@@ -46395,6 +46402,7 @@ paths:
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
+                - endorsed
                 - guest_invite_management_access_level
                 - html_description
                 - join_request_management_access_level
