@@ -7529,6 +7529,11 @@ components:
               readOnly: true
               description: >-
                 Reflects if this user is a guest of the workspace.
+            is_view_only:
+              type: boolean
+              readOnly: true
+              description: >-
+                Reflects if this user has view only license in the workspace.
             vacation_dates:
               type: object
               readOnly: true
@@ -50678,6 +50683,7 @@ paths:
             - is_active
             - is_admin
             - is_guest
+            - is_view_only
             - user
             - user.name
             - user_task_list
@@ -50698,6 +50704,7 @@ paths:
                 - is_active
                 - is_admin
                 - is_guest
+                - is_view_only
                 - user
                 - user.name
                 - user_task_list
@@ -50873,6 +50880,7 @@ paths:
             - is_active
             - is_admin
             - is_guest
+            - is_view_only
             - offset
             - path
             - uri
@@ -50896,6 +50904,7 @@ paths:
                 - is_active
                 - is_admin
                 - is_guest
+                - is_view_only
                 - offset
                 - path
                 - uri
@@ -51083,6 +51092,7 @@ paths:
             - is_active
             - is_admin
             - is_guest
+            - is_view_only
             - offset
             - path
             - uri
@@ -51106,6 +51116,7 @@ paths:
                 - is_active
                 - is_admin
                 - is_guest
+                - is_view_only
                 - offset
                 - path
                 - uri
