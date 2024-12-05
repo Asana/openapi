@@ -41591,9 +41591,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - oauth2:
-            - projects:write
   /projects/{project_gid}/removeMembers:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
@@ -41885,9 +41882,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - oauth2:
-            - projects:write
   /projects/{project_gid}/addFollowers:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
@@ -42183,9 +42177,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - oauth2:
-            - projects:write
   /projects/{project_gid}/removeFollowers:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
@@ -42478,9 +42469,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-      security:
-        - oauth2:
-            - projects:write
   /projects/{project_gid}/saveAsTemplate:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
