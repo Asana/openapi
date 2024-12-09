@@ -1860,7 +1860,14 @@ components:
             Asana Resource, containing a globally unique identifier.
 
             A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
             to various workspaces, projects, and tasks.
+
+            The user or placeholder assigned to the allocation.
           type: object
           properties:
             gid:
@@ -1879,7 +1886,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                The name of allocation resource.
               example: Greg Sanchez
           x-docs-overrides: &id001
             properties.resource_type.example: user
@@ -2002,7 +2009,8 @@ components:
         assignee:
           type: string
           description: >-
-            Globally unique identifier for the user who is assigned to the allocation.
+            Globally unique identifier for the user or placeholder assigned to the
+            allocation.
         parent:
           type: string
           description: >-
@@ -31698,7 +31706,7 @@ paths:
     get:
       summary: Get multiple allocations
       description: >-
-        Returns a list of allocations filtered to a specific project or user.
+        Returns a list of allocations filtered to a specific project, user or placeholder.
       tags:
         - Allocations
       operationId: getAllocations
@@ -31712,8 +31720,8 @@ paths:
           example: '77688'
         - name: assignee
           in: query
-          description: Globally unique identifier for the user the allocation is assigned
-            to.
+          description: Globally unique identifier for the user or placeholder the
+            allocation is assigned to.
           schema:
             type: string
           example: '12345'

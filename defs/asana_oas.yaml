@@ -1509,10 +1509,17 @@ components:
         - type: object
           properties:
             assignee:
-              $ref: '#/components/schemas/UserCompact'
-              type: object
-              description: >-
-                The user who is assigned to the allocation.
+              allOf:
+                - $ref: '#/components/schemas/UserCompact'
+                - type: object
+                  description: >-
+                    The user or placeholder assigned to the allocation.
+                  properties:
+                    name:
+                      type: string
+                      description: >-
+                        The name of allocation resource.
+                      example: Greg Sanchez
             created_by:
               $ref: '#/components/schemas/UserCompact'
               type: object
@@ -1535,7 +1542,8 @@ components:
             assignee:
               type: string
               description: >-
-                Globally unique identifier for the user who is assigned to the allocation.
+                Globally unique identifier for the user or placeholder assigned to
+                the allocation.
             parent:
               type: string
               description: >-
@@ -8276,7 +8284,7 @@ paths:
     get:
       summary: Get multiple allocations
       description: >-
-        Returns a list of allocations filtered to a specific project or user.
+        Returns a list of allocations filtered to a specific project, user or placeholder.
       tags:
         - Allocations
       operationId: getAllocations
@@ -8290,8 +8298,8 @@ paths:
           example: '77688'
         - name: assignee
           in: query
-          description: Globally unique identifier for the user the allocation is assigned
-            to.
+          description: Globally unique identifier for the user or placeholder the
+            allocation is assigned to.
           schema:
             type: string
           example: '12345'
