@@ -30,6 +30,8 @@ info:
     - CustomFieldSettingCompact
     - CustomFieldResponse
     - CustomFieldCompact
+    - CustomFieldMembershipCompact
+    - CustomFieldMembershipResponse
     - EnumOption
     - EventResponse
     - ErrorResponse
@@ -3506,6 +3508,7 @@ components:
         - $ref: '#/components/schemas/GoalMembershipCompact'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
         - $ref: '#/components/schemas/PortfolioMembershipCompactResponse'
+        - $ref: '#/components/schemas/CustomFieldMembershipCompact'
     ModifyDependenciesRequest:
       type: object
       properties:
@@ -4350,6 +4353,47 @@ components:
                 as the start dates in the original project.
               type: string
               example: '2019-05-21'
+    CustomFieldMembershipBase:
+      $ref: '#/components/schemas/CustomFieldMembershipCompact'
+    CustomFieldMembershipCompact:
+      description: >-
+        This object describes a user's membership to a custom field including their
+        level of access (Admin, Editor, or User).
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: custom_field_membership
+          x-insert-after: gid
+        parent:
+          description: >-
+            The custom field the user is a member of.
+          $ref: '#/components/schemas/CustomFieldCompact'
+        member:
+          description: Member is a user
+          $ref: '#/components/schemas/UserCompact'
+        access_level:
+          description: >-
+            Whether the member has admin, editor, or user
+            access to the custom field.
+          type: string
+          enum:
+            - admin
+            - editor
+            - user
+          readOnly: true
+          example: admin
+    CustomFieldMembershipResponse:
+      $ref: '#/components/schemas/CustomFieldMembershipBase'
     ProjectMembershipBase:
       $ref: '#/components/schemas/ProjectMembershipCompact'
     ProjectMembershipCompact:
@@ -7720,7 +7764,8 @@ components:
           description: >-
             Sets the access level for the member. Goals can have access levels `editor`
             or `commenter`. Projects can have access levels `admin`, `editor` or `commenter`.
-            Portfolios can have access levels `admin`, `editor` or `viewer`.
+            Portfolios can have access levels `admin`, `editor` or `viewer`. Custom
+            Fields can have access levels `admin`, `editor` or `user`.
           type: string
           example: editor
     CreateMembershipRequest:
@@ -7752,6 +7797,7 @@ components:
         - $ref: '#/components/schemas/GoalMembershipResponse'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
         - $ref: '#/components/schemas/PortfolioMembershipResponse'
+        - $ref: '#/components/schemas/CustomFieldMembershipResponse'
     UpdateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -16003,12 +16049,12 @@ paths:
     get:
       summary: Get multiple memberships
       description: >-
-        Returns compact `goal_membership`, `project_membership`, or `portfolio_membership`
-        records. The possible types
-        for `parent` in this request are `goal`, `project`, or `portfolio`. An additional
-        member (user GID or
+        Returns compact `goal_membership`, `project_membership`, `portfolio_membership`
+        or `custom_field_membership` records. The possible types
+        for `parent` in this request are `goal`, `project`, `portfolio` or `custom
+        field`. An additional member (user GID or
         team GID) can be passed in to filter to a specific membership. Teams are not
-        supported for portfolios yet.
+        supported for portfolios or custom fields yet.
       tags:
         - Memberships
       operationId: getMemberships
@@ -16016,7 +16062,8 @@ paths:
         - name: parent
           in: query
           description: >-
-            Globally unique identifier for `goal`, `project`, or `portfolio`.
+            Globally unique identifier for `goal`, `project`, `portfolio` or `custom
+            field`.
           schema:
             type: string
           example: '159874'
