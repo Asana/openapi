@@ -3508,7 +3508,6 @@ components:
         - $ref: '#/components/schemas/GoalMembershipCompact'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
         - $ref: '#/components/schemas/PortfolioMembershipCompactResponse'
-        - $ref: '#/components/schemas/CustomFieldMembershipCompact'
     ModifyDependenciesRequest:
       type: object
       properties:
@@ -7764,8 +7763,7 @@ components:
           description: >-
             Sets the access level for the member. Goals can have access levels `editor`
             or `commenter`. Projects can have access levels `admin`, `editor` or `commenter`.
-            Portfolios can have access levels `admin`, `editor` or `viewer`. Custom
-            Fields can have access levels `admin`, `editor` or `user`.
+            Portfolios can have access levels `admin`, `editor` or `viewer`.
           type: string
           example: editor
     CreateMembershipRequest:
@@ -7797,7 +7795,6 @@ components:
         - $ref: '#/components/schemas/GoalMembershipResponse'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
         - $ref: '#/components/schemas/PortfolioMembershipResponse'
-        - $ref: '#/components/schemas/CustomFieldMembershipResponse'
     UpdateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -16049,12 +16046,12 @@ paths:
     get:
       summary: Get multiple memberships
       description: >-
-        Returns compact `goal_membership`, `project_membership`, `portfolio_membership`
-        or `custom_field_membership` records. The possible types
-        for `parent` in this request are `goal`, `project`, `portfolio` or `custom
-        field`. An additional member (user GID or
+        Returns compact `goal_membership`, `project_membership`, or `portfolio_membership`
+        records. The possible types
+        for `parent` in this request are `goal`, `project`, or `portfolio`. An additional
+        member (user GID or
         team GID) can be passed in to filter to a specific membership. Teams are not
-        supported for portfolios or custom fields yet.
+        supported for portfolios yet.
       tags:
         - Memberships
       operationId: getMemberships
@@ -16062,8 +16059,7 @@ paths:
         - name: parent
           in: query
           description: >-
-            Globally unique identifier for `goal`, `project`, `portfolio` or `custom
-            field`.
+            Globally unique identifier for `goal`, `project`, or `portfolio`.
           schema:
             type: string
           example: '159874'
