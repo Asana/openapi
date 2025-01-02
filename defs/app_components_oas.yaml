@@ -979,6 +979,16 @@ components:
               description: >-
                 The task GID this hook is coming from.
               example: '67890'
+    OnSubmitCallbackRequest:
+      allOf:
+        - $ref: '#/components/schemas/FormSubmissionRequest'
+        - type: object
+          properties:
+            attachment:
+              type: string
+              description: >-
+                The GID of the attachment created from the form submission.
+              example: '12345'
     ActionFormSubmissionRequest:
       allOf:
         - $ref: '#/components/schemas/FormSubmissionRequest'
@@ -1805,7 +1815,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/FormSubmissionRequest'
+              $ref: '#/components/schemas/OnSubmitCallbackRequest'
       responses:
         200:
           description: Successfully attached the resource created by the form.
