@@ -2331,19 +2331,6 @@ components:
           description: The name of the custom field.
           type: string
           example: Status
-        resource_subtype:
-          description: >
-            The type of the custom field. Must be one of the given values.
-          type: string
-          readOnly: true
-          example: text
-          enum:
-            - text
-            - enum
-            - multi_enum
-            - number
-            - date
-            - people
         type:
           description: >
             *Deprecated: new integrations should prefer the resource_subtype
@@ -2492,6 +2479,25 @@ components:
                   The GID of a user.
               example:
                 - '12345'
+    CustomFieldCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/CustomFieldRequest'
+        - type: object
+          required:
+            - resource_subtype
+          properties:
+            resource_subtype:
+              description: >-
+                The type of the custom field. Must be one of the given values.
+              type: string
+              example: text
+              enum:
+                - text
+                - enum
+                - multi_enum
+                - number
+                - date
+                - people
     CustomFieldResponse:
       allOf:
         - $ref: '#/components/schemas/CustomFieldBase'
@@ -2543,6 +2549,19 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/UserCompact'
+            resource_subtype:
+              description: >
+                The type of the custom field. Must be one of the given values.
+              type: string
+              readOnly: true
+              example: text
+              enum:
+                - text
+                - enum
+                - multi_enum
+                - number
+                - date
+                - people
     CustomFieldSettingBase:
       $ref: '#/components/schemas/CustomFieldSettingCompact'
     CustomFieldSettingCompact:
@@ -10555,7 +10574,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/CustomFieldRequest'
+                  $ref: '#/components/schemas/CustomFieldCreateRequest'
       responses:
         201:
           description: Custom field successfully created.
@@ -17797,7 +17816,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -17900,7 +17918,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -18170,7 +18187,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -18270,7 +18286,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -18531,7 +18546,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -18631,7 +18645,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -18884,7 +18897,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -18984,7 +18996,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -19402,7 +19413,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -19530,7 +19540,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -20432,7 +20441,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -20532,7 +20540,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -20799,7 +20806,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -20899,7 +20905,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -23921,7 +23926,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -24049,7 +24053,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -24349,7 +24352,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -24474,7 +24476,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -24763,7 +24764,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -24888,7 +24888,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -25170,7 +25169,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -25295,7 +25293,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -25930,7 +25927,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -26058,7 +26054,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -26352,7 +26347,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -26480,7 +26474,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -26770,7 +26763,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -26895,7 +26887,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -27193,7 +27184,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -27321,7 +27311,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -27616,7 +27605,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -27741,7 +27729,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -28657,7 +28644,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -28782,7 +28768,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -29073,7 +29058,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -29198,7 +29182,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -29493,7 +29476,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -29618,7 +29600,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -29910,7 +29891,6 @@ paths:
             - custom_fields.name
             - custom_fields.number_value
             - custom_fields.representation_type
-            - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
             - default_access_level
@@ -30035,7 +30015,6 @@ paths:
                 - custom_fields.name
                 - custom_fields.number_value
                 - custom_fields.representation_type
-                - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
                 - default_access_level
@@ -32577,7 +32556,6 @@ paths:
             - custom_field.name
             - custom_field.number_value
             - custom_field.representation_type
-            - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
             - dependency
@@ -32717,7 +32695,6 @@ paths:
                 - custom_field.name
                 - custom_field.number_value
                 - custom_field.representation_type
-                - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
                 - dependency
@@ -33009,7 +32986,6 @@ paths:
             - custom_field.name
             - custom_field.number_value
             - custom_field.representation_type
-            - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
             - dependency
@@ -33149,7 +33125,6 @@ paths:
                 - custom_field.name
                 - custom_field.number_value
                 - custom_field.representation_type
-                - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
                 - dependency
@@ -33591,7 +33566,6 @@ paths:
             - custom_field.name
             - custom_field.number_value
             - custom_field.representation_type
-            - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
             - dependency
@@ -33734,7 +33708,6 @@ paths:
                 - custom_field.name
                 - custom_field.number_value
                 - custom_field.representation_type
-                - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
                 - dependency
@@ -34039,7 +34012,6 @@ paths:
             - custom_field.name
             - custom_field.number_value
             - custom_field.representation_type
-            - custom_field.resource_subtype
             - custom_field.text_value
             - custom_field.type
             - dependency
@@ -34179,7 +34151,6 @@ paths:
                 - custom_field.name
                 - custom_field.number_value
                 - custom_field.representation_type
-                - custom_field.resource_subtype
                 - custom_field.text_value
                 - custom_field.type
                 - dependency
