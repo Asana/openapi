@@ -1556,9 +1556,11 @@ components:
         - custom_field
       properties:
         custom_field:
-          description: The custom field to associate with this container.
-          type: string
-          example: '14916'
+          oneOf:
+            - type: string
+              description: The custom field to associate with this container.
+              example: '14916'
+            - $ref: '#/components/schemas/CustomFieldRequest'
         is_important:
           description: >-
             Whether this field should be considered important to this container

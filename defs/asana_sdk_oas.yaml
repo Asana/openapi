@@ -2024,9 +2024,656 @@ components:
         - custom_field
       properties:
         custom_field:
-          description: The custom field to associate with this container.
-          type: string
-          example: '14916'
+          oneOf:
+            - type: string
+              description: The custom field to associate with this container.
+              example: '14916'
+            - description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                Custom Fields store the metadata that is used in order to add user-specified
+                information to tasks in Asana. Be sure to reference the [custom fields](/reference/custom-fields)
+                developer documentation for more information about how custom fields
+                relate to various resources in Asana.
+
+
+                Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
+                which will make them read-only when accessed by other users. Attempting
+                to edit a locked custom field will return HTTP error code `403 Forbidden`.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: The name of the custom field.
+                  type: string
+                  example: Status
+                type:
+                  description: >
+                    *Deprecated: new integrations should prefer the resource_subtype
+                    field.* The type of the custom field. Must be one of the given
+                    values.
+                  type: string
+                  readOnly: true
+                  enum:
+                    - text
+                    - enum
+                    - multi_enum
+                    - number
+                    - date
+                    - people
+                enum_options:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `enum`.
+                    This array specifies the possible values which an `enum` custom
+                    field can adopt. To modify the enum options, refer to [working
+                    with enum
+                    options](/reference/createenumoptionforcustomfield).
+                  type: array
+                  items:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      Enum options are the possible values which an enum custom field
+                      can adopt. An enum custom field must contain at least 1 enum
+                      option but no more than 500.
+
+
+                      You can add enum options to a custom field by using the `POST
+                      /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                      **It is not possible to remove or delete an enum option**. Instead,
+                      enum options can be disabled by updating the `enabled` field
+                      to false with the `PUT /enum_options/enum_option_gid` endpoint.
+                      Other attributes can be updated similarly.
+
+
+                      On creation of an enum option, `enabled` is always set to `true`,
+                      meaning the enum option is a selectable value for the custom
+                      field. Setting `enabled=false` is equivalent to “trashing” the
+                      enum option in the Asana web app within the “Edit Fields” dialog.
+                      The enum option will no longer be selectable but, if the enum
+                      option value was previously set within a task, the task will
+                      retain the value.
+
+
+                      Enum options are an ordered list and by default new enum options
+                      are inserted at the end. Ordering in relation to existing enum
+                      options can be specified on creation by using `insert_before`
+                      or `insert_after` to reference an existing enum option. Only
+                      one of `insert_before` and `insert_after` can be provided when
+                      creating a new enum option.
+
+
+                      An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                      endpoint.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: The name of the enum option.
+                        type: string
+                        example: Low
+                      enabled:
+                        description: >-
+                          Whether or not the enum option is a selectable value for
+                          the
+                          custom field.
+                        type: boolean
+                        example: true
+                      color:
+                        description: >-
+                          The color of the enum option. Defaults to ‘none’.
+                        type: string
+                        example: blue
+                    x-docs-overrides: &id003
+                      properties.resource_type.example: enum_option
+                enabled:
+                  description: >-
+                    *Conditional*. Determines if the custom field is enabled or not.
+                  type: boolean
+                  readOnly: true
+                  example: true
+                representation_type:
+                  description: >-
+                    This field tells the type of the custom field.
+                  type: string
+                  example: number
+                  readOnly: true
+                  enum:
+                    - text
+                    - enum
+                    - multi_enum
+                    - number
+                    - date
+                    - people
+                    - formula
+                    - custom_id
+                id_prefix:
+                  description: >-
+                    This field is the unique custom ID string for the custom field.
+                  type: string
+                  nullable: true
+                  example: ID
+                is_formula_field:
+                  description: >-
+                    *Conditional*. This flag describes whether a custom field is a
+                    formula custom field.
+                  type: boolean
+                  example: false
+                date_value:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `date`.
+                    This object reflects the chosen date (and optionally, time) value
+                    of a `date` custom field. If no date is selected, the value of
+                    `date_value` will be `null`.
+                  type: object
+                  nullable: true
+                  properties:
+                    date:
+                      type: string
+                      description: >-
+                        A string representing the date in YYYY-MM-DD format.
+                      example: '2024-08-23'
+                    date_time:
+                      type: string
+                      description: >-
+                        A string representing the date in ISO 8601 format. If no time
+                        value
+                        is selected, the value of `date-time` will be `null`.
+                      example: '2024-08-23T22:00:00.000Z'
+                enum_value:
+                  description: >-
+                    A generic Asana Resource, containing a globally unique identifier.A
+                    generic Asana Resource, containing a globally unique identifier.
+
+                    Enum options are the possible values which an enum custom field
+                    can adopt. An enum custom field must contain at least 1 enum option
+                    but no more than 500.
+
+
+                    You can add enum options to a custom field by using the `POST
+                    /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                    **It is not possible to remove or delete an enum option**. Instead,
+                    enum options can be disabled by updating the `enabled` field to
+                    false with the `PUT /enum_options/enum_option_gid` endpoint. Other
+                    attributes can be updated similarly.
+
+
+                    On creation of an enum option, `enabled` is always set to `true`,
+                    meaning the enum option is a selectable value for the custom field.
+                    Setting `enabled=false` is equivalent to “trashing” the enum option
+                    in the Asana web app within the “Edit Fields” dialog. The enum
+                    option will no longer be selectable but, if the enum option value
+                    was previously set within a task, the task will retain the value.
+
+
+                    Enum options are an ordered list and by default new enum options
+                    are inserted at the end. Ordering in relation to existing enum
+                    options can be specified on creation by using `insert_before`
+                    or `insert_after` to reference an existing enum option. Only one
+                    of `insert_before` and `insert_after` can be provided when creating
+                    a new enum option.
+
+
+                    An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                    endpoint.A generic Asana Resource, containing a globally unique
+                    identifier.A generic Asana Resource, containing a globally unique
+                    identifier.
+
+                    Enum options are the possible values which an enum custom field
+                    can adopt. An enum custom field must contain at least 1 enum option
+                    but no more than 500.
+
+
+                    You can add enum options to a custom field by using the `POST
+                    /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                    **It is not possible to remove or delete an enum option**. Instead,
+                    enum options can be disabled by updating the `enabled` field to
+                    false with the `PUT /enum_options/enum_option_gid` endpoint. Other
+                    attributes can be updated similarly.
+
+
+                    On creation of an enum option, `enabled` is always set to `true`,
+                    meaning the enum option is a selectable value for the custom field.
+                    Setting `enabled=false` is equivalent to “trashing” the enum option
+                    in the Asana web app within the “Edit Fields” dialog. The enum
+                    option will no longer be selectable but, if the enum option value
+                    was previously set within a task, the task will retain the value.
+
+
+                    Enum options are an ordered list and by default new enum options
+                    are inserted at the end. Ordering in relation to existing enum
+                    options can be specified on creation by using `insert_before`
+                    or `insert_after` to reference an existing enum option. Only one
+                    of `insert_before` and `insert_after` can be provided when creating
+                    a new enum option.
+
+
+                    An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                    endpoint.
+
+                    *Conditional*. Only relevant for custom fields of type `enum`.
+                    This object is the chosen value of an `enum` custom field.
+                  type: object
+                  properties:
+                    gid:
+                      description: >-
+                        Globally unique identifier of the resource, as a string.
+                      type: string
+                      readOnly: true
+                      example: '12345'
+                      x-insert-after: false
+                    resource_type:
+                      description: The base type of this resource.
+                      type: string
+                      readOnly: true
+                      example: task
+                      x-insert-after: gid
+                    name:
+                      description: The name of the enum option.
+                      type: string
+                      example: Low
+                    enabled:
+                      description: >-
+                        Whether or not the enum option is a selectable value for the
+                        custom field.
+                      type: boolean
+                      example: true
+                    color:
+                      description: >-
+                        The color of the enum option. Defaults to ‘none’.
+                      type: string
+                      example: blue
+                  x-docs-overrides: *id003
+                  nullable: true
+                multi_enum_values:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type
+                    `multi_enum`. This object is the chosen values of a `multi_enum`
+                    custom
+                    field.
+                  type: array
+                  items:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      Enum options are the possible values which an enum custom field
+                      can adopt. An enum custom field must contain at least 1 enum
+                      option but no more than 500.
+
+
+                      You can add enum options to a custom field by using the `POST
+                      /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                      **It is not possible to remove or delete an enum option**. Instead,
+                      enum options can be disabled by updating the `enabled` field
+                      to false with the `PUT /enum_options/enum_option_gid` endpoint.
+                      Other attributes can be updated similarly.
+
+
+                      On creation of an enum option, `enabled` is always set to `true`,
+                      meaning the enum option is a selectable value for the custom
+                      field. Setting `enabled=false` is equivalent to “trashing” the
+                      enum option in the Asana web app within the “Edit Fields” dialog.
+                      The enum option will no longer be selectable but, if the enum
+                      option value was previously set within a task, the task will
+                      retain the value.
+
+
+                      Enum options are an ordered list and by default new enum options
+                      are inserted at the end. Ordering in relation to existing enum
+                      options can be specified on creation by using `insert_before`
+                      or `insert_after` to reference an existing enum option. Only
+                      one of `insert_before` and `insert_after` can be provided when
+                      creating a new enum option.
+
+
+                      An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                      endpoint.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: The name of the enum option.
+                        type: string
+                        example: Low
+                      enabled:
+                        description: >-
+                          Whether or not the enum option is a selectable value for
+                          the
+                          custom field.
+                        type: boolean
+                        example: true
+                      color:
+                        description: >-
+                          The color of the enum option. Defaults to ‘none’.
+                        type: string
+                        example: blue
+                    x-docs-overrides: *id003
+                number_value:
+                  description: >-
+                    *Conditional*. This number is the value of a `number` custom field.
+                  type: number
+                  nullable: true
+                  example: 5.2
+                text_value:
+                  description: >-
+                    *Conditional*. This string is the value of a `text` custom field.
+                  type: string
+                  nullable: true
+                  example: Some Value
+                display_value:
+                  description: >-
+                    A string representation for the value of the custom field.
+                    Integrations that don't require the underlying type should
+                    use this field to read values. Using this field will future-proof
+                    an app against new custom field types.
+                  type: string
+                  readOnly: true
+                  example: blue
+                  nullable: true
+                description:
+                  description: >-
+                    [Opt
+                    In](/docs/inputoutput-options).
+                    The description of the custom field.
+                  type: string
+                  example: Development team priority
+                precision:
+                  description: >-
+                    Only relevant for custom fields of type ‘Number’. This field
+                    dictates the number of places after the decimal to round to, i.e.
+                    0 is integer values, 1 rounds to the nearest tenth, and so on.
+                    Must be between 0 and 6, inclusive.
+
+                    For percentage format, this may be unintuitive, as a value of
+                    0.25
+                    has a precision of 0, while a value of 0.251 has a precision of
+                    1.
+                    This is due to 0.25 being displayed as 25%.
+
+                    The identifier format will always have a precision of 0.
+                  type: integer
+                  example: 2
+                format:
+                  description: >-
+                    The format of this custom field.
+                  type: string
+                  enum:
+                    - currency
+                    - identifier
+                    - percentage
+                    - custom
+                    - duration
+                    - none
+                  example: custom
+                currency_code:
+                  description: >-
+                    ISO 4217 currency code to format this custom field. This will
+                    be
+                    null if the `format` is not `currency`.
+                  type: string
+                  nullable: true
+                  example: EUR
+                custom_label:
+                  description: >-
+                    This is the string that appears next to the custom field value.
+                    This will be null if the `format` is not `custom`.
+                  type: string
+                  nullable: true
+                  example: gold pieces
+                custom_label_position:
+                  description: >-
+                    Only relevant for custom fields with `custom` format. This depicts
+                    where to place the custom label. This will be null if the `format`
+                    is not `custom`.
+                  type: string
+                  nullable: true
+                  enum:
+                    - prefix
+                    - suffix
+                    - null
+                  example: suffix
+                is_global_to_workspace:
+                  description: >-
+                    This flag describes whether this custom field is available to
+                    every container in the workspace. Before project-specific custom
+                    fields, this field was always true.
+                  type: boolean
+                  example: true
+                  readOnly: true
+                has_notifications_enabled:
+                  description: >-
+                    *Conditional*. This flag describes whether a follower of a task
+                    with this field should receive inbox notifications from changes
+                    to this field.
+                  type: boolean
+                  example: true
+                asana_created_field:
+                  description: >-
+                    *Conditional*. A unique identifier to associate this field with
+                    the
+                    template source of truth.
+                  type: string
+                  readOnly: true
+                  nullable: true
+                  enum:
+                    - a_v_requirements
+                    - account_name
+                    - actionable
+                    - align_shipping_link
+                    - align_status
+                    - allotted_time
+                    - appointment
+                    - approval_stage
+                    - approved
+                    - article_series
+                    - board_committee
+                    - browser
+                    - campaign_audience
+                    - campaign_project_status
+                    - campaign_regions
+                    - channel_primary
+                    - client_topic_type
+                    - complete_by
+                    - contact
+                    - contact_email_address
+                    - content_channels
+                    - content_channels_needed
+                    - content_stage
+                    - content_type
+                    - contract
+                    - contract_status
+                    - cost
+                    - creation_stage
+                    - creative_channel
+                    - creative_needed
+                    - creative_needs
+                    - data_sensitivity
+                    - deal_size
+                    - delivery_appt
+                    - delivery_appt_date
+                    - department
+                    - department_responsible
+                    - design_request_needed
+                    - design_request_type
+                    - discussion_category
+                    - do_this_task
+                    - editorial_content_status
+                    - editorial_content_tag
+                    - editorial_content_type
+                    - effort
+                    - effort_level
+                    - est_completion_date
+                    - estimated_time
+                    - estimated_value
+                    - expected_cost
+                    - external_steps_needed
+                    - favorite_idea
+                    - feedback_type
+                    - financial
+                    - funding_amount
+                    - grant_application_process
+                    - hiring_candidate_status
+                    - idea_status
+                    - ids_link
+                    - ids_patient_link
+                    - implementation_stage
+                    - insurance
+                    - interview_area
+                    - interview_question_score
+                    - itero_scan_link
+                    - job_s_applied_to
+                    - lab
+                    - launch_status
+                    - lead_status
+                    - localization_language
+                    - localization_market_team
+                    - localization_status
+                    - meeting_minutes
+                    - meeting_needed
+                    - minutes
+                    - mrr
+                    - must_localize
+                    - name_of_foundation
+                    - need_to_follow_up
+                    - next_appointment
+                    - next_steps_sales
+                    - num_people
+                    - number_of_user_reports
+                    - office_location
+                    - onboarding_activity
+                    - owner
+                    - participants_needed
+                    - patient_date_of_birth
+                    - patient_email
+                    - patient_phone
+                    - patient_status
+                    - phone_number
+                    - planning_category
+                    - point_of_contact
+                    - position
+                    - post_format
+                    - prescription
+                    - priority
+                    - priority_level
+                    - product
+                    - product_stage
+                    - progress
+                    - project_size
+                    - project_status
+                    - proposed_budget
+                    - publish_status
+                    - reason_for_scan
+                    - referral
+                    - request_type
+                    - research_status
+                    - responsible_department
+                    - responsible_team
+                    - risk_assessment_status
+                    - room_name
+                    - sales_counterpart
+                    - sentiment
+                    - shipping_link
+                    - social_channels
+                    - stage
+                    - status
+                    - status_design
+                    - status_of_initiative
+                    - system_setup
+                    - task_progress
+                    - team
+                    - team_marketing
+                    - team_responsible
+                    - time_it_takes_to_complete_tasks
+                    - timeframe
+                    - treatment_type
+                    - type_work_requests_it
+                    - use_agency
+                    - user_name
+                    - vendor_category
+                    - vendor_type
+                    - word_count
+                    - null
+                  example: priority
+                workspace:
+                  type: string
+                  description: >-
+                    *Create-Only* The workspace to create a custom field in.
+                  example: '1331'
+                owned_by_app:
+                  type: boolean
+                  description: >-
+                    *Allow-listed*. Instructs the API that this Custom Field is
+                    app-owned. This parameter is allow-listed to specific apps at
+                    this
+                    point in time. For apps that are not allow-listed, providing this
+                    parameter will result in a `403 Forbidden`.
+                people_value:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `people`.
+                    This array of user GIDs reflects the users to be written to a
+                    `people`
+                    custom field. Note that *write* operations will replace existing
+                    users
+                    (if any) in the custom field with the users specified in this
+                    array.
+                  type: array
+                  items:
+                    type: string
+                    description: >-
+                      The GID of a user.
+                  example:
+                    - '12345'
+              x-docs-overrides: &id005
+                properties.resource_type.example: custom_field
+              required:
+                - workspace
         is_important:
           description: >-
             Whether this field should be considered important to this container
@@ -2143,7 +2790,7 @@ components:
             `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
           type: string
           example: dropbox
-      x-docs-overrides: &id003
+      x-docs-overrides: &id004
         properties.resource_type.example: attachment
     AttachmentCompact:
       description: >-
@@ -2179,7 +2826,7 @@ components:
             `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
           type: string
           example: dropbox
-      x-docs-overrides: *id003
+      x-docs-overrides: *id004
     AttachmentRequest:
       type: object
       required:
@@ -2383,7 +3030,7 @@ components:
             `external` or `gdrive`.
           type: boolean
           readOnly: true
-      x-docs-overrides: *id003
+      x-docs-overrides: *id004
     AuditLogEvent:
       description: >-
         An object representing a single event within an Asana domain.
@@ -2953,8 +3600,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: &id004
-              properties.resource_type.example: enum_option
+            x-docs-overrides: *id003
         enabled:
           description: >-
             *Conditional*. Determines if the custom field is enabled or not.
@@ -3112,7 +3758,7 @@ components:
                 The color of the enum option. Defaults to ‘none’.
               type: string
               example: blue
-          x-docs-overrides: *id004
+          x-docs-overrides: *id003
           nullable: true
         multi_enum_values:
           description: >-
@@ -3187,7 +3833,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         number_value:
           description: >-
             *Conditional*. This number is the value of a `number` custom field.
@@ -3430,8 +4076,7 @@ components:
             - word_count
             - null
           example: priority
-      x-docs-overrides: &id005
-        properties.resource_type.example: custom_field
+      x-docs-overrides: *id005
     CustomFieldCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -3554,7 +4199,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         enabled:
           description: >-
             *Conditional*. Determines if the custom field is enabled or not.
@@ -3712,7 +4357,7 @@ components:
                 The color of the enum option. Defaults to ‘none’.
               type: string
               example: blue
-          x-docs-overrides: *id004
+          x-docs-overrides: *id003
           nullable: true
         multi_enum_values:
           description: >-
@@ -3787,7 +4432,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         number_value:
           description: >-
             *Conditional*. This number is the value of a `number` custom field.
@@ -3933,7 +4578,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         enabled:
           description: >-
             *Conditional*. Determines if the custom field is enabled or not.
@@ -4091,7 +4736,7 @@ components:
                 The color of the enum option. Defaults to ‘none’.
               type: string
               example: blue
-          x-docs-overrides: *id004
+          x-docs-overrides: *id003
           nullable: true
         multi_enum_values:
           description: >-
@@ -4166,7 +4811,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         number_value:
           description: >-
             *Conditional*. This number is the value of a `number` custom field.
@@ -4559,7 +5204,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         enabled:
           description: >-
             *Conditional*. Determines if the custom field is enabled or not.
@@ -4717,7 +5362,7 @@ components:
                 The color of the enum option. Defaults to ‘none’.
               type: string
               example: blue
-          x-docs-overrides: *id004
+          x-docs-overrides: *id003
           nullable: true
         multi_enum_values:
           description: >-
@@ -4792,7 +5437,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         number_value:
           description: >-
             *Conditional*. This number is the value of a `number` custom field.
@@ -5198,7 +5843,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         enabled:
           description: >-
             *Conditional*. Determines if the custom field is enabled or not.
@@ -5356,7 +6001,7 @@ components:
                 The color of the enum option. Defaults to ‘none’.
               type: string
               example: blue
-          x-docs-overrides: *id004
+          x-docs-overrides: *id003
           nullable: true
         multi_enum_values:
           description: >-
@@ -5431,7 +6076,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
         number_value:
           description: >-
             *Conditional*. This number is the value of a `number` custom field.
@@ -6059,7 +6704,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             enabled:
               description: >-
                 *Conditional*. Determines if the custom field is enabled or not.
@@ -6218,7 +6863,7 @@ components:
                     The color of the enum option. Defaults to ‘none’.
                   type: string
                   example: blue
-              x-docs-overrides: *id004
+              x-docs-overrides: *id003
               nullable: true
             multi_enum_values:
               description: >-
@@ -6293,7 +6938,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             number_value:
               description: >-
                 *Conditional*. This number is the value of a `number` custom field.
@@ -6694,7 +7339,7 @@ components:
             The color of the enum option. Defaults to ‘none’.
           type: string
           example: blue
-      x-docs-overrides: *id004
+      x-docs-overrides: *id003
     EnumOptionBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -6761,7 +7406,7 @@ components:
             The color of the enum option. Defaults to ‘none’.
           type: string
           example: blue
-      x-docs-overrides: *id004
+      x-docs-overrides: *id003
     EnumOptionInsertRequest:
       type: object
       required:
@@ -6869,7 +7514,7 @@ components:
             Cannot be provided together with
             before_enum_option.
           example: '12345'
-      x-docs-overrides: *id004
+      x-docs-overrides: *id003
     Error:
       type: object
       properties:
@@ -11337,7 +11982,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   enabled:
                     description: >-
                       *Conditional*. Determines if the custom field is enabled or
@@ -11505,7 +12150,7 @@ components:
                           The color of the enum option. Defaults to ‘none’.
                         type: string
                         example: blue
-                    x-docs-overrides: *id004
+                    x-docs-overrides: *id003
                     nullable: true
                   multi_enum_values:
                     description: >-
@@ -11584,7 +12229,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   number_value:
                     description: >-
                       *Conditional*. This number is the value of a `number` custom
@@ -12109,7 +12754,7 @@ components:
                         The color of the enum option. Defaults to ‘none’.
                       type: string
                       example: blue
-                  x-docs-overrides: *id004
+                  x-docs-overrides: *id003
               enabled:
                 description: >-
                   *Conditional*. Determines if the custom field is enabled or not.
@@ -12269,7 +12914,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
                 nullable: true
               multi_enum_values:
                 description: >-
@@ -12346,7 +12991,7 @@ components:
                         The color of the enum option. Defaults to ‘none’.
                       type: string
                       example: blue
-                  x-docs-overrides: *id004
+                  x-docs-overrides: *id003
               number_value:
                 description: >-
                   *Conditional*. This number is the value of a `number` custom field.
@@ -13115,7 +13760,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   enabled:
                     description: >-
                       *Conditional*. Determines if the custom field is enabled or
@@ -13283,7 +13928,7 @@ components:
                           The color of the enum option. Defaults to ‘none’.
                         type: string
                         example: blue
-                    x-docs-overrides: *id004
+                    x-docs-overrides: *id003
                     nullable: true
                   multi_enum_values:
                     description: >-
@@ -13362,7 +14007,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   number_value:
                     description: >-
                       *Conditional*. This number is the value of a `number` custom
@@ -14276,7 +14921,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             enabled:
               description: >-
                 *Conditional*. Determines if the custom field is enabled or not.
@@ -14435,7 +15080,7 @@ components:
                     The color of the enum option. Defaults to ‘none’.
                   type: string
                   example: blue
-              x-docs-overrides: *id004
+              x-docs-overrides: *id003
               nullable: true
             multi_enum_values:
               description: >-
@@ -14510,7 +15155,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             number_value:
               description: >-
                 *Conditional*. This number is the value of a `number` custom field.
@@ -14719,7 +15364,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             enabled:
               description: >-
                 *Conditional*. Determines if the custom field is enabled or not.
@@ -14878,7 +15523,7 @@ components:
                     The color of the enum option. Defaults to ‘none’.
                   type: string
                   example: blue
-              x-docs-overrides: *id004
+              x-docs-overrides: *id003
               nullable: true
             multi_enum_values:
               description: >-
@@ -14953,7 +15598,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             number_value:
               description: >-
                 *Conditional*. This number is the value of a `number` custom field.
@@ -15161,7 +15806,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             enabled:
               description: >-
                 *Conditional*. Determines if the custom field is enabled or not.
@@ -15320,7 +15965,7 @@ components:
                     The color of the enum option. Defaults to ‘none’.
                   type: string
                   example: blue
-              x-docs-overrides: *id004
+              x-docs-overrides: *id003
               nullable: true
             multi_enum_values:
               description: >-
@@ -15395,7 +16040,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             number_value:
               description: >-
                 *Conditional*. This number is the value of a `number` custom field.
@@ -16423,7 +17068,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   enabled:
                     description: >-
                       *Conditional*. Determines if the custom field is enabled or
@@ -16591,7 +17236,7 @@ components:
                           The color of the enum option. Defaults to ‘none’.
                         type: string
                         example: blue
-                    x-docs-overrides: *id004
+                    x-docs-overrides: *id003
                     nullable: true
                   multi_enum_values:
                     description: >-
@@ -16670,7 +17315,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   number_value:
                     description: >-
                       *Conditional*. This number is the value of a `number` custom
@@ -17716,7 +18361,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   enabled:
                     description: >-
                       *Conditional*. Determines if the custom field is enabled or
@@ -17884,7 +18529,7 @@ components:
                           The color of the enum option. Defaults to ‘none’.
                         type: string
                         example: blue
-                    x-docs-overrides: *id004
+                    x-docs-overrides: *id003
                     nullable: true
                   multi_enum_values:
                     description: >-
@@ -17963,7 +18608,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   number_value:
                     description: >-
                       *Conditional*. This number is the value of a `number` custom
@@ -19004,7 +19649,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   enabled:
                     description: >-
                       *Conditional*. Determines if the custom field is enabled or
@@ -19172,7 +19817,7 @@ components:
                           The color of the enum option. Defaults to ‘none’.
                         type: string
                         example: blue
-                    x-docs-overrides: *id004
+                    x-docs-overrides: *id003
                     nullable: true
                   multi_enum_values:
                     description: >-
@@ -19251,7 +19896,7 @@ components:
                             The color of the enum option. Defaults to ‘none’.
                           type: string
                           example: blue
-                      x-docs-overrides: *id004
+                      x-docs-overrides: *id003
                   number_value:
                     description: >-
                       *Conditional*. This number is the value of a `number` custom
@@ -19851,7 +20496,7 @@ components:
                         The color of the enum option. Defaults to ‘none’.
                       type: string
                       example: blue
-                  x-docs-overrides: *id004
+                  x-docs-overrides: *id003
               enabled:
                 description: >-
                   *Conditional*. Determines if the custom field is enabled or not.
@@ -20011,7 +20656,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
                 nullable: true
               multi_enum_values:
                 description: >-
@@ -20088,7 +20733,7 @@ components:
                         The color of the enum option. Defaults to ‘none’.
                       type: string
                       example: blue
-                  x-docs-overrides: *id004
+                  x-docs-overrides: *id003
               number_value:
                 description: >-
                   *Conditional*. This number is the value of a `number` custom field.
@@ -23127,7 +23772,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             enabled:
               description: >-
                 *Conditional*. Determines if the custom field is enabled or not.
@@ -23286,7 +23931,7 @@ components:
                     The color of the enum option. Defaults to ‘none’.
                   type: string
                   example: blue
-              x-docs-overrides: *id004
+              x-docs-overrides: *id003
               nullable: true
             multi_enum_values:
               description: >-
@@ -23361,7 +24006,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
             number_value:
               description: >-
                 *Conditional*. This number is the value of a `number` custom field.
@@ -23478,7 +24123,7 @@ components:
                 The color of the enum option. Defaults to ‘none’.
               type: string
               example: blue
-          x-docs-overrides: *id004
+          x-docs-overrides: *id003
           readOnly: true
         new_enum_value:
           description: >-
@@ -23547,7 +24192,7 @@ components:
                 The color of the enum option. Defaults to ‘none’.
               type: string
               example: blue
-          x-docs-overrides: *id004
+          x-docs-overrides: *id003
           readOnly: true
         old_date_value:
           allOf:
@@ -23758,7 +24403,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
           readOnly: true
         new_multi_enum_values:
           description: >-
@@ -23831,7 +24476,7 @@ components:
                   The color of the enum option. Defaults to ‘none’.
                 type: string
                 example: blue
-            x-docs-overrides: *id004
+            x-docs-overrides: *id003
           readOnly: true
         new_approval_status:
           description: >-
@@ -25527,7 +26172,7 @@ components:
                   `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
                 type: string
                 example: dropbox
-            x-docs-overrides: *id003
+            x-docs-overrides: *id004
         subtasks:
           description: >-
             Array of subtasks that will be added to the task created from this template
@@ -25677,7 +26322,7 @@ components:
                         The color of the enum option. Defaults to ‘none’.
                       type: string
                       example: blue
-                  x-docs-overrides: *id004
+                  x-docs-overrides: *id003
               enabled:
                 description: >-
                   *Conditional*. Determines if the custom field is enabled or not.
@@ -25837,7 +26482,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
                 nullable: true
               multi_enum_values:
                 description: >-
@@ -25914,7 +26559,7 @@ components:
                         The color of the enum option. Defaults to ‘none’.
                       type: string
                       example: blue
-                  x-docs-overrides: *id004
+                  x-docs-overrides: *id003
               number_value:
                 description: >-
                   *Conditional*. This number is the value of a `number` custom field.
@@ -26211,7 +26856,7 @@ components:
                           `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
                         type: string
                         example: dropbox
-                    x-docs-overrides: *id003
+                    x-docs-overrides: *id004
                 subtasks:
                   description: >-
                     Array of subtasks that will be added to the task created from
@@ -26370,7 +27015,7 @@ components:
                                 The color of the enum option. Defaults to ‘none’.
                               type: string
                               example: blue
-                          x-docs-overrides: *id004
+                          x-docs-overrides: *id003
                       enabled:
                         description: >-
                           *Conditional*. Determines if the custom field is enabled
@@ -26539,7 +27184,7 @@ components:
                               The color of the enum option. Defaults to ‘none’.
                             type: string
                             example: blue
-                        x-docs-overrides: *id004
+                        x-docs-overrides: *id003
                         nullable: true
                       multi_enum_values:
                         description: >-
@@ -26620,7 +27265,7 @@ components:
                                 The color of the enum option. Defaults to ‘none’.
                               type: string
                               example: blue
-                          x-docs-overrides: *id004
+                          x-docs-overrides: *id003
                       number_value:
                         description: >-
                           *Conditional*. This number is the value of a `number` custom
@@ -28130,7 +28775,7 @@ components:
                         The color of the enum option. Defaults to ‘none’.
                       type: string
                       example: blue
-                  x-docs-overrides: *id004
+                  x-docs-overrides: *id003
               enabled:
                 description: >-
                   *Conditional*. Determines if the custom field is enabled or not.
@@ -28290,7 +28935,7 @@ components:
                       The color of the enum option. Defaults to ‘none’.
                     type: string
                     example: blue
-                x-docs-overrides: *id004
+                x-docs-overrides: *id003
                 nullable: true
               multi_enum_values:
                 description: >-
@@ -28367,7 +29012,7 @@ components:
                         The color of the enum option. Defaults to ‘none’.
                       type: string
                       example: blue
-                  x-docs-overrides: *id004
+                  x-docs-overrides: *id003
               number_value:
                 description: >-
                   *Conditional*. This number is the value of a `number` custom field.
