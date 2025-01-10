@@ -51988,6 +51988,13 @@ paths:
         schema:
           type: string
         example: 12345,23456,34567
+      - name: followers.any
+        in: query
+        description: >-
+          Comma-separated list of user identifiers
+        schema:
+          type: string
+        example: 12345,23456,34567
       - name: followers.not
         in: query
         description: >-
