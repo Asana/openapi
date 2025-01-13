@@ -3529,6 +3529,7 @@ components:
         - $ref: '#/components/schemas/GoalMembershipCompact'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
         - $ref: '#/components/schemas/PortfolioMembershipCompactResponse'
+        - $ref: '#/components/schemas/CustomFieldMembershipCompact'
     ModifyDependenciesRequest:
       type: object
       properties:
@@ -7784,7 +7785,8 @@ components:
           description: >-
             Sets the access level for the member. Goals can have access levels `editor`
             or `commenter`. Projects can have access levels `admin`, `editor` or `commenter`.
-            Portfolios can have access levels `admin`, `editor` or `viewer`.
+            Portfolios can have access levels `admin`, `editor` or `viewer`. Custom
+            Fields can have access levels `admin`, `editor` or `user`.
           type: string
           example: editor
     CreateMembershipRequest:
@@ -7816,6 +7818,7 @@ components:
         - $ref: '#/components/schemas/GoalMembershipResponse'
         - $ref: '#/components/schemas/ProjectMembershipCompactResponse'
         - $ref: '#/components/schemas/PortfolioMembershipResponse'
+        - $ref: '#/components/schemas/CustomFieldMembershipResponse'
     UpdateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -16067,12 +16070,12 @@ paths:
     get:
       summary: Get multiple memberships
       description: >-
-        Returns compact `goal_membership`, `project_membership`, or `portfolio_membership`
-        records. The possible types
-        for `parent` in this request are `goal`, `project`, or `portfolio`. An additional
-        member (user GID or
-        team GID) can be passed in to filter to a specific membership. Teams are not
-        supported for portfolios yet.
+        Returns compact `goal_membership`, `project_membership`, `portfolio_membership`,
+        or `custom_field_membership` records. The possible types
+        for `parent` in this request are `goal`, `project`, `portfolio`, or `custom_field`.
+        An additional member (user GID or
+        team GID) can be passed in to filter to a specific membership. Team as members
+        are not supported for portfolios or custom fields yet.
       tags:
         - Memberships
       operationId: getMemberships
@@ -16080,7 +16083,7 @@ paths:
         - name: parent
           in: query
           description: >-
-            Globally unique identifier for `goal`, `project`, or `portfolio`.
+            Globally unique identifier for `goal`, `project`, `portfolio`, or `custom_field`.
           schema:
             type: string
           example: '159874'
@@ -16248,7 +16251,7 @@ paths:
     post:
       summary: Create a membership
       description: |-
-        Creates a new membership in a `goal`, `project`, or `portfolio`. Teams or users can be members of `goals` or `projects`. Portfolios only support `users` as members.
+        Creates a new membership in a `goal`, `project`, `portfolio`, or `custom_field`. Teams or Users can be members of `goals` or `projects`. Portfolios and custom fields only support `users` as members.
 
         Returns the full record of the newly created membership.
       tags:
@@ -16391,39 +16394,11 @@ paths:
     get:
       summary: Get a membership
       description: >-
-        Returns compact `project_membership` record for a single membership. `GET`
-        only supports project memberships currently
+        Returns a `project_membership`, `goal_membership`, `portfolio_membership`,
+        or `custom_field_membership` record for a membership id.
       tags:
         - Memberships
       operationId: getMembership
-      parameters:
-        - name: opt_fields
-          in: query
-          description: This endpoint returns a compact resource, which excludes some
-            properties by default. To include those optional properties, set this
-            query parameter to a comma-separated list of the properties you wish to
-            include.
-          required: false
-          example:
-            - access_level
-            - member
-            - member.name
-            - parent
-            - parent.name
-            - resource_subtype
-          schema:
-            type: array
-            items:
-              type: string
-              enum:
-                - access_level
-                - member
-                - member.name
-                - parent
-                - parent.name
-                - resource_subtype
-          style: form
-          explode: false
       responses:
         200:
           description: >-
@@ -16434,7 +16409,8 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/ProjectMembershipCompactResponse'
+                    type: object
+                    $ref: '#/components/schemas/MembershipResponse'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
@@ -16523,7 +16499,7 @@ paths:
       summary: Update a membership
       description: |-
         An existing membership can be updated by making a `PUT` request on the membership. Only the fields provided in the `data` block will be updated;
-        any unspecified fields will remain unchanged. Memberships on `goals`, `projects` and `portfolios` can be updated.
+        any unspecified fields will remain unchanged. Memberships on `goals`, `projects`, `portfolios`, and `custom_fields` can be updated.
 
         Returns the full record of the updated membership.
       tags:
@@ -16661,7 +16637,7 @@ paths:
     delete:
       summary: Delete a membership
       description: |-
-        A specific, existing membership for a `goal`, `project` and `portfolio` can be deleted by making a `DELETE` request
+        A specific, existing membership for a `goal`, `project`, `portfolio` or `custom_field` can be deleted by making a `DELETE` request
         on the URL for that membership.
 
         Returns an empty data record.
