@@ -56135,3 +56135,51 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+  /workspaces/{workspace_gid}/events:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - name: sync
+        in: query
+        required: false
+        description: >-
+          A sync token received from the last request, or none on first sync.
+          Events will be returned from the point in time that the sync token was
+          generated.
+
+          *Note: On your first request, omit the sync token. The response will
+          be the same as for an expired sync token, and will include a new valid
+          sync token. If the sync token is too old (which may happen from time to
+          time) the API will return a `412 Precondition Failed` error, and
+          include a fresh sync token in the response.*
+        schema:
+          type: string
+        example: de4774f6915eae04714ca93bb2f5ee81
+    get:
+      summary: Get workspace events
+      description: >-
+        Returns the full record for all events that have occurred since the sync
+        token was created.
+
+        The response is a list of events and the schema of each event is as
+        described [here](/reference/events).
+
+        Asana limits a single sync token to 1000 events. If more than 1000 events
+        exist
+        for a given domain, `has_more: true` will be returned in the response, indicating
+        that there are more events to pull.
+      tags:
+        - Workspaces
+      operationId: getWorkspaceEvents
+      responses:
+        200:
+          $ref: '#/components/responses/EventResponseArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
