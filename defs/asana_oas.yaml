@@ -2574,6 +2574,25 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/UserCompact'
+            privacy_setting:
+              description: >-
+                The privacy setting of the custom field. *Note: Administrators in
+                your organization may restrict the values of `privacy_setting`.*
+              type: string
+              enum:
+                - public
+                - public_without_guests
+                - private
+              example: public_without_guests
+            default_access_level:
+              description: The default access level when inviting new members to the
+                custom field
+              type: string
+              enum:
+                - admin
+                - editor
+                - user
+              example: user
             resource_subtype:
               description: >
                 The type of the custom field. Must be one of the given values.
@@ -4507,6 +4526,10 @@ components:
           readOnly: true
           example: custom_field_membership
           x-insert-after: gid
+        resource_subtype:
+          description: Type of the membership.
+          type: string
+          example: custom_field_membership
         parent:
           description: >-
             The custom field the user is a member of.
@@ -10086,6 +10109,7 @@ paths:
             - custom_field.date_value
             - custom_field.date_value.date
             - custom_field.date_value.date_time
+            - custom_field.default_access_level
             - custom_field.description
             - custom_field.display_value
             - custom_field.enabled
@@ -10112,6 +10136,7 @@ paths:
             - custom_field.people_value
             - custom_field.people_value.name
             - custom_field.precision
+            - custom_field.privacy_setting
             - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
@@ -10139,6 +10164,7 @@ paths:
                 - custom_field.date_value
                 - custom_field.date_value.date
                 - custom_field.date_value.date_time
+                - custom_field.default_access_level
                 - custom_field.description
                 - custom_field.display_value
                 - custom_field.enabled
@@ -10165,6 +10191,7 @@ paths:
                 - custom_field.people_value
                 - custom_field.people_value.name
                 - custom_field.precision
+                - custom_field.privacy_setting
                 - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
@@ -10356,6 +10383,7 @@ paths:
             - custom_field.date_value
             - custom_field.date_value.date
             - custom_field.date_value.date_time
+            - custom_field.default_access_level
             - custom_field.description
             - custom_field.display_value
             - custom_field.enabled
@@ -10382,6 +10410,7 @@ paths:
             - custom_field.people_value
             - custom_field.people_value.name
             - custom_field.precision
+            - custom_field.privacy_setting
             - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
@@ -10409,6 +10438,7 @@ paths:
                 - custom_field.date_value
                 - custom_field.date_value.date
                 - custom_field.date_value.date_time
+                - custom_field.default_access_level
                 - custom_field.description
                 - custom_field.display_value
                 - custom_field.enabled
@@ -10435,6 +10465,7 @@ paths:
                 - custom_field.people_value
                 - custom_field.people_value.name
                 - custom_field.precision
+                - custom_field.privacy_setting
                 - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
@@ -10630,6 +10661,7 @@ paths:
             - date_value
             - date_value.date
             - date_value.date_time
+            - default_access_level
             - description
             - display_value
             - enabled
@@ -10656,6 +10688,7 @@ paths:
             - people_value
             - people_value.name
             - precision
+            - privacy_setting
             - representation_type
             - resource_subtype
             - text_value
@@ -10674,6 +10707,7 @@ paths:
                 - date_value
                 - date_value.date
                 - date_value.date_time
+                - default_access_level
                 - description
                 - display_value
                 - enabled
@@ -10700,6 +10734,7 @@ paths:
                 - people_value
                 - people_value.name
                 - precision
+                - privacy_setting
                 - representation_type
                 - resource_subtype
                 - text_value
@@ -10887,6 +10922,7 @@ paths:
             - date_value
             - date_value.date
             - date_value.date_time
+            - default_access_level
             - description
             - display_value
             - enabled
@@ -10913,6 +10949,7 @@ paths:
             - people_value
             - people_value.name
             - precision
+            - privacy_setting
             - representation_type
             - resource_subtype
             - text_value
@@ -10931,6 +10968,7 @@ paths:
                 - date_value
                 - date_value.date
                 - date_value.date_time
+                - default_access_level
                 - description
                 - display_value
                 - enabled
@@ -10957,6 +10995,7 @@ paths:
                 - people_value
                 - people_value.name
                 - precision
+                - privacy_setting
                 - representation_type
                 - resource_subtype
                 - text_value
@@ -11140,6 +11179,7 @@ paths:
             - date_value
             - date_value.date
             - date_value.date_time
+            - default_access_level
             - description
             - display_value
             - enabled
@@ -11166,6 +11206,7 @@ paths:
             - people_value
             - people_value.name
             - precision
+            - privacy_setting
             - representation_type
             - resource_subtype
             - text_value
@@ -11184,6 +11225,7 @@ paths:
                 - date_value
                 - date_value.date
                 - date_value.date_time
+                - default_access_level
                 - description
                 - display_value
                 - enabled
@@ -11210,6 +11252,7 @@ paths:
                 - people_value
                 - people_value.name
                 - precision
+                - privacy_setting
                 - representation_type
                 - resource_subtype
                 - text_value
@@ -11536,6 +11579,7 @@ paths:
             - date_value
             - date_value.date
             - date_value.date_time
+            - default_access_level
             - description
             - display_value
             - enabled
@@ -11564,6 +11608,7 @@ paths:
             - people_value
             - people_value.name
             - precision
+            - privacy_setting
             - representation_type
             - resource_subtype
             - text_value
@@ -11583,6 +11628,7 @@ paths:
                 - date_value
                 - date_value.date
                 - date_value.date_time
+                - default_access_level
                 - description
                 - display_value
                 - enabled
@@ -11611,6 +11657,7 @@ paths:
                 - people_value
                 - people_value.name
                 - precision
+                - privacy_setting
                 - representation_type
                 - resource_subtype
                 - text_value
@@ -17949,6 +17996,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -17975,6 +18023,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -18051,6 +18100,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -18077,6 +18127,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -18320,6 +18371,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -18346,6 +18398,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -18419,6 +18472,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -18445,6 +18499,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -18679,6 +18734,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -18705,6 +18761,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -18778,6 +18835,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -18804,6 +18862,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -19030,6 +19089,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -19056,6 +19116,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -19129,6 +19190,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -19155,6 +19217,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -19546,6 +19609,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -19572,6 +19636,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -19673,6 +19738,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -19699,6 +19765,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -20574,6 +20641,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -20600,6 +20668,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -20673,6 +20742,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -20699,6 +20769,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -20939,6 +21010,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -20965,6 +21037,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -21038,6 +21111,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -21064,6 +21138,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -24059,6 +24134,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -24085,6 +24161,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -24186,6 +24263,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -24212,6 +24290,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -24485,6 +24564,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -24511,6 +24591,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -24609,6 +24690,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -24635,6 +24717,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -24897,6 +24980,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -24923,6 +25007,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -25021,6 +25106,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -25047,6 +25133,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -25302,6 +25389,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -25328,6 +25416,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -25426,6 +25515,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -25452,6 +25542,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -26060,6 +26151,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -26086,6 +26178,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -26187,6 +26280,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -26213,6 +26307,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -26480,6 +26575,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -26506,6 +26602,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -26607,6 +26704,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -26633,6 +26731,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -26896,6 +26995,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -26922,6 +27022,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -27020,6 +27121,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -27046,6 +27148,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -27317,6 +27420,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -27343,6 +27447,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -27444,6 +27549,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -27470,6 +27576,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -27738,6 +27845,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -27764,6 +27872,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -27862,6 +27971,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -27888,6 +27998,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -28132,6 +28243,7 @@ paths:
             - custom_field.date_value
             - custom_field.date_value.date
             - custom_field.date_value.date_time
+            - custom_field.default_access_level
             - custom_field.description
             - custom_field.display_value
             - custom_field.enabled
@@ -28158,6 +28270,7 @@ paths:
             - custom_field.people_value
             - custom_field.people_value.name
             - custom_field.precision
+            - custom_field.privacy_setting
             - custom_field.representation_type
             - custom_field.resource_subtype
             - custom_field.text_value
@@ -28182,6 +28295,7 @@ paths:
                 - custom_field.date_value
                 - custom_field.date_value.date
                 - custom_field.date_value.date_time
+                - custom_field.default_access_level
                 - custom_field.description
                 - custom_field.display_value
                 - custom_field.enabled
@@ -28208,6 +28322,7 @@ paths:
                 - custom_field.people_value
                 - custom_field.people_value.name
                 - custom_field.precision
+                - custom_field.privacy_setting
                 - custom_field.representation_type
                 - custom_field.resource_subtype
                 - custom_field.text_value
@@ -28777,6 +28892,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -28803,6 +28919,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -28901,6 +29018,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -28927,6 +29045,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -29191,6 +29310,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -29217,6 +29337,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -29315,6 +29436,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -29341,6 +29463,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -29609,6 +29732,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -29635,6 +29759,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -29733,6 +29858,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -29759,6 +29885,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -30024,6 +30151,7 @@ paths:
             - custom_field_settings.custom_field.date_value
             - custom_field_settings.custom_field.date_value.date
             - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
             - custom_field_settings.custom_field.description
             - custom_field_settings.custom_field.display_value
             - custom_field_settings.custom_field.enabled
@@ -30050,6 +30178,7 @@ paths:
             - custom_field_settings.custom_field.people_value
             - custom_field_settings.custom_field.people_value.name
             - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
             - custom_field_settings.custom_field.representation_type
             - custom_field_settings.custom_field.resource_subtype
             - custom_field_settings.custom_field.text_value
@@ -30148,6 +30277,7 @@ paths:
                 - custom_field_settings.custom_field.date_value
                 - custom_field_settings.custom_field.date_value.date
                 - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
                 - custom_field_settings.custom_field.description
                 - custom_field_settings.custom_field.display_value
                 - custom_field_settings.custom_field.enabled
@@ -30174,6 +30304,7 @@ paths:
                 - custom_field_settings.custom_field.people_value
                 - custom_field_settings.custom_field.people_value.name
                 - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
                 - custom_field_settings.custom_field.representation_type
                 - custom_field_settings.custom_field.resource_subtype
                 - custom_field_settings.custom_field.text_value
@@ -36736,6 +36867,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -36762,6 +36894,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -36844,6 +36977,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -36870,6 +37004,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -37126,6 +37261,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -37152,6 +37288,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -37231,6 +37368,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -37257,6 +37395,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -37499,6 +37638,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -37525,6 +37665,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -37604,6 +37745,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -37630,6 +37772,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -37866,6 +38009,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -37892,6 +38036,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -37971,6 +38116,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -37997,6 +38143,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -38592,6 +38739,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -38618,6 +38766,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -38700,6 +38849,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -38726,6 +38876,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -38976,6 +39127,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -39002,6 +39154,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -39084,6 +39237,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -39110,6 +39264,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -39360,6 +39515,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -39386,6 +39542,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -39468,6 +39625,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -39494,6 +39652,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -39752,6 +39911,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -39778,6 +39938,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -39860,6 +40021,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -39886,6 +40048,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -40138,6 +40301,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -40164,6 +40328,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -40246,6 +40411,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -40272,6 +40438,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -40513,6 +40680,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -40539,6 +40707,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -40618,6 +40787,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -40644,6 +40814,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -40892,6 +41063,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -40918,6 +41090,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -40997,6 +41170,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -41023,6 +41197,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -41271,6 +41446,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -41297,6 +41473,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -41379,6 +41556,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -41405,6 +41583,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -41973,6 +42152,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -41999,6 +42179,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -42081,6 +42262,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -42107,6 +42289,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -43330,6 +43513,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -43356,6 +43540,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -43435,6 +43620,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -43461,6 +43647,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -43709,6 +43896,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -43735,6 +43923,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -43814,6 +44003,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -43840,6 +44030,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
@@ -44657,6 +44848,7 @@ paths:
             - custom_fields.date_value
             - custom_fields.date_value.date
             - custom_fields.date_value.date_time
+            - custom_fields.default_access_level
             - custom_fields.description
             - custom_fields.display_value
             - custom_fields.enabled
@@ -44683,6 +44875,7 @@ paths:
             - custom_fields.people_value
             - custom_fields.people_value.name
             - custom_fields.precision
+            - custom_fields.privacy_setting
             - custom_fields.representation_type
             - custom_fields.resource_subtype
             - custom_fields.text_value
@@ -44762,6 +44955,7 @@ paths:
                 - custom_fields.date_value
                 - custom_fields.date_value.date
                 - custom_fields.date_value.date_time
+                - custom_fields.default_access_level
                 - custom_fields.description
                 - custom_fields.display_value
                 - custom_fields.enabled
@@ -44788,6 +44982,7 @@ paths:
                 - custom_fields.people_value
                 - custom_fields.people_value.name
                 - custom_fields.precision
+                - custom_fields.privacy_setting
                 - custom_fields.representation_type
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
