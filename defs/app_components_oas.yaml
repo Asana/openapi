@@ -267,11 +267,6 @@ components:
         An error response object indicating a bad request (i.e., a status code of `400`).
       type: object
       properties:
-        data:
-          description: >-
-            An object containing an `error` string to display to the user.
-          type: object
-          properties:
             error:
               description: >-
                 The error to display.
@@ -323,11 +318,6 @@ components:
         An error response object indicating a forbidden request (i.e., a status code of `403`).
       type: object
       properties:
-        data:
-          description: >-
-            An object containing an `error` string to display to the user.
-          type: object
-          properties:
             error:
               description: >-
                 The error to display.
@@ -338,11 +328,6 @@ components:
         An error response object indicating a request that could not be found (i.e., a status code of `500`).
       type: object
       properties:
-        data:
-          description: >-
-            An object containing an `error` string to display to the user.
-          type: object
-          properties:
             error:
               description: >-
                 The error to display.
@@ -1114,11 +1099,6 @@ components:
         An error response object indicating a request that could not be found (i.e., a status code of `404`).
       type: object
       properties:
-        data:
-          description: >-
-            An object containing an `error` string to display to the user.
-          type: object
-          properties:
             error:
               description: >-
                 The error to display.
@@ -1290,11 +1270,6 @@ components:
         An error response object indicating a unauthorized request (i.e., a status code of `401`).
       type: object
       properties:
-        data:
-          description: >-
-            An object containing an `error` string to display to the user.
-          type: object
-          properties:
             error:
               description: >-
                 The error to display.
