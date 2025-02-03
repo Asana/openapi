@@ -6421,8 +6421,12 @@ components:
             - private
           example: public_without_guests
         default_access_level:
-          description: The default access level when inviting new members to the custom
-            field
+          description: >-
+            The default access level when inviting new members to the custom field.
+            This isn't applied when the `privacy_setting` is `private`, or the user
+            is a guest.
+            For local fields in a project or portfolio, the user must additionally
+            have permission to modify the container itself.
           type: string
           enum:
             - admin
@@ -7304,8 +7308,12 @@ components:
                 - private
               example: public_without_guests
             default_access_level:
-              description: The default access level when inviting new members to the
-                custom field
+              description: >-
+                The default access level when inviting new members to the custom field.
+                This isn't applied when the `privacy_setting` is `private`, or the
+                user is a guest.
+                For local fields in a project or portfolio, the user must additionally
+                have permission to modify the container itself.
               type: string
               enum:
                 - admin
@@ -13302,8 +13310,13 @@ components:
                       - private
                     example: public_without_guests
                   default_access_level:
-                    description: The default access level when inviting new members
-                      to the custom field
+                    description: >-
+                      The default access level when inviting new members to the custom
+                      field.
+                      This isn't applied when the `privacy_setting` is `private`,
+                      or the user is a guest.
+                      For local fields in a project or portfolio, the user must additionally
+                      have permission to modify the container itself.
                     type: string
                     enum:
                       - admin
@@ -15099,8 +15112,13 @@ components:
                       - private
                     example: public_without_guests
                   default_access_level:
-                    description: The default access level when inviting new members
-                      to the custom field
+                    description: >-
+                      The default access level when inviting new members to the custom
+                      field.
+                      This isn't applied when the `privacy_setting` is `private`,
+                      or the user is a guest.
+                      For local fields in a project or portfolio, the user must additionally
+                      have permission to modify the container itself.
                     type: string
                     enum:
                       - admin
@@ -18437,8 +18455,13 @@ components:
                       - private
                     example: public_without_guests
                   default_access_level:
-                    description: The default access level when inviting new members
-                      to the custom field
+                    description: >-
+                      The default access level when inviting new members to the custom
+                      field.
+                      This isn't applied when the `privacy_setting` is `private`,
+                      or the user is a guest.
+                      For local fields in a project or portfolio, the user must additionally
+                      have permission to modify the container itself.
                     type: string
                     enum:
                       - admin
@@ -19749,8 +19772,13 @@ components:
                       - private
                     example: public_without_guests
                   default_access_level:
-                    description: The default access level when inviting new members
-                      to the custom field
+                    description: >-
+                      The default access level when inviting new members to the custom
+                      field.
+                      This isn't applied when the `privacy_setting` is `private`,
+                      or the user is a guest.
+                      For local fields in a project or portfolio, the user must additionally
+                      have permission to modify the container itself.
                     type: string
                     enum:
                       - admin
@@ -21056,8 +21084,13 @@ components:
                       - private
                     example: public_without_guests
                   default_access_level:
-                    description: The default access level when inviting new members
-                      to the custom field
+                    description: >-
+                      The default access level when inviting new members to the custom
+                      field.
+                      This isn't applied when the `privacy_setting` is `private`,
+                      or the user is a guest.
+                      For local fields in a project or portfolio, the user must additionally
+                      have permission to modify the container itself.
                     type: string
                     enum:
                       - admin
@@ -30202,8 +30235,13 @@ components:
                   - private
                 example: public_without_guests
               default_access_level:
-                description: The default access level when inviting new members to
-                  the custom field
+                description: >-
+                  The default access level when inviting new members to the custom
+                  field.
+                  This isn't applied when the `privacy_setting` is `private`, or the
+                  user is a guest.
+                  For local fields in a project or portfolio, the user must additionally
+                  have permission to modify the container itself.
                 type: string
                 enum:
                   - admin
