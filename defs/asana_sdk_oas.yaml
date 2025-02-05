@@ -6416,10 +6416,10 @@ components:
             organization may restrict the values of `privacy_setting`.*
           type: string
           enum:
+            - public_with_guests
             - public
-            - public_without_guests
             - private
-          example: public_without_guests
+          example: public_with_guests
         default_access_level:
           description: >-
             The default access level when inviting new members to the custom field.
@@ -7303,10 +7303,10 @@ components:
                 your organization may restrict the values of `privacy_setting`.*
               type: string
               enum:
+                - public_with_guests
                 - public
-                - public_without_guests
                 - private
-              example: public_without_guests
+              example: public_with_guests
             default_access_level:
               description: >-
                 The default access level when inviting new members to the custom field.
@@ -13305,10 +13305,10 @@ components:
                       in your organization may restrict the values of `privacy_setting`.*
                     type: string
                     enum:
+                      - public_with_guests
                       - public
-                      - public_without_guests
                       - private
-                    example: public_without_guests
+                    example: public_with_guests
                   default_access_level:
                     description: >-
                       The default access level when inviting new members to the custom
@@ -15107,10 +15107,10 @@ components:
                       in your organization may restrict the values of `privacy_setting`.*
                     type: string
                     enum:
+                      - public_with_guests
                       - public
-                      - public_without_guests
                       - private
-                    example: public_without_guests
+                    example: public_with_guests
                   default_access_level:
                     description: >-
                       The default access level when inviting new members to the custom
@@ -18450,10 +18450,10 @@ components:
                       in your organization may restrict the values of `privacy_setting`.*
                     type: string
                     enum:
+                      - public_with_guests
                       - public
-                      - public_without_guests
                       - private
-                    example: public_without_guests
+                    example: public_with_guests
                   default_access_level:
                     description: >-
                       The default access level when inviting new members to the custom
@@ -19767,10 +19767,10 @@ components:
                       in your organization may restrict the values of `privacy_setting`.*
                     type: string
                     enum:
+                      - public_with_guests
                       - public
-                      - public_without_guests
                       - private
-                    example: public_without_guests
+                    example: public_with_guests
                   default_access_level:
                     description: >-
                       The default access level when inviting new members to the custom
@@ -21079,10 +21079,10 @@ components:
                       in your organization may restrict the values of `privacy_setting`.*
                     type: string
                     enum:
+                      - public_with_guests
                       - public
-                      - public_without_guests
                       - private
-                    example: public_without_guests
+                    example: public_with_guests
                   default_access_level:
                     description: >-
                       The default access level when inviting new members to the custom
@@ -30230,10 +30230,10 @@ components:
                   your organization may restrict the values of `privacy_setting`.*
                 type: string
                 enum:
+                  - public_with_guests
                   - public
-                  - public_without_guests
                   - private
-                example: public_without_guests
+                example: public_with_guests
               default_access_level:
                 description: >-
                   The default access level when inviting new members to the custom
