@@ -21837,7 +21837,7 @@ components:
           readOnly: true
           description: >-
             A url that points directly to the object within Asana.
-          example: https://app.asana.com/0/resource/123456789/list
+          example: https://app.asana.com/1/12345/project/123456789
         project_brief:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -30536,7 +30536,7 @@ components:
           readOnly: true
           description: >-
             A url that points directly to the object within Asana.
-          example: https://app.asana.com/0/resource/123456789/list
+          example: https://app.asana.com/1/12345/task/123456789
       x-docs-overrides: *id013
     TaskSetParentRequest:
       type: object

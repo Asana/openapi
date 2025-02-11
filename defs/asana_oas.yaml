@@ -4826,7 +4826,7 @@ components:
               readOnly: true
               description: >-
                 A url that points directly to the object within Asana.
-              example: https://app.asana.com/0/resource/123456789/list
+              example: https://app.asana.com/1/12345/project/123456789
             project_brief:
               allOf:
                 - $ref: '#/components/schemas/ProjectBriefCompact'
@@ -6964,7 +6964,7 @@ components:
               readOnly: true
               description: >-
                 A url that points directly to the object within Asana.
-              example: https://app.asana.com/0/resource/123456789/list
+              example: https://app.asana.com/1/12345/task/123456789
     TaskSetParentRequest:
       type: object
       properties:
