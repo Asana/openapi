@@ -22702,7 +22702,11 @@ components:
           example: true
         requested_dates:
           description: >-
-            Array of mappings of date variables to calendar dates.
+            *Conditional*. Array of mappings of date variables to calendar dates.
+            This property is
+            required in the instantiation request if the project template includes
+            dates (e.g., a start
+            date on a task).
           type: array
           items:
             type: object
