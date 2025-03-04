@@ -3950,7 +3950,8 @@ components:
             The portfolio the user is a member of.
           $ref: '#/components/schemas/PortfolioCompact'
         member:
-          $ref: '#/components/schemas/UserCompact'
+          description: Member can be a user or a team.
+          $ref: '#/components/schemas/MemberCompact'
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
