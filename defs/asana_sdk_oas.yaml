@@ -2893,11 +2893,17 @@ components:
             attachments of type `external`.
           type: string
         connect_to_app:
-          description: >
+          description: |-
             *Optional*. Only relevant for external attachments with a parent task.
             A boolean indicating whether the current app should be connected with
             the attachment for the purposes of showing an app components widget.
             Requires the app to have been added to a project the parent task is in.
+            This property can only be set if an OAuth token is used to authenticate the request.
+
+            Criteria for displaying app widget:
+            1. An OAuth token must be used to authenticate the request
+            2. The app needs to have its `widget_metadata_url` configured in the developer console
+            3. The task the attachment is being attached to must be in a project with the app installed
           type: boolean
     AttachmentResponse:
       description: >-
