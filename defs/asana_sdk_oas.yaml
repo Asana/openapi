@@ -114,7 +114,7 @@ tags:
   - name: Attachments
     description: >-
       An *attachment* object represents any file attached to a task in Asana,
-      whether it’s an uploaded file or one associated via a third-party service
+      whether it's an uploaded file or one associated via a third-party service
       such as Dropbox or Google Drive.
   - name: Audit log API
     description: >-
@@ -9052,8 +9052,7 @@ components:
             period:
               type: string
               description: >-
-                The cadence and index of the time period. The value is one of: `FY`,
-                `H1`, `H2`, `Q1`, `Q2`, `Q3`, or `Q4`.
+                The cadence and index of the time period.
               enum:
                 - FY
                 - H1
@@ -9816,8 +9815,7 @@ components:
           example: duplicate_task
         status:
           description: >-
-            The current status of this job. The value is one of: `not_started`, `in_progress`,
-            `succeeded`, or `failed`.
+            The current status of this job.
           type: string
           enum:
             - not_started
@@ -9980,8 +9978,7 @@ components:
           example: duplicate_task
         status:
           description: >-
-            The current status of this job. The value is one of: `not_started`, `in_progress`,
-            `succeeded`, or `failed`.
+            The current status of this job.
           type: string
           enum:
             - not_started
@@ -10142,8 +10139,7 @@ components:
           example: duplicate_task
         status:
           description: >-
-            The current status of this job. The value is one of: `not_started`, `in_progress`,
-            `succeeded`, or `failed`.
+            The current status of this job.
           type: string
           enum:
             - not_started
@@ -31219,8 +31215,7 @@ components:
         period:
           type: string
           description: >-
-            The cadence and index of the time period. The value is one of: `FY`,
-            `H1`, `H2`, `Q1`, `Q2`, `Q3`, or `Q4`.
+            The cadence and index of the time period.
           enum:
             - FY
             - H1
@@ -31266,8 +31261,7 @@ components:
             period:
               type: string
               description: >-
-                The cadence and index of the time period. The value is one of: `FY`,
-                `H1`, `H2`, `Q1`, `Q2`, `Q3`, or `Q4`.
+                The cadence and index of the time period.
               enum:
                 - FY
                 - H1
@@ -31316,8 +31310,7 @@ components:
         period:
           type: string
           description: >-
-            The cadence and index of the time period. The value is one of: `FY`,
-            `H1`, `H2`, `Q1`, `Q2`, `Q3`, or `Q4`.
+            The cadence and index of the time period.
           enum:
             - FY
             - H1
@@ -31364,8 +31357,7 @@ components:
         period:
           type: string
           description: >-
-            The cadence and index of the time period. The value is one of: `FY`,
-            `H1`, `H2`, `Q1`, `Q2`, `Q3`, or `Q4`.
+            The cadence and index of the time period.
           enum:
             - FY
             - H1
@@ -31411,8 +31403,7 @@ components:
             period:
               type: string
               description: >-
-                The cadence and index of the time period. The value is one of: `FY`,
-                `H1`, `H2`, `Q1`, `Q2`, `Q3`, or `Q4`.
+                The cadence and index of the time period.
               enum:
                 - FY
                 - H1
