@@ -2785,7 +2785,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         An *attachment* object represents any file attached to a task in Asana, whether
-        it’s an uploaded file or one associated via a third-party service such as
+        it's an uploaded file or one associated via a third-party service such as
         Dropbox or Google Drive.
       type: object
       properties:
@@ -2821,7 +2821,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         An *attachment* object represents any file attached to a task in Asana, whether
-        it’s an uploaded file or one associated via a third-party service such as
+        it's an uploaded file or one associated via a third-party service such as
         Dropbox or Google Drive.
       type: object
       properties:
@@ -2911,7 +2911,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         An *attachment* object represents any file attached to a task in Asana, whether
-        it’s an uploaded file or one associated via a third-party service such as
+        it's an uploaded file or one associated via a third-party service such as
         Dropbox or Google Drive.
       type: object
       properties:
@@ -27010,7 +27010,7 @@ components:
               generic Asana Resource, containing a globally unique identifier.
 
               An *attachment* object represents any file attached to a task in Asana,
-              whether it’s an uploaded file or one associated via a third-party service
+              whether it's an uploaded file or one associated via a third-party service
               such as Dropbox or Google Drive.
             type: object
             properties:
@@ -27694,7 +27694,7 @@ components:
                       generic Asana Resource, containing a globally unique identifier.
 
                       An *attachment* object represents any file attached to a task
-                      in Asana, whether it’s an uploaded file or one associated via
+                      in Asana, whether it's an uploaded file or one associated via
                       a third-party service such as Dropbox or Google Drive.
                     type: object
                     properties:
