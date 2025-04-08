@@ -6921,7 +6921,7 @@ components:
                 property for custom fields of type `text`, and so on. Please note
                 that the `gid` returned on each custom field value *is identical*
                 to the `gid` of the custom field, which allows referencing the custom
-                field metadata through the `/custom_fields/custom_field-gid` endpoint.
+                field metadata through the `/custom_fields/custom_field_gid` endpoint.
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldResponse'
