@@ -28833,14 +28833,14 @@ components:
           type: string
           description: >-
             The *assignee section* is a subdivision of a project that groups
-            tasks together in the assignee's "My Tasks" list. It can either be a
+            tasks together in the assignee's "My tasks" list. It can either be a
             header above a list of tasks in a list view or a column in a board
-            view of "My Tasks."
+            view of "My tasks."
 
             The `assignee_section` property will be returned in the response only
             if the request was sent by the user who is the assignee of the task.
             Note that you can only write to `assignee_section` with the gid of an
-            existing section visible in the user's "My Tasks" list.
+            existing section visible in the user's "My tasks" list.
           example: '12345'
         custom_fields:
           description: >-
@@ -29491,14 +29491,14 @@ components:
             in a board view of a project.
 
             The *assignee section* is a subdivision of a project that groups tasks
-            together in the assignee's "My Tasks" list. It can either be a header
+            together in the assignee's "My tasks" list. It can either be a header
             above a list of tasks in a list view or a column in a board view of "My
-            Tasks."
+            tasks."
 
             The `assignee_section` property will be returned in the response only
             if the request was sent by the user who is the assignee of the task. Note
             that you can only write to `assignee_section` with the gid of an existing
-            section visible in the user's "My Tasks" list.
+            section visible in the user's "My tasks" list.
           type: object
           properties:
             gid:
@@ -31682,7 +31682,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         A user task list represents the tasks assigned to a particular user. It provides
-        API access to a user’s [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
+        API access to a user’s [My tasks](https://asana.com/guide/help/fundamentals/my-tasks)
         view in Asana.
       type: object
       properties:
@@ -31702,7 +31702,7 @@ components:
         name:
           description: The name of the user task list.
           type: string
-          example: My Tasks in My Workspace
+          example: My tasks in My Workspace
         owner:
           description: >-
             The owner of the user task list, i.e. the person whose My
@@ -31774,7 +31774,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         A user task list represents the tasks assigned to a particular user. It provides
-        API access to a user’s [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
+        API access to a user’s [My tasks](https://asana.com/guide/help/fundamentals/my-tasks)
         view in Asana.
       type: object
       properties:
@@ -31794,7 +31794,7 @@ components:
         name:
           description: The name of the user task list.
           type: string
-          example: My Tasks in My Workspace
+          example: My tasks in My Workspace
         owner:
           description: >-
             The owner of the user task list, i.e. the person whose My
@@ -31865,7 +31865,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         A user task list represents the tasks assigned to a particular user. It provides
-        API access to a user’s [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
+        API access to a user’s [My tasks](https://asana.com/guide/help/fundamentals/my-tasks)
         view in Asana.
       type: object
       properties:
@@ -31885,7 +31885,7 @@ components:
         name:
           description: The name of the user task list.
           type: string
-          example: My Tasks in My Workspace
+          example: My tasks in My Workspace
         owner:
           description: >-
             The owner of the user task list, i.e. the person whose My
@@ -31956,7 +31956,7 @@ components:
         Asana Resource, containing a globally unique identifier.
 
         A user task list represents the tasks assigned to a particular user. It provides
-        API access to a user’s [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
+        API access to a user’s [My tasks](https://asana.com/guide/help/fundamentals/my-tasks)
         view in Asana.
       type: object
       properties:
@@ -31976,7 +31976,7 @@ components:
         name:
           description: The name of the user task list.
           type: string
-          example: My Tasks in My Workspace
+          example: My tasks in My Workspace
         owner:
           description: >-
             The owner of the user task list, i.e. the person whose My
@@ -32851,7 +32851,7 @@ components:
             Asana Resource, containing a globally unique identifier.
 
             A user task list represents the tasks assigned to a particular user. It
-            provides API access to a user’s [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
+            provides API access to a user’s [My tasks](https://asana.com/guide/help/fundamentals/my-tasks)
             view in Asana.
           type: object
           properties:
@@ -32871,7 +32871,7 @@ components:
             name:
               description: The name of the user task list.
               type: string
-              example: My Tasks in My Workspace
+              example: My tasks in My Workspace
             owner:
               description: >-
                 The owner of the user task list, i.e. the person whose My
