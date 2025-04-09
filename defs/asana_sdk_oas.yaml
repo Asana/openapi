@@ -55620,6 +55620,8 @@ paths:
     get:
       summary: Get objects via typeahead
       description: |-
+        <b>Required scope: </b><code>workspace.typeahead:read</code>
+
         Retrieves objects in the workspace based via an auto-completion/typeahead
         search algorithm. This feature is meant to provide results quickly, so do
         not rely on this API to provide extremely accurate search results. The
@@ -55689,6 +55691,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - workspace.typeahead:read
   /user_task_lists/{user_task_list_gid}:
     parameters:
       - $ref: '#/components/parameters/user_task_list_path_gid'
@@ -56764,7 +56769,7 @@ paths:
     get:
       summary: Get multiple workspaces
       description: |-
-        <b>Required scope: </b><code>projects:read</code>
+        <b>Required scope: </b><code>workspaces:read</code>
 
         Returns the compact records for all workspaces visible to the authorized user.
       tags:
@@ -56812,14 +56817,14 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - oauth2:
-            - projects:read
+            - workspaces:read
   /workspaces/{workspace_gid}:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
     get:
       summary: Get a workspace
       description: |-
-        <b>Required scope: </b><code>projects:read</code>
+        <b>Required scope: </b><code>workspaces:read</code>
 
         Returns the full workspace record for a single workspace.
       tags:
@@ -56861,7 +56866,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - oauth2:
-            - projects:read
+            - workspaces:read
     put:
       summary: Update a workspace
       description: >-

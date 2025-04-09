@@ -48696,6 +48696,8 @@ paths:
     get:
       summary: Get objects via typeahead
       description: |-
+        <b>Required scope: </b><code>workspace.typeahead:read</code>
+
         Retrieves objects in the workspace based via an auto-completion/typeahead
         search algorithm. This feature is meant to provide results quickly, so do
         not rely on this API to provide extremely accurate search results. The
@@ -48779,6 +48781,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - workspace.typeahead:read
       x-readme:
         code-samples:
           - language: java
@@ -51884,7 +51889,7 @@ paths:
     get:
       summary: Get multiple workspaces
       description: |-
-        <b>Required scope: </b><code>projects:read</code>
+        <b>Required scope: </b><code>workspaces:read</code>
 
         Returns the compact records for all workspaces visible to the authorized user.
       tags:
@@ -51943,7 +51948,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - oauth2:
-            - projects:read
+            - workspaces:read
       x-readme:
         code-samples:
           - language: java
@@ -52067,7 +52072,7 @@ paths:
     get:
       summary: Get a workspace
       description: |-
-        <b>Required scope: </b><code>projects:read</code>
+        <b>Required scope: </b><code>workspaces:read</code>
 
         Returns the full workspace record for a single workspace.
       tags:
@@ -52116,7 +52121,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - oauth2:
-            - projects:read
+            - workspaces:read
       x-readme:
         code-samples:
           - language: java
