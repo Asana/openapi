@@ -3228,7 +3228,7 @@ components:
             - number
         precision:
           description: >-
-            *Conditional*. Only relevant for goal metrics of type ‘Number’. This field
+            *Conditional*. Only relevant for goal metrics of type `Number`. This field
             dictates the number of places after the decimal to round to, i.e.
             0 is integer values, 1 rounds to the nearest tenth, and so on.
             Must be between 0 and 6, inclusive.
