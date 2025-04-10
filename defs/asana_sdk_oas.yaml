@@ -111,6 +111,11 @@ tags:
       dedicated to a specific work object (e.g. project, portfolio) over a specific
       period of time. The effort value of an allocation object can be a percentage
       or number of hours.
+  - name: Access requests
+    description: >-
+      An access request object represents a user's request to an item, such as a project
+      or portfolio, that they do not have access to. The request is sent to the owner
+      of the item for approval.
   - name: Attachments
     description: >-
       An *attachment* object represents any file attached to a task in Asana,
@@ -896,6 +901,16 @@ components:
       schema:
         type: boolean
       example: false
+    access_request_gid:
+      name: access_request_gid
+      in: path
+      description: >-
+        Globally unique identifier for the access request.
+      required: true
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: access_request
     attachment_path_gid:
       name: attachment_gid
       in: path
@@ -1096,6 +1111,16 @@ components:
         type: string
       example: '35678'
       x-env-variable: story
+    target_query_param:
+      name: target
+      in: query
+      description: >-
+        Globally unique identifier for the target object.
+      required: true
+      schema:
+        type: string
+      example: '1331'
+      x-env-variable: target
     tag_path_gid:
       name: tag_gid
       in: path
@@ -34974,6 +34999,159 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T02:06:58.147Z'
+    AccessRequestResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *access request* object represents a request to access a shareable resource
+        within Asana. It includes the requester's information, approval status, and
+        target resource details.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        message:
+          description: >-
+            The message included in the access request, if any.
+          type: string
+          example: Please grant me access to this resource.
+        approval_status:
+          description: >-
+            The current approval status of the request.
+          type: string
+          enum:
+            - pending
+            - approved
+            - denied
+          example: pending
+        requester:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user’s name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+        target:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *target id* object represents the target resource that the requester
+            wants access to.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+          x-docs-overrides: &id039
+            properties.resource_type.example: project
+          readOnly: true
+      x-docs-overrides:
+        properties.resource_type.example: access_request
+    AccessRequestTargetIdCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *target id* object represents the target resource that the requester wants
+        access to.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+      x-docs-overrides: *id039
+    AccessRequestCreateRequest:
+      type: object
+      required:
+        - target
+      description: A request to create shareable access for a user.
+      properties:
+        target:
+          description: >-
+            The access requestable object that the user is requesting access to. This
+            is the gid of the target. Supports projects and portfolios.
+          type: string
+          example: '12345'
+        message:
+          type: string
+          description: >-
+            The optional message to include with the access request. This can be used
+            to provide context or additional information about the request.
+          example: I'm looking to request access to this item.
+          nullable: true
+    AccessRequestApproveRequest:
+      type: object
+      description: A request to approve access for a user.
+      properties:
+        access_request_id:
+          description: >-
+            The ID of the access request that the user is approving.
+          type: string
+          example: '12345'
+    AccessRequestRejectRequest:
+      type: object
+      description: A request to reject access for a user.
+      properties:
+        access_request_id:
+          description: >-
+            The ID of the access request that the user is rejecting.
+          type: string
+          example: '12345'
     AllocationResponseData:
       type: object
       required:
