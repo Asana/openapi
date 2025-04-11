@@ -2197,7 +2197,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: &id003
@@ -2360,7 +2360,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -2439,7 +2439,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -2474,7 +2474,7 @@ components:
                   example: Development team priority
                 precision:
                   description: >-
-                    Only relevant for custom fields of type ‘Number’. This field
+                    Only relevant for custom fields of type `Number`. This field
                     dictates the number of places after the decimal to round to, i.e.
                     0 is integer values, 1 rounds to the nearest tenth, and so on.
                     Must be between 0 and 6, inclusive.
@@ -3651,7 +3651,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -3809,7 +3809,7 @@ components:
               example: true
             color:
               description: >-
-                The color of the enum option. Defaults to ‘none’.
+                The color of the enum option. Defaults to `none`.
               type: string
               example: blue
           x-docs-overrides: *id003
@@ -3884,7 +3884,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -3919,7 +3919,7 @@ components:
           example: Development team priority
         precision:
           description: >-
-            Only relevant for custom fields of type ‘Number’. This field
+            Only relevant for custom fields of type `Number`. This field
             dictates the number of places after the decimal to round to, i.e.
             0 is integer values, 1 rounds to the nearest tenth, and so on.
             Must be between 0 and 6, inclusive.
@@ -4250,7 +4250,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -4408,7 +4408,7 @@ components:
               example: true
             color:
               description: >-
-                The color of the enum option. Defaults to ‘none’.
+                The color of the enum option. Defaults to `none`.
               type: string
               example: blue
           x-docs-overrides: *id003
@@ -4483,7 +4483,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -4629,7 +4629,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -4787,7 +4787,7 @@ components:
               example: true
             color:
               description: >-
-                The color of the enum option. Defaults to ‘none’.
+                The color of the enum option. Defaults to `none`.
               type: string
               example: blue
           x-docs-overrides: *id003
@@ -4862,7 +4862,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -4897,7 +4897,7 @@ components:
           example: Development team priority
         precision:
           description: >-
-            Only relevant for custom fields of type ‘Number’. This field
+            Only relevant for custom fields of type `Number`. This field
             dictates the number of places after the decimal to round to, i.e.
             0 is integer values, 1 rounds to the nearest tenth, and so on.
             Must be between 0 and 6, inclusive.
@@ -5255,7 +5255,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -5413,7 +5413,7 @@ components:
               example: true
             color:
               description: >-
-                The color of the enum option. Defaults to ‘none’.
+                The color of the enum option. Defaults to `none`.
               type: string
               example: blue
           x-docs-overrides: *id003
@@ -5488,7 +5488,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -5523,7 +5523,7 @@ components:
           example: Development team priority
         precision:
           description: >-
-            Only relevant for custom fields of type ‘Number’. This field
+            Only relevant for custom fields of type `Number`. This field
             dictates the number of places after the decimal to round to, i.e.
             0 is integer values, 1 rounds to the nearest tenth, and so on.
             Must be between 0 and 6, inclusive.
@@ -5894,7 +5894,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -6052,7 +6052,7 @@ components:
               example: true
             color:
               description: >-
-                The color of the enum option. Defaults to ‘none’.
+                The color of the enum option. Defaults to `none`.
               type: string
               example: blue
           x-docs-overrides: *id003
@@ -6127,7 +6127,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -6162,7 +6162,7 @@ components:
           example: Development team priority
         precision:
           description: >-
-            Only relevant for custom fields of type ‘Number’. This field
+            Only relevant for custom fields of type `Number`. This field
             dictates the number of places after the decimal to round to, i.e.
             0 is integer values, 1 rounds to the nearest tenth, and so on.
             Must be between 0 and 6, inclusive.
@@ -6778,7 +6778,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -6937,7 +6937,7 @@ components:
                   example: true
                 color:
                   description: >-
-                    The color of the enum option. Defaults to ‘none’.
+                    The color of the enum option. Defaults to `none`.
                   type: string
                   example: blue
               x-docs-overrides: *id003
@@ -7012,7 +7012,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -7047,7 +7047,7 @@ components:
               example: Development team priority
             precision:
               description: >-
-                Only relevant for custom fields of type ‘Number’. This field
+                Only relevant for custom fields of type `Number`. This field
                 dictates the number of places after the decimal to round to, i.e.
                 0 is integer values, 1 rounds to the nearest tenth, and so on.
                 Must be between 0 and 6, inclusive.
@@ -7660,7 +7660,7 @@ components:
           example: true
         color:
           description: >-
-            The color of the enum option. Defaults to ‘none’.
+            The color of the enum option. Defaults to `none`.
           type: string
           example: blue
       x-docs-overrides: *id003
@@ -7727,7 +7727,7 @@ components:
           example: true
         color:
           description: >-
-            The color of the enum option. Defaults to ‘none’.
+            The color of the enum option. Defaults to `none`.
           type: string
           example: blue
       x-docs-overrides: *id003
@@ -7819,7 +7819,7 @@ components:
           example: true
         color:
           description: >-
-            The color of the enum option. Defaults to ‘none’.
+            The color of the enum option. Defaults to `none`.
           type: string
           example: blue
         insert_before:
@@ -7865,7 +7865,7 @@ components:
           description: >-
             *500 errors only*. A unique error phrase which can be used
             when contacting developer support to help identify the exact
-            occurrence of the problem in Asana’s logs.
+            occurrence of the problem in Asana's logs.
           example: 6 sad squid snuggle softly
     ErrorResponse:
       description: |-
@@ -7911,7 +7911,7 @@ components:
                 description: >-
                   *500 errors only*. A unique error phrase which can be used
                   when contacting developer support to help identify the exact
-                  occurrence of the problem in Asana’s logs.
+                  occurrence of the problem in Asana's logs.
                 example: 6 sad squid snuggle softly
     EventResponse:
       description: |-
@@ -7921,7 +7921,7 @@ components:
 
         The event may be triggered by a different `user` than the
         subscriber. For example, if user A subscribes to a task and user B
-        modified it, the event’s user will be user B. Note: Some events
+        modified it, the event's user will be user B. Note: Some events
         are generated by the system, and will have `null` as the user. API
         consumers should make sure to handle this case.
 
@@ -10890,7 +10890,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -11052,7 +11052,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -11131,7 +11131,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -12735,7 +12735,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -12903,7 +12903,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -12982,7 +12982,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -13018,7 +13018,7 @@ components:
                     example: Development team priority
                   precision:
                     description: >-
-                      Only relevant for custom fields of type ‘Number’. This field
+                      Only relevant for custom fields of type `Number`. This field
                       dictates the number of places after the decimal to round to,
                       i.e.
                       0 is integer values, 1 rounds to the nearest tenth, and so on.
@@ -13531,7 +13531,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -13691,7 +13691,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -13768,7 +13768,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -14537,7 +14537,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -14705,7 +14705,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -14784,7 +14784,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -14820,7 +14820,7 @@ components:
                     example: Development team priority
                   precision:
                     description: >-
-                      Only relevant for custom fields of type ‘Number’. This field
+                      Only relevant for custom fields of type `Number`. This field
                       dictates the number of places after the decimal to round to,
                       i.e.
                       0 is integer values, 1 rounds to the nearest tenth, and so on.
@@ -15726,7 +15726,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -15885,7 +15885,7 @@ components:
                   example: true
                 color:
                   description: >-
-                    The color of the enum option. Defaults to ‘none’.
+                    The color of the enum option. Defaults to `none`.
                   type: string
                   example: blue
               x-docs-overrides: *id003
@@ -15960,7 +15960,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -16172,7 +16172,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -16331,7 +16331,7 @@ components:
                   example: true
                 color:
                   description: >-
-                    The color of the enum option. Defaults to ‘none’.
+                    The color of the enum option. Defaults to `none`.
                   type: string
                   example: blue
               x-docs-overrides: *id003
@@ -16406,7 +16406,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -16618,7 +16618,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -16777,7 +16777,7 @@ components:
                   example: true
                 color:
                   description: >-
-                    The color of the enum option. Defaults to ‘none’.
+                    The color of the enum option. Defaults to `none`.
                   type: string
                   example: blue
               x-docs-overrides: *id003
@@ -16852,7 +16852,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -17880,7 +17880,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -18048,7 +18048,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -18127,7 +18127,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -18163,7 +18163,7 @@ components:
                     example: Development team priority
                   precision:
                     description: >-
-                      Only relevant for custom fields of type ‘Number’. This field
+                      Only relevant for custom fields of type `Number`. This field
                       dictates the number of places after the decimal to round to,
                       i.e.
                       0 is integer values, 1 rounds to the nearest tenth, and so on.
@@ -19197,7 +19197,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -19365,7 +19365,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -19444,7 +19444,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -19480,7 +19480,7 @@ components:
                     example: Development team priority
                   precision:
                     description: >-
-                      Only relevant for custom fields of type ‘Number’. This field
+                      Only relevant for custom fields of type `Number`. This field
                       dictates the number of places after the decimal to round to,
                       i.e.
                       0 is integer values, 1 rounds to the nearest tenth, and so on.
@@ -20509,7 +20509,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -20677,7 +20677,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -20756,7 +20756,7 @@ components:
                           example: true
                         color:
                           description: >-
-                            The color of the enum option. Defaults to ‘none’.
+                            The color of the enum option. Defaults to `none`.
                           type: string
                           example: blue
                       x-docs-overrides: *id003
@@ -20792,7 +20792,7 @@ components:
                     example: Development team priority
                   precision:
                     description: >-
-                      Only relevant for custom fields of type ‘Number’. This field
+                      Only relevant for custom fields of type `Number`. This field
                       dictates the number of places after the decimal to round to,
                       i.e.
                       0 is integer values, 1 rounds to the nearest tenth, and so on.
@@ -21380,7 +21380,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -21540,7 +21540,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -21617,7 +21617,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -24660,7 +24660,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -24819,7 +24819,7 @@ components:
                   example: true
                 color:
                   description: >-
-                    The color of the enum option. Defaults to ‘none’.
+                    The color of the enum option. Defaults to `none`.
                   type: string
                   example: blue
               x-docs-overrides: *id003
@@ -24894,7 +24894,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -25011,7 +25011,7 @@ components:
               example: true
             color:
               description: >-
-                The color of the enum option. Defaults to ‘none’.
+                The color of the enum option. Defaults to `none`.
               type: string
               example: blue
           x-docs-overrides: *id003
@@ -25080,7 +25080,7 @@ components:
               example: true
             color:
               description: >-
-                The color of the enum option. Defaults to ‘none’.
+                The color of the enum option. Defaults to `none`.
               type: string
               example: blue
           x-docs-overrides: *id003
@@ -25291,7 +25291,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -25364,7 +25364,7 @@ components:
                 example: true
               color:
                 description: >-
-                  The color of the enum option. Defaults to ‘none’.
+                  The color of the enum option. Defaults to `none`.
                 type: string
                 example: blue
             x-docs-overrides: *id003
@@ -27210,7 +27210,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -27370,7 +27370,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -27447,7 +27447,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -27903,7 +27903,7 @@ components:
                               example: true
                             color:
                               description: >-
-                                The color of the enum option. Defaults to ‘none’.
+                                The color of the enum option. Defaults to `none`.
                               type: string
                               example: blue
                           x-docs-overrides: *id003
@@ -28072,7 +28072,7 @@ components:
                             example: true
                           color:
                             description: >-
-                              The color of the enum option. Defaults to ‘none’.
+                              The color of the enum option. Defaults to `none`.
                             type: string
                             example: blue
                         x-docs-overrides: *id003
@@ -28153,7 +28153,7 @@ components:
                               example: true
                             color:
                               description: >-
-                                The color of the enum option. Defaults to ‘none’.
+                                The color of the enum option. Defaults to `none`.
                               type: string
                               example: blue
                           x-docs-overrides: *id003
@@ -29679,7 +29679,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -29839,7 +29839,7 @@ components:
                     example: true
                   color:
                     description: >-
-                      The color of the enum option. Defaults to ‘none’.
+                      The color of the enum option. Defaults to `none`.
                     type: string
                     example: blue
                 x-docs-overrides: *id003
@@ -29916,7 +29916,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -29951,7 +29951,7 @@ components:
                 example: Development team priority
               precision:
                 description: >-
-                  Only relevant for custom fields of type ‘Number’. This field
+                  Only relevant for custom fields of type `Number`. This field
                   dictates the number of places after the decimal to round to, i.e.
                   0 is integer values, 1 rounds to the nearest tenth, and so on.
                   Must be between 0 and 6, inclusive.
@@ -34353,7 +34353,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
@@ -34515,7 +34515,7 @@ components:
                       example: true
                     color:
                       description: >-
-                        The color of the enum option. Defaults to ‘none’.
+                        The color of the enum option. Defaults to `none`.
                       type: string
                       example: blue
                   x-docs-overrides: *id003
@@ -34594,7 +34594,7 @@ components:
                         example: true
                       color:
                         description: >-
-                          The color of the enum option. Defaults to ‘none’.
+                          The color of the enum option. Defaults to `none`.
                         type: string
                         example: blue
                     x-docs-overrides: *id003
