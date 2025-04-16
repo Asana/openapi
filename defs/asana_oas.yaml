@@ -7471,6 +7471,9 @@ components:
           properties:
             workspaces:
               description: >-
+                <p><strong style="color: #4573D2">Full object requires scope: </strong><code>workspaces:read</code></p>
+
+
                 Workspaces and organizations this user may access.
 
                 Note\: The API will only return workspaces and organizations that
@@ -49608,6 +49611,17 @@ paths:
       summary: Get a user
       description: |-
         <b>Required scope: </b><code>users:read</code>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>workspaces</code></td>
+            <td><code>workspaces:read</code></td>
+          </tr>
+        </table>
 
         Returns the full user record for the single user with the provided ID.
       tags:
