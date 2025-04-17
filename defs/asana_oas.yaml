@@ -2134,7 +2134,7 @@ components:
               example: Development team priority
             enum_options:
               description: >-
-                *Conditional*. Only relevant for custom fields of type `enum`.
+                *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
                 This array specifies the possible values which an `enum` custom
                 field can adopt. To modify the enum options, refer to [working
                 with enum
@@ -2403,7 +2403,7 @@ components:
             - people
         enum_options:
           description: >-
-            *Conditional*. Only relevant for custom fields of type `enum`.
+            *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
             This array specifies the possible values which an `enum` custom
             field can adopt. To modify the enum options, refer to [working
             with enum
