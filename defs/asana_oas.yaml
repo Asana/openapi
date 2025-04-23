@@ -49043,7 +49043,9 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get a user task list
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>tasks:read</code>
+
         Returns the full record for a user task list.
       tags:
         - User task lists
@@ -49090,6 +49092,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java
@@ -49219,7 +49224,9 @@ paths:
         example: '1234'
     get:
       summary: Get a user's task list
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>tasks:read</code>
+
         Returns the full record for a user's task list.
       tags:
         - User task lists
@@ -49266,6 +49273,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
       x-readme:
         code-samples:
           - language: java

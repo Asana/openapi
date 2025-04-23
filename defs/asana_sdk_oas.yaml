@@ -55890,7 +55890,9 @@ paths:
       - $ref: '#/components/parameters/user_task_list_path_gid'
     get:
       summary: Get a user task list
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>tasks:read</code>
+
         Returns the full record for a user task list.
       tags:
         - User task lists
@@ -55929,6 +55931,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /users/{user_gid}/user_task_list:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
@@ -55942,7 +55947,9 @@ paths:
         example: '1234'
     get:
       summary: Get a user's task list
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>tasks:read</code>
+
         Returns the full record for a user's task list.
       tags:
         - User task lists
@@ -55981,6 +55988,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tasks:read
   /users:
     parameters:
       - name: workspace
