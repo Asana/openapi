@@ -35151,7 +35151,7 @@ components:
       type: object
       description: A request to approve access for a user.
       properties:
-        access_request_id:
+        access_request_gid:
           description: >-
             The ID of the access request that the user is approving.
           type: string
@@ -35160,7 +35160,7 @@ components:
       type: object
       description: A request to reject access for a user.
       properties:
-        access_request_id:
+        access_request_gid:
           description: >-
             The ID of the access request that the user is rejecting.
           type: string
