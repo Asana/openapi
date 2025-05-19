@@ -5762,8 +5762,10 @@ components:
               example: 5
             previews:
               description: >-
-                *Conditional*. A collection of previews to be displayed in the
-                story.
+                <p><strong style="color: #4573D2">Full object requires scope: </strong><code>attachments:read</code></p>
+
+
+                *Conditional*. A collection of previews to be displayed in the story.
 
 
                 *Note: This property only exists for comment stories.*
@@ -7471,9 +7473,6 @@ components:
           properties:
             workspaces:
               description: >-
-                <p><strong style="color: #4573D2">Full object requires scope: </strong><code>workspaces:read</code></p>
-
-
                 Workspaces and organizations this user may access.
 
                 Note\: The API will only return workspaces and organizations that
@@ -7805,7 +7804,9 @@ components:
               type: boolean
               readOnly: true
               description: >-
-                Reflects if this user still a member of the workspace.
+                Indicates whether the user is currently associated with the workspace.
+                Returns `true` for users who have joined the workspace or have been
+                invited but not yet accepted.
             is_admin:
               type: boolean
               readOnly: true
@@ -33047,6 +33048,21 @@ paths:
       description: |-
         <b>Required scope: </b><code>stories:read</code>
 
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>previews</code></td>
+            <td><code>attachments:read</code></td>
+          </tr>
+          <tr>
+            <td><code>attachments</code></td>
+            <td><code>attachments:read</code></td>
+          </tr>
+        </table>
+
         Returns the full record for a single story.
       tags:
         - Stories
@@ -49621,17 +49637,6 @@ paths:
       summary: Get a user
       description: |-
         <b>Required scope: </b><code>users:read</code>
-
-        <table>
-          <tr>
-            <th>Field</th>
-            <th>Required Scope</th>
-          </tr>
-          <tr>
-            <td><code>workspaces</code></td>
-            <td><code>workspaces:read</code></td>
-          </tr>
-        </table>
 
         Returns the full user record for the single user with the provided ID.
       tags:

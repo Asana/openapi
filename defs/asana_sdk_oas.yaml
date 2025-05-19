@@ -32979,7 +32979,9 @@ components:
           type: boolean
           readOnly: true
           description: >-
-            Reflects if this user still a member of the workspace.
+            Indicates whether the user is currently associated with the workspace.
+            Returns `true` for users who have joined the workspace or have been invited
+            but not yet accepted.
         is_admin:
           type: boolean
           readOnly: true
