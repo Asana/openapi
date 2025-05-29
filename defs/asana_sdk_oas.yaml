@@ -1965,7 +1965,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         parent:
@@ -2987,12 +2987,20 @@ components:
           nullable: true
           example: https://s3.amazonaws.com/assets/123/Screenshot.png
         permanent_url:
-          description: >
+          description: >-
+            A stable URL for accessing the attachment through the Asana web application.
+            This URL redirects to the file download location (e.g., an S3 link) if
+            the
+            user is authenticated and authorized to view the parent object (e.g.,
+            a task).
+            Unauthorized users will receive a `403 Forbidden` response. This link
+            is persistent
+            and does not expire, but requires an active session to resolve.
           type: string
           format: uri
           readOnly: true
           nullable: true
-          example: https://s3.amazonaws.com/assets/123/Screenshot.png
+          example: https://app.asana.com/app/asana/-/get_asset?asset_id=1234567890
         host:
           description: >-
             The service hosting the attachment. Valid values are `asana`,
@@ -3179,12 +3187,20 @@ components:
           type: object
           properties:
             old_value:
+              description: >-
+                The previous value of the field that was modified in the audited event.
               type: string
               nullable: true
             new_value:
+              description: >-
+                The new value after the modification in the audited event.
               type: string
               nullable: true
             group:
+              description: >-
+                The division or organizational unit where the event occurred.
+                Primarily used to scope role change events (e.g., `user_division_admin_role_changed`),
+                but may appear in other contexts involving group-level changes.
               type: object
               additionalProperties: true
           additionalProperties: true
@@ -3330,12 +3346,20 @@ components:
       type: object
       properties:
         old_value:
+          description: >-
+            The previous value of the field that was modified in the audited event.
           type: string
           nullable: true
         new_value:
+          description: >-
+            The new value after the modification in the audited event.
           type: string
           nullable: true
         group:
+          description: >-
+            The division or organizational unit where the event occurred.
+            Primarily used to scope role change events (e.g., `user_division_admin_role_changed`),
+            but may appear in other contexts involving group-level changes.
           type: object
           additionalProperties: true
       additionalProperties: true
@@ -6404,7 +6428,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           nullable: true
@@ -6439,7 +6463,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
         privacy_setting:
@@ -7290,7 +7314,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -7326,7 +7350,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
             privacy_setting:
@@ -7989,7 +8013,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         resource:
@@ -8270,7 +8294,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           nullable: true
@@ -8939,7 +8963,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -9042,7 +9066,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
           description: >-
@@ -9241,7 +9265,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           nullable: true
@@ -9444,7 +9468,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -9665,7 +9689,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -9803,7 +9827,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -10331,7 +10355,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
     MemberCompact:
@@ -10455,7 +10479,7 @@ components:
                     name:
                       type: string
                       description: >-
-                        *Read-only except when same user as requester*. The user’s
+                        *Read-only except when same user as requester*. The user's
                         name.
                       example: Greg Sanchez
                   x-docs-overrides: *id001
@@ -10531,7 +10555,7 @@ components:
                     name:
                       type: string
                       description: >-
-                        *Read-only except when same user as requester*. The user’s
+                        *Read-only except when same user as requester*. The user's
                         name.
                       example: Greg Sanchez
                   x-docs-overrides: *id001
@@ -11185,7 +11209,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             access_level:
@@ -11813,7 +11837,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         access_level:
@@ -11907,7 +11931,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         access_level:
@@ -12000,7 +12024,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         access_level:
@@ -12473,7 +12497,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         custom_field_settings:
@@ -13268,7 +13292,7 @@ components:
                       name:
                         type: string
                         description: >-
-                          *Read-only except when same user as requester*. The user’s
+                          *Read-only except when same user as requester*. The user's
                           name.
                         example: Greg Sanchez
                     x-docs-overrides: *id001
@@ -13305,7 +13329,7 @@ components:
                         name:
                           type: string
                           description: >-
-                            *Read-only except when same user as requester*. The user’s
+                            *Read-only except when same user as requester*. The user's
                             name.
                           example: Greg Sanchez
                       x-docs-overrides: *id001
@@ -13827,7 +13851,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
         owner:
@@ -13855,7 +13879,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         start_on:
@@ -14174,7 +14198,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             created_at:
@@ -14208,7 +14232,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             modified_at:
@@ -15072,7 +15096,7 @@ components:
                       name:
                         type: string
                         description: >-
-                          *Read-only except when same user as requester*. The user’s
+                          *Read-only except when same user as requester*. The user's
                           name.
                         example: Greg Sanchez
                     x-docs-overrides: *id001
@@ -15109,7 +15133,7 @@ components:
                         name:
                           type: string
                           description: >-
-                            *Read-only except when same user as requester*. The user’s
+                            *Read-only except when same user as requester*. The user's
                             name.
                           example: Greg Sanchez
                       x-docs-overrides: *id001
@@ -15212,7 +15236,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
           readOnly: true
@@ -16017,7 +16041,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         access_level:
@@ -16463,7 +16487,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         access_level:
@@ -16909,7 +16933,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         access_level:
@@ -17312,7 +17336,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         project:
@@ -17519,7 +17543,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             created_at:
@@ -17553,7 +17577,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             modified_at:
@@ -18416,7 +18440,7 @@ components:
                       name:
                         type: string
                         description: >-
-                          *Read-only except when same user as requester*. The user’s
+                          *Read-only except when same user as requester*. The user's
                           name.
                         example: Greg Sanchez
                     x-docs-overrides: *id001
@@ -18453,7 +18477,7 @@ components:
                         name:
                           type: string
                           description: >-
-                            *Read-only except when same user as requester*. The user’s
+                            *Read-only except when same user as requester*. The user's
                             name.
                           example: Greg Sanchez
                       x-docs-overrides: *id001
@@ -18556,7 +18580,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
           readOnly: true
@@ -18837,7 +18861,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             created_at:
@@ -18871,7 +18895,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             modified_at:
@@ -19734,7 +19758,7 @@ components:
                       name:
                         type: string
                         description: >-
-                          *Read-only except when same user as requester*. The user’s
+                          *Read-only except when same user as requester*. The user's
                           name.
                         example: Greg Sanchez
                     x-docs-overrides: *id001
@@ -19771,7 +19795,7 @@ components:
                         name:
                           type: string
                           description: >-
-                            *Read-only except when same user as requester*. The user’s
+                            *Read-only except when same user as requester*. The user's
                             name.
                           example: Greg Sanchez
                       x-docs-overrides: *id001
@@ -19874,7 +19898,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
           readOnly: true
@@ -20150,7 +20174,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             created_at:
@@ -20184,7 +20208,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             modified_at:
@@ -21047,7 +21071,7 @@ components:
                       name:
                         type: string
                         description: >-
-                          *Read-only except when same user as requester*. The user’s
+                          *Read-only except when same user as requester*. The user's
                           name.
                         example: Greg Sanchez
                     x-docs-overrides: *id001
@@ -21084,7 +21108,7 @@ components:
                         name:
                           type: string
                           description: >-
-                            *Read-only except when same user as requester*. The user’s
+                            *Read-only except when same user as requester*. The user's
                             name.
                           example: Greg Sanchez
                       x-docs-overrides: *id001
@@ -21187,7 +21211,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
           readOnly: true
@@ -21701,7 +21725,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
@@ -21737,7 +21761,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
           readOnly: true
@@ -21769,7 +21793,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             - type: object
@@ -22206,7 +22230,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         created_at:
@@ -22240,7 +22264,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         modified_at:
@@ -22358,7 +22382,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             - type: object
@@ -22551,7 +22575,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             - type: object
@@ -23416,7 +23440,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         created_at:
@@ -23450,7 +23474,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         hearted:
@@ -23501,7 +23525,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -23549,7 +23573,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -23746,7 +23770,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         resource_subtype:
@@ -23941,7 +23965,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         type:
@@ -24016,7 +24040,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -24075,7 +24099,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -24141,16 +24165,16 @@ components:
           readOnly: true
         old_name:
           description: >-
-            *Conditional*'
+            *Conditional* The previous name of the task before a name change.
           type: string
-          example: This was the Old Name
+          example: This was the old name
         new_name:
           description: >-
-            *Conditional*
+            *Conditional* The updated name of the task after a name change.
           type: string
           nullable: true
           readOnly: true
-          example: This is the New Name
+          example: This is the new name
         old_dates:
           description: >-
             *Conditional*
@@ -24278,7 +24302,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             resource_subtype:
@@ -24332,7 +24356,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
@@ -24361,7 +24385,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
@@ -24933,26 +24957,27 @@ components:
           readOnly: true
         old_text_value:
           description: >-
-            *Conditional*
+            *Conditional* The previous value of a text-type field before it was updated.
           type: string
           readOnly: true
-          example: This was the Old Text
+          example: This was the old text
         new_text_value:
           description: >-
-            *Conditional*
+            *Conditional* The new value of a text-type field after it was updated.
           type: string
           readOnly: true
-          example: This is the New Text
+          example: This is the new text
         old_number_value:
           description: >-
-            *Conditional*
+            *Conditional* The previous value of a number-type custom field before
+            the update.
           type: integer
           nullable: true
           readOnly: true
           example: 1
         new_number_value:
           description: >-
-            *Conditional*
+            *Conditional* The new value of a number-type custom field after the update.
           type: integer
           readOnly: true
           example: 2
@@ -25195,7 +25220,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
           readOnly: true
@@ -25228,7 +25253,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
           readOnly: true
@@ -26129,7 +26154,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
         workspace:
@@ -26346,7 +26371,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
@@ -26509,7 +26534,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -26569,7 +26594,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -27030,7 +27055,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
         attachments:
@@ -27714,7 +27739,7 @@ components:
                       name:
                         type: string
                         description: >-
-                          *Read-only except when same user as requester*. The user’s
+                          *Read-only except when same user as requester*. The user's
                           name.
                         example: Greg Sanchez
                     x-docs-overrides: *id001
@@ -28221,7 +28246,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
         created_at:
@@ -28464,7 +28489,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
@@ -28627,7 +28652,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -28687,7 +28712,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -29090,7 +29115,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
@@ -29253,7 +29278,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -29313,7 +29338,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
@@ -29507,7 +29532,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           nullable: true
@@ -30207,7 +30232,7 @@ components:
                   name:
                     type: string
                     description: >-
-                      *Read-only except when same user as requester*. The user’s name.
+                      *Read-only except when same user as requester*. The user's name.
                     example: Greg Sanchez
                 x-docs-overrides: *id001
                 nullable: true
@@ -30243,7 +30268,7 @@ components:
                     name:
                       type: string
                       description: >-
-                        *Read-only except when same user as requester*. The user’s
+                        *Read-only except when same user as requester*. The user's
                         name.
                       example: Greg Sanchez
                   x-docs-overrides: *id001
@@ -30367,7 +30392,7 @@ components:
               name:
                 type: string
                 description: >-
-                  *Read-only except when same user as requester*. The user’s name.
+                  *Read-only except when same user as requester*. The user's name.
                 example: Greg Sanchez
             x-docs-overrides: *id001
         parent:
@@ -30694,7 +30719,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         team:
@@ -30789,7 +30814,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         team:
@@ -30883,7 +30908,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         team:
@@ -31483,7 +31508,7 @@ components:
         name:
           type: string
           description: >-
-            *Read-only except when same user as requester*. The user’s name.
+            *Read-only except when same user as requester*. The user's name.
           example: Greg Sanchez
       x-docs-overrides: *id001
     UserCompact:
@@ -31511,7 +31536,7 @@ components:
         name:
           type: string
           description: >-
-            *Read-only except when same user as requester*. The user’s name.
+            *Read-only except when same user as requester*. The user's name.
           example: Greg Sanchez
       x-docs-overrides: *id001
     UserRequest:
@@ -31539,7 +31564,7 @@ components:
         name:
           type: string
           description: >-
-            *Read-only except when same user as requester*. The user’s name.
+            *Read-only except when same user as requester*. The user's name.
           example: Greg Sanchez
       x-docs-overrides: *id001
     UserBaseResponse:
@@ -31567,7 +31592,7 @@ components:
         name:
           type: string
           description: >-
-            *Read-only except when same user as requester*. The user’s name.
+            *Read-only except when same user as requester*. The user's name.
           example: Greg Sanchez
         email:
           type: string
@@ -31582,24 +31607,30 @@ components:
             image_21x21:
               type: string
               format: uri
+              description: PNG image of the user at 21x21 pixels.
             image_27x27:
               type: string
               format: uri
+              description: PNG image of the user at 27x27 pixels.
             image_36x36:
               type: string
               format: uri
+              description: PNG image of the user at 36x36 pixels.
             image_60x60:
               type: string
               format: uri
+              description: PNG image of the user at 60x60 pixels.
             image_128x128:
               type: string
               format: uri
+              description: PNG image of the user at 128x128 pixels.
             image_1024x1024:
               type: string
               format: uri
+              description: JPEG image of the user at 1024x1024 pixels.
           readOnly: true
           description: >-
-            A map of the user’s profile photo in various sizes, or null if no
+            A map of the user's profile photo in various sizes, or null if no
             photo is set. Sizes provided are 21, 27, 36, 60, 128, and 1024. All images
             are in PNG format, except for 1024 (which is in JPEG format).
           example:
@@ -31635,7 +31666,7 @@ components:
         name:
           type: string
           description: >-
-            *Read-only except when same user as requester*. The user’s name.
+            *Read-only except when same user as requester*. The user's name.
           example: Greg Sanchez
         email:
           type: string
@@ -31650,24 +31681,30 @@ components:
             image_21x21:
               type: string
               format: uri
+              description: PNG image of the user at 21x21 pixels.
             image_27x27:
               type: string
               format: uri
+              description: PNG image of the user at 27x27 pixels.
             image_36x36:
               type: string
               format: uri
+              description: PNG image of the user at 36x36 pixels.
             image_60x60:
               type: string
               format: uri
+              description: PNG image of the user at 60x60 pixels.
             image_128x128:
               type: string
               format: uri
+              description: PNG image of the user at 128x128 pixels.
             image_1024x1024:
               type: string
               format: uri
+              description: JPEG image of the user at 1024x1024 pixels.
           readOnly: true
           description: >-
-            A map of the user’s profile photo in various sizes, or null if no
+            A map of the user's profile photo in various sizes, or null if no
             photo is set. Sizes provided are 21, 27, 36, 60, 128, and 1024. All images
             are in PNG format, except for 1024 (which is in JPEG format).
           example:
@@ -31770,7 +31807,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
         workspace:
@@ -31862,7 +31899,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
         workspace:
@@ -31953,7 +31990,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
         workspace:
@@ -32044,7 +32081,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
         workspace:
@@ -32620,7 +32657,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         workspace:
@@ -32698,7 +32735,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         workspace:
@@ -32775,7 +32812,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         workspace:
@@ -32852,7 +32889,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
         workspace:
@@ -32939,7 +32976,7 @@ components:
                     name:
                       type: string
                       description: >-
-                        *Read-only except when same user as requester*. The user’s
+                        *Read-only except when same user as requester*. The user's
                         name.
                       example: Greg Sanchez
                   x-docs-overrides: *id001
@@ -33199,7 +33236,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -33274,7 +33311,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -33377,7 +33414,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -33452,7 +33489,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -33571,7 +33608,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -33646,7 +33683,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
@@ -33687,7 +33724,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           deprecated: true
@@ -33877,7 +33914,7 @@ components:
                     name:
                       type: string
                       description: >-
-                        *Read-only except when same user as requester*. The user’s
+                        *Read-only except when same user as requester*. The user's
                         name.
                       example: Greg Sanchez
                   x-docs-overrides: *id001
@@ -33953,7 +33990,7 @@ components:
                     name:
                       type: string
                       description: >-
-                        *Read-only except when same user as requester*. The user’s
+                        *Read-only except when same user as requester*. The user's
                         name.
                       example: Greg Sanchez
                   x-docs-overrides: *id001
@@ -33995,7 +34032,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
               deprecated: true
@@ -34661,7 +34698,7 @@ components:
                 name:
                   type: string
                   description: >-
-                    *Read-only except when same user as requester*. The user’s name.
+                    *Read-only except when same user as requester*. The user's name.
                   example: Greg Sanchez
               x-docs-overrides: *id001
             access_level:
@@ -34856,7 +34893,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
@@ -34946,7 +34983,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
@@ -35076,7 +35113,7 @@ components:
             name:
               type: string
               description: >-
-                *Read-only except when same user as requester*. The user’s name.
+                *Read-only except when same user as requester*. The user's name.
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
