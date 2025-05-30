@@ -36152,7 +36152,10 @@ paths:
       - $ref: '#/components/parameters/attachment_path_gid'
     get:
       summary: Get an attachment
-      description: Get the full record for a single attachment.
+      description: |-
+        <b>Required scope: </b><code>attachments:read</code>
+
+        Get the full record for a single attachment.
       tags:
         - Attachments
       operationId: getAttachment
@@ -36220,6 +36223,9 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
         504:
           $ref: '#/components/responses/GatewayTimeout'
+      security:
+        - oauth2:
+            - attachments:read
     delete:
       summary: Delete an attachment
       description: |-
@@ -36245,24 +36251,13 @@ paths:
   /attachments:
     get:
       summary: Get attachments from an object
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>attachments:read</code>
+
         Returns the compact records for all attachments on the object.
+        There are three possible `parent` values for this request: `project`, `project_brief`, and `task`. For a project, an attachment refers to a file uploaded to the "Key resources" section in the project Overview. For a project brief, an attachment refers to inline files in the project brief itself. For a task, an attachment refers to a file directly associated to that task.
 
-
-        There are three possible `parent` values for this request: `project`, `project_brief`,
-        and `task`.
-        For a project, an attachment refers to a file uploaded to the "Key resources"
-        section in the project
-        Overview. For a project brief, an attachment refers to inline files in the
-        project brief itself. For
-        a task, an attachment refers to a file directly associated to that task.
-
-
-        Note that within the Asana app, inline images in the task description do not
-        appear in the index of image
-        thumbnails nor as stories in the task. However, requests made to `GET /attachments`
-        for a task will return
-        all of the images in the task, including inline images.
+        Note that within the Asana app, inline images in the task description do not appear in the index of image thumbnails nor as stories in the task. However, requests made to `GET /attachments` for a task will return all of the images in the task, including inline images.
       tags:
         - Attachments
       operationId: getAttachmentsForObject
@@ -36338,6 +36333,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - attachments:read
     post:
       summary: Upload an attachment
       description: |-
