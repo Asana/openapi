@@ -573,6 +573,22 @@ tags:
 
       Sync tokens always expire after 24 hours, but may expire sooner,
       depending on load on the service.
+  - name: Exports
+    description: |-
+      A `graph_export` object represents a request to export the
+      data about objects starting from a parent object. Parent object can be a team, portfolio, or project.
+
+      To create an export using this API:
+
+      * Create a `graph_export`
+                         [request](/reference/createGraphExport) and store the ID that is returned.
+      * Request the [jobs](/reference/getjob) endpoint every few minutes, until `status` field contains ‘succeeded’.
+      * Download the file located at the URL in the `download_url` field.
+      * Exports can take a long time, from several minutes to a few hours for large portfolios.
+
+
+      *Note: These endpoints are only available to accounts of an
+      [Enterprise](https://asana.com/enterprise)/Enterprise+ organization.*
   - name: Goals
     description: >-
       A goal is an object in the goal-tracking system that helps your organization
@@ -16397,6 +16413,7 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - new_graph_export
             - new_project
             - new_project.name
             - new_project_template
@@ -16414,6 +16431,7 @@ paths:
             items:
               type: string
               enum:
+                - new_graph_export
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -24087,6 +24105,7 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - new_graph_export
             - new_project
             - new_project.name
             - new_project_template
@@ -24104,6 +24123,7 @@ paths:
             items:
               type: string
               enum:
+                - new_graph_export
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -26145,6 +26165,7 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - new_graph_export
             - new_project
             - new_project.name
             - new_project_template
@@ -26162,6 +26183,7 @@ paths:
             items:
               type: string
               enum:
+                - new_graph_export
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -30772,6 +30794,7 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - new_graph_export
             - new_project
             - new_project.name
             - new_project_template
@@ -30789,6 +30812,7 @@ paths:
             items:
               type: string
               enum:
+                - new_graph_export
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -36863,6 +36887,7 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - new_graph_export
             - new_project
             - new_project.name
             - new_project_template
@@ -36880,6 +36905,7 @@ paths:
             items:
               type: string
               enum:
+                - new_graph_export
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -38779,6 +38805,7 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - new_graph_export
             - new_project
             - new_project.name
             - new_project_template
@@ -38796,6 +38823,7 @@ paths:
             items:
               type: string
               enum:
+                - new_graph_export
                 - new_project
                 - new_project.name
                 - new_project_template
