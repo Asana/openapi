@@ -48,6 +48,8 @@ info:
     - GoalMembershipResponse
     - GoalRelationshipResponse
     - GoalRelationshipCompact
+    - GraphExportResponse
+    - GraphExportCompact
     - JobResponse
     - JobCompact
     - OrganizationExportResponse
@@ -580,8 +582,7 @@ tags:
 
       To create an export using this API:
 
-      * Create a `graph_export`
-                         [request](/reference/createGraphExport) and store the ID that is returned.
+      * Create a `graph_export` [request](/reference/createGraphExport) and store the ID that is returned.
       * Request the [jobs](/reference/getjob) endpoint every few minutes, until `status` field contains ‘succeeded’.
       * Download the file located at the URL in the `download_url` field.
       * Exports can take a long time, from several minutes to a few hours for large portfolios.
@@ -3687,6 +3688,8 @@ components:
               nullable: true
         new_project_template:
           $ref: '#/components/schemas/ProjectTemplateCompact'
+        new_graph_export:
+          $ref: '#/components/schemas/GraphExportCompact'
     JobResponse:
       $ref: '#/components/schemas/JobBase'
     Like:
@@ -5339,6 +5342,105 @@ components:
             "me", an email, or the gid of a user.
           type: string
           example: 521621,621373
+    GraphExportRequest:
+      type: object
+      description: >-
+        A *graph_export* request starts a job to export data starting from a parent
+        object.
+      properties:
+        parent:
+          description: >-
+            Globally unique ID of the parent object: project, portfolio, or team.
+          type: string
+          example: '181636'
+    GraphExportCompact:
+      description: >-
+        A *graph_export* object represents a request to export the
+        data starting from a parent object
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: graph_export
+          x-insert-after: gid
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        download_url:
+          description: |-
+            Download this URL to retrieve the full export
+            in JSON format. It will be compressed in a gzip (.gz) container.
+
+            *Note: May be null if the export is still in progress or
+            failed.  If present, this URL may only be valid for 1 hour from
+            the time of retrieval. You should avoid persisting this URL
+            somewhere and rather refresh on demand to ensure you do not keep
+            stale URLs.*
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+          example: >-
+            https://asana-export-us-east-1.s3.us-east-1.amazonaws.com/2563645399633793/domain_export/7588024658887731/download/
+            domain_export_2563645399633793_7588024658887731_2023018-201726.json.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&
+            X-Amz-Content-Sha256=xxxxxxxx&X-Amz-Date=xxxxxxxx&X-Amz-Expires=300&X-Amz-Security-Token=xxxxxxxx&
+            X-Amz-Signature=xxxxxxxx&X-Amz-SignedHeaders=host&x-id=GetObject#_=_
+        completed_at:
+          description: The time at which this resource was completed.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T03:06:58.147Z'
+    GraphExportResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: job
+          x-insert-after: gid
+        resource_subtype:
+          description: >-
+            A *graph_export* object represents a request to export the
+            data starting from a parent object
+          type: string
+          readOnly: true
+          example: graph_export_request
+        status:
+          description: >-
+            The current status of this job.
+          type: string
+          enum:
+            - not_started
+            - in_progress
+            - succeeded
+            - failed
+          readOnly: true
+          example: succeeded
+        new_graph_export:
+          $ref: '#/components/schemas/GraphExportCompact'
     SectionBase:
       $ref: '#/components/schemas/SectionCompact'
     SectionCompact:
@@ -16414,6 +16516,9 @@ paths:
           required: false
           example:
             - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
             - new_project
             - new_project.name
             - new_project_template
@@ -16432,6 +16537,9 @@ paths:
               type: string
               enum:
                 - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -24106,6 +24214,9 @@ paths:
           required: false
           example:
             - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
             - new_project
             - new_project.name
             - new_project_template
@@ -24124,6 +24235,9 @@ paths:
               type: string
               enum:
                 - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -26166,6 +26280,9 @@ paths:
           required: false
           example:
             - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
             - new_project
             - new_project.name
             - new_project_template
@@ -26184,6 +26301,9 @@ paths:
               type: string
               enum:
                 - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -30795,6 +30915,9 @@ paths:
           required: false
           example:
             - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
             - new_project
             - new_project.name
             - new_project_template
@@ -30813,6 +30936,9 @@ paths:
               type: string
               enum:
                 - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -30977,6 +31103,46 @@ paths:
 
               result = client.projects.project_save_as_template(project_gid: 'project_gid',
               field: "value", field: "value", options: {pretty: true})
+  /exports/graph:
+    post:
+      summary: Initiate graph export
+      description: >-
+        Initiates a graph export job for a given parent object
+        (team, portfolio, or project). The export will be processed asynchronously.
+        Once initiated, use the [jobs](/reference/getjob) endpoint to monitor progress.
+      tags:
+        - Exports
+      operationId: createGraphExport
+      requestBody:
+        description: A JSON payload specifying the parent object to export.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/GraphExportRequest'
+      responses:
+        201:
+          description: Successfully created Graph export request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/GraphExportResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /rule_triggers/{rule_trigger_gid}/run:
     parameters:
       - $ref: '#/components/parameters/rule_trigger_path_gid'
@@ -36888,6 +37054,9 @@ paths:
           required: false
           example:
             - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
             - new_project
             - new_project.name
             - new_project_template
@@ -36906,6 +37075,9 @@ paths:
               type: string
               enum:
                 - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -38806,6 +38978,9 @@ paths:
           required: false
           example:
             - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
             - new_project
             - new_project.name
             - new_project_template
@@ -38824,6 +38999,9 @@ paths:
               type: string
               enum:
                 - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
                 - new_project
                 - new_project.name
                 - new_project_template
