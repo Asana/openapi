@@ -36578,6 +36578,8 @@ paths:
     delete:
       summary: Delete an attachment
       description: |-
+        <b>Required scope: </b><code>attachments:delete</code>
+
         Deletes a specific, existing attachment.
 
         Returns an empty data record.
@@ -36597,6 +36599,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - attachments:delete
   /attachments:
     get:
       summary: Get attachments from an object

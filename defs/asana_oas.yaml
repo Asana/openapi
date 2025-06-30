@@ -8403,6 +8403,7 @@ components:
               OpenID Connect user info endpoint.
             attachments:read: View access to attachments
             attachments:write: Create and modify access to attachments
+            attachments:delete: Delete access to attachments
             goals:read: View access to goals
             tasks:read: View access to tasks
             tasks:write: Create and modify access to tasks
@@ -9369,6 +9370,8 @@ paths:
     delete:
       summary: Delete an attachment
       description: |-
+        <b>Required scope: </b><code>attachments:delete</code>
+
         Deletes a specific, existing attachment.
 
         Returns an empty data record.
@@ -9395,6 +9398,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - attachments:delete
       x-readme:
         code-samples:
           - language: java
@@ -16601,7 +16607,7 @@ paths:
               let jobsApiInstance = new Asana.JobsApi();
               let job_gid = "12345"; // String | Globally unique identifier for the job.
               let opts = { 
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               jobsApiInstance.getJob(job_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -16639,7 +16645,7 @@ paths:
               jobs_api_instance = asana.JobsApi(api_client)
               job_gid = "12345" # str | Globally unique identifier for the job.
               opts = {
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -24317,7 +24323,7 @@ paths:
               let project_template_gid = "1331"; // String | Globally unique identifier for the project template.
               let opts = { 
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               projectTemplatesApiInstance.instantiateProject(project_template_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -24356,7 +24362,7 @@ paths:
               project_template_gid = "1331" # str | Globally unique identifier for the project template.
               opts = {
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, # dict | Describes the inputs used for instantiating a project, such as the resulting project's name, which team it should be created in, and values for date variables.
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -26381,7 +26387,7 @@ paths:
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               projectsApiInstance.duplicateProject(project_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -26420,7 +26426,7 @@ paths:
               project_gid = "1331" # str | Globally unique identifier for the project.
               opts = {
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, # dict | Describes the duplicate's name and the elements that will be duplicated.
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -31016,7 +31022,7 @@ paths:
               let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Describes the inputs used for creating a project template, such as the resulting project template's name, which team it should be created in.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               projectsApiInstance.projectSaveAsTemplate(body, project_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -31055,7 +31061,7 @@ paths:
               body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}} # dict | Describes the inputs used for creating a project template, such as the resulting project template's name, which team it should be created in.
               project_gid = "1331" # str | Globally unique identifier for the project.
               opts = {
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -31145,6 +31151,49 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: node
+            install: npm install asana
+            code: |-
+              const Asana = require('asana');
+
+              let client = Asana.ApiClient.instance;
+              let token = client.authentications['token'];
+              token.accessToken = '<YOUR_ACCESS_TOKEN>';
+
+              let exportsApiInstance = new Asana.ExportsApi();
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | A JSON payload specifying the parent object to export.
+
+              exportsApiInstance.createGraphExport(body).then((result) => {
+                  console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
+              }, (error) => {
+                  console.error(error.response.body);
+              });
+            name: node-sdk-v3
+          - language: python
+            install: pip install asana
+            code: |-
+              import asana
+              from asana.rest import ApiException
+              from pprint import pprint
+
+              configuration = asana.Configuration()
+              configuration.access_token = '<YOUR_ACCESS_TOKEN>'
+              api_client = asana.ApiClient(configuration)
+
+              # create an instance of the API class
+              exports_api_instance = asana.ExportsApi(api_client)
+              body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}} # dict | A JSON payload specifying the parent object to export.
+
+
+              try:
+                  # Initiate graph export
+                  api_response = exports_api_instance.create_graph_export(body)
+                  pprint(api_response)
+              except ApiException as e:
+                  print("Exception when calling ExportsApi->create_graph_export: %s\n" % e)
+            name: python-sdk-v5
   /rule_triggers/{rule_trigger_gid}/run:
     parameters:
       - $ref: '#/components/parameters/rule_trigger_path_gid'
@@ -37140,7 +37189,7 @@ paths:
               let task_template_gid = "1331"; // String | Globally unique identifier for the task template.
               let opts = { 
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               taskTemplatesApiInstance.instantiateTask(task_template_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -37179,7 +37228,7 @@ paths:
               task_template_gid = "1331" # str | Globally unique identifier for the task template.
               opts = {
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, # dict | Describes the inputs used for instantiating a task - the task's name.
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -39082,7 +39131,7 @@ paths:
               let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Describes the duplicate's name and the fields that will be duplicated.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               tasksApiInstance.duplicateTask(body, task_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -39121,7 +39170,7 @@ paths:
               body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}} # dict | Describes the duplicate's name and the fields that will be duplicated.
               task_gid = "321654" # str | The task to operate on.
               opts = {
-                  'opt_fields': "new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
