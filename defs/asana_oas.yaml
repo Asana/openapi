@@ -998,6 +998,15 @@ components:
       schema:
         type: string
       example: EX-1
+    custom_type_gid:
+      name: custom_type_gid
+      in: path
+      description: >-
+        Globally unique identifier for the custom type.
+      required: true
+      schema:
+        type: string
+      example: '12345'
     goal_path_gid:
       name: goal_gid
       in: path
@@ -12809,6 +12818,65 @@ paths:
               except ApiException as e:
                   print("Exception when calling CustomTypesApi->get_custom_types: %s\n" % e)
             name: python-sdk-v5
+  /custom_types/{custom_type_gid}:
+    parameters:
+      - $ref: '#/components/parameters/custom_type_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get a custom type
+      description: |-
+        Returns the complete custom type record for a single custom type.
+      tags:
+        - Custom types
+      operationId: getCustomType
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - name
+            - status_options
+            - status_options.color
+            - status_options.completion_state
+            - status_options.enabled
+            - status_options.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - name
+                - status_options
+                - status_options.color
+                - status_options.completion_state
+                - status_options.enabled
+                - status_options.name
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved the requested custom type.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomTypeResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /events:
     parameters:
       - name: resource
