@@ -10971,7 +10971,7 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            This object describes a user's membership to a custom field including
+            This object describes a user or team's membership to a custom field including
             their level of access (Admin, Editor, or User).
           type: object
           properties:
@@ -11388,8 +11388,7 @@ components:
                 A generic Asana Resource, containing a globally unique identifier.A
                 generic Asana Resource, containing a globally unique identifier.
 
-                A *user* object represents an account in Asana that can be given access
-                to various workspaces, projects, and tasks.
+                A *member* object represents either a team or user.
               type: object
               properties:
                 gid:
@@ -11400,17 +11399,14 @@ components:
                   example: '12345'
                   x-insert-after: false
                 resource_type:
-                  description: The base type of this resource.
                   type: string
-                  readOnly: true
-                  example: task
-                  x-insert-after: gid
+                  description: The type of the member (team or user)
+                  example: user
                 name:
                   type: string
-                  description: >-
-                    *Read-only except when same user as requester*. The user's name.
+                  description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id001
+              x-docs-overrides: *id017
             access_level:
               description: >-
                 Whether the member has admin, editor, or user
@@ -15814,8 +15810,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        This object describes a user's membership to a custom field including their
-        level of access (Admin, Editor, or User).
+        This object describes a user or team's membership to a custom field including
+        their level of access (Admin, Editor, or User).
       type: object
       properties:
         gid:
@@ -16220,8 +16216,7 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
+            A *member* object represents either a team or user.
           type: object
           properties:
             gid:
@@ -16232,17 +16227,14 @@ components:
               example: '12345'
               x-insert-after: false
             resource_type:
-              description: The base type of this resource.
               type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
+              description: The type of the member (team or user)
+              example: user
             name:
               type: string
-              description: >-
-                *Read-only except when same user as requester*. The user's name.
+              description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id001
+          x-docs-overrides: *id017
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -16260,8 +16252,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        This object describes a user's membership to a custom field including their
-        level of access (Admin, Editor, or User).
+        This object describes a user or team's membership to a custom field including
+        their level of access (Admin, Editor, or User).
       type: object
       properties:
         gid:
@@ -16666,8 +16658,7 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
+            A *member* object represents either a team or user.
           type: object
           properties:
             gid:
@@ -16678,17 +16669,14 @@ components:
               example: '12345'
               x-insert-after: false
             resource_type:
-              description: The base type of this resource.
               type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
+              description: The type of the member (team or user)
+              example: user
             name:
               type: string
-              description: >-
-                *Read-only except when same user as requester*. The user's name.
+              description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id001
+          x-docs-overrides: *id017
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -16706,8 +16694,8 @@ components:
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
 
-        This object describes a user's membership to a custom field including their
-        level of access (Admin, Editor, or User).
+        This object describes a user or team's membership to a custom field including
+        their level of access (Admin, Editor, or User).
       type: object
       properties:
         gid:
@@ -17112,8 +17100,7 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
+            A *member* object represents either a team or user.
           type: object
           properties:
             gid:
@@ -17124,17 +17111,14 @@ components:
               example: '12345'
               x-insert-after: false
             resource_type:
-              description: The base type of this resource.
               type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
+              description: The type of the member (team or user)
+              example: user
             name:
               type: string
-              description: >-
-                *Read-only except when same user as requester*. The user's name.
+              description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id001
+          x-docs-overrides: *id017
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -34617,7 +34601,7 @@ components:
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
 
-            This object describes a user's membership to a custom field including
+            This object describes a user or team's membership to a custom field including
             their level of access (Admin, Editor, or User).
           type: object
           properties:
@@ -35034,8 +35018,7 @@ components:
                 A generic Asana Resource, containing a globally unique identifier.A
                 generic Asana Resource, containing a globally unique identifier.
 
-                A *user* object represents an account in Asana that can be given access
-                to various workspaces, projects, and tasks.
+                A *member* object represents either a team or user.
               type: object
               properties:
                 gid:
@@ -35046,17 +35029,14 @@ components:
                   example: '12345'
                   x-insert-after: false
                 resource_type:
-                  description: The base type of this resource.
                   type: string
-                  readOnly: true
-                  example: task
-                  x-insert-after: gid
+                  description: The type of the member (team or user)
+                  example: user
                 name:
                   type: string
-                  description: >-
-                    *Read-only except when same user as requester*. The user's name.
+                  description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id001
+              x-docs-overrides: *id017
             access_level:
               description: >-
                 Whether the member has admin, editor, or user
@@ -39906,7 +39886,7 @@ paths:
     post:
       summary: Create a membership
       description: |-
-        Creates a new membership in a `goal`, `project`, `portfolio`, or `custom_field`. Teams or Users can be members of `goals` or `projects`. Portfolios and custom fields only support `users` as members.
+        Creates a new membership in a `goal`, `project`, `portfolio`, or `custom_field`, where members can be Teams or Users.
 
         Returns the full record of the newly created membership.
       tags:
