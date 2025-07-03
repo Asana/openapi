@@ -8427,6 +8427,7 @@ components:
             users:read: View access to users
             teams:read: View access to teams
             stories:read: View access to stories
+            webhooks:read: View access to webhooks
             workspaces:read: View access to workspaces
 paths:
   /allocations/{allocation_gid}:
@@ -50809,9 +50810,10 @@ paths:
     get:
       summary: >-
         Get multiple webhooks
-      description: >-
-        Get the compact representation of all webhooks your app has registered
-        for the authenticated user in the given workspace.
+      description: |-
+        <b>Required scope: </b><code>webhooks:read</code>
+
+        Get the compact representation of all webhooks your app has registered for the authenticated user in the given workspace.
       tags:
         - Webhooks
       operationId: getWebhooks
@@ -50906,6 +50908,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - webhooks:read
       x-readme:
         code-samples:
           - language: java
@@ -51293,7 +51298,9 @@ paths:
     get:
       summary: >-
         Get a webhook
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>webhooks:read</code>
+
         Returns the full record for the given webhook.
       tags:
         - Webhooks
@@ -51363,6 +51370,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - webhooks:read
       x-readme:
         code-samples:
           - language: java

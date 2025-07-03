@@ -56919,9 +56919,10 @@ paths:
     get:
       summary: >-
         Get multiple webhooks
-      description: >-
-        Get the compact representation of all webhooks your app has registered
-        for the authenticated user in the given workspace.
+      description: |-
+        <b>Required scope: </b><code>webhooks:read</code>
+
+        Get the compact representation of all webhooks your app has registered for the authenticated user in the given workspace.
       tags:
         - Webhooks
       operationId: getWebhooks
@@ -57005,6 +57006,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - webhooks:read
     post:
       summary: >-
         Establish a webhook
@@ -57144,7 +57148,9 @@ paths:
     get:
       summary: >-
         Get a webhook
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>webhooks:read</code>
+
         Returns the full record for the given webhook.
       tags:
         - Webhooks
@@ -57207,6 +57213,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - webhooks:read
     put:
       summary: >-
         Update a webhook
