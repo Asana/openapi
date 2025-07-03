@@ -8419,6 +8419,7 @@ components:
             tasks:delete: Delete access to tasks
             task_templates:read: View access to task templates
             portfolios:read: View access to portfolios
+            portfolios:write: Create and modify access to portfolios
             project_templates:read: View access to project templates
             projects:delete: Delete access to projects
             projects:read: View access to projects
@@ -18760,6 +18761,8 @@ paths:
     post:
       summary: Create a portfolio
       description: |-
+        <b>Required scope: </b><code>portfolios:write</code>
+
         Creates a new portfolio in the given workspace with the supplied name.
 
         Note that portfolios created in the Asana UI may have some state
@@ -19007,6 +19010,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:write
       x-readme:
         code-samples:
           - language: java
@@ -19481,6 +19487,8 @@ paths:
     put:
       summary: Update a portfolio
       description: |-
+        <b>Required scope: </b><code>portfolios:write</code>
+
         An existing portfolio can be updated by making a PUT request on the URL for
         that portfolio. Only the fields provided in the `data` block will be updated;
         any unspecified fields will remain unchanged.
@@ -19726,6 +19734,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:write
       x-readme:
         code-samples:
           - language: java
@@ -20410,9 +20421,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     post:
       summary: Add a portfolio item
-      description: >-
-        Add an item to a portfolio.
+      description: |-
+        <b>Required scope: </b><code>portfolios:write</code>
 
+        Add an item to a portfolio.
         Returns an empty data block.
       tags:
         - Portfolios
@@ -20447,6 +20459,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:write
       x-readme:
         code-samples:
           - language: java
@@ -20566,9 +20581,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     post:
       summary: Remove a portfolio item
-      description: >-
-        Remove an item from a portfolio.
+      description: |-
+        <b>Required scope: </b><code>portfolios:write</code>
 
+        Remove an item from a portfolio.
         Returns an empty data block.
       tags:
         - Portfolios
@@ -20603,6 +20619,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:write
       x-readme:
         code-samples:
           - language: java
@@ -20723,12 +20742,16 @@ paths:
       - $ref: '#/components/parameters/pretty'
     post:
       summary: Add a custom field to a portfolio
-      description: >-
-        Custom fields are associated with portfolios by way of custom field
-        settings.  This method creates a setting for the portfolio.
+      description: |-
+        <b>Required scope: </b><code>portfolios:write</code>
+
+        Custom fields are associated with portfolios by way of custom field settings.  This method creates a setting for the portfolio.
       tags:
         - Portfolios
       operationId: addCustomFieldSettingForPortfolio
+      security:
+        - oauth2:
+            - portfolios:write
       requestBody:
         description: Information about the custom field setting.
         required: true
@@ -20879,11 +20902,16 @@ paths:
       - $ref: '#/components/parameters/pretty'
     post:
       summary: Remove a custom field from a portfolio
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>portfolios:write</code>
+
         Removes a custom field setting from a portfolio.
       tags:
         - Portfolios
       operationId: removeCustomFieldSettingForPortfolio
+      security:
+        - oauth2:
+            - portfolios:write
       requestBody:
         description: Information about the custom field setting being removed.
         required: true
