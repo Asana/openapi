@@ -37376,6 +37376,8 @@ paths:
     get:
       summary: Get a custom field
       description: |-
+        <b>Required scope: </b><code>custom_fields:read</code>
+
         Get the complete definition of a custom field’s metadata.
 
         Since custom fields can be defined for one of a number of types, and
@@ -37497,6 +37499,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:read
     put:
       summary: Update a custom field
       description: >-
@@ -37672,9 +37677,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a workspace's custom fields
-      description: >-
-        Returns a list of the compact representation of all of the custom fields
-        in a workspace.
+      description: |-
+        <b>Required scope: </b><code>custom_fields:read</code>
+
+        Returns a list of the compact representation of all of the custom fields in a workspace.
       tags:
         - Custom fields
       operationId: getCustomFieldsForWorkspace
@@ -37794,6 +37800,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:read
   /custom_fields/{custom_field_gid}/enum_options:
     parameters:
       - $ref: '#/components/parameters/custom_field_path_gid'

@@ -7541,9 +7541,9 @@ components:
     UserBase:
       $ref: '#/components/schemas/UserCompact'
     UserCompact:
-      description: >-
-        A *user* object represents an account in Asana that can be given
-        access to various workspaces, projects, and tasks.
+      description: "<p><strong style=\"color: #4573D2\">Full object requires scope:
+        </strong><code>users:read</code></p>\n\nA *user* object represents an account
+        in Asana that can be given access to various workspaces, projects, and tasks."
       type: object
       properties:
         gid:
@@ -8413,6 +8413,7 @@ components:
             attachments:read: View access to attachments
             attachments:write: Create and modify access to attachments
             attachments:delete: Delete access to attachments
+            custom_fields:read: View access to custom fields
             goals:read: View access to goals
             tasks:read: View access to tasks
             tasks:write: Create and modify access to tasks
@@ -11215,6 +11216,19 @@ paths:
     get:
       summary: Get a custom field
       description: |-
+        <b>Required scope: </b><code>custom_fields:read</code>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>created_by</code></td>
+            <td><code>users:read</code></td>
+          </tr>
+        </table>
+
         Get the complete definition of a custom field’s metadata.
 
         Since custom fields can be defined for one of a number of types, and
@@ -11345,6 +11359,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:read
       x-readme:
         code-samples:
           - language: java
@@ -11875,9 +11892,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a workspace's custom fields
-      description: >-
-        Returns a list of the compact representation of all of the custom fields
-        in a workspace.
+      description: |-
+        <b>Required scope: </b><code>custom_fields:read</code>
+
+        Returns a list of the compact representation of all of the custom fields in a workspace.
       tags:
         - Custom fields
       operationId: getCustomFieldsForWorkspace
@@ -12009,6 +12027,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:read
       x-readme:
         code-samples:
           - language: java
