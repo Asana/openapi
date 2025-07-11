@@ -2016,6 +2016,11 @@ components:
             The name of the automation rule that initiated the event.
           type: string
           example: When Task is added to this project
+        on_behalf_of_user_id:
+          description: >-
+            The ID of the user who requested a change via support.
+          type: integer
+          example: 12345
     AuditLogEventDetails:
       description: Event specific details. The schema will vary depending on the `event_type`.
       type: object
