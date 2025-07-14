@@ -57032,6 +57032,8 @@ paths:
       summary: >-
         Establish a webhook
       description: |-
+        <b>Required scope: </b><code>webhooks:write</code>
+
         Establishing a webhook is a two-part process. First, a simple HTTP POST
         request initiates the creation similar to creating any other resource.
 
@@ -57161,6 +57163,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - webhooks:write
   /webhooks/{webhook_gid}:
     parameters:
       - $ref: '#/components/parameters/webhook_path_gid'
@@ -57238,10 +57243,10 @@ paths:
     put:
       summary: >-
         Update a webhook
-      description: >-
-        An existing webhook's filters can be updated by making a PUT request on the
-        URL for that webhook. Note that the webhook's previous `filters` array will
-        be completely overwritten by the `filters` sent in the PUT request.
+      description: |-
+        <b>Required scope: </b><code>webhooks:write</code>
+
+        An existing webhook's filters can be updated by making a PUT request on the URL for that webhook. Note that the webhook's previous `filters` array will be completely overwritten by the `filters` sent in the PUT request.
       tags:
         - Webhooks
       operationId: updateWebhook
@@ -57313,12 +57318,15 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - webhooks:write
     delete:
       summary: Delete a webhook
-      description: >-
-        This method *permanently* removes a webhook. Note that it may be possible
-        to receive a request that was already in flight after deleting the
-        webhook, but no further requests will be issued.
+      description: |-
+        <b>Required scope: </b><code>webhooks:write</code>
+
+        This method *permanently* removes a webhook. Note that it may be possible to receive a request that was already in flight after deleting the webhook, but no further requests will be issued.
       tags:
         - Webhooks
       operationId: deleteWebhook
@@ -57335,6 +57343,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - webhooks:write
   /workspace_memberships/{workspace_membership_gid}:
     parameters:
       - $ref: '#/components/parameters/workspace_membership_path_gid'
