@@ -8419,6 +8419,7 @@ components:
             attachments:write: Create and modify access to attachments
             attachments:delete: Delete access to attachments
             custom_fields:read: View access to custom fields
+            custom_fields:write: Create and modify access to custom fields
             goals:read: View access to goals
             tasks:read: View access to tasks
             tasks:write: Create and modify access to tasks
@@ -10960,6 +10961,8 @@ paths:
     post:
       summary: Create a custom field
       description: |-
+        <b>Required scope: </b><code>custom_fields:write</code>
+
         Creates a new custom field in a workspace. Every custom field is required
         to be created in a specific workspace, and this workspace cannot be
         changed once set.
@@ -11100,6 +11103,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:write
       x-readme:
         code-samples:
           - language: java
@@ -11483,24 +11489,14 @@ paths:
               param: "value", param: "value", options: {pretty: true})
     put:
       summary: Update a custom field
-      description: >-
-        A specific, existing custom field can be updated by making a PUT request
-        on the URL for that custom field. Only the fields provided in the `data`
-        block will be updated; any unspecified fields will remain unchanged
+      description: |-
+        <b>Required scope: </b><code>custom_fields:write</code>
 
-        When using this method, it is best to specify only those fields you wish
-        to change, or else you may overwrite changes made by another user since
-        you last retrieved the custom field.
-
+        A specific, existing custom field can be updated by making a PUT request on the URL for that custom field. Only the fields provided in the `data` block will be updated; any unspecified fields will remain unchanged
+        When using this method, it is best to specify only those fields you wish to change, or else you may overwrite changes made by another user since you last retrieved the custom field.
         A custom field’s `type` cannot be updated.
-
-        An enum custom field’s `enum_options` cannot be updated with this
-        endpoint.
-        Instead see “Work With Enum Options” for information on how to update
-        `enum_options`.
-
+        An enum custom field’s `enum_options` cannot be updated with this endpoint. Instead see “Work With Enum Options” for information on how to update `enum_options`.
         Locked custom fields can only be updated by the user who locked the field.
-
         Returns the complete updated custom field record.
       tags:
         - Custom fields
@@ -11631,6 +11627,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:write
       x-readme:
         code-samples:
           - language: java
@@ -12161,15 +12160,11 @@ paths:
       - $ref: '#/components/parameters/pretty'
     post:
       summary: Create an enum option
-      description: >-
-        Creates an enum option and adds it to this custom field’s list of enum
-        options. A custom field can have at most 500 enum options (including
-        disabled options). By default new enum options are inserted at the end of
-        a custom field’s list.
+      description: |-
+        <b>Required scope: </b><code>custom_fields:write</code>
 
-        Locked custom fields can only have enum options added by the user who locked
-        the field.
-
+        Creates an enum option and adds it to this custom field’s list of enum options. A custom field can have at most 500 enum options (including disabled options). By default new enum options are inserted at the end of a custom field’s list.
+        Locked custom fields can only have enum options added by the user who locked the field.
         Returns the full record of the newly created enum option.
       tags:
         - Custom fields
@@ -12224,6 +12219,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:write
       x-readme:
         code-samples:
           - language: java
@@ -12349,10 +12347,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     post:
       summary: Reorder a custom field's enum
-      description: >-
-        Moves a particular enum option to be either before or after another
-        specified enum option in the custom field.
+      description: |-
+        <b>Required scope: </b><code>custom_fields:write</code>
 
+        Moves a particular enum option to be either before or after another specified enum option in the custom field.
         Locked custom fields can only be reordered by the user who locked the field.
       tags:
         - Custom fields
@@ -12407,6 +12405,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:write
       x-readme:
         code-samples:
           - language: java
@@ -12539,12 +12540,11 @@ paths:
       - $ref: '#/components/parameters/pretty'
     put:
       summary: Update an enum option
-      description: >-
-        Updates an existing enum option. Enum custom fields require at least one
-        enabled enum option.
+      description: |-
+        <b>Required scope: </b><code>custom_fields:write</code>
 
+        Updates an existing enum option. Enum custom fields require at least one enabled enum option.
         Locked custom fields can only be updated by the user who locked the field.
-
         Returns the full record of the updated enum option.
       tags:
         - Custom fields
@@ -12599,6 +12599,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_fields:write
       x-readme:
         code-samples:
           - language: java
