@@ -6266,7 +6266,9 @@ components:
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
             followers:
-              description: Array of users following this tag.
+              description: "<p><strong style=\"color: #4573D2\">Full object requires
+                scope: </strong><code>users:read</code></p>\n\nArray of users following
+                this tag."
               type: array
               readOnly: true
               items:
@@ -8434,6 +8436,7 @@ components:
             users:read: View access to users
             teams:read: View access to teams
             stories:read: View access to stories
+            tags:read: View access to tags
             webhooks:read: View access to webhooks
             webhooks:write: Create and modify access to webhooks
             workspaces:read: View access to workspaces
@@ -35350,9 +35353,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get multiple tags
-      description: >-
-        Returns the compact tag records for some filtered set of tags.
-        Use one or more of the parameters provided to filter the tags returned.
+      description: |-
+        <b>Required scope: </b><code>tags:read</code>
+
+        Returns the compact tag records for some filtered set of tags. Use one or more of the parameters provided to filter the tags returned.
       tags:
         - Tags
       operationId: getTags
@@ -35428,6 +35432,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:read
       x-readme:
         code-samples:
           - language: java
@@ -35742,7 +35749,25 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get a tag
-      description: Returns the complete tag record for a single tag.
+      description: |-
+        <b>Required scope: </b><code>tags:read</code>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>workspace</code></td>
+            <td><code>workspaces:read</code></td>
+          </tr>
+          <tr>
+            <td><code>followers</code></td>
+            <td><code>users:read</code></td>
+          </tr>
+        </table>
+
+        Returns the complete tag record for a single tag.
       tags:
         - Tags
       operationId: getTag
@@ -35799,6 +35824,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:read
       x-readme:
         code-samples:
           - language: java
@@ -36250,7 +36278,9 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a task's tags
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>tags:read</code>
+
         Get a compact representation of all of the tags the task has.
       tags:
         - Tags
@@ -36319,6 +36349,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:read
       x-readme:
         code-samples:
           - language: java
@@ -36443,9 +36476,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get tags in a workspace
-      description: >-
-        Returns the compact tag records for some filtered set of tags.
-        Use one or more of the parameters provided to filter the tags returned.
+      description: |-
+        <b>Required scope: </b><code>tags:read</code>
+
+        Returns the compact tag records for some filtered set of tags. Use one or more of the parameters provided to filter the tags returned.
       tags:
         - Tags
       operationId: getTagsForWorkspace
@@ -36514,6 +36548,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:read
       x-readme:
         code-samples:
           - language: java

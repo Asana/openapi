@@ -49385,9 +49385,10 @@ paths:
   /tags:
     get:
       summary: Get multiple tags
-      description: >-
-        Returns the compact tag records for some filtered set of tags.
-        Use one or more of the parameters provided to filter the tags returned.
+      description: |-
+        <b>Required scope: </b><code>tags:read</code>
+
+        Returns the compact tag records for some filtered set of tags. Use one or more of the parameters provided to filter the tags returned.
       tags:
         - Tags
       operationId: getTags
@@ -49452,6 +49453,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:read
     post:
       summary: Create a tag
       description: |-
@@ -49527,7 +49531,10 @@ paths:
       - $ref: '#/components/parameters/tag_path_gid'
     get:
       summary: Get a tag
-      description: Returns the complete tag record for a single tag.
+      description: |-
+        <b>Required scope: </b><code>tags:read</code>
+
+        Returns the complete tag record for a single tag.
       tags:
         - Tags
       operationId: getTag
@@ -49577,6 +49584,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:read
     put:
       summary: Update a tag
       description: |-
@@ -49677,7 +49687,9 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a task's tags
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>tags:read</code>
+
         Get a compact representation of all of the tags the task has.
       tags:
         - Tags
@@ -49734,14 +49746,18 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:read
   /workspaces/{workspace_gid}/tags:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
     get:
       summary: Get tags in a workspace
-      description: >-
-        Returns the compact tag records for some filtered set of tags.
-        Use one or more of the parameters provided to filter the tags returned.
+      description: |-
+        <b>Required scope: </b><code>tags:read</code>
+
+        Returns the compact tag records for some filtered set of tags. Use one or more of the parameters provided to filter the tags returned.
       tags:
         - Tags
       operationId: getTagsForWorkspace
@@ -49799,6 +49815,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:read
     post:
       summary: Create a tag in a workspace
       description: |-
