@@ -8437,6 +8437,7 @@ components:
             teams:read: View access to teams
             stories:read: View access to stories
             tags:read: View access to tags
+            tags:write: Create and modify access to tags
             webhooks:read: View access to webhooks
             webhooks:write: Create and modify access to webhooks
             workspaces:read: View access to workspaces
@@ -35555,6 +35556,8 @@ paths:
     post:
       summary: Create a tag
       description: |-
+        <b>Required scope: </b><code>tags:write</code>
+
         Creates a new tag in a workspace or organization.
 
         Every tag is required to be created in a specific workspace or
@@ -35629,6 +35632,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:write
       x-readme:
         code-samples:
           - language: java
@@ -35943,6 +35949,8 @@ paths:
     put:
       summary: Update a tag
       description: |-
+        <b>Required scope: </b><code>tags:write</code>
+
         Updates the properties of a tag. Only the fields provided in the `data`
         block will be updated; any unspecified fields will remain unchanged.
 
@@ -36017,6 +36025,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:write
       x-readme:
         code-samples:
           - language: java
@@ -36672,6 +36683,8 @@ paths:
     post:
       summary: Create a tag in a workspace
       description: |-
+        <b>Required scope: </b><code>tags:write</code>
+
         Creates a new tag in a workspace or organization.
 
         Every tag is required to be created in a specific workspace or
@@ -36746,6 +36759,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - tags:write
       x-readme:
         code-samples:
           - language: java
