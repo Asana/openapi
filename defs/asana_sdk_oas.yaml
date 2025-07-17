@@ -48410,11 +48410,10 @@ paths:
             - stories:read
     put:
       summary: Update a story
-      description: >-
-        Updates the story and returns the full record for the updated story. Only
-        comment stories can have their text updated, and only comment stories and
-        attachment stories can be pinned. Only one of `text` and `html_text` can be
-        specified.
+      description: |-
+        <b>Required scope: </b><code>stories:write</code>
+
+        Updates the story and returns the full record for the updated story. Only comment stories can have their text updated, and only comment stories and attachment stories can be pinned. Only one of `text` and `html_text` can be specified.
       tags:
         - Stories
       operationId: updateStory
@@ -48724,6 +48723,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - stories:write
     delete:
       summary: Delete a story
       description: |-
@@ -49068,6 +49070,8 @@ paths:
     post:
       summary: Create a story on a task
       description: |-
+        <b>Required scope: </b><code>stories:write</code>
+
         Adds a story to a task. This endpoint currently only allows for comment
         stories to be created. The comment will be authored by the currently
         authenticated user, and timestamped when the server receives the request.
@@ -49382,6 +49386,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - stories:write
   /tags:
     get:
       summary: Get multiple tags

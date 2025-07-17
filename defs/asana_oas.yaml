@@ -7548,9 +7548,9 @@ components:
     UserBase:
       $ref: '#/components/schemas/UserCompact'
     UserCompact:
-      description: "<p><strong style=\"color: #4573D2\">Full object requires scope:
-        </strong><code>users:read</code></p>\n\nA *user* object represents an account
-        in Asana that can be given access to various workspaces, projects, and tasks."
+      description: >-
+        A *user* object represents an account in Asana that can be given
+        access to various workspaces, projects, and tasks.
       type: object
       properties:
         gid:
@@ -8436,6 +8436,7 @@ components:
             users:read: View access to users
             teams:read: View access to teams
             stories:read: View access to stories
+            stories:write: Create and modify access to stories
             tags:read: View access to tags
             tags:write: Create and modify access to tags
             webhooks:read: View access to webhooks
@@ -11233,17 +11234,6 @@ paths:
       summary: Get a custom field
       description: |-
         <b>Required scope: </b><code>custom_fields:read</code>
-
-        <table>
-          <tr>
-            <th>Field</th>
-            <th>Required Scope</th>
-          </tr>
-          <tr>
-            <td><code>created_by</code></td>
-            <td><code>users:read</code></td>
-          </tr>
-        </table>
 
         Get the complete definition of a custom field’s metadata.
 
@@ -33885,11 +33875,10 @@ paths:
               param: "value", options: {pretty: true})
     put:
       summary: Update a story
-      description: >-
-        Updates the story and returns the full record for the updated story. Only
-        comment stories can have their text updated, and only comment stories and
-        attachment stories can be pinned. Only one of `text` and `html_text` can be
-        specified.
+      description: |-
+        <b>Required scope: </b><code>stories:write</code>
+
+        Updates the story and returns the full record for the updated story. Only comment stories can have their text updated, and only comment stories and attachment stories can be pinned. Only one of `text` and `html_text` can be specified.
       tags:
         - Stories
       operationId: updateStory
@@ -34206,6 +34195,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - stories:write
       x-readme:
         code-samples:
           - language: java
@@ -34911,6 +34903,8 @@ paths:
     post:
       summary: Create a story on a task
       description: |-
+        <b>Required scope: </b><code>stories:write</code>
+
         Adds a story to a task. This endpoint currently only allows for comment
         stories to be created. The comment will be authored by the currently
         authenticated user, and timestamped when the server receives the request.
@@ -35232,6 +35226,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - stories:write
       x-readme:
         code-samples:
           - language: java
