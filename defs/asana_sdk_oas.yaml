@@ -57367,7 +57367,7 @@ paths:
     delete:
       summary: Delete a webhook
       description: |-
-        <b>Required scope: </b><code>webhooks:write</code>
+        <b>Required scope: </b><code>webhooks:delete</code>
 
         This method *permanently* removes a webhook. Note that it may be possible to receive a request that was already in flight after deleting the webhook, but no further requests will be issued.
       tags:
@@ -57388,7 +57388,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - oauth2:
-            - webhooks:write
+            - webhooks:delete
   /workspace_memberships/{workspace_membership_gid}:
     parameters:
       - $ref: '#/components/parameters/workspace_membership_path_gid'

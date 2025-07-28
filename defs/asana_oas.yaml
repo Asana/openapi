@@ -4109,7 +4109,9 @@ components:
             created_by:
               $ref: '#/components/schemas/UserCompact'
             custom_field_settings:
-              description: Array of custom field settings applied to the portfolio.
+              description: "<p><strong style=\"color: #4573D2\">Full object requires
+                scope: </strong><code>custom_fields:read</code></p>\n\nArray of custom
+                field settings applied to the portfolio."
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldSettingResponse'
@@ -4127,7 +4129,9 @@ components:
               nullable: true
               example: '2019-09-15'
             custom_fields:
-              description: Array of Custom Fields.
+              description: "<p><strong style=\"color: #4573D2\">Full object requires
+                scope: </strong><code>custom_fields:read</code></p>\n\nArray of Custom
+                Fields."
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldCompact'
@@ -8441,6 +8445,7 @@ components:
             tags:write: Create and modify access to tags
             webhooks:read: View access to webhooks
             webhooks:write: Create and modify access to webhooks
+            webhooks:delete: Delete access to webhooks
             workspaces:read: View access to workspaces
 paths:
   /allocations/{allocation_gid}:
@@ -19161,6 +19166,21 @@ paths:
       summary: Get a portfolio
       description: |-
         <b>Required scope: </b><code>portfolios:read</code>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>custom_field_settings</code></td>
+            <td><code>custom_fields:read</code></td>
+          </tr>
+          <tr>
+            <td><code>custom_fields</code></td>
+            <td><code>custom_fields:read</code></td>
+          </tr>
+        </table>
 
         Returns the complete portfolio record for a single portfolio.
       tags:
@@ -51779,7 +51799,7 @@ paths:
     delete:
       summary: Delete a webhook
       description: |-
-        <b>Required scope: </b><code>webhooks:write</code>
+        <b>Required scope: </b><code>webhooks:delete</code>
 
         This method *permanently* removes a webhook. Note that it may be possible to receive a request that was already in flight after deleting the webhook, but no further requests will be issued.
       tags:
@@ -51807,7 +51827,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - oauth2:
-            - webhooks:write
+            - webhooks:delete
       x-readme:
         code-samples:
           - language: java
