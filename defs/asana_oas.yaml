@@ -8288,6 +8288,33 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
+            approval_status:
+              description: >-
+                *Optional*. The current approval status of the entry.
+              type: string
+              readOnly: true
+              enum:
+                - DRAFT
+                - SUBMITTED
+                - APPROVED
+                - REJECTED
+              example: DRAFT
+            billable_status:
+              description: >-
+                *Optional*. The current billable status of the entry.
+              type: string
+              readOnly: true
+              enum:
+                - billable
+                - nonBillable
+                - notApplicable
+              example: billable
+            description:
+              description: >-
+                *Optional*. The description of the entry.
+              type: string
+              readOnly: true
+              example: My description of work done on this entry
     AccessRequestResponse:
       description: >-
         A *access request* object represents a request to access a shareable resource
@@ -48732,11 +48759,14 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - approval_status
             - attributable_to
             - attributable_to.name
+            - billable_status
             - created_at
             - created_by
             - created_by.name
+            - description
             - duration_minutes
             - entered_on
             - task
@@ -48748,11 +48778,14 @@ paths:
             items:
               type: string
               enum:
+                - approval_status
                 - attributable_to
                 - attributable_to.name
+                - billable_status
                 - created_at
                 - created_by
                 - created_by.name
+                - description
                 - duration_minutes
                 - entered_on
                 - task
@@ -48886,11 +48919,14 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - approval_status
             - attributable_to
             - attributable_to.name
+            - billable_status
             - created_at
             - created_by
             - created_by.name
+            - description
             - duration_minutes
             - entered_on
             - task
@@ -48902,11 +48938,14 @@ paths:
             items:
               type: string
               enum:
+                - approval_status
                 - attributable_to
                 - attributable_to.name
+                - billable_status
                 - created_at
                 - created_by
                 - created_by.name
+                - description
                 - duration_minutes
                 - entered_on
                 - task
@@ -49032,11 +49071,14 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - approval_status
             - attributable_to
             - attributable_to.name
+            - billable_status
             - created_at
             - created_by
             - created_by.name
+            - description
             - duration_minutes
             - entered_on
             - task
@@ -49048,11 +49090,14 @@ paths:
             items:
               type: string
               enum:
+                - approval_status
                 - attributable_to
                 - attributable_to.name
+                - billable_status
                 - created_at
                 - created_by
                 - created_by.name
+                - description
                 - duration_minutes
                 - entered_on
                 - task
