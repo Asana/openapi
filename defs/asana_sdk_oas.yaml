@@ -71,6 +71,8 @@ info:
     - ProjectTemplateCompact
     - ProjectTemplateResponse
     - RuleTriggerResponse
+    - ResourceExportResponse
+    - ResourceExportCompact
     - SectionResponse
     - SectionCompact
     - StatusUpdateResponse
@@ -577,19 +579,36 @@ tags:
       depending on load on the service.
   - name: Exports
     description: |-
+      Exports are a way to download data from Asana. The following types of exports are available:
+      * **Graph exports**: Export of data about objects starting from a parent object, such as a team, portfolio, or project.
+      * **Resource exports**: Bulk exports of resources such as tasks, teams, and messages for a workspace.
+      * **Organization exports**: Exports the complete data of an organization in JSON format. Please refer to [Organization exports](/reference/organization-exports) for more details.
+
+      ## Graph exports
       A `graph_export` object represents a request to export the
       data about objects starting from a parent object. Parent object can be a team, portfolio, or project.
 
       To create an export using this API:
+      1. Create a `graph_export` [request](/reference/createGraphExport) and store the ID that is returned.
+      2. Request the [jobs](/reference/getjob) endpoint every few minutes, until `status` field contains 'succeeded'.
+      3. Download the file located at the URL in the `download_url` field.
 
-      * Create a `graph_export` [request](/reference/createGraphExport) and store the ID that is returned.
-      * Request the [jobs](/reference/getjob) endpoint every few minutes, until `status` field contains ‘succeeded’.
-      * Download the file located at the URL in the `download_url` field.
-      * Exports can take a long time, from several minutes to a few hours for large portfolios.
+      Exports can take a long time, from several minutes to a few hours for large portfolios.
 
-
-      *Note: These endpoints are only available to accounts of an
+      *Note: Graph exports are only available to accounts of an
       [Enterprise](https://asana.com/enterprise)/Enterprise+ organization.*
+
+      ## Resource exports
+      A `resource_export` object represents a request to bulk export resources for a workspace.
+      To create an export using this API:
+      1. Create a `resource_export` [request](/reference/createResourceExport) and store the job ID that is returned.
+      2. Request the [jobs](/reference/getjob) endpoint at some interval, until `status` field contains 'succeeded' and a `download_url` is available.
+      3. Download the file located at the URL in the `download_url` field.
+
+      Exports can take a long time, from several minutes to a few hours for large workspaces.
+
+      *Note: Resource exports are only available to [Service Accounts](https://asana.com/guide/help/premium/service-accounts)
+      from an Enterprise+ organization or an organization with the Compliance Management Add-on.
   - name: Goals
     description: >-
       A goal is an object in the goal-tracking system that helps your organization
@@ -1557,6 +1576,11 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/EventResponseArray'
+    GraphExportResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/GraphExportResponseData'
     GoalRelationshipResponseData:
       content:
         application/json; charset=UTF-8:
@@ -1672,11 +1696,6 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TaskCountResponseData'
-    GraphExportResponseData:
-      content:
-        application/json; charset=UTF-8:
-          schema:
-            $ref: '#/components/schemas/GraphExportResponseData'
     RuleTriggerResponseData:
       content:
         application/json; charset=UTF-8:
@@ -35707,6 +35726,13 @@ components:
             $ref: '#/components/schemas/EventResponse'
         next_page:
           $ref: '#/components/schemas/NextPage'
+    GraphExportResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/GraphExportResponse'
     GoalRelationshipResponseData:
       type: object
       required:
@@ -35904,13 +35930,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TaskCountResponse'
-    GraphExportResponseData:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          $ref: '#/components/schemas/GraphExportResponse'
     RuleTriggerResponseData:
       type: object
       required:
@@ -38270,6 +38289,41 @@ paths:
                     description: A sync token to be used with the next call to the
                       /events endpoint.
                     example: de4774f6915eae04714ca93bb2f5ee81
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /exports/graph:
+    post:
+      summary: Initiate a graph export
+      description: |-
+        Initiates a graph export job for a given parent object
+        (team, portfolio, or project). The export will be processed asynchronously.
+        Once initiated, use the [jobs](/reference/getjob) endpoint to monitor progress.
+
+        **Export Caching:** When exporting more than 1,000 tasks, the results are cached for 4 hours. Any new export requests made within this 4-hour window will return the same cached results rather than generating a fresh export.
+      tags:
+        - Exports
+      operationId: createGraphExport
+      requestBody:
+        description: A JSON payload specifying the parent object to export.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/GraphExportRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/GraphExportResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
   /goal_relationships/{goal_relationship_gid}:
@@ -47400,41 +47454,6 @@ paths:
       responses:
         201:
           $ref: '#/components/responses/JobResponseData'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
-  /exports/graph:
-    post:
-      summary: Initiate graph export
-      description: |-
-        Initiates a graph export job for a given parent object
-        (team, portfolio, or project). The export will be processed asynchronously.
-        Once initiated, use the [jobs](/reference/getjob) endpoint to monitor progress.
-
-        **Export Caching:** When exporting more than 1,000 tasks, the results are cached for 4 hours. Any new export requests made within this 4-hour window will return the same cached results rather than generating a fresh export.
-      tags:
-        - Exports
-      operationId: createGraphExport
-      requestBody:
-        description: A JSON payload specifying the parent object to export.
-        required: true
-        content:
-          application/json; charset=UTF-8:
-            schema:
-              type: object
-              properties:
-                data:
-                  $ref: '#/components/schemas/GraphExportRequest'
-      responses:
-        201:
-          $ref: '#/components/responses/GraphExportResponseData'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
