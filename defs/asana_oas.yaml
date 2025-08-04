@@ -16935,8 +16935,7 @@ paths:
         or `custom_field_membership` records. The possible types
         for `parent` in this request are `goal`, `project`, `portfolio`, or `custom_field`.
         An additional member (user GID or
-        team GID) can be passed in to filter to a specific membership. Team as members
-        are not supported for portfolios or custom fields yet.
+        team GID) can be passed in to filter to a specific membership.
       tags:
         - Memberships
       operationId: getMemberships
