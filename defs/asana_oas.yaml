@@ -3723,6 +3723,8 @@ components:
           $ref: '#/components/schemas/ProjectTemplateCompact'
         new_graph_export:
           $ref: '#/components/schemas/GraphExportCompact'
+        new_resource_export:
+          $ref: '#/components/schemas/ResourceExportCompact'
     JobResponse:
       $ref: '#/components/schemas/JobBase'
     Like:
@@ -5379,6 +5381,210 @@ components:
             "me", an email, or the gid of a user.
           type: string
           example: 521621,621373
+    ResourceExportFilters:
+      type: object
+      description: >-
+        Filters to apply to a resource that will be exported. These filters can be
+        used to narrow down the
+        resources that are included in the export.
+      properties:
+        assigned_by.any:
+          description: >-
+            Filter by the users who assigned the resource. This array accepts a list
+            of user GIDs. This is only applicable to tasks.
+          type: array
+          items:
+            type: string
+            example: '12345'
+        assignee.any:
+          description: >-
+            Filter by the users who are assigned to the resource. This array accepts
+            a list of user GIDs. This is only applicable to tasks.
+          type: array
+          items:
+            type: string
+            example: '12345'
+        commented_on_by.any:
+          description: >-
+            Filter by the users who commented on the resource. This array accepts
+            a list of user GIDs.
+          type: array
+          items:
+            type: string
+            example: '12345'
+        created_at.after:
+          description: >-
+            Filter results to resources created after a specified date and time.
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+        created_at.before:
+          description: >-
+            Filter results to resources created before a specified date and time.
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+        created_by.any:
+          description: >-
+            Filter by the users who created the resource. This array accepts a list
+            of user GIDs.
+          type: array
+          items:
+            type: string
+            example: '12345'
+        followers.any:
+          description: >-
+            Filter by the users who are following the resource. This array accepts
+            a list of user GIDs.
+          type: array
+          items:
+            type: string
+            example: '12345'
+        liked_by.any:
+          description: >-
+            Filter by the users who liked the resource. This array accepts a list
+            of user GIDs.
+          type: array
+          items:
+            type: string
+            example: '12345'
+        modified_at.after:
+          description: >-
+            Filter results to resources modified after a specified date and time.
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+        modified_at.before:
+          description: >-
+            Filter results to resources modified before a specified date and time.
+          type: string
+          format: date-time
+          example: '2023-01-01T00:00:00Z'
+    ResourceExportRequestParameter:
+      type: object
+      properties:
+        resource_type:
+          type: string
+          description: >-
+            The type of the resource to be exported. This can be a task, team, or
+            message.
+          example: task
+        filters:
+          $ref: '#/components/schemas/ResourceExportFilters'
+        fields:
+          type: array
+          description: >-
+            An array of fields to include for the resource type. If not provided,
+            all non-optional fields for the resource type will be included.
+            This conforms to the fields optional parameter available for all Asana
+            endpoints which is documented [here](https://developers.asana.com/docs/inputoutput-options)
+          items:
+            type: string
+            example: gid
+    ResourceExportRequest:
+      type: object
+      description: >-
+        A *resource_export* request starts a job to bulk export objects for one or
+        more resources.
+      properties:
+        workspace:
+          type: string
+          description: >-
+            Gid of a workspace.
+          example: '12345'
+        export_request_parameters:
+          type: array
+          description: >-
+            An object containing the parameters for the export request.
+            The keys of this object are the GIDs of the resources to be exported.
+            The values are objects with additional parameters for each resource.
+          items:
+            $ref: '#/components/schemas/ResourceExportRequestParameter'
+    ResourceExportCompact:
+      description: >-
+        A *resource_export* object represents a request to bulk export objects for
+        one or more resources.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: export_request
+          x-insert-after: gid
+        created_at:
+          description: The time at which the resource export object was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        download_url:
+          description: |-
+            Download this URL to retrieve the full export
+            in [JSON Lines](https://jsonlines.org/) format. It will be compressed in a gzip (.gz) container.
+
+            *Note: May be null if the export is still in progress or failed.*
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+          example: >-
+            https://asana-export-us-east-1.s3.us-east-1.amazonaws.com/2563645399633793/object_export/7588024658887731/download/
+            object_export_2563645399633793_7588024658887731_2023018-201726.jsonl.gz?X-Amz-Algorithm=AWS4-HMAC-SHA256&
+            X-Amz-Credential=xxxxxxxx&X-Amz-Date=xxxxxxxx&X-Amz-Expires=300&X-Amz-Security-Token=xxxxxxxx&
+            X-Amz-Signature=xxxxxxxx&X-Amz-SignedHeaders=host
+        completed_at:
+          description: The time at which this resource was completed. This will be
+            null if the export is still in progress.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T03:06:58.147Z'
+    ResourceExportResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: job
+          x-insert-after: gid
+        resource_subtype:
+          description: >-
+            A *resource_export* object represents a request to bulk export objects
+            for one or more resources.
+          type: string
+          readOnly: true
+          example: export_request
+        status:
+          description: >-
+            The current status of this job.
+          type: string
+          enum:
+            - not_started
+            - in_progress
+            - succeeded
+            - failed
+          readOnly: true
+          example: succeeded
+        new_resource_export:
+          $ref: '#/components/schemas/ResourceExportCompact'
     GraphExportRequest:
       type: object
       description: >-
@@ -13311,6 +13517,106 @@ paths:
               except ApiException as e:
                   print("Exception when calling ExportsApi->create_graph_export: %s\n" % e)
             name: python-sdk-v5
+  /exports/resource:
+    post:
+      summary: Initiate a resource export
+      description: |-
+        Initiates a bulk export of resources for a workspace. The export will be processed asynchronously. Once the export has been requested, its progress can be monitored using the [jobs](/reference/getjob) endpoint.
+
+        ## Supported resource types
+        This endpoint currently supports exporting tasks, teams and messages within a workspace. Resources can be requested to be part of the export by providing the `export_request_parameters` parameter. The following resource types are supported:
+
+        ### Tasks:
+        Tasks are formatted for exports with some differences from their documented [schema](/reference/tasks):
+          - `attachments` are included by default and returns an array of associated attachments.
+          - Attachment objects do not include `download_url` or `view_url`. The `attachments` [endpoint](/reference/attachment) should be queried for up-to-date URLs.
+          - `stories` are included by default and returns an array of comments and other changes made to a task
+
+        ### Teams:
+        Teams are formatted for exports with these differences from their documented [schema](/reference/teams):
+          - `members` are included by default and returns an array of Users that are members of the team
+          - Filtering is not supported for teams.
+
+        ### Messages:
+        The returned schema encompasses both default messages and status updates and is similar to the status update schema.
+        The available fields for messages are:
+          - `gid` - The globally unique identifier for the message.
+          - `resource_type` - The type of resource, which is always "message".
+          - `resource_subtype` - Optional. The subtype of the message, which can be "default" or "status_update".
+          - `status_type` - The type associated with the status update. This can be one of: “on_track”, “at_risk”, “off_track”, “on_hold”, “complete”, “achieved”, “partial”, “missed”, “dropped”
+          - `created_by` - The user who created the message.
+          - `created_at` - The time at which this resource was created and sent available to other users.
+          - `modified_at` - The time at which this resource was last modified.
+          - `title` - The title of the message.
+          - `text` - The text content of the message.
+          - `html_notes` - The text content of the message with formatting as HTML. Not included by default. Can be included by using “fields” in the initial request.
+          - `num_likes` - The number of users who have liked this message.
+          - `likes` - An array of users who have liked this message.
+          - `stories` - Optional. Array of stories applied to the message.
+          - `attachments` - Optional. Array of attachments added to the message.
+          - `followers` - Optional. Array of users currently following the message. Users that were sent the message are treated as followers.
+          - `parents` - Array of objects the message was sent to. Can be a Project, Portfolio, Team or Goal. Limited to a single object for status updates.
+
+
+        ## Export file
+        The final export file will be in JSON Lines format and compressed in a gzip container.
+
+        Objects are formatted according to their corresponding API schema, or limited to the fields
+        included in the `fields` parameter. Exports currently include undeleted objects.
+
+        An object in the export will be up to date anywhere between the exports `created_at` and `completed_at`. There is no guaranteed ordering of objects in the export.
+
+        Access to the export file expires 30 days after its completion.
+
+        ## Exporting specific fields
+        By default, each object in an export includes a predefined set of fields based on its schema. If a more limited set of fields
+        or fields not included by default are required, the Export API allows for specifying which fields to include in the requested export.
+
+        Fields can be specified using the `fields` parameter. The fields parameter conforms to the fields
+        optional parameter available for all Asana endpoints which is documented [here](https://developers.asana.com/docs/inputoutput-options).
+
+        Utilizing the `fields` parameter is recommended if the full object is not required, especially when a large number of objects are being exported, to reduce the overall export time.
+
+        ## Filtering resources
+        A disjunction of two or more filters can be achieved by providing multiple `export_request_parameters` for the same resource, each with different filters.
+        However, this approach may result in duplicate resources being returned.
+
+        ## Rate Limits
+        A workspace is currently limited to *one* in progress export request at a given time. The request will return with a 403 Forbidden status code if the limit is exceeded.
+      tags:
+        - Exports
+      operationId: createResourceExport
+      requestBody:
+        description: A JSON payload specifying the resources to export, including
+          filters to apply and fields to be exported.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ResourceExportRequest'
+      responses:
+        201:
+          description: Successfully created a Resource export request.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ResourceExportResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /goal_relationships/{goal_relationship_gid}:
     parameters:
       - $ref: '#/components/parameters/goal_relationship_path_gid'
@@ -16760,6 +17066,9 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
             - new_task
             - new_task.created_by
             - new_task.name
@@ -16782,6 +17091,9 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
                 - new_task
                 - new_task.created_by
                 - new_task.name
@@ -24501,6 +24813,9 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
             - new_task
             - new_task.created_by
             - new_task.name
@@ -24523,6 +24838,9 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
                 - new_task
                 - new_task.created_by
                 - new_task.name
@@ -26569,6 +26887,9 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
             - new_task
             - new_task.created_by
             - new_task.name
@@ -26591,6 +26912,9 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
                 - new_task
                 - new_task.created_by
                 - new_task.name
@@ -31206,6 +31530,9 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
             - new_task
             - new_task.created_by
             - new_task.name
@@ -31228,6 +31555,9 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
                 - new_task
                 - new_task.created_by
                 - new_task.name
@@ -37363,6 +37693,9 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
             - new_task
             - new_task.created_by
             - new_task.name
@@ -37385,6 +37718,9 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
                 - new_task
                 - new_task.created_by
                 - new_task.name
@@ -39289,6 +39625,9 @@ paths:
             - new_project_template
             - new_project_template.name
             - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
             - new_task
             - new_task.created_by
             - new_task.name
@@ -39311,6 +39650,9 @@ paths:
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
                 - new_task
                 - new_task.created_by
                 - new_task.name
@@ -49341,6 +49683,113 @@ paths:
               result = client.time_tracking_entries.delete_time_tracking_entry(time_tracking_entry_gid,
               opt_pretty=True)
             name: python-sdk-v3
+  /time_tracking_entries:
+    parameters:
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get multiple time tracking entries
+      description: >-
+        Returns a list of time tracking entries filtered to a task, attributed project,
+        portfolio or user.
+      tags:
+        - Time tracking entries
+      operationId: getTimeTrackingEntries
+      parameters:
+        - name: task
+          in: query
+          description: Globally unique identifier for the task to filter time tracking
+            entries by.
+          schema:
+            type: string
+          example: '12345'
+        - name: attributable_to
+          in: query
+          description: Globally unique identifier for the project the time tracking
+            entries are attributed to.
+          schema:
+            type: string
+          example: '12345'
+        - name: portfolio
+          in: query
+          description: Globally unique identifier for the portfolio to filter time
+            tracking entries by.
+          schema:
+            type: string
+          example: '12345'
+        - name: user
+          in: query
+          description: Globally unique identifier for the user to filter time tracking
+            entries by.
+          schema:
+            type: string
+          example: '12345'
+        - name: workspace
+          in: query
+          description: Globally unique identifier for the workspace.
+          schema:
+            type: string
+          example: '98765'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - attributable_to
+            - attributable_to.name
+            - created_by
+            - created_by.name
+            - duration_minutes
+            - entered_on
+            - offset
+            - path
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - attributable_to
+                - attributable_to.name
+                - created_by
+                - created_by.name
+                - duration_minutes
+                - entered_on
+                - offset
+                - path
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved the requested time tracking entries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TimeTrackingEntryCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /workspaces/{workspace_gid}/typeahead:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
