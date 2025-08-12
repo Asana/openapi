@@ -35857,6 +35857,8 @@ components:
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
+      x-docs-overrides: &id041
+        properties.resource_type.example: time_tracking_entry
     TimeTrackingEntryBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -36038,6 +36040,7 @@ components:
           type: string
           readOnly: true
           example: My description of work done on this entry
+      x-docs-overrides: *id041
     AccessRequestResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -36126,7 +36129,7 @@ components:
               readOnly: true
               example: task
               x-insert-after: gid
-          x-docs-overrides: &id041
+          x-docs-overrides: &id042
             properties.resource_type.example: project
           readOnly: true
       x-docs-overrides:
@@ -36153,7 +36156,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-      x-docs-overrides: *id041
+      x-docs-overrides: *id042
     AccessRequestCreateRequest:
       type: object
       required:

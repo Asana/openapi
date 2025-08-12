@@ -8478,7 +8478,7 @@ components:
           description: The base type of this resource.
           type: string
           readOnly: true
-          example: task
+          example: time_tracking_entry
           x-insert-after: gid
         duration_minutes:
           description: >-
@@ -13160,6 +13160,53 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: node
+            install: npm install asana
+            code: |-
+              const Asana = require('asana');
+
+              let client = Asana.ApiClient.instance;
+              let token = client.authentications['token'];
+              token.accessToken = '<YOUR_ACCESS_TOKEN>';
+
+              let customTypesApiInstance = new Asana.CustomTypesApi();
+              let custom_type_gid = "12345"; // String | Globally unique identifier for the custom type.
+              let opts = { 
+                  'opt_fields': "name,status_options,status_options.color,status_options.completion_state,status_options.enabled,status_options.name"
+              };
+              customTypesApiInstance.getCustomType(custom_type_gid, opts).then((result) => {
+                  console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
+              }, (error) => {
+                  console.error(error.response.body);
+              });
+            name: node-sdk-v3
+          - language: python
+            install: pip install asana
+            code: |-
+              import asana
+              from asana.rest import ApiException
+              from pprint import pprint
+
+              configuration = asana.Configuration()
+              configuration.access_token = '<YOUR_ACCESS_TOKEN>'
+              api_client = asana.ApiClient(configuration)
+
+              # create an instance of the API class
+              custom_types_api_instance = asana.CustomTypesApi(api_client)
+              custom_type_gid = "12345" # str | Globally unique identifier for the custom type.
+              opts = {
+                  'opt_fields': "name,status_options,status_options.color,status_options.completion_state,status_options.enabled,status_options.name", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+              }
+
+              try:
+                  # Get a custom type
+                  api_response = custom_types_api_instance.get_custom_type(custom_type_gid, opts)
+                  pprint(api_response)
+              except ApiException as e:
+                  print("Exception when calling CustomTypesApi->get_custom_type: %s\n" % e)
+            name: python-sdk-v5
   /events:
     parameters:
       - name: resource
@@ -13511,7 +13558,7 @@ paths:
 
 
               try:
-                  # Initiate graph export
+                  # Initiate a graph export
                   api_response = exports_api_instance.create_graph_export(body)
                   pprint(api_response)
               except ApiException as e:
@@ -13617,6 +13664,49 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: node
+            install: npm install asana
+            code: |-
+              const Asana = require('asana');
+
+              let client = Asana.ApiClient.instance;
+              let token = client.authentications['token'];
+              token.accessToken = '<YOUR_ACCESS_TOKEN>';
+
+              let exportsApiInstance = new Asana.ExportsApi();
+              let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | A JSON payload specifying the resources to export, including filters to apply and fields to be exported.
+
+              exportsApiInstance.createResourceExport(body).then((result) => {
+                  console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
+              }, (error) => {
+                  console.error(error.response.body);
+              });
+            name: node-sdk-v3
+          - language: python
+            install: pip install asana
+            code: |-
+              import asana
+              from asana.rest import ApiException
+              from pprint import pprint
+
+              configuration = asana.Configuration()
+              configuration.access_token = '<YOUR_ACCESS_TOKEN>'
+              api_client = asana.ApiClient(configuration)
+
+              # create an instance of the API class
+              exports_api_instance = asana.ExportsApi(api_client)
+              body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}} # dict | A JSON payload specifying the resources to export, including filters to apply and fields to be exported.
+
+
+              try:
+                  # Initiate a resource export
+                  api_response = exports_api_instance.create_resource_export(body)
+                  pprint(api_response)
+              except ApiException as e:
+                  print("Exception when calling ExportsApi->create_resource_export: %s\n" % e)
+            name: python-sdk-v5
   /goal_relationships/{goal_relationship_gid}:
     parameters:
       - $ref: '#/components/parameters/goal_relationship_path_gid'
@@ -17151,7 +17241,7 @@ paths:
               let jobsApiInstance = new Asana.JobsApi();
               let job_gid = "12345"; // String | Globally unique identifier for the job.
               let opts = { 
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               jobsApiInstance.getJob(job_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -17189,7 +17279,7 @@ paths:
               jobs_api_instance = asana.JobsApi(api_client)
               job_gid = "12345" # str | Globally unique identifier for the job.
               opts = {
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -24916,7 +25006,7 @@ paths:
               let project_template_gid = "1331"; // String | Globally unique identifier for the project template.
               let opts = { 
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               projectTemplatesApiInstance.instantiateProject(project_template_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -24955,7 +25045,7 @@ paths:
               project_template_gid = "1331" # str | Globally unique identifier for the project template.
               opts = {
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, # dict | Describes the inputs used for instantiating a project, such as the resulting project's name, which team it should be created in, and values for date variables.
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -26988,7 +27078,7 @@ paths:
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               projectsApiInstance.duplicateProject(project_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -27027,7 +27117,7 @@ paths:
               project_gid = "1331" # str | Globally unique identifier for the project.
               opts = {
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, # dict | Describes the duplicate's name and the elements that will be duplicated.
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -31631,7 +31721,7 @@ paths:
               let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Describes the inputs used for creating a project template, such as the resulting project template's name, which team it should be created in.
               let project_gid = "1331"; // String | Globally unique identifier for the project.
               let opts = { 
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               projectsApiInstance.projectSaveAsTemplate(body, project_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -31670,7 +31760,7 @@ paths:
               body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}} # dict | Describes the inputs used for creating a project template, such as the resulting project template's name, which team it should be created in.
               project_gid = "1331" # str | Globally unique identifier for the project.
               opts = {
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -37777,7 +37867,7 @@ paths:
               let task_template_gid = "1331"; // String | Globally unique identifier for the task template.
               let opts = { 
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, 
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               taskTemplatesApiInstance.instantiateTask(task_template_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -37816,7 +37906,7 @@ paths:
               task_template_gid = "1331" # str | Globally unique identifier for the task template.
               opts = {
                   'body': {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}, # dict | Describes the inputs used for instantiating a task - the task's name.
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -39727,7 +39817,7 @@ paths:
               let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Describes the duplicate's name and the fields that will be duplicated.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status"
               };
               tasksApiInstance.duplicateTask(body, task_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -39766,7 +39856,7 @@ paths:
               body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}} # dict | Describes the duplicate's name and the fields that will be duplicated.
               task_gid = "321654" # str | The task to operate on.
               opts = {
-                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "new_graph_export,new_graph_export.completed_at,new_graph_export.created_at,new_graph_export.download_url,new_project,new_project.name,new_project_template,new_project_template.name,new_resource_export,new_resource_export.completed_at,new_resource_export.created_at,new_resource_export.download_url,new_task,new_task.created_by,new_task.name,new_task.resource_subtype,resource_subtype,status", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -49211,7 +49301,7 @@ paths:
               let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | Information about the time tracking entry.
               let task_gid = "321654"; // String | The task to operate on.
               let opts = { 
-                  'opt_fields': "attributable_to,attributable_to.name,created_at,created_by,created_by.name,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype"
+                  'opt_fields': "approval_status,attributable_to,attributable_to.name,billable_status,created_at,created_by,created_by.name,description,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype"
               };
               timeTrackingEntriesApiInstance.createTimeTrackingEntry(body, task_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -49250,7 +49340,7 @@ paths:
               body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}} # dict | Information about the time tracking entry.
               task_gid = "321654" # str | The task to operate on.
               opts = {
-                  'opt_fields': "attributable_to,attributable_to.name,created_at,created_by,created_by.name,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "approval_status,attributable_to,attributable_to.name,billable_status,created_at,created_by,created_by.name,description,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -49360,7 +49450,7 @@ paths:
               let timeTrackingEntriesApiInstance = new Asana.TimeTrackingEntriesApi();
               let time_tracking_entry_gid = "917392"; // String | Globally unique identifier for the time tracking entry.
               let opts = { 
-                  'opt_fields': "attributable_to,attributable_to.name,created_at,created_by,created_by.name,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype"
+                  'opt_fields': "approval_status,attributable_to,attributable_to.name,billable_status,created_at,created_by,created_by.name,description,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype"
               };
               timeTrackingEntriesApiInstance.getTimeTrackingEntry(time_tracking_entry_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -49398,7 +49488,7 @@ paths:
               time_tracking_entries_api_instance = asana.TimeTrackingEntriesApi(api_client)
               time_tracking_entry_gid = "917392" # str | Globally unique identifier for the time tracking entry.
               opts = {
-                  'opt_fields': "attributable_to,attributable_to.name,created_at,created_by,created_by.name,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "approval_status,attributable_to,attributable_to.name,billable_status,created_at,created_by,created_by.name,description,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -49523,7 +49613,7 @@ paths:
               let body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}}; // Object | The updated fields for the time tracking entry.
               let time_tracking_entry_gid = "917392"; // String | Globally unique identifier for the time tracking entry.
               let opts = { 
-                  'opt_fields': "attributable_to,attributable_to.name,created_at,created_by,created_by.name,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype"
+                  'opt_fields': "approval_status,attributable_to,attributable_to.name,billable_status,created_at,created_by,created_by.name,description,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype"
               };
               timeTrackingEntriesApiInstance.updateTimeTrackingEntry(body, time_tracking_entry_gid, opts).then((result) => {
                   console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
@@ -49562,7 +49652,7 @@ paths:
               body = {"data": {"<PARAM_1>": "<VALUE_1>", "<PARAM_2>": "<VALUE_2>",}} # dict | The updated fields for the time tracking entry.
               time_tracking_entry_gid = "917392" # str | Globally unique identifier for the time tracking entry.
               opts = {
-                  'opt_fields': "attributable_to,attributable_to.name,created_at,created_by,created_by.name,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+                  'opt_fields': "approval_status,attributable_to,attributable_to.name,billable_status,created_at,created_by,created_by.name,description,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
               }
 
               try:
@@ -49790,6 +49880,66 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      x-readme:
+        code-samples:
+          - language: node
+            install: npm install asana
+            code: |-
+              const Asana = require('asana');
+
+              let client = Asana.ApiClient.instance;
+              let token = client.authentications['token'];
+              token.accessToken = '<YOUR_ACCESS_TOKEN>';
+
+              let timeTrackingEntriesApiInstance = new Asana.TimeTrackingEntriesApi();
+              let opts = { 
+                  'task': "12345", 
+                  'attributable_to': "12345", 
+                  'portfolio': "12345", 
+                  'user': "12345", 
+                  'workspace': "98765", 
+                  'limit': 50, 
+                  'offset': "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9", 
+                  'opt_fields': "attributable_to,attributable_to.name,created_by,created_by.name,duration_minutes,entered_on,offset,path,uri"
+              };
+              timeTrackingEntriesApiInstance.getTimeTrackingEntries(opts).then((result) => {
+                  console.log('API called successfully. Returned data: ' + JSON.stringify(result.data, null, 2));
+              }, (error) => {
+                  console.error(error.response.body);
+              });
+            name: node-sdk-v3
+          - language: python
+            install: pip install asana
+            code: |-
+              import asana
+              from asana.rest import ApiException
+              from pprint import pprint
+
+              configuration = asana.Configuration()
+              configuration.access_token = '<YOUR_ACCESS_TOKEN>'
+              api_client = asana.ApiClient(configuration)
+
+              # create an instance of the API class
+              time_tracking_entries_api_instance = asana.TimeTrackingEntriesApi(api_client)
+              opts = {
+                  'task': "12345", # str | Globally unique identifier for the task to filter time tracking entries by.
+                  'attributable_to': "12345", # str | Globally unique identifier for the project the time tracking entries are attributed to.
+                  'portfolio': "12345", # str | Globally unique identifier for the portfolio to filter time tracking entries by.
+                  'user': "12345", # str | Globally unique identifier for the user to filter time tracking entries by.
+                  'workspace': "98765", # str | Globally unique identifier for the workspace.
+                  'limit': 50, # int | Results per page. The number of objects to return per page. The value must be between 1 and 100.
+                  'offset': "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9", # str | Offset token. An offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results. *Note: You can only pass in an offset that was returned to you via a previously paginated request.*
+                  'opt_fields': "attributable_to,attributable_to.name,created_by,created_by.name,duration_minutes,entered_on,offset,path,uri", # list[str] | This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.
+              }
+
+              try:
+                  # Get multiple time tracking entries
+                  api_response = time_tracking_entries_api_instance.get_time_tracking_entries(opts)
+                  for data in api_response:
+                      pprint(data)
+              except ApiException as e:
+                  print("Exception when calling TimeTrackingEntriesApi->get_time_tracking_entries: %s\n" % e)
+            name: python-sdk-v5
   /workspaces/{workspace_gid}/typeahead:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
