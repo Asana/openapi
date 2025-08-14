@@ -1506,16 +1506,26 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    AllocationResponseData:
+    AccessRequestResponseArray:
       content:
         application/json; charset=UTF-8:
           schema:
-            $ref: '#/components/schemas/AllocationResponseData'
+            $ref: '#/components/schemas/AccessRequestResponseArray'
+    AccessRequestResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/AccessRequestResponseData'
     EmptyResponseData:
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/EmptyResponseData'
+    AllocationResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/AllocationResponseData'
     AllocationResponseArray:
       content:
         application/json; charset=UTF-8:
@@ -36194,13 +36204,24 @@ components:
             The ID of the access request that the user is rejecting.
           type: string
           example: '12345'
-    AllocationResponseData:
+    AccessRequestResponseArray:
       type: object
       required:
         - data
       properties:
         data:
-          $ref: '#/components/schemas/AllocationResponse'
+          type: array
+          items:
+            $ref: '#/components/schemas/AccessRequestResponse'
+        next_page:
+          $ref: '#/components/schemas/NextPage'
+    AccessRequestResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/AccessRequestResponse'
     EmptyResponseData:
       type: object
       required:
@@ -36208,6 +36229,13 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/EmptyResponse'
+    AllocationResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/AllocationResponse'
     AllocationResponseArray:
       type: object
       required:
@@ -36828,6 +36856,131 @@ components:
         password.
       scheme: bearer
 paths:
+  /access_requests:
+    get:
+      summary: Get access requests
+      description: Returns the pending access requests for a target object or a target
+        object filtered by user.
+      tags:
+        - Access requests
+      operationId: getAccessRequests
+      parameters:
+        - $ref: '#/components/parameters/target_query_param'
+        - $ref: '#/components/parameters/user_query_param'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - approval_status
+            - message
+            - requester
+            - requester.name
+            - target
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - approval_status
+                - message
+                - requester
+                - requester.name
+                - target
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/AccessRequestResponseArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create an access request
+      description: Submits a new access request for a private object. Currently supports
+        projects and portfolios.
+      operationId: createAccessRequest
+      tags:
+        - Access requests
+      requestBody:
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/AccessRequestCreateRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/AccessRequestResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /access_requests/{access_request_gid}/approve:
+    post:
+      summary: Approve an access request
+      description: Approves an access request for a target object.
+      tags:
+        - Access requests
+      operationId: approveAccessRequest
+      parameters:
+        - $ref: '#/components/parameters/access_request_gid'
+      responses:
+        200:
+          $ref: '#/components/responses/EmptyResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /access_requests/{access_request_gid}/reject:
+    post:
+      summary: Reject an access request
+      description: Rejects an access request for a target object.
+      tags:
+        - Access requests
+      operationId: rejectAccessRequest
+      parameters:
+        - $ref: '#/components/parameters/access_request_gid'
+      responses:
+        200:
+          $ref: '#/components/responses/EmptyResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /allocations/{allocation_gid}:
     parameters:
       - $ref: '#/components/parameters/allocation_path_gid'
