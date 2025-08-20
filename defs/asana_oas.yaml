@@ -5593,7 +5593,8 @@ components:
       properties:
         parent:
           description: >-
-            Globally unique ID of the parent object: project, portfolio, or team.
+            Globally unique ID of the parent object: goal, project, portfolio, or
+            team.
           type: string
           example: '181636'
     GraphExportCompact:
@@ -8308,11 +8309,16 @@ components:
           example: editor
         access_level:
           type: string
-          description: Describes if member is commenter or editor in goal. This is
-            preferred over role
+          description: >-
+            "Describes the membership access level for the goal. (`admin` and `viewer`
+            are currently only
+            available when you include the header: `Asana-Enable: goal_sals_api`.)
+            This is preferred over role."
           enum:
+            - viewer
             - commenter
             - editor
+            - admin
           example: editor
         goal:
           allOf:
@@ -8335,7 +8341,8 @@ components:
               readOnly: true
               description: >-
                 *Deprecated: new integrations should prefer the `role` field.*
-                Describes if the member is comment only in goal.
+                Describes if the member is comment only in goal. Will be null if the
+                `goal_sals_api` change flag is enabled.
               example: false
             is_editor:
               type: boolean
@@ -8343,7 +8350,8 @@ components:
               readOnly: true
               description: >-
                 *Deprecated: new integrations should prefer the `role` field.*
-                Describes if the member is editor in goal.
+                Describes if the member is editor in goal. Will be null if the `goal_sals_api`
+                change flag is enabled.
               example: false
     GoalMembershipResponse:
       allOf:
@@ -8386,10 +8394,12 @@ components:
       properties:
         access_level:
           description: >-
-            Sets the access level for the member. Goals can have access levels `editor`
-            or `commenter`. Projects can have access levels `admin`, `editor` or `commenter`.
-            Portfolios can have access levels `admin`, `editor` or `viewer`. Custom
-            Fields can have access levels `admin`, `editor` or `user`.
+            Sets the access level for the member. Goals can have access levels `viewer`,
+            `commenter`, `editor` or `admin` (`viewer` and `admin` are currently only
+            available for Goals when you include the `Asana-Enable: goal_sals_api`
+            change flag header). Projects can have access levels `admin`, `editor`
+            or `commenter`. Portfolios can have access levels `admin`, `editor` or
+            `viewer`. Custom Fields can have access levels `admin`, `editor` or `user`.
           type: string
           example: editor
     CreateMembershipRequest:
@@ -8683,6 +8693,7 @@ components:
             tasks:write: Create and modify access to tasks
             tasks:delete: Delete access to tasks
             task_templates:read: View access to task templates
+            team_memberships:read: View access to team memberships
             portfolios:read: View access to portfolios
             portfolios:write: Create and modify access to portfolios
             project_templates:read: View access to project templates
@@ -13640,7 +13651,7 @@ paths:
       summary: Initiate a graph export
       description: |-
         Initiates a graph export job for a given parent object
-        (team, portfolio, or project). The export will be processed asynchronously.
+        (goal, team, portfolio, or project). The export will be processed asynchronously.
         Once initiated, use the [jobs](/reference/getjob) endpoint to monitor progress.
 
         **Export Caching:** When exporting more than 1,000 tasks, the results are cached for 4 hours. Any new export requests made within this 4-hour window will return the same cached results rather than generating a fresh export.
@@ -14803,6 +14814,14 @@ paths:
           <tr>
             <td><code>time_period</code></td>
             <td><code>time_periods:read</code></td>
+          </tr>
+          <tr>
+            <td><code>custom_field_settings</code></td>
+            <td><code>custom_fields:read</code></td>
+          </tr>
+          <tr>
+            <td><code>custom_fields</code></td>
+            <td><code>custom_fields:read</code></td>
           </tr>
         </table>
 
@@ -46653,7 +46672,20 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get a team membership
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>team_memberships:read</code>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>team</code></td>
+            <td><code>teams:read</code></td>
+          </tr>
+        </table>
+
         Returns the complete team membership record for a single team membership.
       tags:
         - Team memberships
@@ -46708,6 +46740,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - team_memberships:read
       x-readme:
         code-samples:
           - language: java
@@ -46830,7 +46865,9 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get team memberships
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>team_memberships:read</code>
+
         Returns compact team membership records.
       tags:
         - Team memberships
@@ -46918,6 +46955,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - team_memberships:read
       x-readme:
         code-samples:
           - language: java
@@ -47049,7 +47089,9 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get memberships from a team
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>team_memberships:read</code>
+
         Returns the compact team memberships for the team.
       tags:
         - Team memberships
@@ -47114,6 +47156,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - team_memberships:read
       x-readme:
         code-samples:
           - language: java
@@ -47241,7 +47286,9 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get memberships from a user
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>team_memberships:read</code>
+
         Returns the compact team membership records for the user.
       tags:
         - Team memberships
@@ -47314,6 +47361,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - team_memberships:read
       x-readme:
         code-samples:
           - language: java
