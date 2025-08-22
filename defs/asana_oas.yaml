@@ -8692,6 +8692,7 @@ components:
             tasks:read: View access to tasks
             tasks:write: Create and modify access to tasks
             tasks:delete: Delete access to tasks
+            task_custom_types:read: View access to task custom types
             task_templates:read: View access to task templates
             team_memberships:read: View access to team memberships
             portfolios:read: View access to portfolios
