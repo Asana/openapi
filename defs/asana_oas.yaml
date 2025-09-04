@@ -14803,7 +14803,7 @@ paths:
       - $ref: '#/components/parameters/goal_path_gid'
       - $ref: '#/components/parameters/pretty'
     get:
-      summary: Get a goal
+      summary: Get a goal -- OAS UPDATE
       description: |-
         <b>Required scope: </b><code>goals:read</code>
 
