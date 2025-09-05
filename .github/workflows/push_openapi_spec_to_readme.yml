@@ -34,4 +34,4 @@ jobs:
         uses: readmeio/rdme@v10
         with:
           # id is the id of the API definition
-          rdme: openapi upload defs/asana_oas.yaml --key=${{ env.README_API_KEY }} --slug=asana.json
+          rdme: openapi upload defs/asana_oas.yaml --key=${{ env.README_API_KEY }} --slug=asana
