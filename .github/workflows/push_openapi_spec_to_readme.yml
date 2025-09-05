@@ -29,9 +29,9 @@ jobs:
           # GitHub Actions environment variable name is README_API so to access "key" from the json we can use README_API_KEY
           parse-json-secrets: true
       - name: Check out repo 📚
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Run `openapi` command 🚀
-        uses: readmeio/rdme@v8
+        uses: readmeio/rdme@v10
         with:
           # id is the id of the API definition
-          rdme: openapi defs/asana_oas.yaml --key=${{ env.README_API_KEY }} --id=64a8a031f326ee000e3a92f3
+          rdme: openapi upload defs/asana_oas.yaml --key=${{ env.README_API_KEY }} --slug=asana
