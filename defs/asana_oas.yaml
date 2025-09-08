@@ -4150,9 +4150,7 @@ components:
               nullable: true
               example: '2019-09-15'
             custom_fields:
-              description: "<p><strong style=\"color: #4573D2\">Full object requires
-                scope: </strong><code>custom_fields:read</code></p>\n\nArray of Custom
-                Fields."
+              description: Array of Custom Fields.
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldCompact'
@@ -4839,9 +4837,7 @@ components:
         - type: object
           properties:
             custom_fields:
-              description: "<p><strong style=\"color: #4573D2\">Full object requires
-                scope: </strong><code>custom_fields:read</code></p>\n\nArray of Custom
-                Fields."
+              description: Array of Custom Fields.
               readOnly: true
               type: array
               items:
@@ -7321,17 +7317,15 @@ components:
                     existing section visible in the user's "My tasks" list.
             custom_fields:
               description: >-
-                <p><strong style="color: #4573D2">Full object requires scope: </strong><code>custom_fields:read</code></p>
-
-
-                Array of custom field values applied to the task. These represent
-                the custom field values recorded on this project for a particular
-                custom field. For example, these custom field values will contain
-                an `enum_value` property for custom fields of type `enum`, a `text_value`
-                property for custom fields of type `text`, and so on. Please note
-                that the `gid` returned on each custom field value *is identical*
-                to the `gid` of the custom field, which allows referencing the custom
-                field metadata through the `/custom_fields/custom_field_gid` endpoint.
+                Array of custom field values applied to the task. These
+                represent the custom field values recorded on this project for a
+                particular custom field. For example, these custom field values
+                will contain an `enum_value` property for custom fields of type
+                `enum`, a `text_value` property for custom fields of type
+                `text`, and so on. Please note that the `gid` returned on each
+                custom field value *is identical* to the `gid` of the custom field,
+                which allows referencing the custom field metadata through the
+                `/custom_fields/custom_field_gid` endpoint.
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldResponse'
@@ -7434,10 +7428,10 @@ components:
     TeamBase:
       $ref: '#/components/schemas/TeamCompact'
     TeamCompact:
-      description: >-
-        A *team* is used to group related projects and people together within
-        an organization. Each project in an organization is associated with a
-        team.
+      description: "<p><strong style=\"color: #4573D2\">Full object requires scope:
+        </strong><code>teams:read</code></p>\n\nA *team* is used to group related
+        projects and people together within an organization. Each project in an organization
+        is associated with a team."
       type: object
       properties:
         gid:
@@ -8502,10 +8496,13 @@ components:
           format: date
           example: '2015-03-14'
         attributable_to:
-          $ref: '#/components/schemas/ProjectCompact'
-          type: object
-          description: >-
-            *Optional*. The project which the time is attributable to.
+          allOf:
+            - $ref: '#/components/schemas/ProjectCompact'
+            - type: object
+              description: >-
+                The attributable to project specifies which project's budget a time
+                entry should be counted toward, if the task belongs to more than one
+                project. If it only belongs to one project, it should be that project.
         created_by:
           $ref: '#/components/schemas/UserCompact'
           readOnly: true
@@ -14820,10 +14817,6 @@ paths:
             <td><code>custom_field_settings</code></td>
             <td><code>custom_fields:read</code></td>
           </tr>
-          <tr>
-            <td><code>custom_fields</code></td>
-            <td><code>custom_fields:read</code></td>
-          </tr>
         </table>
 
         Returns the complete goal record for a single goal.
@@ -19884,10 +19877,6 @@ paths:
           </tr>
           <tr>
             <td><code>custom_field_settings</code></td>
-            <td><code>custom_fields:read</code></td>
-          </tr>
-          <tr>
-            <td><code>custom_fields</code></td>
             <td><code>custom_fields:read</code></td>
           </tr>
         </table>
@@ -26155,8 +26144,8 @@ paths:
             <td><code>custom_fields:read</code></td>
           </tr>
           <tr>
-            <td><code>custom_fields</code></td>
-            <td><code>custom_fields:read</code></td>
+            <td><code>team</code></td>
+            <td><code>teams:read</code></td>
           </tr>
         </table>
 
@@ -29913,8 +29902,8 @@ paths:
             <td><code>custom_fields:read</code></td>
           </tr>
           <tr>
-            <td><code>custom_fields</code></td>
-            <td><code>custom_fields:read</code></td>
+            <td><code>team</code></td>
+            <td><code>teams:read</code></td>
           </tr>
         </table>
 
@@ -38966,10 +38955,6 @@ paths:
             <td><code>actual_time_minutes</code></td>
             <td><code>time_tracking_entries:read</code></td>
           </tr>
-          <tr>
-            <td><code>custom_fields</code></td>
-            <td><code>custom_fields:read</code></td>
-          </tr>
         </table>
 
         Returns the complete task record for a single task.
@@ -45651,10 +45636,6 @@ paths:
           <tr>
             <td><code>actual_time_minutes</code></td>
             <td><code>time_tracking_entries:read</code></td>
-          </tr>
-          <tr>
-            <td><code>custom_fields</code></td>
-            <td><code>custom_fields:read</code></td>
           </tr>
         </table>
 
