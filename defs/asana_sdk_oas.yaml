@@ -746,9 +746,6 @@ tags:
 
       Project templates in organizations are shared with a single team. Currently, the
       team of a project template cannot be changed via the API.
-  - name: Reactions
-    description: |-
-      A reaction is an object that represents a user's emoji reaction on a status update, comment, task completion, or attachment.
   - name: Rules
     description: |-
       [Asana rules](https://help.asana.com/s/article/rules?language=en_US) allow you to automate common patterns
@@ -1714,11 +1711,6 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TaskCountResponseData'
-    ReactionCompactArray:
-      content:
-        application/json; charset=UTF-8:
-          schema:
-            $ref: '#/components/schemas/ReactionCompactArray'
     RuleTriggerResponseData:
       content:
         application/json; charset=UTF-8:
@@ -24569,35 +24561,6 @@ components:
                     example: Greg Sanchez
                 x-docs-overrides: *id001
           readOnly: true
-        reaction_summary:
-          description: Summary of emoji reactions on this status.
-          type: array
-          items:
-            type: object
-            description: A summary of an emoji reaction on an object.
-            properties:
-              emoji_base:
-                description: >-
-                  The emoji base character used in the reaction.
-                type: string
-                example: 👎
-              variant:
-                description: >-
-                  The full emoji string used in the reaction.
-                type: string
-                example: 👎🏼
-              count:
-                description: >-
-                  The number of reactions with the emoji variant on the object.
-                type: number
-                example: 1
-              reacted:
-                description: >-
-                  Whether the current user has reacted with the emoji variant on the
-                  object.
-                type: boolean
-                example: false
-          readOnly: true
         modified_at:
           description: >-
             The time at which this project status was last modified.
@@ -25130,35 +25093,6 @@ components:
           type: integer
           readOnly: true
           example: 5
-        reaction_summary:
-          description: Summary of emoji reactions on this story.
-          type: array
-          items:
-            type: object
-            description: A summary of an emoji reaction on an object.
-            properties:
-              emoji_base:
-                description: >-
-                  The emoji base character used in the reaction.
-                type: string
-                example: 👎
-              variant:
-                description: >-
-                  The full emoji string used in the reaction.
-                type: string
-                example: 👎🏼
-              count:
-                description: >-
-                  The number of reactions with the emoji variant on the object.
-                type: number
-                example: 1
-              reacted:
-                description: >-
-                  Whether the current user has reacted with the emoji variant on the
-                  object.
-                type: boolean
-                example: false
-          readOnly: true
         previews:
           description: >-
             *Conditional*. A collection of previews to be displayed in the
@@ -36328,73 +36262,6 @@ components:
             The ID of the access request that the user is rejecting.
           type: string
           example: '12345'
-    ReactionCompact:
-      type: object
-      description: An emoji reaction on an object.
-      properties:
-        gid:
-          description: >-
-            The ID of the reaction object.
-          type: string
-          example: '12345'
-        emoji:
-          description: >-
-            The emoji string used in the reaction.
-          type: string
-          example: 👍
-        user:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *user* object represents an account in Asana that can be given access
-            to various workspaces, projects, and tasks.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              type: string
-              description: >-
-                *Read-only except when same user as requester*. The user's name.
-              example: Greg Sanchez
-          x-docs-overrides: *id001
-          readOnly: true
-    ReactionSummaryItemCompact:
-      type: object
-      description: A summary of an emoji reaction on an object.
-      properties:
-        emoji_base:
-          description: >-
-            The emoji base character used in the reaction.
-          type: string
-          example: 👎
-        variant:
-          description: >-
-            The full emoji string used in the reaction.
-          type: string
-          example: 👎🏼
-        count:
-          description: >-
-            The number of reactions with the emoji variant on the object.
-          type: number
-          example: 1
-        reacted:
-          description: >-
-            Whether the current user has reacted with the emoji variant on the object.
-          type: boolean
-          example: false
     AccessRequestResponseArray:
       type: object
       required:
@@ -36754,17 +36621,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TaskCountResponse'
-    ReactionCompactArray:
-      type: object
-      required:
-        - data
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/ReactionCompact'
-        next_page:
-          $ref: '#/components/schemas/NextPage'
     RuleTriggerResponseData:
       type: object
       required:
@@ -48548,49 +48404,6 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
-  /reactions:
-    parameters:
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
-    get:
-      summary: Get reactions with an emoji base on an object.
-      description: >-
-        Returns the reactions with a specified emoji base character on the object.
-      operationId: getReactionsOnObject
-      tags:
-        - Reactions
-      parameters:
-        - name: target
-          required: true
-          in: query
-          description: >-
-            Globally unique identifier for object to fetch reactions from. Must be
-            a GID
-            for a status update or story.
-          schema:
-            type: string
-          example: '159874'
-        - name: emoji_base
-          required: true
-          in: query
-          description: |-
-            Only return reactions with this emoji base character.
-          schema:
-            type: string
-          example: 👍
-      responses:
-        200:
-          $ref: '#/components/responses/ReactionCompactArray'
-        400:
-          $ref: '#/components/responses/BadRequest'
-        401:
-          $ref: '#/components/responses/Unauthorized'
-        403:
-          $ref: '#/components/responses/Forbidden'
-        404:
-          $ref: '#/components/responses/NotFound'
-        500:
-          $ref: '#/components/responses/InternalServerError'
   /rule_triggers/{rule_trigger_gid}/run:
     parameters:
       - $ref: '#/components/parameters/rule_trigger_path_gid'
@@ -48999,11 +48812,6 @@ paths:
             - num_likes
             - parent
             - parent.name
-            - reaction_summary
-            - reaction_summary.count
-            - reaction_summary.emoji_base
-            - reaction_summary.reacted
-            - reaction_summary.variant
             - resource_subtype
             - status_type
             - text
@@ -49032,11 +48840,6 @@ paths:
                 - num_likes
                 - parent
                 - parent.name
-                - reaction_summary
-                - reaction_summary.count
-                - reaction_summary.emoji_base
-                - reaction_summary.reacted
-                - reaction_summary.variant
                 - resource_subtype
                 - status_type
                 - text
@@ -49136,11 +48939,6 @@ paths:
             - parent
             - parent.name
             - path
-            - reaction_summary
-            - reaction_summary.count
-            - reaction_summary.emoji_base
-            - reaction_summary.reacted
-            - reaction_summary.variant
             - resource_subtype
             - status_type
             - text
@@ -49172,11 +48970,6 @@ paths:
                 - parent
                 - parent.name
                 - path
-                - reaction_summary
-                - reaction_summary.count
-                - reaction_summary.emoji_base
-                - reaction_summary.reacted
-                - reaction_summary.variant
                 - resource_subtype
                 - status_type
                 - text
@@ -49233,11 +49026,6 @@ paths:
             - num_likes
             - parent
             - parent.name
-            - reaction_summary
-            - reaction_summary.count
-            - reaction_summary.emoji_base
-            - reaction_summary.reacted
-            - reaction_summary.variant
             - resource_subtype
             - status_type
             - text
@@ -49266,11 +49054,6 @@ paths:
                 - num_likes
                 - parent
                 - parent.name
-                - reaction_summary
-                - reaction_summary.count
-                - reaction_summary.emoji_base
-                - reaction_summary.reacted
-                - reaction_summary.variant
                 - resource_subtype
                 - status_type
                 - text
@@ -49433,11 +49216,6 @@ paths:
             - previews.title_link
             - project
             - project.name
-            - reaction_summary
-            - reaction_summary.count
-            - reaction_summary.emoji_base
-            - reaction_summary.reacted
-            - reaction_summary.variant
             - resource_subtype
             - source
             - sticker_name
@@ -49577,11 +49355,6 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
-                - reaction_summary
-                - reaction_summary.count
-                - reaction_summary.emoji_base
-                - reaction_summary.reacted
-                - reaction_summary.variant
                 - resource_subtype
                 - source
                 - sticker_name
@@ -49751,11 +49524,6 @@ paths:
             - previews.title_link
             - project
             - project.name
-            - reaction_summary
-            - reaction_summary.count
-            - reaction_summary.emoji_base
-            - reaction_summary.reacted
-            - reaction_summary.variant
             - resource_subtype
             - source
             - sticker_name
@@ -49895,11 +49663,6 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
-                - reaction_summary
-                - reaction_summary.count
-                - reaction_summary.emoji_base
-                - reaction_summary.reacted
-                - reaction_summary.variant
                 - resource_subtype
                 - source
                 - sticker_name
@@ -50108,11 +49871,6 @@ paths:
             - previews.title_link
             - project
             - project.name
-            - reaction_summary
-            - reaction_summary.count
-            - reaction_summary.emoji_base
-            - reaction_summary.reacted
-            - reaction_summary.variant
             - resource_subtype
             - source
             - sticker_name
@@ -50255,11 +50013,6 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
-                - reaction_summary
-                - reaction_summary.count
-                - reaction_summary.emoji_base
-                - reaction_summary.reacted
-                - reaction_summary.variant
                 - resource_subtype
                 - source
                 - sticker_name
@@ -50434,11 +50187,6 @@ paths:
             - previews.title_link
             - project
             - project.name
-            - reaction_summary
-            - reaction_summary.count
-            - reaction_summary.emoji_base
-            - reaction_summary.reacted
-            - reaction_summary.variant
             - resource_subtype
             - source
             - sticker_name
@@ -50578,11 +50326,6 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
-                - reaction_summary
-                - reaction_summary.count
-                - reaction_summary.emoji_base
-                - reaction_summary.reacted
-                - reaction_summary.variant
                 - resource_subtype
                 - source
                 - sticker_name
