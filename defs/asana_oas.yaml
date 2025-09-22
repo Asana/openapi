@@ -4133,7 +4133,7 @@ components:
             created_by:
               $ref: '#/components/schemas/UserCompact'
             custom_field_settings:
-              description: "<p><strong style=\"color: #4573D2\">Full object requires
+              description: "<p><strong style={ color: \"#4573D2\" }>Full object requires
                 scope: </strong><code>custom_fields:read</code></p>\n\nArray of custom
                 field settings applied to the portfolio."
               type: array
@@ -4322,7 +4322,7 @@ components:
                   nullable: true
                   description: The latest `status_update` posted to this project.
             custom_field_settings:
-              description: "<p><strong style=\"color: #4573D2\">Full object requires
+              description: "<p><strong style={ color: \"#4573D2\" }>Full object requires
                 scope: </strong><code>custom_fields:read</code></p>\n\nArray of Custom
                 Field Settings (in compact form)."
               readOnly: true
@@ -6153,7 +6153,8 @@ components:
               readOnly: true
             previews:
               description: >-
-                <p><strong style="color: #4573D2">Full object requires scope: </strong><code>attachments:read</code></p>
+                <p><strong style={ color: "#4573D2" }>Full object requires scope:
+                </strong><code>attachments:read</code></p>
 
 
                 *Conditional*. A collection of previews to be displayed in the story.
@@ -6509,7 +6510,7 @@ components:
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
             followers:
-              description: "<p><strong style=\"color: #4573D2\">Full object requires
+              description: "<p><strong style={ color: \"#4573D2\" }>Full object requires
                 scope: </strong><code>users:read</code></p>\n\nArray of users following
                 this tag."
               type: array
@@ -6732,7 +6733,10 @@ components:
                 [sections](/reference/sections) without being true
                 `section` objects. If a `task` object is rendered this way in any
                 context it will have the property `is_rendered_as_separator` set
-                to `true`.
+                to `true`. This parameter only applies to regular tasks with
+                `resource_subtype` of `default_task`. Tasks with `resource_subtype`
+                of `milestone`, `approval`, or custom task types will not
+                have this property and cannot be rendered as separators.
               type: boolean
               example: false
               readOnly: true
@@ -6749,8 +6753,8 @@ components:
               readOnly: true
             memberships:
               description: >-
-                <p><strong style="color: #4573D2">Full object requires scope: </strong><code>projects:read</code>,
-                <code>project_sections:read</code></p>
+                <p><strong style={ color: "#4573D2" }>Full object requires scope:
+                </strong><code>projects:read</code>, <code>project_sections:read</code></p>
 
 
                 *Create-only*. Array of projects this task is associated with and
@@ -6857,7 +6861,8 @@ components:
               example: '2019-09-14'
             actual_time_minutes:
               description: >-
-                <p><strong style="color: #4573D2">Full object requires scope: </strong><code>time_tracking_entries:read</code></p>
+                <p><strong style={ color: "#4573D2" }>Full object requires scope:
+                </strong><code>time_tracking_entries:read</code></p>
 
 
                 This value represents the sum of all the Time Tracking entries in
@@ -7445,7 +7450,7 @@ components:
     TeamBase:
       $ref: '#/components/schemas/TeamCompact'
     TeamCompact:
-      description: "<p><strong style=\"color: #4573D2\">Full object requires scope:
+      description: "<p><strong style={ color: \"#4573D2\" }>Full object requires scope:
         </strong><code>teams:read</code></p>\n\nA *team* is used to group related
         projects and people together within an organization. Each project in an organization
         is associated with a team."
@@ -7738,7 +7743,7 @@ components:
                 - $ref: '#/components/schemas/TimePeriodCompact'
                 - nullable: true
     TimePeriodCompact:
-      description: "<p><strong style=\"color: #4573D2\">Full object requires scope:
+      description: "<p><strong style={ color: \"#4573D2\" }>Full object requires scope:
         </strong><code>time_periods:read</code></p>\n\nA generic Asana Resource, containing
         a globally unique identifier."
       type: object
@@ -7881,6 +7886,11 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/WorkspaceCompact'
+            custom_fields:
+              description: Array of Custom Fields.
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomFieldCompact'
     UserTaskListBase:
       $ref: '#/components/schemas/UserTaskListCompact'
     UserTaskListCompact:
@@ -52330,6 +52340,31 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
             - email
             - name
             - offset
@@ -52349,6 +52384,31 @@ paths:
             items:
               type: string
               enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
                 - email
                 - name
                 - offset
@@ -52533,6 +52593,31 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
             - email
             - name
             - photo
@@ -52549,6 +52634,31 @@ paths:
             items:
               type: string
               enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
                 - email
                 - name
                 - photo
@@ -52933,6 +53043,31 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
             - email
             - name
             - photo
@@ -52949,6 +53084,31 @@ paths:
             items:
               type: string
               enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
                 - email
                 - name
                 - photo
@@ -53129,6 +53289,31 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
             - email
             - name
             - photo
@@ -53145,6 +53330,31 @@ paths:
             items:
               type: string
               enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
                 - email
                 - name
                 - photo
