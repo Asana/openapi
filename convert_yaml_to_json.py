@@ -10,23 +10,33 @@ from pathlib import Path
 
 
 def convert_yaml_to_json():
-    """Convert asana_oas.yaml to asana_oas.json."""
+    """Convert YAML OpenAPI specifications to JSON format."""
     script_dir = Path(__file__).parent
-    yaml_file = script_dir / "defs" / "asana_oas.yaml"
-    json_file = script_dir / "defs" / "asana_oas.json"
 
-    if not yaml_file.exists():
-        raise FileNotFoundError(f"YAML file not found: {yaml_file}")
+    # Files to convert
+    yaml_files = [
+        "asana_oas.yaml",
+        "app_components_oas.yaml"
+    ]
 
-    # Load YAML file
-    with open(yaml_file, 'r', encoding='utf-8') as f:
-        yaml_data = yaml.safe_load(f)
+    for yaml_filename in yaml_files:
+        yaml_file = script_dir / "defs" / yaml_filename
+        json_filename = yaml_filename.replace('.yaml', '.json')
+        json_file = script_dir / "defs" / json_filename
 
-    # Write JSON file
-    with open(json_file, 'w', encoding='utf-8') as f:
-        json.dump(yaml_data, f, indent=2, ensure_ascii=False)
+        if not yaml_file.exists():
+            print(f"Warning: YAML file not found: {yaml_file}")
+            continue
 
-    print(f"Successfully converted {yaml_file} to {json_file}")
+        # Load YAML file
+        with open(yaml_file, 'r', encoding='utf-8') as f:
+            yaml_data = yaml.safe_load(f)
+
+        # Write JSON file
+        with open(json_file, 'w', encoding='utf-8') as f:
+            json.dump(yaml_data, f, indent=2, ensure_ascii=False)
+
+        print(f"Successfully converted {yaml_file} to {json_file}")
 
 
 if __name__ == "__main__":
