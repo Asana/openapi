@@ -11720,7 +11720,7 @@ components:
           example: '2012-02-22T02:06:58.147Z'
         download_url:
           description: |-
-            Download this URL to retreive the full export of the organization
+            Download this URL to retrieve the full export of the organization
             in JSON format. It will be compressed in a gzip (.gz) container.
 
             *Note: May be null if the export is still in progress or
@@ -11806,7 +11806,7 @@ components:
           example: '2012-02-22T02:06:58.147Z'
         download_url:
           description: |-
-            Download this URL to retreive the full export of the organization
+            Download this URL to retrieve the full export of the organization
             in JSON format. It will be compressed in a gzip (.gz) container.
 
             *Note: May be null if the export is still in progress or
@@ -11902,7 +11902,7 @@ components:
           example: '2012-02-22T02:06:58.147Z'
         download_url:
           description: |-
-            Download this URL to retreive the full export of the organization
+            Download this URL to retrieve the full export of the organization
             in JSON format. It will be compressed in a gzip (.gz) container.
 
             *Note: May be null if the export is still in progress or
