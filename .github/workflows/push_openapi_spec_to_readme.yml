@@ -30,8 +30,18 @@ jobs:
           parse-json-secrets: true
       - name: Check out repo 📚
         uses: actions/checkout@v5
+      - name: Set up Python 🐍
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install Python dependencies 📦
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml
+      - name: Convert YAML to JSON 🔄
+        run: python convert_yaml_to_json.py
       - name: Run `openapi` command 🚀
         uses: readmeio/rdme@v10
         with:
           # id is the id of the API definition
-          rdme: openapi upload defs/asana_oas.yaml --key=${{ env.README_API_KEY }} --slug=asana
+          rdme: openapi upload defs/asana_oas.json --key=${{ env.README_API_KEY }} --slug=asana
