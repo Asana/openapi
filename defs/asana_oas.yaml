@@ -4599,7 +4599,9 @@ components:
         include:
           description: >-
             A comma-separated list of elements that will be duplicated to the new
-            project. Tasks are always included.
+            project. Tasks and [Project Views](https://asana.com/features/project-management/project-views)
+            (i.e., tabs in a project such as List, Board, Dashboard, etc.) are always
+            included.
 
             ##### Fields
 
@@ -4630,11 +4632,15 @@ components:
             - task_subtasks
 
             - task_tags
+
+            - task_templates
+
+            - task_type_default
           type: string
           pattern: 
-            ([allocations|members|notes|forms|task_notes|task_assignee|task_subtasks|task_attachments|task_dates|task_dependencies|task_followers|task_tags|task_projects])(,\1)*
+            ([allocations|forms|members|notes|permissions|task_assignee|task_attachments|task_dates|task_dependencies|task_followers|task_notes|task_projects|task_subtasks|task_tags|task_templates|task_type_default])(,\1)*
           example:
-            - allocations,members,notes,forms,task_notes,task_assignee,task_subtasks,task_attachments,task_dates,task_dependencies,task_followers,task_tags,task_projects
+            - allocations,forms,members,notes,permissions,task_assignee,task_attachments,task_dates,task_dependencies,task_followers,task_notes,task_projects,task_subtasks,task_tags,task_templates,task_type_default
         schedule_dates:
           description: >-
             A dictionary of options to auto-shift dates.
