@@ -2822,10 +2822,24 @@ components:
                       The GID of an object.
                   example:
                     - '12345'
+                resource_subtype:
+                  description: >-
+                    The type of the custom field. Must be one of the given values.
+                  type: string
+                  example: text
+                  enum:
+                    - text
+                    - enum
+                    - multi_enum
+                    - number
+                    - date
+                    - people
+                    - reference
               x-docs-overrides: &id005
                 properties.resource_type.example: custom_field
               required:
                 - workspace
+                - resource_subtype
         is_important:
           description: >-
             Whether this field should be considered important to this container

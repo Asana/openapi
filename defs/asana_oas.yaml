@@ -1656,7 +1656,7 @@ components:
             - type: string
               description: The custom field to associate with this container.
               example: '14916'
-            - $ref: '#/components/schemas/CustomFieldRequest'
+            - $ref: '#/components/schemas/CustomFieldCreateRequest'
         is_important:
           description: >-
             Whether this field should be considered important to this container
