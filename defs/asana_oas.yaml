@@ -8818,6 +8818,7 @@ components:
             projects:write: Create and modify access to projects
             users:read: View access to users
             teams:read: View access to teams
+            time_tracking_entries:read: View access to time tracking entries
             stories:read: View access to stories
             stories:write: Create and modify access to stories
             tags:read: View access to tags
@@ -51452,7 +51453,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get time tracking entries for a task
-      description: Returns time tracking entries for a given task.
+      description: |-
+        <b>Required scope: </b><code>time_tracking_entries:read</code>
+
+        Returns time tracking entries for a given task.
       tags:
         - Time tracking entries
       operationId: getTimeTrackingEntriesForTask
@@ -51515,6 +51519,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_entries:read
       x-readme:
         code-samples:
           - language: node
@@ -51758,8 +51765,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get a time tracking entry
-      description: Returns the complete time tracking entry record for a single time
-        tracking entry.
+      description: |-
+        <b>Required scope: </b><code>time_tracking_entries:read</code>
+
+        Returns the complete time tracking entry record for a single time tracking entry.
       tags:
         - Time tracking entries
       operationId: getTimeTrackingEntry
@@ -51826,6 +51835,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_entries:read
       x-readme:
         code-samples:
           - language: node
@@ -52168,9 +52180,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get multiple time tracking entries
-      description: >-
-        Returns a list of time tracking entries filtered to a task, attributed project,
-        portfolio or user.
+      description: |-
+        <b>Required scope: </b><code>time_tracking_entries:read</code>
+
+        Returns a list of time tracking entries filtered to a task, attributed project, portfolio or user.
       tags:
         - Time tracking entries
       operationId: getTimeTrackingEntries
@@ -52270,6 +52283,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_entries:read
       x-readme:
         code-samples:
           - language: node
