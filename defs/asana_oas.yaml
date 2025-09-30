@@ -4177,9 +4177,9 @@ components:
             created_by:
               $ref: '#/components/schemas/UserCompact'
             custom_field_settings:
-              description: "<p><strong style={ color: \"#4573D2\" }>Full object requires
-                scope: </strong><code>custom_fields:read</code></p>\n\nArray of custom
-                field settings applied to the portfolio."
+              description: "<p><strong style={{ color: \"#4573D2\" }}>Full object
+                requires scope: </strong><code>custom_fields:read</code></p>\n\nArray
+                of custom field settings applied to the portfolio."
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldSettingResponse'
@@ -4366,9 +4366,9 @@ components:
                   nullable: true
                   description: The latest `status_update` posted to this project.
             custom_field_settings:
-              description: "<p><strong style={ color: \"#4573D2\" }>Full object requires
-                scope: </strong><code>custom_fields:read</code></p>\n\nArray of Custom
-                Field Settings (in compact form)."
+              description: "<p><strong style={{ color: \"#4573D2\" }}>Full object
+                requires scope: </strong><code>custom_fields:read</code></p>\n\nArray
+                of Custom Field Settings (in compact form)."
               readOnly: true
               type: array
               items:
@@ -6203,7 +6203,7 @@ components:
               readOnly: true
             previews:
               description: >-
-                <p><strong style={ color: "#4573D2" }>Full object requires scope:
+                <p><strong style={{ color: "#4573D2" }}>Full object requires scope:
                 </strong><code>attachments:read</code></p>
 
 
@@ -6560,9 +6560,9 @@ components:
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
             followers:
-              description: "<p><strong style={ color: \"#4573D2\" }>Full object requires
-                scope: </strong><code>users:read</code></p>\n\nArray of users following
-                this tag."
+              description: "<p><strong style={{ color: \"#4573D2\" }}>Full object
+                requires scope: </strong><code>users:read</code></p>\n\nArray of users
+                following this tag."
               type: array
               readOnly: true
               items:
@@ -6803,7 +6803,7 @@ components:
               readOnly: true
             memberships:
               description: >-
-                <p><strong style={ color: "#4573D2" }>Full object requires scope:
+                <p><strong style={{ color: "#4573D2" }}>Full object requires scope:
                 </strong><code>projects:read</code>, <code>project_sections:read</code></p>
 
 
@@ -6911,7 +6911,7 @@ components:
               example: '2019-09-14'
             actual_time_minutes:
               description: >-
-                <p><strong style={ color: "#4573D2" }>Full object requires scope:
+                <p><strong style={{ color: "#4573D2" }}>Full object requires scope:
                 </strong><code>time_tracking_entries:read</code></p>
 
 
@@ -7500,8 +7500,8 @@ components:
     TeamBase:
       $ref: '#/components/schemas/TeamCompact'
     TeamCompact:
-      description: "<p><strong style={ color: \"#4573D2\" }>Full object requires scope:
-        </strong><code>teams:read</code></p>\n\nA *team* is used to group related
+      description: "<p><strong style={{ color: \"#4573D2\" }}>Full object requires
+        scope: </strong><code>teams:read</code></p>\n\nA *team* is used to group related
         projects and people together within an organization. Each project in an organization
         is associated with a team."
       type: object
@@ -7793,9 +7793,9 @@ components:
                 - $ref: '#/components/schemas/TimePeriodCompact'
                 - nullable: true
     TimePeriodCompact:
-      description: "<p><strong style={ color: \"#4573D2\" }>Full object requires scope:
-        </strong><code>time_periods:read</code></p>\n\nA generic Asana Resource, containing
-        a globally unique identifier."
+      description: "<p><strong style={{ color: \"#4573D2\" }}>Full object requires
+        scope: </strong><code>time_periods:read</code></p>\n\nA generic Asana Resource,
+        containing a globally unique identifier."
       type: object
       properties:
         gid:
