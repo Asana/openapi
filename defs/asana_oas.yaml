@@ -4002,6 +4002,34 @@ components:
                 - light-purple
                 - light-warm-gray
               example: light-green
+            start_on:
+              description: >-
+                The day on which work for this portfolio begins, or null if the
+                portfolio has no start date. This takes a date with `YYYY-MM-DD`
+                format. *Note: `due_on` must be present in the
+                request when setting or unsetting the `start_on` parameter.
+                Additionally, `start_on` and `due_on` cannot be the same date.*
+              type: string
+              nullable: true
+              format: date
+              example: '2019-09-14'
+            due_on:
+              description: >-
+                The day on which this portfolio is due. This takes a date with
+                format YYYY-MM-DD.
+              type: string
+              nullable: true
+              format: date
+              example: '2019-09-15'
+            default_access_level:
+              description: >-
+                The default access level when inviting new members to the portfolio
+              type: string
+              enum:
+                - admin
+                - editor
+                - viewer
+              example: viewer
     PortfolioCompact:
       description: >-
         A *portfolio* gives a high-level overview of the status of multiple
@@ -4140,29 +4168,43 @@ components:
         - $ref: '#/components/schemas/PortfolioBase'
         - type: object
           properties:
-            members:
-              readOnly: true
-              type: array
-              description: >-
-                An array of strings identifying users. These can either be the
-                string "me", an email, or the gid of a user.
-              items:
-                type: string
-                description: >-
-                  Gid of an object.
-              example:
-                - '52164'
-                - '15363'
             workspace:
               type: string
               description: >-
-                Gid of an object.
+                *Create-only*. The workspace or organization that the
+                portfolio belongs to.
               example: '167589'
             public:
-              type: boolean
               description: >-
-                True if the portfolio is public to its workspace members.
+                *Deprecated:* new integrations use `privacy_setting` instead.
+              type: boolean
+              deprecated: true
               example: false
+    PortfolioUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/PortfolioBase'
+        - type: object
+          properties:
+            custom_fields:
+              description: >-
+                An object where each key is the GID of a custom field and its corresponding
+                value is
+                either an enum GID, string, number, or object (depending on the custom
+                field type).
+                See the [custom fields guide](/docs/custom-fields-guide) for details
+                on creating and
+                updating custom field values.
+              type: object
+              additionalProperties:
+                type: string
+                description: >-
+                  "{custom_field_gid}" => Value (can be text, enum GID, a number,
+                  etc.).
+                  For date, use format "YYYY-MM-DD" (e.g., 2019-09-15).
+                  For date-time, use ISO 8601 date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
+              example:
+                '5678904321': On Hold
+                '4578152156': Not Started
     PortfolioResponse:
       allOf:
         - $ref: '#/components/schemas/PortfolioBase'
@@ -4188,14 +4230,6 @@ components:
                 - $ref: '#/components/schemas/StatusUpdateCompact'
                 - description: The latest `status_update` posted to this portfolio.
                   nullable: true
-            due_on:
-              description: >-
-                The localized day on which this portfolio is due. This takes a
-                date with format YYYY-MM-DD.
-              type: string
-              format: date
-              nullable: true
-              example: '2019-09-15'
             custom_fields:
               description: Array of Custom Fields.
               type: array
@@ -4208,17 +4242,6 @@ components:
                 $ref: '#/components/schemas/UserCompact'
             owner:
               $ref: '#/components/schemas/UserCompact'
-            start_on:
-              description: >-
-                The day on which work for this portfolio begins, or null if the
-                portfolio has no start date. This takes a date with `YYYY-MM-DD`
-                format. *Note: `due_on` must be present in the
-                request when setting or unsetting the `start_on` parameter.
-                Additionally, `start_on` and `due_on` cannot be the same date.*
-              type: string
-              format: date
-              nullable: true
-              example: '2019-09-14'
             workspace:
               allOf:
                 - $ref: '#/components/schemas/WorkspaceCompact'
@@ -4237,15 +4260,6 @@ components:
                 True if the portfolio is public to its workspace members.
               type: boolean
               example: false
-            default_access_level:
-              description: The default access level when inviting new members to the
-                portfolio
-              type: string
-              enum:
-                - admin
-                - editor
-                - viewer
-              example: viewer
             privacy_setting:
               description: >-
                 The privacy setting of the portfolio. *Note: Administrators in your
@@ -22245,7 +22259,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/PortfolioRequest'
+                  $ref: '#/components/schemas/PortfolioUpdateRequest'
       responses:
         200:
           description: Successfully updated the portfolio.
