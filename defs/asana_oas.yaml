@@ -6574,9 +6574,7 @@ components:
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
             followers:
-              description: "<p><strong style={{ color: \"#4573D2\" }}>Full object
-                requires scope: </strong><code>users:read</code></p>\n\nArray of users
-                following this tag."
+              description: Array of users following this tag.
               type: array
               readOnly: true
               items:
@@ -38534,21 +38532,6 @@ paths:
       description: |-
         <b>Required scope: </b><code>tags:read</code>
 
-        <table>
-          <tr>
-            <th>Field</th>
-            <th>Required Scope</th>
-          </tr>
-          <tr>
-            <td><code>workspace</code></td>
-            <td><code>workspaces:read</code></td>
-          </tr>
-          <tr>
-            <td><code>followers</code></td>
-            <td><code>users:read</code></td>
-          </tr>
-        </table>
-
         Returns the complete tag record for a single tag.
       tags:
         - Tags
@@ -56582,11 +56565,24 @@ paths:
       - $ref: '#/components/parameters/pretty'
     post:
       summary: Remove a user from a workspace or organization
-      description: >-
+      description: |-
         Remove a user from a workspace or organization.
 
         The user making this call must be an admin in the workspace. The user can
         be referenced by their globally unique user ID or their email address.
+
+        When invoked using a **Service Account Token (SAT)**, this endpoint follows the same behavior as the
+        [SCIM API Delete endpoint](/docs/scim).
+        To learn more about how Asana handles user deprovisioning, refer to our
+        [Help Center article on deprovisioning users](https://help.asana.com/s/article/user-deprovisioning).
+
+        When invoked using a **Personal Access Token (PAT)**, the endpoint behaves similarly, except that
+        ownership of the user’s resources is transferred to the **PAT owner** instead of the admin
+        [specified in the Admin Console](https://help.asana.com/s/article/user-deprovisioning#gl-deprovisioning).
+
+        **Note:** If you wish to retain access to a user’s private resources
+        (i.e., those visible only to that user), you have to make them public manually
+        (or ask the user to do so) before removal.
 
         Returns an empty data record.
       tags:
