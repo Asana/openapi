@@ -57169,6 +57169,7 @@ paths:
           enum:
             - default_task
             - milestone
+            - approval
           default: milestone
       - name: assignee.any
         in: query
