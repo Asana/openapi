@@ -44552,7 +44552,9 @@ paths:
       description: |-
         <b>Required scope: </b><code>tasks:write</code>
 
-        parent, or no parent task at all. Returns an empty data block. When using `insert_before` and `insert_after`, at most one of those two options can be specified, and they must already be subtasks of the parent.
+        Updates the parent of a given task. This endpoint can be used to make a task a subtask of another task, or to remove its existing parent.
+        When using `insert_before` and `insert_after`, at most one of those two options can be specified, and they must already be subtasks of the parent.
+        Returns the complete, updated record of the affected [task](/reference/tasks#/task).
       tags:
         - Tasks
       operationId: setParentForTask
