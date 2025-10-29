@@ -2283,7 +2283,14 @@ components:
                       properties.resource_type.example: enum_option
                 enabled:
                   description: >-
-                    *Conditional*. Determines if the custom field is enabled or not.
+                    *Conditional*. This field applies only to
+                    [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                    and is not available for
+                    [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                    Determines if the custom field is enabled or not.
+                    For more details, see the
+                    [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                   type: boolean
                   readOnly: true
                   example: true
@@ -3809,7 +3816,14 @@ components:
             x-docs-overrides: *id003
         enabled:
           description: >-
-            *Conditional*. Determines if the custom field is enabled or not.
+            *Conditional*. This field applies only to
+            [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+            and is not available for
+            [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+            Determines if the custom field is enabled or not.
+            For more details, see the
+            [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
           type: boolean
           readOnly: true
           example: true
@@ -4418,7 +4432,14 @@ components:
             x-docs-overrides: *id003
         enabled:
           description: >-
-            *Conditional*. Determines if the custom field is enabled or not.
+            *Conditional*. This field applies only to
+            [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+            and is not available for
+            [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+            Determines if the custom field is enabled or not.
+            For more details, see the
+            [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
           type: boolean
           readOnly: true
           example: true
@@ -4807,7 +4828,14 @@ components:
             x-docs-overrides: *id003
         enabled:
           description: >-
-            *Conditional*. Determines if the custom field is enabled or not.
+            *Conditional*. This field applies only to
+            [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+            and is not available for
+            [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+            Determines if the custom field is enabled or not.
+            For more details, see the
+            [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
           type: boolean
           readOnly: true
           example: true
@@ -5456,7 +5484,14 @@ components:
             x-docs-overrides: *id003
         enabled:
           description: >-
-            *Conditional*. Determines if the custom field is enabled or not.
+            *Conditional*. This field applies only to
+            [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+            and is not available for
+            [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+            Determines if the custom field is enabled or not.
+            For more details, see the
+            [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
           type: boolean
           readOnly: true
           example: true
@@ -6119,7 +6154,14 @@ components:
             x-docs-overrides: *id003
         enabled:
           description: >-
-            *Conditional*. Determines if the custom field is enabled or not.
+            *Conditional*. This field applies only to
+            [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+            and is not available for
+            [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+            Determines if the custom field is enabled or not.
+            For more details, see the
+            [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
           type: boolean
           readOnly: true
           example: true
@@ -7042,7 +7084,14 @@ components:
                 x-docs-overrides: *id003
             enabled:
               description: >-
-                *Conditional*. Determines if the custom field is enabled or not.
+                *Conditional*. This field applies only to
+                [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                and is not available for
+                [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                Determines if the custom field is enabled or not.
+                For more details, see the
+                [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
               type: boolean
               readOnly: true
               example: true
@@ -11519,7 +11568,14 @@ components:
                     x-docs-overrides: *id003
                 enabled:
                   description: >-
-                    *Conditional*. Determines if the custom field is enabled or not.
+                    *Conditional*. This field applies only to
+                    [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                    and is not available for
+                    [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                    Determines if the custom field is enabled or not.
+                    For more details, see the
+                    [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                   type: boolean
                   readOnly: true
                   example: true
@@ -13554,8 +13610,14 @@ components:
                       x-docs-overrides: *id003
                   enabled:
                     description: >-
-                      *Conditional*. Determines if the custom field is enabled or
-                      not.
+                      *Conditional*. This field applies only to
+                      [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                      and is not available for
+                      [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                      Determines if the custom field is enabled or not.
+                      For more details, see the
+                      [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                     type: boolean
                     readOnly: true
                     example: true
@@ -14383,7 +14445,14 @@ components:
                   x-docs-overrides: *id003
               enabled:
                 description: >-
-                  *Conditional*. Determines if the custom field is enabled or not.
+                  *Conditional*. This field applies only to
+                  [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                  and is not available for
+                  [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                  Determines if the custom field is enabled or not.
+                  For more details, see the
+                  [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                 type: boolean
                 readOnly: true
                 example: true
@@ -15381,8 +15450,14 @@ components:
                       x-docs-overrides: *id003
                   enabled:
                     description: >-
-                      *Conditional*. Determines if the custom field is enabled or
-                      not.
+                      *Conditional*. This field applies only to
+                      [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                      and is not available for
+                      [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                      Determines if the custom field is enabled or not.
+                      For more details, see the
+                      [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                     type: boolean
                     readOnly: true
                     example: true
@@ -16612,7 +16687,14 @@ components:
                 x-docs-overrides: *id003
             enabled:
               description: >-
-                *Conditional*. Determines if the custom field is enabled or not.
+                *Conditional*. This field applies only to
+                [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                and is not available for
+                [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                Determines if the custom field is enabled or not.
+                For more details, see the
+                [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
               type: boolean
               readOnly: true
               example: true
@@ -17064,7 +17146,14 @@ components:
                 x-docs-overrides: *id003
             enabled:
               description: >-
-                *Conditional*. Determines if the custom field is enabled or not.
+                *Conditional*. This field applies only to
+                [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                and is not available for
+                [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                Determines if the custom field is enabled or not.
+                For more details, see the
+                [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
               type: boolean
               readOnly: true
               example: true
@@ -17516,7 +17605,14 @@ components:
                 x-docs-overrides: *id003
             enabled:
               description: >-
-                *Conditional*. Determines if the custom field is enabled or not.
+                *Conditional*. This field applies only to
+                [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                and is not available for
+                [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                Determines if the custom field is enabled or not.
+                For more details, see the
+                [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
               type: boolean
               readOnly: true
               example: true
@@ -18785,8 +18881,14 @@ components:
                       x-docs-overrides: *id003
                   enabled:
                     description: >-
-                      *Conditional*. Determines if the custom field is enabled or
-                      not.
+                      *Conditional*. This field applies only to
+                      [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                      and is not available for
+                      [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                      Determines if the custom field is enabled or not.
+                      For more details, see the
+                      [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                     type: boolean
                     readOnly: true
                     example: true
@@ -20143,8 +20245,14 @@ components:
                       x-docs-overrides: *id003
                   enabled:
                     description: >-
-                      *Conditional*. Determines if the custom field is enabled or
-                      not.
+                      *Conditional*. This field applies only to
+                      [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                      and is not available for
+                      [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                      Determines if the custom field is enabled or not.
+                      For more details, see the
+                      [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                     type: boolean
                     readOnly: true
                     example: true
@@ -21496,8 +21604,14 @@ components:
                       x-docs-overrides: *id003
                   enabled:
                     description: >-
-                      *Conditional*. Determines if the custom field is enabled or
-                      not.
+                      *Conditional*. This field applies only to
+                      [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                      and is not available for
+                      [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                      Determines if the custom field is enabled or not.
+                      For more details, see the
+                      [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                     type: boolean
                     readOnly: true
                     example: true
@@ -22408,7 +22522,14 @@ components:
                   x-docs-overrides: *id003
               enabled:
                 description: >-
-                  *Conditional*. Determines if the custom field is enabled or not.
+                  *Conditional*. This field applies only to
+                  [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                  and is not available for
+                  [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                  Determines if the custom field is enabled or not.
+                  For more details, see the
+                  [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                 type: boolean
                 readOnly: true
                 example: true
@@ -26350,7 +26471,14 @@ components:
                 x-docs-overrides: *id003
             enabled:
               description: >-
-                *Conditional*. Determines if the custom field is enabled or not.
+                *Conditional*. This field applies only to
+                [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                and is not available for
+                [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                Determines if the custom field is enabled or not.
+                For more details, see the
+                [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
               type: boolean
               readOnly: true
               example: true
@@ -28915,7 +29043,14 @@ components:
                   x-docs-overrides: *id003
               enabled:
                 description: >-
-                  *Conditional*. Determines if the custom field is enabled or not.
+                  *Conditional*. This field applies only to
+                  [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                  and is not available for
+                  [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                  Determines if the custom field is enabled or not.
+                  For more details, see the
+                  [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                 type: boolean
                 readOnly: true
                 example: true
@@ -29619,8 +29754,14 @@ components:
                           x-docs-overrides: *id003
                       enabled:
                         description: >-
-                          *Conditional*. Determines if the custom field is enabled
-                          or not.
+                          *Conditional*. This field applies only to
+                          [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                          and is not available for
+                          [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                          Determines if the custom field is enabled or not.
+                          For more details, see the
+                          [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                         type: boolean
                         readOnly: true
                         example: true
@@ -31412,7 +31553,14 @@ components:
                   x-docs-overrides: *id003
               enabled:
                 description: >-
-                  *Conditional*. Determines if the custom field is enabled or not.
+                  *Conditional*. This field applies only to
+                  [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                  and is not available for
+                  [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                  Determines if the custom field is enabled or not.
+                  For more details, see the
+                  [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                 type: boolean
                 readOnly: true
                 example: true
@@ -33609,7 +33757,14 @@ components:
                   x-docs-overrides: *id003
               enabled:
                 description: >-
-                  *Conditional*. Determines if the custom field is enabled or not.
+                  *Conditional*. This field applies only to
+                  [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                  and is not available for
+                  [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                  Determines if the custom field is enabled or not.
+                  For more details, see the
+                  [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                 type: boolean
                 readOnly: true
                 example: true
@@ -36565,7 +36720,14 @@ components:
                     x-docs-overrides: *id003
                 enabled:
                   description: >-
-                    *Conditional*. Determines if the custom field is enabled or not.
+                    *Conditional*. This field applies only to
+                    [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                    and is not available for
+                    [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                    Determines if the custom field is enabled or not.
+                    For more details, see the
+                    [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
                   type: boolean
                   readOnly: true
                   example: true
