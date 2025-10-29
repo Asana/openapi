@@ -904,12 +904,6 @@ components:
                 [FormField-RichText](/reference/modal-forms#formfield-richtext), [FormField-SingleLineText](/reference/modal-forms#formfield-singlelinetext),
                 [FormField-StaticText](/reference/modal-forms#formfield-statictext), [FormField-Typeahead](/reference/modal-forms#formfield-typeahead)
               type: array
-            submit_button_text:
-              description: >-
-                The text to display on the form’s submit button. If not provided, the default text “Submit” will be
-                displayed on the button.
-              type: string
-              example: 'Create New Issue'
             on_submit_callback:
               description: >-
                 The URL to `POST` the form to when the user clicks the submit button.
