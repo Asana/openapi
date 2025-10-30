@@ -8540,10 +8540,10 @@ components:
           format: date
           example: '2023-03-19'
         attributable_to:
-          $ref: '#/components/schemas/ProjectCompact'
-          type: object
+          type: string
           description: >-
-            *Optional*. The project which the time is attributable to.
+            *Optional*. The gid of the project which the time is attributable to.
+          example: '987654'
     CreateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -8560,10 +8560,10 @@ components:
           format: date
           example: '2023-03-19'
         attributable_to:
-          $ref: '#/components/schemas/ProjectCompact'
-          type: object
+          type: string
           description: >-
-            *Optional*. The project which the time is attributable to.
+            *Optional*. The gid of the project which the time is attributable to.
+          example: '987654'
     TimeTrackingEntryCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
