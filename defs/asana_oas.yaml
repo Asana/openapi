@@ -8825,6 +8825,7 @@ components:
             custom_fields:read: View access to custom fields
             custom_fields:write: Create and modify access to custom fields
             goals:read: View access to goals
+            mcp:access: Access via Model Context Protocol (MCP)
             tasks:read: View access to tasks
             tasks:write: Create and modify access to tasks
             tasks:delete: Delete access to tasks
