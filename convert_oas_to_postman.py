@@ -131,29 +131,25 @@ def _build_postman_groups(oas_tags):
 # ===== Request Item Builders =====
 
 def _build_postman_items(paths):
-    """Build request items from OAS paths and operations"""
+    """Build request items from OAS paths and endpoints"""
     for path, path_obj in paths.items():
-        # Collect path-level parameters (shared across all operations)
+        # Collect path-level parameters (shared across all endpoints)
         path_level_params = _extract_parameters(path_obj.get('parameters', []))
         
-        for method, operation in path_obj.items():
+        for method, endpoint in path_obj.items():
             if method not in ['get', 'post', 'put', 'patch', 'delete', 'options', 'head']:
                 continue
             
             # Merge path-level and operation-level parameters
-            operation_params = _extract_parameters(operation.get('parameters', []))
+            endpoint_params = _extract_parameters(endpoint.get('parameters', []))
             all_params = {
-                'path': path_level_params['path'] + operation_params['path'],
-                'query': path_level_params['query'] + operation_params['query']
+                'path': path_level_params['path'] + endpoint_params['path'],
+                'query': path_level_params['query'] + endpoint_params['query']
             }
 
             # Build the request item
             item = {
-                'name': operation.get('summary', f'{method.upper()} {path}'),
-                'description': {
-                    'content': operation.get('description', ''),
-                    'type': 'text/markdown'
-                },
+                'name': endpoint.get('summary', f'{method.upper()} {path}'),
                 'request': {
                     'method': method.upper(),
                     'url': {
@@ -162,13 +158,17 @@ def _build_postman_items(paths):
                         'variable': all_params['path'],
                         'query': all_params['query']
                     },
-                    'body': _resolve_request_body(operation.get('requestBody'))
+                    'body': _resolve_request_body(endpoint.get('requestBody')),
+                    'description': {
+                        'content': endpoint.get('description', ''),
+                        'type': 'text/markdown'
+                    }
                 },
-                'response': _resolve_responses(operation.get('responses', {}), method.upper(), path, all_params)
+                'response': _resolve_responses(endpoint.get('responses', {}), method.upper(), path, all_params)
             }
             
             # Add item to appropriate tag folder(s)
-            tags = operation.get('tags', ['Others'])
+            tags = endpoint.get('tags', ['Others'])
             for tag in tags:
                 _add_item_to_folder(item, tag)
 
