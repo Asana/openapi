@@ -1,7 +1,7 @@
 # Automated pipeline to convert Open API Specification to Asana Postman collection and sync to workspace.
 # [Internal Asanas] Learn more: https://app.asana.com/0/0/1211836466365216/f
 
-name: Build and sync docs on pushes to master branch
+name: Sync Postman Collection
 
 on:
   # Temp start
