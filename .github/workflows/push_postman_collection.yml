@@ -4,11 +4,10 @@
 name: Sync Postman Collection
 
 on:
-  # Temp start
+  # Temp
   push:
     branches:
       - master
-  # Temp end
   schedule:
     - cron: '0 9 * * 1'
   workflow_dispatch:
