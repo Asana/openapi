@@ -10,6 +10,7 @@ Prerequisites:
 - POSTMAN_COLLECTION_FILE env variable (if used inside of a GitHub Action)
 """
 import json
+import sys
 import yaml
 import os
 from pathlib import Path
@@ -147,6 +148,18 @@ def _build_postman_items(paths):
                 'query': path_level_params['query'] + endpoint_params['query']
             }
 
+            request_body = endpoint.get('requestBody')
+            responses = endpoint.get('responses', {})
+
+            # Schemas usually references to external components
+            # so we have to flatten their structure
+            request_body_schema = _resolve_all_refs(request_body)
+            # Get first response == Get successful response
+            response_body_schema = _resolve_all_refs(list(responses.values())[0])
+
+            request_body_table = _get_table_from_schema(request_body_schema, False) if request_body_schema else ''
+            response_body_table = _get_table_from_schema(response_body_schema, True) if response_body_schema else ''
+
             # Build the request item
             item = {
                 'name': endpoint.get('summary', f'{method.upper()} {path}'),
@@ -158,13 +171,19 @@ def _build_postman_items(paths):
                         'variable': all_params['path'],
                         'query': all_params['query']
                     },
-                    'body': _resolve_request_body(endpoint.get('requestBody')),
+                    'body': _resolve_request_body(request_body),
                     'description': {
-                        'content': endpoint.get('description', ''),
+                        'content': '\n\n'.join([
+                                endpoint.get('description', ''), 
+                                '## Request Body:',
+                                request_body_table,
+                                '## Response Body:',
+                                response_body_table
+                            ]).strip(),
                         'type': 'text/markdown'
                     }
                 },
-                'response': _resolve_responses(endpoint.get('responses', {}), method.upper(), path, all_params)
+                'response': _resolve_responses(responses, method.upper(), path, all_params)
             }
             
             # Add item to appropriate tag folder(s)
@@ -316,6 +335,25 @@ def _get_field_example_value(field_schema):
         'boolean': 'false'
     }
     return type_defaults.get(field_schema.get('type'), '')
+
+
+    """Get formatted type string for a field"""
+    field_type = field_schema.get('type', 'any')
+    
+    # If properties exist but no type specified, it's an object
+    if field_type == 'any' and 'properties' in field_schema:
+        field_type = 'object'
+    
+    if field_type == 'array':
+        items = field_schema.get('items', {})
+        item_type = items.get('type', 'any')
+        return f'array[{item_type}]'
+    
+    field_format = field_schema.get('format')
+    if field_format:
+        return f'{field_type}({field_format})'
+    
+    return field_type
 
 # ===== Response Resolvers =====
 
@@ -490,6 +528,200 @@ def _build_dev_docs_urls():
                 process_value(item)
     
     process_value(POSTMAN_COLLECTION)
+
+def _get_table_from_schema(body_schema, include_readonly=True):
+    """Converts request body Open API schema to readable Markdown documentation
+    
+    Args:
+        body_schema: OpenAPI request body schema
+        include_readonly: If False, exclude fields marked as readOnly
+    """
+    if not body_schema or not isinstance(body_schema, dict):
+        return ''
+    
+    content = body_schema.get('content', {})
+    if not content:
+        return ''
+    
+    # Get first content type (usually application/json)
+    content_type = next(iter(content.keys()))
+    schema = content[content_type].get('schema', {})
+    
+    if not schema:
+        return ''
+    
+    # Normalize schema to handle allOf, anyOf, oneOf
+    normalized_schema = _normalize_schema(schema)
+    
+    required_fields = normalized_schema.get('required', [])
+    properties = normalized_schema.get('properties', {})
+    
+    if not properties:
+        return ''
+    
+    # Build markdown table with wider columns
+    lines = [
+        '| Field | Type | Enum Values | Description |',
+        '|-------|------|-------------|-------------|'
+    ]
+    lines.extend(_build_field_rows(properties, required_fields, include_readonly))
+    
+    return '\n'.join(lines)
+
+def _normalize_schema(schema):
+    """Normalize schema by merging allOf, anyOf, oneOf into a single schema"""
+    if not isinstance(schema, dict):
+        return schema
+    
+    # Handle allOf - merge all schemas
+    if 'allOf' in schema:
+        merged = {}
+        merged_properties = {}
+        merged_required = []
+        
+        for sub_schema in schema['allOf']:
+            normalized_sub = _normalize_schema(sub_schema)
+            if isinstance(normalized_sub, dict):
+                # Merge properties
+                if 'properties' in normalized_sub:
+                    merged_properties.update(normalized_sub['properties'])
+                # Merge required fields
+                if 'required' in normalized_sub:
+                    merged_required.extend(normalized_sub['required'])
+                # Copy other fields (type, description, etc.)
+                for key, value in normalized_sub.items():
+                    if key not in ['properties', 'required', 'allOf']:
+                        merged[key] = value
+        
+        if merged_properties:
+            merged['properties'] = merged_properties
+        if merged_required:
+            merged['required'] = list(set(merged_required))  # Remove duplicates
+        
+        return merged
+    
+    # Handle anyOf or oneOf - use first schema that has properties
+    if 'anyOf' in schema or 'oneOf' in schema:
+        schemas = schema.get('anyOf') or schema.get('oneOf')
+        for sub_schema in schemas:
+            normalized_sub = _normalize_schema(sub_schema)
+            if isinstance(normalized_sub, dict) and 'properties' in normalized_sub:
+                return normalized_sub
+        # If none have properties, return the first one
+        return _normalize_schema(schemas[0]) if schemas else schema
+    
+    # Recursively normalize nested properties
+    if 'properties' in schema:
+        normalized_props = {}
+        for prop_name, prop_schema in schema['properties'].items():
+            normalized_props[prop_name] = _normalize_schema(prop_schema)
+        schema = dict(schema)  # Make a copy
+        schema['properties'] = normalized_props
+    
+    return schema
+
+def _build_field_rows(properties, required_fields, include_readonly=True, prefix=''):
+    """Recursively build table rows for schema properties
+    
+    Args:
+        properties: Schema properties dict
+        required_fields: List of required field names
+        include_readonly: If False, skip readOnly fields
+        prefix: Prefix for nested field names
+    """
+    rows = []
+    
+    for field_name, field_schema in properties.items():
+        # Normalize the field schema to handle nested allOf/anyOf/oneOf
+        normalized_field = _normalize_schema(field_schema)
+        
+        # Skip readonly fields if requested
+        if not include_readonly and normalized_field.get('readOnly', False):
+            continue
+        
+        full_name = f'{prefix}{field_name}'
+        field_type = _get_field_type(normalized_field)
+        enum_values = _get_enum_values(normalized_field)
+        description = _clean_description(normalized_field.get('description', ''))
+        
+        rows.append(f'| `{full_name}` | {field_type} | {enum_values} | {description} |')
+        
+        # Handle nested objects (type may be implicit if properties exist)
+        if 'properties' in normalized_field:
+            nested_required = normalized_field.get('required', [])
+            rows.extend(_build_field_rows(
+                normalized_field['properties'], 
+                nested_required, 
+                include_readonly,
+                f'{full_name}.'
+            ))
+        
+        # Handle array items with object properties
+        if normalized_field.get('type') == 'array' and 'items' in normalized_field:
+            items_schema = _normalize_schema(normalized_field['items'])
+            
+            # If array items have properties (i.e., they're objects), expand them
+            if 'properties' in items_schema:
+                items_required = items_schema.get('required', [])
+                rows.extend(_build_field_rows(
+                    items_schema['properties'],
+                    items_required,
+                    include_readonly,
+                    f'{full_name}[].'
+                ))
+    
+    return rows
+
+def _get_field_type(field_schema):
+    """Get formatted type string for a field"""
+    field_type = field_schema.get('type', 'any')
+    
+    # If properties exist but no type specified, it's an object
+    if field_type == 'any' and 'properties' in field_schema:
+        field_type = 'object'
+    
+    if field_type == 'array':
+        items = field_schema.get('items', {})
+        # Normalize items schema to handle allOf/anyOf/oneOf
+        normalized_items = _normalize_schema(items)
+        item_type = normalized_items.get('type', 'any')
+        return f'array[{item_type}]'
+    
+    field_format = field_schema.get('format')
+    if field_format:
+        return f'{field_type}({field_format})'
+    
+    return field_type
+
+def _get_enum_values(field_schema):
+    """Get formatted enum values string"""
+    enum = field_schema.get('enum')
+    if not enum:
+        return ''
+    
+    # Format enum values, limiting to first 10 if too many
+    limit = 10
+    if len(enum) <= limit:
+        return ', '.join(f'`{v}`' for v in enum)
+    else:
+        shown = ', '.join(f'`{v}`' for v in enum[:limit])
+        return f'{shown}, ... (+{len(enum) - limit} more)'
+
+def _clean_description(description):
+    """Clean description text for markdown table compatibility"""
+    if not description:
+        return ''
+    
+    # Replace newlines with spaces to prevent table breaking
+    cleaned = description.replace('\n', ' ')
+    
+    # Replace multiple spaces with single space
+    cleaned = re.sub(r'\s+', ' ', cleaned)
+    
+    # Escape pipe characters that would break the table
+    cleaned = cleaned.replace('|', '\\|')
+    
+    return cleaned.strip()
 
 # ===== Entrypoint =====
 
