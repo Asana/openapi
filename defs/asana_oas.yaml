@@ -2426,7 +2426,6 @@ components:
               example: priority
     CustomFieldCompact:
       description: >-
-        Test
         Custom Fields store the metadata that is used in order to
         add user-specified information to tasks in Asana. Be sure
         to reference the [custom fields](/reference/custom-fields)
