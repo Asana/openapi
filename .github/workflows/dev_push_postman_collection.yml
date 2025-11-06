@@ -20,8 +20,8 @@ jobs:
       POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
       # ID of the Asana Postman collection
       POSTMAN_COLLECTION_ID: "47189562-a68d6105-882b-4ac2-8a05-69ad3c673c2d"
-      # File name of the Postman collection json file to be created in defs directory
-      POSTMAN_COLLECTION_FILE: "asana_postman_collection.json"
+      # File path of the Postman collection json file to be created in defs directory
+      POSTMAN_COLLECTION_FILE: "defs/asana_postman_collection.json"
       OAS_FILE: "defs/asana_oas.yaml"
 
     steps:
@@ -39,7 +39,7 @@ jobs:
             const runs = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'push_postman_collection.yml',
+              workflow_id: context.workflow,
               status: 'success',
               per_page: 1
             });

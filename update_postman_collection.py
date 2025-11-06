@@ -32,8 +32,7 @@ def upload_to_postman():
         sys.exit(1)
     
     # Locate collection file
-    defs_dir = Path(__file__).parent / 'defs'
-    file_path = defs_dir / collection_file
+    file_path = Path(collection_file)
     
     if not file_path.exists():
         print(f"❌ Collection file not found: {file_path}")

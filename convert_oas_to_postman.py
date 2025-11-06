@@ -14,6 +14,7 @@ Prerequisites:
 import json
 import os
 import re
+import sys
 import yaml
 from http import HTTPStatus
 from pathlib import Path
@@ -33,10 +34,16 @@ def convert_oas_to_postman():
     """Convert Open API Spec to Postman Collection"""
     global OAS
 
-    defs_dir = Path(__file__).parent / 'defs'
-    oas_file = defs_dir / os.getenv('OAS_FILE', 'asana_oas.yaml')
-    output_file = defs_dir / os.getenv('POSTMAN_COLLECTION_FILE', 'asana_postman_collection.json')
-    postman_description_file = defs_dir / 'postman_description.md'
+    oas_file = os.getenv('OAS_FILE', '')
+    output_file = os.getenv('POSTMAN_COLLECTION_FILE', '')
+    
+    if not all([oas_file, output_file]):
+        print("❌ Missing required environment variables:")
+        print(f"   OAS_FILE: {'✅' if oas_file else '❌'}")
+        print(f"   POSTMAN_COLLECTION_FILE: {'✅' if output_file else '❌'}")
+        sys.exit(1)
+    
+    postman_description_file = Path('defs/postman_description.md')
 
     # Load collection's description or set to None if file isn't found.
     # This will result in loading the OAS description as a fallback
