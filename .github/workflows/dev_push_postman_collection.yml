@@ -4,16 +4,9 @@
 name: Sync Postman Collection
 
 on:
-  # schedule:
-  #   - cron: '0 16 * * *' # daily at 4 PM UTC (8/9 AM PST/PDT)
-  # If changes are made to the automation script -> push changes.
-  # This way we don't have to manually run the workflow if implementing a bug fix
-  # push:
-  #   branches:
-  #     - master
-  #   paths:
-  #     - convert_oas_to_postman.py
-  #     - update_postman_collection.py
+  push:
+    branches:
+      - master
   workflow_dispatch:
 
 permissions:
@@ -24,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      POSTMAN_API_KEY: ${{ secrets.POSTMAN_API_KEY }}
       # ID of the Asana Postman collection
       POSTMAN_COLLECTION_ID: "47189562-a68d6105-882b-4ac2-8a05-69ad3c673c2d"
       # File name of the Postman collection json file to be created in defs directory
@@ -81,21 +75,6 @@ jobs:
       - name: Stop early if no changes
         if: steps.check_diff.outputs.no_changes == 'true'
         run: echo "No changes in OpenAPI file since last run — skipping update."
-
-      - name: Authenticate to AWS
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' }}
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-region: us-east-1
-          role-to-assume: arn:aws:iam::403483446840:role/autogen_github_actions_beta_push_openapi_spec_to_readme
-
-      - name: Load secrets
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' }}
-        uses: aws-actions/aws-secretsmanager-get-secrets@v2
-        with:
-          secret-ids: POSTMAN_API_KEY,postman_api_key
-          # postman_api_key secret is stored as {key:"***..."}
-          parse-json-secrets: true
 
       - name: Set up Python 🐍
         if: ${{ steps.check_diff.outputs.no_changes == 'false' }}

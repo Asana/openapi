@@ -5,6 +5,8 @@ Convert Open API Spec to Postman Collection
 Converts OpenAPI 3.0 specification to Postman Collection v2.1.0 format,
 handling request/response bodies, parameters, and tag-based organization.
 
+[Internal Asanas] Learn more: https://app.asana.com/0/0/1211836466365216/f
+
 Prerequisites:
 - Open API Specification JSON file in ./defs directory
 - POSTMAN_COLLECTION_FILE env variable (if used inside of a GitHub Action)
@@ -19,7 +21,6 @@ from pathlib import Path
 # ===== Constants =====
 
 ASANA_DEV_DOCS_BASE_URL = "https://developers.asana.com"
-OAS_YAML_FILE = 'asana_oas.yaml'
 
 # ===== Global mutable state =====
 
@@ -33,7 +34,7 @@ def convert_oas_to_postman():
     global OAS
 
     defs_dir = Path(__file__).parent / 'defs'
-    oas_file = defs_dir / OAS_YAML_FILE
+    oas_file = defs_dir / os.getenv('OAS_FILE', 'asana_oas.yaml')
     output_file = defs_dir / os.getenv('POSTMAN_COLLECTION_FILE', 'asana_postman_collection.json')
     postman_description_file = defs_dir / 'postman_description.md'
 
