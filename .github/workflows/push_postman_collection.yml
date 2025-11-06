@@ -45,6 +45,8 @@ jobs:
             const runs = await github.rest.actions.listWorkflowRuns({
               owner: context.repo.owner,
               repo: context.repo.repo,
+              // Isn't ideal, but context.workflow returns a name,
+              // which is not accepted by GitHub API.
               workflow_id: 'push_postman_collection.yml',
               status: 'success',
               per_page: 1
