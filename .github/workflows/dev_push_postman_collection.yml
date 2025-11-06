@@ -68,13 +68,15 @@ jobs:
           # Ensure we have the full history for proper diffing
           git fetch --all --prune
 
-          # Compare the file across commits
-          if git diff --exit-code "$LAST_SUCCESS"...HEAD -- "$TARGET_FILE" >/dev/null; then
-            echo "No changes detected in $TARGET_FILE"
-            echo "no_changes=true" >> $GITHUB_OUTPUT
-          else
-            echo "Changes detected in $TARGET_FILE"
+          # List commits since last successful run that touched the target file
+          CHANGES=$(git log --oneline "${LAST_SUCCESS}..HEAD" -- "$TARGET_FILE" || true)
+
+          if [ -n "$CHANGES" ]; then
+            echo "Changes detected in $TARGET_FILE since last successful run."
             echo "no_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "No commits affecting $TARGET_FILE since last successful run."
+            echo "no_changes=true" >> $GITHUB_OUTPUT
           fi
         
       - name: Stop early if no changes
