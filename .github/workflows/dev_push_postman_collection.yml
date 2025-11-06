@@ -64,9 +64,12 @@ jobs:
           fi
 
           echo "Comparing with last successful commit: $LAST_SUCCESS"
-          git fetch origin "$LAST_SUCCESS" --depth=1
 
-          if git diff --quiet "$LAST_SUCCESS" HEAD -- "$TARGET_FILE"; then
+          # Ensure we have the full history for proper diffing
+          git fetch --all --prune
+
+          # Compare the file across commits
+          if git diff --exit-code "$LAST_SUCCESS"...HEAD -- "$TARGET_FILE" >/dev/null; then
             echo "No changes detected in $TARGET_FILE"
             echo "no_changes=true" >> $GITHUB_OUTPUT
           else
