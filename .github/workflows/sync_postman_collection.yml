@@ -93,14 +93,14 @@ jobs:
 
 
       - name: Authenticate to AWS
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' || env.ENV == 'prod' }}
+        if: ${{ steps.check_diff.outputs.no_changes == 'false' && env.ENV == 'prod' }}
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::403483446840:role/autogen_github_actions_beta_push_openapi_spec_to_readme
 
       - name: Load secrets
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' || env.ENV == 'prod' }}
+        if: ${{ steps.check_diff.outputs.no_changes == 'false' && env.ENV == 'prod' }}
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
           secret-ids: POSTMAN_API_KEY,postman_api_key
