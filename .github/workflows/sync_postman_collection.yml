@@ -3,17 +3,13 @@
 name: Sync Postman Collection
 
 on:
-  schedule:
-    - cron: '0 16 * * *' # daily at 4 PM UTC (8/9 AM PST/PDT)
-  # If changes are made to the automation script -> run the workflow.
-  # This way we don't have to do this manually if implementing e.g., a bug fix
   push:
     branches:
       - master
     paths:
       - convert_oas_to_postman.py
       - update_postman_collection.py
-  workflow_dispatch:
+      - defs/**
 
 permissions:
   id-token: write
@@ -35,62 +31,13 @@ jobs:
         with:
           fetch-depth: 0  # needed for diff
 
-      # Get the last successful workflow run to check diff for OAS file
-      - name: Get last successful run SHA
-        id: last_success
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const runs = await github.rest.actions.listWorkflowRuns({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'sync_postman_collection.yml',
-              status: 'success',
-              per_page: 1
-            });
-            return runs.data.workflow_runs.length > 0
-              ? runs.data.workflow_runs[0].head_sha
-              : null;
-
-      # Check if any changes were made to the OAS file,
-      # If yes, continue. If no, skip the execution (Postman collection up-to-date)
-      - name: Check for changes in OpenAPI file
-        id: check_diff
-        run: |
-          LAST_SUCCESS_SHA="${{ steps.last_success.outputs.result }}"
-
-          if [ "$LAST_SUCCESS_SHA" = "null" ] || [ -z "$LAST_SUCCESS_SHA" ]; then
-            echo "First run or no successful history — proceeding."
-            echo "no_changes=false" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
-          echo "Comparing with last successful commit: $LAST_SUCCESS"
-          git fetch origin "$LAST_SUCCESS_SHA" --depth=1
-
-          if git diff --quiet "$LAST_SUCCESS_SHA" HEAD -- "${{ env.OAS_FILE }}" && \
-            git diff --quiet "$LAST_SUCCESS_SHA" HEAD -- "defs/postman_description.md"; then
-            echo "No changes detected in tracked files."
-            echo "no_changes=true" >> $GITHUB_OUTPUT
-          else
-            echo "Changes detected in tracked files."
-            echo "no_changes=false" >> $GITHUB_OUTPUT
-          fi
-        
-      - name: Stop early if no changes 
-        if: steps.check_diff.outputs.no_changes == 'true'
-        run: echo "No changes in OpenAPI file since last run — skipping update."
-
-
       - name: Authenticate to AWS
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' }}
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
           role-to-assume: arn:aws:iam::403483446840:role/autogen_github_actions_beta_push_openapi_spec_to_readme
 
       - name: Load secrets
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' }}
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
           secret-ids: POSTMAN_API_KEY,postman_api_key
@@ -98,23 +45,19 @@ jobs:
           parse-json-secrets: true
 
       - name: Set up Python 🐍
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' }}
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
           
       - name: Install Python dependencies 📦
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' }}
         run: |
           python -m pip install --upgrade pip
           pip install pyyaml requests
 
       - name: Build Postman Collection from Open API Spec 🏗️
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' }}
         run: python convert_oas_to_postman.py
       
-      - name: Publish Postman Collection
-        if: ${{ steps.check_diff.outputs.no_changes == 'false' }}
+      - name: Publish Postman Collection 🚀
         run: | 
           python update_postman_collection.py
           echo ""

@@ -2,9 +2,9 @@ name: Build and sync docs on pushes to master branch
 
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
 
 defaults:
   run:
