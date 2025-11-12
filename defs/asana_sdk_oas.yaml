@@ -40975,7 +40975,6 @@ paths:
               properties:
                 data:
                   $ref: '#/components/schemas/BudgetRequest'
-                  required: true
       responses:
         200:
           $ref: '#/components/responses/BudgetResponseData'

@@ -11831,7 +11831,6 @@ paths:
               properties:
                 data:
                   $ref: '#/components/schemas/BudgetRequest'
-                  required: true
       responses:
         200:
           description: Successfully updated the budget.
