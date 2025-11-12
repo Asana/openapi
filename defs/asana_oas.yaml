@@ -251,6 +251,46 @@ tags:
       * Any SCIM operations
 
       * Nested calls to the batch API
+  - name: Budgets
+    description: >-
+      A *budget* object represents a budget for a specific *parent* resource (such
+      as a project).
+
+
+      Each budget tracks values either in *time* or *cost*, as determined by the *budget_type*
+      field.
+
+
+      When *budget_type* is `time`, all values are expressed in minutes.
+      When *budget_type* is `cost`, all values are expressed in the domain’s currency.
+
+
+      A budget can include up to three value objects: *estimate*, *actual*, and *total*.
+      Each contains a `value`, `units`, and may include a `billable_status_filter`
+      field.
+
+
+      **estimate**
+      Represents the aggregated estimated effort on tasks attributed to the *parent*.
+      For time budgets: total estimated minutes.
+      For cost budgets: total estimated cost, computed as (estimated time × resource
+      rate).
+
+
+      **actual**
+      Represents the aggregated actual time logged on tasks attributed to the *parent*.
+      For time budgets: total actual minutes from time tracking entries.
+      For cost budgets: total actual cost, computed as (actual time × resource rate).
+      The optional `billable_status_filter` limits aggregation to `billable`, `non_billable`,
+      or `any` entries.
+
+
+      **total**
+      A user-defined target value for the budget.
+      Stored independently per budget type, so switching between *time* and *cost*
+      preserves each type's value.
+      For time budgets: stored and read as minutes.
+      For cost budgets: stored and read in the domain's currency.
   - name: Custom fields
     description: >-
       _Note: Custom fields are a premium feature. Integrations which work
@@ -749,6 +789,9 @@ tags:
   - name: Reactions
     description: |-
       A reaction is an object that represents a user's emoji reaction on a status update, comment, task completion, or attachment.
+  - name: Rates
+    description: >-
+      A rate object represents the rate of a resource for a parent object.
   - name: Rules
     description: |-
       [Asana rules](https://help.asana.com/s/article/rules?language=en_US) allow you to automate common patterns
@@ -1001,6 +1044,16 @@ components:
         type: string
       example: '12345'
       x-env-variable: attachment
+    budget_path_gid:
+      name: budget_gid
+      in: path
+      description: >-
+        Globally unique identifier for the budget.
+      required: true
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: budget
     custom_field_path_gid:
       name: custom_field_gid
       in: path
@@ -1137,6 +1190,16 @@ components:
         type: string
       example: '321654'
       x-env-variable: project_status
+    rate_path_gid:
+      name: rate_gid
+      in: path
+      description: >-
+        Globally unique identifier for the rate.
+      required: true
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: rate
     status_update_path_gid:
       name: status_update_gid
       in: path
@@ -2189,6 +2252,254 @@ components:
               completed: false
               name: Hello, world!
               notes: How are you today?
+    BudgetCompact:
+      description: >-
+        A *budget* object represents a budget for a given parent.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: budget
+          x-insert-after: gid
+        budget_type:
+          type: string
+          description: The type of the budget, in "cost" or "time". The value of this
+            property will dictate how the corresponding values for actual, estimate,
+            and total are interpreted.
+          enum:
+            - cost
+            - time
+    BudgetResponse:
+      allOf:
+        - $ref: '#/components/schemas/BudgetCompact'
+        - type: object
+          properties:
+            estimate:
+              allOf:
+                - $ref: '#/components/schemas/BudgetEstimateResponse'
+            actual:
+              allOf:
+                - $ref: '#/components/schemas/BudgetActualResponse'
+            total:
+              allOf:
+                - $ref: '#/components/schemas/BudgetTotalResponse'
+            parent:
+              allOf:
+                - $ref: '#/components/schemas/ProjectCompact'
+                - type: object
+    BudgetRequest:
+      allOf:
+        - $ref: '#/components/schemas/BudgetCompact'
+        - type: object
+          properties:
+            estimate:
+              allOf:
+                - $ref: '#/components/schemas/BudgetEstimateRequest'
+            actual:
+              allOf:
+                - $ref: '#/components/schemas/BudgetActualRequest'
+            total:
+              allOf:
+                - $ref: '#/components/schemas/BudgetTotalRequest'
+            parent:
+              description: >-
+                Globally unique ID of the parent object: project. Can only be set
+                on create, immutable thereafter.
+              type: string
+              example: '181636'
+    BudgetEstimateRequest:
+      description: >-
+        Defines how the estimate portion of a budget is configured.
+        This object controls whether the estimate is enabled, what data source it
+        uses,
+        and which tasks (by billable status) are included in calculating the estimate
+        value.
+        When disabled (enabled: false and source: none), the estimate is hidden and
+        the API response will return `value: null` and `units: null` for this field.
+      type: object
+      properties:
+        billable_status_filter:
+          description: >-
+            Billable status filter applied to the estimate when `source` is `tasks`.
+            Ignored when `source` is `capacity_plans` or `none`.
+            When not provided, defaults to `billable`.
+          type: string
+          enum:
+            - billable
+            - non_billable
+            - any
+        source:
+          description: >-
+            The data source for the estimate.
+            `tasks`: use task-level estimated time attributed to the parent.
+            `capacity_plans`: use capacity plan estimates attributed to the parent.
+            `none`: disables the estimate; only valid when `enabled` is `false`.
+            When `enabled` is `true`, `source` must not be `none`.
+          type: string
+          example: tasks
+          enum:
+            - none
+            - tasks
+            - capacity_plans
+        enabled:
+          description: >-
+            Controls whether the estimate is displayed in the budget.
+            This flag primarily affects UI presentation and the response payload.
+            When `false` (and `source` is `none`), the estimate is hidden and the
+            API response
+            will return `value: null` and `units: null` for this field.
+          type: boolean
+          example: true
+    BudgetEstimateResponse:
+      allOf:
+        - $ref: '#/components/schemas/BudgetEstimateRequest'
+        - type: object
+          description: >-
+            Represents the computed estimate portion of a budget.
+            This object includes the calculated estimate value and its corresponding
+            units.
+            The estimate reflects aggregated data from the configured source, and
+            when source is tasks, the specified billable_status_filter determines
+            which tasks contribute.
+            When disabled (enabled: false and source: none), both value and units
+            will be null.
+          properties:
+            units:
+              description: >-
+                The units of the estimate value.
+                When `budget_type` is `time`, units are `"minutes"`.
+                When `budget_type` is `cost`, units are the ISO 4217 currency code
+                configured at the domain level.
+                When `source` is `none` and `enabled` is `false`, this field will
+                be `null`.
+              type: string
+              example: USD
+              readOnly: true
+            value:
+              description: >-
+                The aggregated estimate value for the budget.
+                This value is computed based on the selected `source` and, when `source`
+                is `tasks`, the specified `billable_status_filter`.
+                When `budget_type` is `time`, represents the aggregated estimated
+                minutes on the parent.
+                When `budget_type` is `cost`, represents the aggregated estimated
+                cost on the parent (estimated time x resource rate).
+                When `source` is `none` and `enabled` is `false`, this field will
+                be `null`.
+              type: number
+              example: 100
+              readOnly: true
+    BudgetActualRequest:
+      type: object
+      description: >-
+        Defines the configuration of the actual portion of a budget.
+        The actual value represents aggregated time tracking data attributed to the
+        budget’s parent.
+        This object controls which time entries are included based on their billable
+        status.
+        When no entries match the selected filter, the value will be 0.
+      properties:
+        billable_status_filter:
+          type: string
+          description: >-
+            Billable status filter applied to time tracking entries contributing to
+            the actual value.
+            Determines which entries are included in aggregation.
+            When not provided, defaults to `billable`.
+          enum:
+            - billable
+            - non_billable
+            - any
+          example: billable
+    BudgetActualResponse:
+      allOf:
+        - $ref: '#/components/schemas/BudgetActualRequest'
+        - type: object
+          description: >-
+            Represents the computed actual portion of a budget.
+            The actual value is derived from time tracking entries attributed to the
+            budget’s parent,
+            filtered according to the specified billable_status_filter.
+            When budget_type is time, it represents minutes; when budget_type is cost,
+            it represents total cost (actual time × resource rate).
+            When no applicable entries exist, value will be 0.
+          properties:
+            value:
+              description: >-
+                The aggregated actual value for the budget.
+                * When `budget_type` is `time`, represents the total actual minutes
+                from time tracking entries.
+                * When `budget_type` is `cost`, represents the total actual cost,
+                computed as (actual time × resource rate).
+              type: number
+              example: 100
+              readOnly: true
+            units:
+              description: >-
+                The units of the actual value.
+                * When `budget_type` is `time`, units are `"minutes"`.
+                * When `budget_type` is `cost`, units are the ISO 4217 currency code
+                configured at the domain level.
+              type: string
+              example: USD
+              readOnly: true
+    BudgetTotalRequest:
+      type: object
+      description: >-
+        Defines how the total portion of a budget is configured.
+        The total represents a user-defined target value, not an aggregated one.
+        This object specifies whether the total is displayed and the current value
+        for the selected budget_type.
+      properties:
+        enabled:
+          description: >-
+            Indicates whether the total value is active and should be displayed in
+            the budget.
+            This flag primarily affects UI presentation and the response payload.
+          type: boolean
+          example: true
+        value:
+          description: >-
+            The user-set value for the total budget.
+            When `budget_type` is `time`, represents minutes.
+            When `budget_type` is `cost`, represents the monetary amount in the domain's
+            currency.
+            This value is stored separately for each `budget_type`, so switching between
+            types preserves each value.
+          type: number
+          example: 100
+          readOnly: true
+    BudgetTotalResponse:
+      allOf:
+        - $ref: '#/components/schemas/BudgetTotalRequest'
+        - type: object
+          description: >-
+            Represents the configured total portion of a budget.
+            The total value is user-defined and may differ for each budget_type.
+            When budget_type is time, it is expressed in minutes; when budget_type
+            is cost,
+            it is expressed in the domain’s ISO 4217 currency code.
+            When enabled is false, both value and units will be null.
+          properties:
+            units:
+              description: >-
+                The units of the total value.
+                When `budget_type` is `time`, units are `"minutes"`.
+                When `budget_type` is `cost`, units are the ISO 4217 currency code
+                configured at the domain level.
+                When `enabled` is `false`, this field will be `null`.
+              type: string
+              example: USD
+              readOnly: true
     CustomFieldBase:
       allOf:
         - $ref: '#/components/schemas/CustomFieldCompact'
@@ -5759,6 +6070,144 @@ components:
           example: succeeded
         new_graph_export:
           $ref: '#/components/schemas/GraphExportCompact'
+    RateBase:
+      $ref: '#/components/schemas/RateCompact'
+    RateCompact:
+      description: >-
+        A *rate* is a monetary value assigned to a resource - `user` or `placeholder`
+        - for a given `parent` object.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: rate
+          x-insert-after: gid
+        parent:
+          $ref: '#/components/schemas/ProjectCompact'
+        resource:
+          $ref: '#/components/schemas/UserCompact'
+        rate:
+          type: number
+          description: >-
+            The monetary value of the rate.
+          example: 100
+        currency_code:
+          type: string
+          description: >-
+            The currency code of the rate, set at the domain level.
+          example: USD
+          readOnly: true
+        created_by:
+          $ref: '#/components/schemas/UserCompact'
+          readOnly: true
+    RateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        parent:
+          description: >-
+            Globally unique ID of the parent object: project.
+          type: string
+          example: '12345'
+        resource:
+          description: >-
+            Globally unique ID of the resource object: user or placeholder.
+          type: string
+          example: '12345'
+        rate:
+          description: >-
+            The monetary value of the rate.
+          type: number
+          example: 100
+      required:
+        - parent
+        - resource
+        - rate
+    RateUpdateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        rate:
+          description: >-
+            The monetary value of the rate.
+          type: number
+          example: 100
+    RateResponse:
+      allOf:
+        - $ref: '#/components/schemas/RateCompact'
+        - type: object
+    RateOrPlaceholderCompact:
+      anyOf:
+        - $ref: '#/components/schemas/RateCompact'
+        - $ref: '#/components/schemas/PlaceholderRateCompact'
+    PlaceholderCompact:
+      description: >-
+        A *placeholder* object represents a placeholder in Asana that can be used
+        to represent a placeholder user.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: user
+          x-insert-after: gid
+        name:
+          type: string
+          description: >-
+            The placeholder's name.
+          example: Greg-Placeholder Sanchez
+    PlaceholderRateCompact:
+      allOf:
+        - $ref: '#/components/schemas/RateCompact'
+        - type: object
+          properties:
+            resource:
+              $ref: '#/components/schemas/PlaceholderCompact'
     SectionBase:
       $ref: '#/components/schemas/SectionCompact'
     SectionCompact:
@@ -11151,6 +11600,291 @@ paths:
 
               result = client.batch_api.create_batch_request(field: "value", field:
               "value", options: {pretty: true})
+  /budgets:
+    parameters:
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get all budgets
+      description: Gets all budgets for a given *parent*. This will at most return
+        a list of size 1 for a given *parent*.
+      operationId: getBudgets
+      tags:
+        - Budgets
+      parameters:
+        - name: parent
+          in: query
+          required: true
+          description: Globally unique identifier for the budget's parent object.
+            This currently can only be a `project`.
+          schema:
+            type: string
+          example: '1331'
+      responses:
+        200:
+          description: Successfully retrieved the requested budgets.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/BudgetResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create a budget
+      description: |-
+        Creates a new budget.
+      tags:
+        - Budgets
+      operationId: createBudget
+      requestBody:
+        description: The budget to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/BudgetRequest'
+      responses:
+        201:
+          description: Successfully created a new budget.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BudgetResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /budgets/{budget_gid}:
+    parameters:
+      - $ref: '#/components/parameters/budget_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get a budget
+      description: Returns the complete budget record for a single budget.
+      tags:
+        - Budgets
+      operationId: getBudget
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - actual
+            - actual.billable_status_filter
+            - actual.units
+            - actual.value
+            - budget_type
+            - estimate
+            - estimate.billable_status_filter
+            - estimate.enabled
+            - estimate.source
+            - estimate.units
+            - estimate.value
+            - parent
+            - parent.name
+            - total
+            - total.enabled
+            - total.units
+            - total.value
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - actual
+                - actual.billable_status_filter
+                - actual.units
+                - actual.value
+                - budget_type
+                - estimate
+                - estimate.billable_status_filter
+                - estimate.enabled
+                - estimate.source
+                - estimate.units
+                - estimate.value
+                - parent
+                - parent.name
+                - total
+                - total.enabled
+                - total.units
+                - total.value
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Successfully retrieved the requested budget.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BudgetResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update a budget
+      description: |-
+        An existing budget can be updated by making a PUT request on the URL for
+        that budget. Only the fields provided in the `data` block will be updated;
+        any unspecified fields will remain unchanged.
+      tags:
+        - Budgets
+      operationId: updateBudget
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - actual
+            - actual.billable_status_filter
+            - actual.units
+            - actual.value
+            - budget_type
+            - estimate
+            - estimate.billable_status_filter
+            - estimate.enabled
+            - estimate.source
+            - estimate.units
+            - estimate.value
+            - parent
+            - parent.name
+            - total
+            - total.enabled
+            - total.units
+            - total.value
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - actual
+                - actual.billable_status_filter
+                - actual.units
+                - actual.value
+                - budget_type
+                - estimate
+                - estimate.billable_status_filter
+                - estimate.enabled
+                - estimate.source
+                - estimate.units
+                - estimate.value
+                - parent
+                - parent.name
+                - total
+                - total.enabled
+                - total.units
+                - total.value
+          style: form
+          explode: false
+      requestBody:
+        description: The budget to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/BudgetRequest'
+                  required: true
+      responses:
+        200:
+          description: Successfully updated the budget.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/BudgetResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete a budget
+      description: |-
+        A specific, existing budget can be deleted by making a DELETE request on the URL for that budget.
+
+        Returns an empty data record.
+      tags:
+        - Budgets
+      operationId: deleteBudget
+      responses:
+        200:
+          description: Successfully deleted the specified budget.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /projects/{project_gid}/custom_field_settings:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
@@ -33917,6 +34651,320 @@ paths:
 
               result = client.projects.project_save_as_template(project_gid: 'project_gid',
               field: "value", field: "value", options: {pretty: true})
+  /rates:
+    parameters:
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get multiple rates
+      description: >-
+        Returns a list of `rate` records. The possible types
+        for `parent` in this request are `project`. An additional `resource` (`user`
+        GID or
+        `placeholder` GID) can be passed in to filter to a specific rate.
+
+
+        Modifying placeholder rates is only available for Enterprise and Enterprise+
+        users.
+      tags:
+        - Rates
+      operationId: getRates
+      parameters:
+        - name: parent
+          in: query
+          description: >-
+            Globally unique identifier for `project`.
+          schema:
+            type: string
+          example: '159874'
+        - name: resource
+          in: query
+          description: Globally unique identifier for `user` or `placeholder`.
+          schema:
+            type: string
+          example: '1061493'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - offset
+            - path
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - offset
+                - path
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved the requested rates.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RateOrPlaceholderCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create a rate
+      description: Creates a new rate for a `parent` + `resource` combination.
+      tags:
+        - Rates
+      operationId: createRate
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_by
+            - created_by.name
+            - currency_code
+            - parent
+            - parent.name
+            - rate
+            - resource
+            - resource.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_by
+                - created_by.name
+                - currency_code
+                - parent
+                - parent.name
+                - rate
+                - resource
+                - resource.name
+          style: form
+          explode: false
+      requestBody:
+        description: The rate to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/RateRequest'
+      responses:
+        201:
+          description: Successfully created a new rate.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RateResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /rates/{rate_gid}:
+    parameters:
+      - $ref: '#/components/parameters/rate_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get a rate
+      description: Returns the complete rate record for a single rate.
+      tags:
+        - Rates
+      operationId: getRate
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_by
+            - created_by.name
+            - currency_code
+            - parent
+            - parent.name
+            - rate
+            - resource
+            - resource.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_by
+                - created_by.name
+                - currency_code
+                - parent
+                - parent.name
+                - rate
+                - resource
+                - resource.name
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Successfully retrieved the record for a single rate.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RateResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update a rate
+      description: |-
+        An existing rate can be updated by making a PUT request on the URL for
+        that rate. Only the fields provided in the `data` block will be updated;
+        any unspecified fields will remain unchanged. (note that at this time, the only field that can be updated is the `rate` field.)
+
+        Returns the complete updated rate record.
+      tags:
+        - Rates
+      operationId: updateRate
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_by
+            - created_by.name
+            - currency_code
+            - parent
+            - parent.name
+            - rate
+            - resource
+            - resource.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_by
+                - created_by.name
+                - currency_code
+                - parent
+                - parent.name
+                - rate
+                - resource
+                - resource.name
+          style: form
+          explode: false
+      requestBody:
+        description: The updated fields for the rate.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/RateUpdateRequest'
+      responses:
+        200:
+          description: Successfully updated the rate.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/RateResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete a rate
+      description: Deletes a rate.
+      tags:
+        - Rates
+      operationId: deleteRate
+      responses:
+        200:
+          description: Successfully deleted the rate.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /reactions:
     parameters:
       - $ref: '#/components/parameters/pretty'

@@ -251,6 +251,46 @@ tags:
       * Any SCIM operations
 
       * Nested calls to the batch API
+  - name: Budgets
+    description: >-
+      A *budget* object represents a budget for a specific *parent* resource (such
+      as a project).
+
+
+      Each budget tracks values either in *time* or *cost*, as determined by the *budget_type*
+      field.
+
+
+      When *budget_type* is `time`, all values are expressed in minutes.
+      When *budget_type* is `cost`, all values are expressed in the domain’s currency.
+
+
+      A budget can include up to three value objects: *estimate*, *actual*, and *total*.
+      Each contains a `value`, `units`, and may include a `billable_status_filter`
+      field.
+
+
+      **estimate**
+      Represents the aggregated estimated effort on tasks attributed to the *parent*.
+      For time budgets: total estimated minutes.
+      For cost budgets: total estimated cost, computed as (estimated time × resource
+      rate).
+
+
+      **actual**
+      Represents the aggregated actual time logged on tasks attributed to the *parent*.
+      For time budgets: total actual minutes from time tracking entries.
+      For cost budgets: total actual cost, computed as (actual time × resource rate).
+      The optional `billable_status_filter` limits aggregation to `billable`, `non_billable`,
+      or `any` entries.
+
+
+      **total**
+      A user-defined target value for the budget.
+      Stored independently per budget type, so switching between *time* and *cost*
+      preserves each type's value.
+      For time budgets: stored and read as minutes.
+      For cost budgets: stored and read in the domain's currency.
   - name: Custom fields
     description: >-
       _Note: Custom fields are a premium feature. Integrations which work
@@ -749,6 +789,9 @@ tags:
   - name: Reactions
     description: |-
       A reaction is an object that represents a user's emoji reaction on a status update, comment, task completion, or attachment.
+  - name: Rates
+    description: >-
+      A rate object represents the rate of a resource for a parent object.
   - name: Rules
     description: |-
       [Asana rules](https://help.asana.com/s/article/rules?language=en_US) allow you to automate common patterns
@@ -960,6 +1003,16 @@ components:
         type: string
       example: '12345'
       x-env-variable: attachment
+    budget_path_gid:
+      name: budget_gid
+      in: path
+      description: >-
+        Globally unique identifier for the budget.
+      required: true
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: budget
     custom_field_path_gid:
       name: custom_field_gid
       in: path
@@ -1096,6 +1149,16 @@ components:
         type: string
       example: '321654'
       x-env-variable: project_status
+    rate_path_gid:
+      name: rate_gid
+      in: path
+      description: >-
+        Globally unique identifier for the rate.
+      required: true
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: rate
     status_update_path_gid:
       name: status_update_gid
       in: path
@@ -1554,6 +1617,16 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/BatchResponseArray'
+    BudgetResponseArray:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/BudgetResponseArray'
+    BudgetResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/BudgetResponseData'
     CustomFieldSettingResponseArray:
       content:
         application/json; charset=UTF-8:
@@ -1714,6 +1787,16 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TaskCountResponseData'
+    RateOrPlaceholderCompactArray:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/RateOrPlaceholderCompactArray'
+    RateResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/RateResponseData'
     ReactionCompactArray:
       content:
         application/json; charset=UTF-8:
@@ -2077,7 +2160,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: &id007
+          x-docs-overrides: &id005
             properties.resource_type.example: project
         resource_subtype:
           description: The subtype of the allocation.
@@ -2842,7 +2925,7 @@ components:
                     - date
                     - people
                     - reference
-              x-docs-overrides: &id005
+              x-docs-overrides: &id007
                 properties.resource_type.example: custom_field
               required:
                 - workspace
@@ -3187,7 +3270,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: &id013
+          x-docs-overrides: &id014
             properties.resource_type.example: task
           nullable: true
           readOnly: true
@@ -3691,6 +3774,661 @@ components:
               completed: false
               name: Hello, world!
               notes: How are you today?
+    BudgetCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *budget* object represents a budget for a given parent.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        budget_type:
+          type: string
+          description: The type of the budget, in "cost" or "time". The value of this
+            property will dictate how the corresponding values for actual, estimate,
+            and total are interpreted.
+          enum:
+            - cost
+            - time
+      x-docs-overrides: &id006
+        properties.resource_type.example: budget
+    BudgetResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *budget* object represents a budget for a given parent.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        budget_type:
+          type: string
+          description: The type of the budget, in "cost" or "time". The value of this
+            property will dictate how the corresponding values for actual, estimate,
+            and total are interpreted.
+          enum:
+            - cost
+            - time
+        estimate:
+          description: >-
+            Defines how the estimate portion of a budget is configured. This object
+            controls whether the estimate is enabled, what data source it uses, and
+            which tasks (by billable status) are included in calculating the estimate
+            value. When disabled (enabled: false and source: none), the estimate is
+            hidden and the API response will return `value: null` and `units: null`
+            for this field.Defines how the estimate portion of a budget is configured.
+            This object controls whether the estimate is enabled, what data source
+            it uses, and which tasks (by billable status) are included in calculating
+            the estimate value. When disabled (enabled: false and source: none), the
+            estimate is hidden and the API response will return `value: null` and
+            `units: null` for this field.
+
+            Represents the computed estimate portion of a budget. This object includes
+            the calculated estimate value and its corresponding units. The estimate
+            reflects aggregated data from the configured source, and when source is
+            tasks, the specified billable_status_filter determines which tasks contribute.
+            When disabled (enabled: false and source: none), both value and units
+            will be null.
+          type: object
+          properties:
+            billable_status_filter:
+              description: >-
+                Billable status filter applied to the estimate when `source` is `tasks`.
+                Ignored when `source` is `capacity_plans` or `none`.
+                When not provided, defaults to `billable`.
+              type: string
+              enum:
+                - billable
+                - non_billable
+                - any
+            source:
+              description: >-
+                The data source for the estimate.
+                `tasks`: use task-level estimated time attributed to the parent.
+                `capacity_plans`: use capacity plan estimates attributed to the parent.
+                `none`: disables the estimate; only valid when `enabled` is `false`.
+                When `enabled` is `true`, `source` must not be `none`.
+              type: string
+              example: tasks
+              enum:
+                - none
+                - tasks
+                - capacity_plans
+            enabled:
+              description: >-
+                Controls whether the estimate is displayed in the budget.
+                This flag primarily affects UI presentation and the response payload.
+                When `false` (and `source` is `none`), the estimate is hidden and
+                the API response
+                will return `value: null` and `units: null` for this field.
+              type: boolean
+              example: true
+            units:
+              description: >-
+                The units of the estimate value.
+                When `budget_type` is `time`, units are `"minutes"`.
+                When `budget_type` is `cost`, units are the ISO 4217 currency code
+                configured at the domain level.
+                When `source` is `none` and `enabled` is `false`, this field will
+                be `null`.
+              type: string
+              example: USD
+              readOnly: true
+            value:
+              description: >-
+                The aggregated estimate value for the budget.
+                This value is computed based on the selected `source` and, when `source`
+                is `tasks`, the specified `billable_status_filter`.
+                When `budget_type` is `time`, represents the aggregated estimated
+                minutes on the parent.
+                When `budget_type` is `cost`, represents the aggregated estimated
+                cost on the parent (estimated time x resource rate).
+                When `source` is `none` and `enabled` is `false`, this field will
+                be `null`.
+              type: number
+              example: 100
+              readOnly: true
+        actual:
+          type: object
+          description: >-
+            Defines the configuration of the actual portion of a budget. The actual
+            value represents aggregated time tracking data attributed to the budget’s
+            parent. This object controls which time entries are included based on
+            their billable status. When no entries match the selected filter, the
+            value will be 0.Defines the configuration of the actual portion of a budget.
+            The actual value represents aggregated time tracking data attributed to
+            the budget’s parent. This object controls which time entries are included
+            based on their billable status. When no entries match the selected filter,
+            the value will be 0.
+
+            Represents the computed actual portion of a budget. The actual value is
+            derived from time tracking entries attributed to the budget’s parent,
+            filtered according to the specified billable_status_filter. When budget_type
+            is time, it represents minutes; when budget_type is cost, it represents
+            total cost (actual time × resource rate). When no applicable entries exist,
+            value will be 0.
+          properties:
+            billable_status_filter:
+              type: string
+              description: >-
+                Billable status filter applied to time tracking entries contributing
+                to the actual value.
+                Determines which entries are included in aggregation.
+                When not provided, defaults to `billable`.
+              enum:
+                - billable
+                - non_billable
+                - any
+              example: billable
+            value:
+              description: >-
+                The aggregated actual value for the budget.
+                * When `budget_type` is `time`, represents the total actual minutes
+                from time tracking entries.
+                * When `budget_type` is `cost`, represents the total actual cost,
+                computed as (actual time × resource rate).
+              type: number
+              example: 100
+              readOnly: true
+            units:
+              description: >-
+                The units of the actual value.
+                * When `budget_type` is `time`, units are `"minutes"`.
+                * When `budget_type` is `cost`, units are the ISO 4217 currency code
+                configured at the domain level.
+              type: string
+              example: USD
+              readOnly: true
+        total:
+          type: object
+          description: >-
+            Defines how the total portion of a budget is configured. The total represents
+            a user-defined target value, not an aggregated one. This object specifies
+            whether the total is displayed and the current value for the selected
+            budget_type.Defines how the total portion of a budget is configured. The
+            total represents a user-defined target value, not an aggregated one. This
+            object specifies whether the total is displayed and the current value
+            for the selected budget_type.
+
+            Represents the configured total portion of a budget. The total value is
+            user-defined and may differ for each budget_type. When budget_type is
+            time, it is expressed in minutes; when budget_type is cost, it is expressed
+            in the domain’s ISO 4217 currency code. When enabled is false, both value
+            and units will be null.
+          properties:
+            enabled:
+              description: >-
+                Indicates whether the total value is active and should be displayed
+                in the budget.
+                This flag primarily affects UI presentation and the response payload.
+              type: boolean
+              example: true
+            value:
+              description: >-
+                The user-set value for the total budget.
+                When `budget_type` is `time`, represents minutes.
+                When `budget_type` is `cost`, represents the monetary amount in the
+                domain's currency.
+                This value is stored separately for each `budget_type`, so switching
+                between types preserves each value.
+              type: number
+              example: 100
+              readOnly: true
+            units:
+              description: >-
+                The units of the total value.
+                When `budget_type` is `time`, units are `"minutes"`.
+                When `budget_type` is `cost`, units are the ISO 4217 currency code
+                configured at the domain level.
+                When `enabled` is `false`, this field will be `null`.
+              type: string
+              example: USD
+              readOnly: true
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id005
+      x-docs-overrides: *id006
+    BudgetRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *budget* object represents a budget for a given parent.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        budget_type:
+          type: string
+          description: The type of the budget, in "cost" or "time". The value of this
+            property will dictate how the corresponding values for actual, estimate,
+            and total are interpreted.
+          enum:
+            - cost
+            - time
+        estimate:
+          description: >-
+            Defines how the estimate portion of a budget is configured.
+            This object controls whether the estimate is enabled, what data source
+            it uses,
+            and which tasks (by billable status) are included in calculating the estimate
+            value.
+            When disabled (enabled: false and source: none), the estimate is hidden
+            and
+            the API response will return `value: null` and `units: null` for this
+            field.
+          type: object
+          properties:
+            billable_status_filter:
+              description: >-
+                Billable status filter applied to the estimate when `source` is `tasks`.
+                Ignored when `source` is `capacity_plans` or `none`.
+                When not provided, defaults to `billable`.
+              type: string
+              enum:
+                - billable
+                - non_billable
+                - any
+            source:
+              description: >-
+                The data source for the estimate.
+                `tasks`: use task-level estimated time attributed to the parent.
+                `capacity_plans`: use capacity plan estimates attributed to the parent.
+                `none`: disables the estimate; only valid when `enabled` is `false`.
+                When `enabled` is `true`, `source` must not be `none`.
+              type: string
+              example: tasks
+              enum:
+                - none
+                - tasks
+                - capacity_plans
+            enabled:
+              description: >-
+                Controls whether the estimate is displayed in the budget.
+                This flag primarily affects UI presentation and the response payload.
+                When `false` (and `source` is `none`), the estimate is hidden and
+                the API response
+                will return `value: null` and `units: null` for this field.
+              type: boolean
+              example: true
+        actual:
+          type: object
+          description: >-
+            Defines the configuration of the actual portion of a budget.
+            The actual value represents aggregated time tracking data attributed to
+            the budget’s parent.
+            This object controls which time entries are included based on their billable
+            status.
+            When no entries match the selected filter, the value will be 0.
+          properties:
+            billable_status_filter:
+              type: string
+              description: >-
+                Billable status filter applied to time tracking entries contributing
+                to the actual value.
+                Determines which entries are included in aggregation.
+                When not provided, defaults to `billable`.
+              enum:
+                - billable
+                - non_billable
+                - any
+              example: billable
+        total:
+          type: object
+          description: >-
+            Defines how the total portion of a budget is configured.
+            The total represents a user-defined target value, not an aggregated one.
+            This object specifies whether the total is displayed and the current value
+            for the selected budget_type.
+          properties:
+            enabled:
+              description: >-
+                Indicates whether the total value is active and should be displayed
+                in the budget.
+                This flag primarily affects UI presentation and the response payload.
+              type: boolean
+              example: true
+            value:
+              description: >-
+                The user-set value for the total budget.
+                When `budget_type` is `time`, represents minutes.
+                When `budget_type` is `cost`, represents the monetary amount in the
+                domain's currency.
+                This value is stored separately for each `budget_type`, so switching
+                between types preserves each value.
+              type: number
+              example: 100
+              readOnly: true
+        parent:
+          description: >-
+            Globally unique ID of the parent object: project. Can only be set on create,
+            immutable thereafter.
+          type: string
+          example: '181636'
+      x-docs-overrides: *id006
+    BudgetEstimateRequest:
+      description: >-
+        Defines how the estimate portion of a budget is configured.
+        This object controls whether the estimate is enabled, what data source it
+        uses,
+        and which tasks (by billable status) are included in calculating the estimate
+        value.
+        When disabled (enabled: false and source: none), the estimate is hidden and
+        the API response will return `value: null` and `units: null` for this field.
+      type: object
+      properties:
+        billable_status_filter:
+          description: >-
+            Billable status filter applied to the estimate when `source` is `tasks`.
+            Ignored when `source` is `capacity_plans` or `none`.
+            When not provided, defaults to `billable`.
+          type: string
+          enum:
+            - billable
+            - non_billable
+            - any
+        source:
+          description: >-
+            The data source for the estimate.
+            `tasks`: use task-level estimated time attributed to the parent.
+            `capacity_plans`: use capacity plan estimates attributed to the parent.
+            `none`: disables the estimate; only valid when `enabled` is `false`.
+            When `enabled` is `true`, `source` must not be `none`.
+          type: string
+          example: tasks
+          enum:
+            - none
+            - tasks
+            - capacity_plans
+        enabled:
+          description: >-
+            Controls whether the estimate is displayed in the budget.
+            This flag primarily affects UI presentation and the response payload.
+            When `false` (and `source` is `none`), the estimate is hidden and the
+            API response
+            will return `value: null` and `units: null` for this field.
+          type: boolean
+          example: true
+    BudgetEstimateResponse:
+      description: >-
+        Defines how the estimate portion of a budget is configured. This object controls
+        whether the estimate is enabled, what data source it uses, and which tasks
+        (by billable status) are included in calculating the estimate value. When
+        disabled (enabled: false and source: none), the estimate is hidden and the
+        API response will return `value: null` and `units: null` for this field.Defines
+        how the estimate portion of a budget is configured. This object controls whether
+        the estimate is enabled, what data source it uses, and which tasks (by billable
+        status) are included in calculating the estimate value. When disabled (enabled:
+        false and source: none), the estimate is hidden and the API response will
+        return `value: null` and `units: null` for this field.
+
+        Represents the computed estimate portion of a budget. This object includes
+        the calculated estimate value and its corresponding units. The estimate reflects
+        aggregated data from the configured source, and when source is tasks, the
+        specified billable_status_filter determines which tasks contribute. When disabled
+        (enabled: false and source: none), both value and units will be null.
+      type: object
+      properties:
+        billable_status_filter:
+          description: >-
+            Billable status filter applied to the estimate when `source` is `tasks`.
+            Ignored when `source` is `capacity_plans` or `none`.
+            When not provided, defaults to `billable`.
+          type: string
+          enum:
+            - billable
+            - non_billable
+            - any
+        source:
+          description: >-
+            The data source for the estimate.
+            `tasks`: use task-level estimated time attributed to the parent.
+            `capacity_plans`: use capacity plan estimates attributed to the parent.
+            `none`: disables the estimate; only valid when `enabled` is `false`.
+            When `enabled` is `true`, `source` must not be `none`.
+          type: string
+          example: tasks
+          enum:
+            - none
+            - tasks
+            - capacity_plans
+        enabled:
+          description: >-
+            Controls whether the estimate is displayed in the budget.
+            This flag primarily affects UI presentation and the response payload.
+            When `false` (and `source` is `none`), the estimate is hidden and the
+            API response
+            will return `value: null` and `units: null` for this field.
+          type: boolean
+          example: true
+        units:
+          description: >-
+            The units of the estimate value.
+            When `budget_type` is `time`, units are `"minutes"`.
+            When `budget_type` is `cost`, units are the ISO 4217 currency code configured
+            at the domain level.
+            When `source` is `none` and `enabled` is `false`, this field will be `null`.
+          type: string
+          example: USD
+          readOnly: true
+        value:
+          description: >-
+            The aggregated estimate value for the budget.
+            This value is computed based on the selected `source` and, when `source`
+            is `tasks`, the specified `billable_status_filter`.
+            When `budget_type` is `time`, represents the aggregated estimated minutes
+            on the parent.
+            When `budget_type` is `cost`, represents the aggregated estimated cost
+            on the parent (estimated time x resource rate).
+            When `source` is `none` and `enabled` is `false`, this field will be `null`.
+          type: number
+          example: 100
+          readOnly: true
+    BudgetActualRequest:
+      type: object
+      description: >-
+        Defines the configuration of the actual portion of a budget.
+        The actual value represents aggregated time tracking data attributed to the
+        budget’s parent.
+        This object controls which time entries are included based on their billable
+        status.
+        When no entries match the selected filter, the value will be 0.
+      properties:
+        billable_status_filter:
+          type: string
+          description: >-
+            Billable status filter applied to time tracking entries contributing to
+            the actual value.
+            Determines which entries are included in aggregation.
+            When not provided, defaults to `billable`.
+          enum:
+            - billable
+            - non_billable
+            - any
+          example: billable
+    BudgetActualResponse:
+      type: object
+      description: >-
+        Defines the configuration of the actual portion of a budget. The actual value
+        represents aggregated time tracking data attributed to the budget’s parent.
+        This object controls which time entries are included based on their billable
+        status. When no entries match the selected filter, the value will be 0.Defines
+        the configuration of the actual portion of a budget. The actual value represents
+        aggregated time tracking data attributed to the budget’s parent. This object
+        controls which time entries are included based on their billable status. When
+        no entries match the selected filter, the value will be 0.
+
+        Represents the computed actual portion of a budget. The actual value is derived
+        from time tracking entries attributed to the budget’s parent, filtered according
+        to the specified billable_status_filter. When budget_type is time, it represents
+        minutes; when budget_type is cost, it represents total cost (actual time ×
+        resource rate). When no applicable entries exist, value will be 0.
+      properties:
+        billable_status_filter:
+          type: string
+          description: >-
+            Billable status filter applied to time tracking entries contributing to
+            the actual value.
+            Determines which entries are included in aggregation.
+            When not provided, defaults to `billable`.
+          enum:
+            - billable
+            - non_billable
+            - any
+          example: billable
+        value:
+          description: >-
+            The aggregated actual value for the budget.
+            * When `budget_type` is `time`, represents the total actual minutes from
+            time tracking entries.
+            * When `budget_type` is `cost`, represents the total actual cost, computed
+            as (actual time × resource rate).
+          type: number
+          example: 100
+          readOnly: true
+        units:
+          description: >-
+            The units of the actual value.
+            * When `budget_type` is `time`, units are `"minutes"`.
+            * When `budget_type` is `cost`, units are the ISO 4217 currency code configured
+            at the domain level.
+          type: string
+          example: USD
+          readOnly: true
+    BudgetTotalRequest:
+      type: object
+      description: >-
+        Defines how the total portion of a budget is configured.
+        The total represents a user-defined target value, not an aggregated one.
+        This object specifies whether the total is displayed and the current value
+        for the selected budget_type.
+      properties:
+        enabled:
+          description: >-
+            Indicates whether the total value is active and should be displayed in
+            the budget.
+            This flag primarily affects UI presentation and the response payload.
+          type: boolean
+          example: true
+        value:
+          description: >-
+            The user-set value for the total budget.
+            When `budget_type` is `time`, represents minutes.
+            When `budget_type` is `cost`, represents the monetary amount in the domain's
+            currency.
+            This value is stored separately for each `budget_type`, so switching between
+            types preserves each value.
+          type: number
+          example: 100
+          readOnly: true
+    BudgetTotalResponse:
+      type: object
+      description: >-
+        Defines how the total portion of a budget is configured. The total represents
+        a user-defined target value, not an aggregated one. This object specifies
+        whether the total is displayed and the current value for the selected budget_type.Defines
+        how the total portion of a budget is configured. The total represents a user-defined
+        target value, not an aggregated one. This object specifies whether the total
+        is displayed and the current value for the selected budget_type.
+
+        Represents the configured total portion of a budget. The total value is user-defined
+        and may differ for each budget_type. When budget_type is time, it is expressed
+        in minutes; when budget_type is cost, it is expressed in the domain’s ISO
+        4217 currency code. When enabled is false, both value and units will be null.
+      properties:
+        enabled:
+          description: >-
+            Indicates whether the total value is active and should be displayed in
+            the budget.
+            This flag primarily affects UI presentation and the response payload.
+          type: boolean
+          example: true
+        value:
+          description: >-
+            The user-set value for the total budget.
+            When `budget_type` is `time`, represents minutes.
+            When `budget_type` is `cost`, represents the monetary amount in the domain's
+            currency.
+            This value is stored separately for each `budget_type`, so switching between
+            types preserves each value.
+          type: number
+          example: 100
+          readOnly: true
+        units:
+          description: >-
+            The units of the total value.
+            When `budget_type` is `time`, units are `"minutes"`.
+            When `budget_type` is `cost`, units are the ISO 4217 currency code configured
+            at the domain level.
+            When `enabled` is `false`, this field will be `null`.
+          type: string
+          example: USD
+          readOnly: true
     CustomFieldBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -4306,7 +5044,7 @@ components:
             - word_count
             - null
           example: priority
-      x-docs-overrides: *id005
+      x-docs-overrides: *id007
     CustomFieldCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -4702,7 +5440,7 @@ components:
           readOnly: true
           example: blue
           nullable: true
-      x-docs-overrides: *id005
+      x-docs-overrides: *id007
     CustomFieldRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -5356,7 +6094,7 @@ components:
               The GID of an object.
           example:
             - '12345'
-      x-docs-overrides: *id005
+      x-docs-overrides: *id007
       required:
         - workspace
     CustomFieldCreateRequest:
@@ -6025,7 +6763,7 @@ components:
             - date
             - people
             - reference
-      x-docs-overrides: *id005
+      x-docs-overrides: *id007
       required:
         - workspace
         - resource_subtype
@@ -6777,7 +7515,7 @@ components:
             - date
             - people
             - reference
-      x-docs-overrides: *id005
+      x-docs-overrides: *id007
     CustomFieldSettingBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -6801,7 +7539,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-      x-docs-overrides: &id006
+      x-docs-overrides: &id008
         properties.resource_type.example: custom_field_setting
     CustomFieldSettingCompact:
       description: >-
@@ -6826,7 +7564,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-      x-docs-overrides: *id006
+      x-docs-overrides: *id008
     CustomFieldSettingResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -6891,7 +7629,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
           readOnly: true
         is_important:
           description: >-
@@ -6943,7 +7681,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
           readOnly: true
         custom_field:
           description: >-
@@ -7711,9 +8449,9 @@ components:
                 - date
                 - people
                 - reference
-          x-docs-overrides: *id005
+          x-docs-overrides: *id007
           readOnly: true
-      x-docs-overrides: *id006
+      x-docs-overrides: *id008
     CustomTypeBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -7740,7 +8478,7 @@ components:
           type: string
           description: The name of the custom type.
           example: Bug ticket
-      x-docs-overrides: &id008
+      x-docs-overrides: &id009
         properties.resource_type.example: custom_type
     CustomTypeCompact:
       description: >-
@@ -7768,7 +8506,7 @@ components:
           type: string
           description: The name of the custom type.
           example: Bug ticket
-      x-docs-overrides: *id008
+      x-docs-overrides: *id009
     CustomTypeResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -7845,9 +8583,9 @@ components:
                 type: string
                 example: blue
                 nullable: true
-            x-docs-overrides: &id009
+            x-docs-overrides: &id010
               properties.resource_type.example: custom_type_status_option
-      x-docs-overrides: *id008
+      x-docs-overrides: *id009
     CustomTypeStatusOptionBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -7870,7 +8608,7 @@ components:
           type: string
           description: The name of the custom type status option.
           example: Solution pending
-      x-docs-overrides: *id009
+      x-docs-overrides: *id010
     CustomTypeStatusOptionCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -7893,7 +8631,7 @@ components:
           type: string
           description: The name of the custom type status option.
           example: Solution pending
-      x-docs-overrides: *id009
+      x-docs-overrides: *id010
     CustomTypeStatusOptionResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -7937,7 +8675,7 @@ components:
           type: string
           example: blue
           nullable: true
-      x-docs-overrides: *id009
+      x-docs-overrides: *id010
     EmptyResponse:
       type: object
       description: >-
@@ -8567,7 +9305,7 @@ components:
           description: >-
             True if the goal is liked by the authorized user, false if not.
           example: false
-      x-docs-overrides: &id010
+      x-docs-overrides: &id011
         properties.resource_type.example: goal
     GoalCompact:
       description: >-
@@ -8620,7 +9358,7 @@ components:
               example: Greg Sanchez
           x-docs-overrides: *id001
           nullable: true
-      x-docs-overrides: &id011
+      x-docs-overrides: &id012
         properties.resource_type.example: goal
     GoalMetricBase:
       description: >-
@@ -9000,7 +9738,7 @@ components:
             The `gid` of a user.
           example: '12345'
           nullable: true
-      x-docs-overrides: *id010
+      x-docs-overrides: *id011
     GoalRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -9094,7 +9832,7 @@ components:
               The `gid` of a user.
           example:
             - '12345'
-      x-docs-overrides: *id010
+      x-docs-overrides: *id011
     GoalUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -9191,7 +9929,7 @@ components:
             *Note* you can only write to this property if `metric` is set.
           example: green
           nullable: true
-      x-docs-overrides: *id010
+      x-docs-overrides: *id011
     GoalResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -9338,7 +10076,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: &id029
+          x-docs-overrides: &id030
             properties.resource_type.example: team
           nullable: true
         workspace:
@@ -9367,7 +10105,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: &id019
+          x-docs-overrides: &id020
             properties.resource_type.example: workspace
         followers:
           type: array
@@ -9447,7 +10185,7 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: &id036
+          x-docs-overrides: &id039
             properties.resource_type.example: time_period
           nullable: true
         metric:
@@ -9651,7 +10389,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: &id024
+          x-docs-overrides: &id025
             properties.resource_type.example: status_update
           nullable: true
         status:
@@ -9666,7 +10404,7 @@ components:
             *Note* you can only write to this property if `metric` is set.
           example: green
           nullable: true
-      x-docs-overrides: *id010
+      x-docs-overrides: *id011
     GoalRelationshipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -9741,7 +10479,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
           readOnly: true
         contribution_weight:
           description: The weight that the supporting resource's progress contributes
@@ -9802,9 +10540,9 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
-      x-docs-overrides: &id012
+      x-docs-overrides: &id013
         properties.resource_type.example: goal_relationship
     GoalRelationshipCompact:
       description: >-
@@ -9880,14 +10618,14 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
           readOnly: true
         contribution_weight:
           description: The weight that the supporting resource's progress contributes
             to the supported goal's progress. This can be 0, 1, or any value in between.
           type: number
           example: 1.0
-      x-docs-overrides: *id012
+      x-docs-overrides: *id013
     GoalRelationshipRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -9962,7 +10700,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
           readOnly: true
         contribution_weight:
           description: The weight that the supporting resource's progress contributes
@@ -10023,9 +10761,9 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
-      x-docs-overrides: *id012
+      x-docs-overrides: *id013
     GoalRelationshipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10100,7 +10838,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
           readOnly: true
         contribution_weight:
           description: The weight that the supporting resource's progress contributes
@@ -10161,9 +10899,9 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
-      x-docs-overrides: *id012
+      x-docs-overrides: *id013
     JobBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10235,7 +10973,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         new_task:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10292,7 +11030,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           nullable: true
         new_project_template:
           description: >-
@@ -10323,7 +11061,7 @@ components:
                 Name of the project template.
               type: string
               example: Packing list
-          x-docs-overrides: &id014
+          x-docs-overrides: &id015
             properties.resource_type.example: project_template
         new_graph_export:
           description: >-
@@ -10378,7 +11116,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: &id015
+          x-docs-overrides: &id016
             properties.resource_type.example: graph_export
         new_resource_export:
           description: >-
@@ -10430,9 +11168,9 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: &id016
+          x-docs-overrides: &id017
             properties.resource_type.example: export_request
-      x-docs-overrides: &id017
+      x-docs-overrides: &id018
         properties.resource_type.example: job
     JobCompact:
       description: >-
@@ -10505,7 +11243,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         new_task:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10562,7 +11300,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           nullable: true
         new_project_template:
           description: >-
@@ -10593,7 +11331,7 @@ components:
                 Name of the project template.
               type: string
               example: Packing list
-          x-docs-overrides: *id014
+          x-docs-overrides: *id015
         new_graph_export:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10647,7 +11385,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
         new_resource_export:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10698,8 +11436,8 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id016
-      x-docs-overrides: *id017
+          x-docs-overrides: *id017
+      x-docs-overrides: *id018
     JobResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10771,7 +11509,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         new_task:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10828,7 +11566,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           nullable: true
         new_project_template:
           description: >-
@@ -10859,7 +11597,7 @@ components:
                 Name of the project template.
               type: string
               example: Packing list
-          x-docs-overrides: *id014
+          x-docs-overrides: *id015
         new_graph_export:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10913,7 +11651,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
         new_resource_export:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -10964,8 +11702,8 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id016
-      x-docs-overrides: *id017
+          x-docs-overrides: *id017
+      x-docs-overrides: *id018
     Like:
       type: object
       description: >-
@@ -11028,7 +11766,7 @@ components:
           type: string
           description: The name of the member
           example: Greg Sanchez
-      x-docs-overrides: &id018
+      x-docs-overrides: &id019
         properties.resource_type.example: member
     MembershipCompact:
       anyOf:
@@ -11078,7 +11816,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id018
+              x-docs-overrides: *id019
             parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.
@@ -11131,7 +11869,7 @@ components:
                       example: Greg Sanchez
                   x-docs-overrides: *id001
                   nullable: true
-              x-docs-overrides: *id011
+              x-docs-overrides: *id012
               readOnly: true
             role:
               type: string
@@ -11212,7 +11950,7 @@ components:
                       example: Greg Sanchez
                   x-docs-overrides: *id001
                   nullable: true
-              x-docs-overrides: *id011
+              x-docs-overrides: *id012
               readOnly: true
               deprecated: true
             is_commenter:
@@ -11233,7 +11971,7 @@ components:
                 Describes if the member is editor in goal. Will be null if the `goal_sals_api`
                 change flag is enabled.
               example: false
-          x-docs-overrides: &id040
+          x-docs-overrides: &id043
             properties.resource_type.example: membership
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -11286,7 +12024,7 @@ components:
                     can be longer.
                   type: string
                   example: Stuff to buy
-              x-docs-overrides: *id007
+              x-docs-overrides: *id005
             member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -11310,7 +12048,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id018
+              x-docs-overrides: *id019
             access_level:
               description: >-
                 Whether the member has admin, editor, commenter, or viewer
@@ -11327,7 +12065,7 @@ components:
               description: Type of the membership.
               type: string
               example: project_membership
-          x-docs-overrides: &id027
+          x-docs-overrides: &id028
             properties.resource_type.example: project_membership
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -11378,7 +12116,7 @@ components:
                   description: The name of the portfolio.
                   type: string
                   example: Bug Portfolio
-              x-docs-overrides: &id021
+              x-docs-overrides: &id022
                 properties.resource_type.example: portfolio
             member:
               description: >-
@@ -11403,7 +12141,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id018
+              x-docs-overrides: *id019
             access_level:
               description: >-
                 Whether the member has admin, editor, or viewer
@@ -11420,7 +12158,7 @@ components:
               description: Type of the membership.
               type: string
               example: portfolio_membership
-          x-docs-overrides: &id022
+          x-docs-overrides: &id023
             properties.resource_type.example: portfolio_membership
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -11854,7 +12592,7 @@ components:
                   readOnly: true
                   example: blue
                   nullable: true
-              x-docs-overrides: *id005
+              x-docs-overrides: *id007
             member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -11878,7 +12616,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id018
+              x-docs-overrides: *id019
             access_level:
               description: >-
                 Whether the member has admin, editor, or user
@@ -11890,7 +12628,7 @@ components:
                 - user
               readOnly: true
               example: admin
-          x-docs-overrides: &id026
+          x-docs-overrides: &id027
             properties.resource_type.example: custom_field_membership
     ModifyDependenciesRequest:
       type: object
@@ -12032,8 +12770,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
-      x-docs-overrides: &id020
+          x-docs-overrides: *id020
+      x-docs-overrides: &id021
         properties.resource_type.example: organization_export
     OrganizationExportCompact:
       description: >-
@@ -12118,8 +12856,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
-      x-docs-overrides: *id020
+          x-docs-overrides: *id020
+      x-docs-overrides: *id021
     OrganizationExportRequest:
       type: object
       description: >-
@@ -12214,8 +12952,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
-      x-docs-overrides: *id020
+          x-docs-overrides: *id020
+      x-docs-overrides: *id021
     PortfolioAddItemRequest:
       type: object
       required:
@@ -12332,7 +13070,7 @@ components:
             - editor
             - viewer
           example: viewer
-      x-docs-overrides: *id021
+      x-docs-overrides: *id022
     PortfolioCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12364,7 +13102,7 @@ components:
           description: The name of the portfolio.
           type: string
           example: Bug Portfolio
-      x-docs-overrides: *id021
+      x-docs-overrides: *id022
     PortfolioMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12417,7 +13155,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id021
+          x-docs-overrides: *id022
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12441,7 +13179,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
@@ -12453,7 +13191,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id022
+      x-docs-overrides: *id023
     DeprecatedPortfolioMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12506,7 +13244,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id021
+          x-docs-overrides: *id022
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12546,7 +13284,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: &id023
+      x-docs-overrides: &id024
         properties.resource_type.example: portfolio_membership
     DeprecatedPortfolioMembershipResponse:
       description: >-
@@ -12600,7 +13338,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id021
+          x-docs-overrides: *id022
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12640,7 +13378,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id023
+      x-docs-overrides: *id024
     DeprecatedPortfolioMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12693,7 +13431,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id021
+          x-docs-overrides: *id022
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12733,7 +13471,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id023
+      x-docs-overrides: *id024
     PortfolioMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12786,7 +13524,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id021
+          x-docs-overrides: *id022
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12810,7 +13548,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
@@ -12822,7 +13560,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id022
+      x-docs-overrides: *id023
     PortfolioMembershipCompactResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12873,7 +13611,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id021
+          x-docs-overrides: *id022
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12897,7 +13635,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
@@ -12913,7 +13651,7 @@ components:
           description: Type of the membership.
           type: string
           example: portfolio_membership
-      x-docs-overrides: *id022
+      x-docs-overrides: *id023
     PortfolioMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12966,7 +13704,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id021
+          x-docs-overrides: *id022
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12990,7 +13728,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
@@ -13002,7 +13740,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id022
+      x-docs-overrides: *id023
     PortfolioRemoveItemRequest:
       type: object
       required:
@@ -13115,7 +13853,7 @@ components:
           type: boolean
           deprecated: true
           example: false
-      x-docs-overrides: *id021
+      x-docs-overrides: *id022
     PortfolioUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13225,7 +13963,7 @@ components:
           example:
             '5678904321': On Hold
             '4578152156': Not Started
-      x-docs-overrides: *id021
+      x-docs-overrides: *id022
     PortfolioResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13418,7 +14156,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               is_important:
                 description: >-
@@ -13471,7 +14209,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               custom_field:
                 description: >-
@@ -14266,9 +15004,9 @@ components:
                       - date
                       - people
                       - reference
-                x-docs-overrides: *id005
+                x-docs-overrides: *id007
                 readOnly: true
-            x-docs-overrides: *id006
+            x-docs-overrides: *id008
         current_status_update:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -14321,7 +15059,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id024
+          x-docs-overrides: *id025
           nullable: true
         custom_fields:
           description: Array of Custom Fields.
@@ -14727,7 +15465,7 @@ components:
                 readOnly: true
                 example: blue
                 nullable: true
-            x-docs-overrides: *id005
+            x-docs-overrides: *id007
         members:
           type: array
           readOnly: true
@@ -14821,7 +15559,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         permalink_url:
           type: string
           readOnly: true
@@ -14876,8 +15614,8 @@ components:
                   Name of the project template.
                 type: string
                 example: Packing list
-            x-docs-overrides: *id014
-      x-docs-overrides: *id021
+            x-docs-overrides: *id015
+      x-docs-overrides: *id022
     Preview:
       type: object
       description: >-
@@ -15132,7 +15870,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
-          x-docs-overrides: &id028
+          x-docs-overrides: &id029
             properties.resource_type.example: project_status
           nullable: true
         current_status_update:
@@ -15187,7 +15925,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id024
+          x-docs-overrides: *id025
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -15258,7 +15996,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               is_important:
                 description: >-
@@ -15311,7 +16049,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               custom_field:
                 description: >-
@@ -16106,9 +16844,9 @@ components:
                       - date
                       - people
                       - reference
-                x-docs-overrides: *id005
+                x-docs-overrides: *id007
                 readOnly: true
-            x-docs-overrides: *id006
+            x-docs-overrides: *id008
         default_view:
           description: The default view (list, board, calendar, or timeline) of a
             project.
@@ -16245,7 +16983,7 @@ components:
             - admin
             - editor
           example: admin
-      x-docs-overrides: *id007
+      x-docs-overrides: *id005
     ProjectBriefBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -16278,7 +17016,7 @@ components:
             HTML formatted text for the project brief.
           type: string
           example: <body>This is a <strong>project brief</strong>.</body>
-      x-docs-overrides: &id025
+      x-docs-overrides: &id026
         properties.resource_type.example: project_brief
     ProjectBriefCompact:
       description: >-
@@ -16302,7 +17040,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-      x-docs-overrides: *id025
+      x-docs-overrides: *id026
     ProjectBriefRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -16342,7 +17080,7 @@ components:
             but not both.
           type: string
           example: This is a project brief.
-      x-docs-overrides: *id025
+      x-docs-overrides: *id026
     ProjectBriefResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -16427,8 +17165,8 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
-      x-docs-overrides: *id025
+          x-docs-overrides: *id005
+      x-docs-overrides: *id026
     ProjectCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -16460,7 +17198,7 @@ components:
             can be longer.
           type: string
           example: Stuff to buy
-      x-docs-overrides: *id007
+      x-docs-overrides: *id005
     ProjectDuplicateRequest:
       type: object
       required:
@@ -16966,7 +17704,7 @@ components:
               readOnly: true
               example: blue
               nullable: true
-          x-docs-overrides: *id005
+          x-docs-overrides: *id007
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -16990,7 +17728,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -17002,7 +17740,7 @@ components:
             - user
           readOnly: true
           example: admin
-      x-docs-overrides: *id026
+      x-docs-overrides: *id027
     CustomFieldMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17425,7 +18163,7 @@ components:
               readOnly: true
               example: blue
               nullable: true
-          x-docs-overrides: *id005
+          x-docs-overrides: *id007
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17449,7 +18187,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -17461,7 +18199,7 @@ components:
             - user
           readOnly: true
           example: admin
-      x-docs-overrides: *id026
+      x-docs-overrides: *id027
     CustomFieldMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17884,7 +18622,7 @@ components:
               readOnly: true
               example: blue
               nullable: true
-          x-docs-overrides: *id005
+          x-docs-overrides: *id007
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17908,7 +18646,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -17920,7 +18658,7 @@ components:
             - user
           readOnly: true
           example: admin
-      x-docs-overrides: *id026
+      x-docs-overrides: *id027
     ProjectMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17974,7 +18712,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17998,7 +18736,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -18011,7 +18749,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     ProjectMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18065,7 +18803,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18089,7 +18827,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -18102,7 +18840,7 @@ components:
             - viewer
           readOnly: true
           example: admin
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     ProjectMembershipCompactResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18154,7 +18892,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18178,7 +18916,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -18195,7 +18933,7 @@ components:
           description: Type of the membership.
           type: string
           example: project_membership
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     ProjectMembershipNormalResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18247,7 +18985,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18271,7 +19009,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -18343,7 +19081,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         write_access:
           description: >-
             Whether the member has full access or comment-only
@@ -18354,7 +19092,7 @@ components:
             - comment_only
           readOnly: true
           example: full_write
-      x-docs-overrides: *id027
+      x-docs-overrides: *id028
     ProjectRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -18564,7 +19302,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
-          x-docs-overrides: *id028
+          x-docs-overrides: *id029
           nullable: true
         current_status_update:
           description: >-
@@ -18618,7 +19356,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id024
+          x-docs-overrides: *id025
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -18689,7 +19427,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               is_important:
                 description: >-
@@ -18742,7 +19480,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               custom_field:
                 description: >-
@@ -19537,9 +20275,9 @@ components:
                       - date
                       - people
                       - reference
-                x-docs-overrides: *id005
+                x-docs-overrides: *id007
                 readOnly: true
-            x-docs-overrides: *id006
+            x-docs-overrides: *id008
         default_view:
           description: The default view (list, board, calendar, or timeline) of a
             project.
@@ -19718,7 +20456,7 @@ components:
           description: >-
             The `gid` of a workspace.
           example: '12345'
-      x-docs-overrides: *id007
+      x-docs-overrides: *id005
     ProjectUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -19928,7 +20666,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
-          x-docs-overrides: *id028
+          x-docs-overrides: *id029
           nullable: true
         current_status_update:
           description: >-
@@ -19982,7 +20720,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id024
+          x-docs-overrides: *id025
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -20053,7 +20791,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               is_important:
                 description: >-
@@ -20106,7 +20844,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               custom_field:
                 description: >-
@@ -20901,9 +21639,9 @@ components:
                       - date
                       - people
                       - reference
-                x-docs-overrides: *id005
+                x-docs-overrides: *id007
                 readOnly: true
-            x-docs-overrides: *id006
+            x-docs-overrides: *id008
         default_view:
           description: The default view (list, board, calendar, or timeline) of a
             project.
@@ -21077,7 +21815,7 @@ components:
             The team that this project is shared with.
           type: string
           example: '12345'
-      x-docs-overrides: *id007
+      x-docs-overrides: *id005
     ProjectResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -21287,7 +22025,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T02:06:58.147Z'
-          x-docs-overrides: *id028
+          x-docs-overrides: *id029
           nullable: true
         current_status_update:
           description: >-
@@ -21341,7 +22079,7 @@ components:
                 - goal_status_update
               example: project_status_update
               readOnly: true
-          x-docs-overrides: *id024
+          x-docs-overrides: *id025
           nullable: true
         custom_field_settings:
           description: Array of Custom Field Settings (in compact form).
@@ -21412,7 +22150,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               is_important:
                 description: >-
@@ -21465,7 +22203,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
                 readOnly: true
               custom_field:
                 description: >-
@@ -22260,9 +22998,9 @@ components:
                       - date
                       - people
                       - reference
-                x-docs-overrides: *id005
+                x-docs-overrides: *id007
                 readOnly: true
-            x-docs-overrides: *id006
+            x-docs-overrides: *id008
         default_view:
           description: The default view (list, board, calendar, or timeline) of a
             project.
@@ -22804,7 +23542,7 @@ components:
                 readOnly: true
                 example: blue
                 nullable: true
-            x-docs-overrides: *id005
+            x-docs-overrides: *id007
         completed:
           description: >-
             True if the project is currently marked complete, false if not.
@@ -22960,7 +23698,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id029
+          x-docs-overrides: *id030
         icon:
           description: >-
             The icon for a project.
@@ -23035,7 +23773,7 @@ components:
               readOnly: true
               example: task
               x-insert-after: gid
-          x-docs-overrides: *id025
+          x-docs-overrides: *id026
           nullable: true
         created_from_template:
           description: >-
@@ -23077,7 +23815,7 @@ components:
                 Name of the project template.
               type: string
               example: Packing list
-          x-docs-overrides: *id014
+          x-docs-overrides: *id015
           nullable: true
         workspace:
           description: >-
@@ -23116,9 +23854,9 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
           readOnly: true
-      x-docs-overrides: *id007
+      x-docs-overrides: *id005
     ProjectSectionInsertRequest:
       type: object
       properties:
@@ -23193,7 +23931,7 @@ components:
             - red
             - blue
             - complete
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     ProjectStatusCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -23225,7 +23963,7 @@ components:
           description: The title of the project status update.
           type: string
           example: Status Update - Jun 15
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     ProjectStatusRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -23279,7 +24017,7 @@ components:
             - red
             - blue
             - complete
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     ProjectStatusResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -23406,7 +24144,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T02:06:58.147Z'
-      x-docs-overrides: *id028
+      x-docs-overrides: *id029
     ProjectTemplateCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -23436,7 +24174,7 @@ components:
             Name of the project template.
           type: string
           example: Packing list
-      x-docs-overrides: *id014
+      x-docs-overrides: *id015
     ProjectTemplateBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -23542,7 +24280,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id029
+          x-docs-overrides: *id030
         requested_dates:
           description: >-
             Array of date variables in this project template. Calendar dates
@@ -23629,7 +24367,7 @@ components:
                 description: >-
                   Name of the template role.
                 example: Designer
-      x-docs-overrides: *id014
+      x-docs-overrides: *id015
     ProjectTemplateResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -23735,7 +24473,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id029
+          x-docs-overrides: *id030
         requested_dates:
           description: >-
             Array of date variables in this project template. Calendar dates
@@ -23822,7 +24560,7 @@ components:
                 description: >-
                   Name of the template role.
                 example: Designer
-      x-docs-overrides: *id014
+      x-docs-overrides: *id015
     ProjectTemplateInstantiateProjectRequest:
       type: object
       required:
@@ -24406,7 +25144,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T03:06:58.147Z'
-      x-docs-overrides: *id016
+      x-docs-overrides: *id017
     ResourceExportResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -24493,7 +25231,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id016
+          x-docs-overrides: *id017
       x-docs-overrides:
         properties.resource_type.example: job
     GraphExportRequest:
@@ -24561,7 +25299,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T03:06:58.147Z'
-      x-docs-overrides: *id015
+      x-docs-overrides: *id016
     GraphExportResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -24651,9 +25389,839 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
       x-docs-overrides:
         properties.resource_type.example: job
+    RateBase:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *rate* is a monetary value assigned to a resource - `user` or `placeholder`
+        - for a given `parent` object.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id005
+        resource:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+        rate:
+          type: number
+          description: >-
+            The monetary value of the rate.
+          example: 100
+        currency_code:
+          type: string
+          description: >-
+            The currency code of the rate, set at the domain level.
+          example: USD
+          readOnly: true
+        created_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+      x-docs-overrides: &id031
+        properties.resource_type.example: rate
+    RateCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *rate* is a monetary value assigned to a resource - `user` or `placeholder`
+        - for a given `parent` object.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id005
+        resource:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+        rate:
+          type: number
+          description: >-
+            The monetary value of the rate.
+          example: 100
+        currency_code:
+          type: string
+          description: >-
+            The currency code of the rate, set at the domain level.
+          example: USD
+          readOnly: true
+        created_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+      x-docs-overrides: *id031
+    RateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        parent:
+          description: >-
+            Globally unique ID of the parent object: project.
+          type: string
+          example: '12345'
+        resource:
+          description: >-
+            Globally unique ID of the resource object: user or placeholder.
+          type: string
+          example: '12345'
+        rate:
+          description: >-
+            The monetary value of the rate.
+          type: number
+          example: 100
+      required:
+        - parent
+        - resource
+        - rate
+    RateUpdateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        rate:
+          description: >-
+            The monetary value of the rate.
+          type: number
+          example: 100
+    RateResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *rate* is a monetary value assigned to a resource - `user` or `placeholder`
+        - for a given `parent` object.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id005
+        resource:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+        rate:
+          type: number
+          description: >-
+            The monetary value of the rate.
+          example: 100
+        currency_code:
+          type: string
+          description: >-
+            The currency code of the rate, set at the domain level.
+          example: USD
+          readOnly: true
+        created_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+      x-docs-overrides: *id031
+    RateOrPlaceholderCompact:
+      anyOf:
+        - description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *rate* is a monetary value assigned to a resource - `user` or `placeholder`
+            - for a given `parent` object.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            parent:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *project* represents a prioritized list of tasks in Asana or a board
+                with columns of tasks represented as cards. It exists in a single
+                workspace or organization and is accessible to a subset of users in
+                that workspace or organization, depending on its permissions.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: >-
+                    Name of the project. This is generally a short sentence fragment
+                    that fits on a line in the UI for maximum readability. However,
+                    it
+                    can be longer.
+                  type: string
+                  example: Stuff to buy
+              x-docs-overrides: *id005
+            resource:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user's name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id001
+            rate:
+              type: number
+              description: >-
+                The monetary value of the rate.
+              example: 100
+            currency_code:
+              type: string
+              description: >-
+                The currency code of the rate, set at the domain level.
+              example: USD
+              readOnly: true
+            created_by:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user's name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id001
+              readOnly: true
+          x-docs-overrides: *id031
+        - description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *rate* is a monetary value assigned to a resource - `user` or `placeholder`
+            - for a given `parent` object.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            parent:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *project* represents a prioritized list of tasks in Asana or a board
+                with columns of tasks represented as cards. It exists in a single
+                workspace or organization and is accessible to a subset of users in
+                that workspace or organization, depending on its permissions.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: >-
+                    Name of the project. This is generally a short sentence fragment
+                    that fits on a line in the UI for maximum readability. However,
+                    it
+                    can be longer.
+                  type: string
+                  example: Stuff to buy
+              x-docs-overrides: *id005
+            resource:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *placeholder* object represents a placeholder in Asana that can
+                be used to represent a placeholder user.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    The placeholder's name.
+                  example: Greg-Placeholder Sanchez
+              x-docs-overrides: &id032
+                properties.resource_type.example: user
+            rate:
+              type: number
+              description: >-
+                The monetary value of the rate.
+              example: 100
+            currency_code:
+              type: string
+              description: >-
+                The currency code of the rate, set at the domain level.
+              example: USD
+              readOnly: true
+            created_by:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *user* object represents an account in Asana that can be given access
+                to various workspaces, projects, and tasks.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  type: string
+                  description: >-
+                    *Read-only except when same user as requester*. The user's name.
+                  example: Greg Sanchez
+              x-docs-overrides: *id001
+              readOnly: true
+          x-docs-overrides: *id031
+    PlaceholderCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *placeholder* object represents a placeholder in Asana that can be used
+        to represent a placeholder user.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          type: string
+          description: >-
+            The placeholder's name.
+          example: Greg-Placeholder Sanchez
+      x-docs-overrides: *id032
+    PlaceholderRateCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *rate* is a monetary value assigned to a resource - `user` or `placeholder`
+        - for a given `parent` object.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        parent:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *project* represents a prioritized list of tasks in Asana or a board
+            with columns of tasks represented as cards. It exists in a single workspace
+            or organization and is accessible to a subset of users in that workspace
+            or organization, depending on its permissions.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: >-
+                Name of the project. This is generally a short sentence fragment
+                that fits on a line in the UI for maximum readability. However, it
+                can be longer.
+              type: string
+              example: Stuff to buy
+          x-docs-overrides: *id005
+        resource:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *placeholder* object represents a placeholder in Asana that can be used
+            to represent a placeholder user.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                The placeholder's name.
+              example: Greg-Placeholder Sanchez
+          x-docs-overrides: *id032
+        rate:
+          type: number
+          description: >-
+            The monetary value of the rate.
+          example: 100
+        currency_code:
+          type: string
+          description: >-
+            The currency code of the rate, set at the domain level.
+          example: USD
+          readOnly: true
+        created_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+      x-docs-overrides: *id031
     SectionBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -24683,7 +26251,7 @@ components:
             header).
           type: string
           example: Next Actions
-      x-docs-overrides: &id030
+      x-docs-overrides: &id033
         properties.resource_type.example: section
     SectionCompact:
       description: >-
@@ -24714,7 +26282,7 @@ components:
             header).
           type: string
           example: Next Actions
-      x-docs-overrides: *id030
+      x-docs-overrides: *id033
     SectionRequest:
       type: object
       properties:
@@ -24806,7 +26374,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         projects:
           description: >-
             *Deprecated - please use project instead*
@@ -24844,8 +26412,8 @@ components:
                   can be longer.
                 type: string
                 example: Stuff to buy
-            x-docs-overrides: *id007
-      x-docs-overrides: *id030
+            x-docs-overrides: *id005
+      x-docs-overrides: *id033
     SectionTaskInsertRequest:
       type: object
       properties:
@@ -24939,7 +26507,7 @@ components:
             - partial
             - missed
             - dropped
-      x-docs-overrides: *id024
+      x-docs-overrides: *id025
       required:
         - text
         - status_type
@@ -24986,7 +26554,7 @@ components:
             - goal_status_update
           example: project_status_update
           readOnly: true
-      x-docs-overrides: *id024
+      x-docs-overrides: *id025
     StatusUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -25062,7 +26630,7 @@ components:
           description: >-
             The id of parent to send this status update to. This can be a project,
             goal or portfolio.
-      x-docs-overrides: *id024
+      x-docs-overrides: *id025
       required:
         - text
         - status_type
@@ -25392,8 +26960,8 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
-      x-docs-overrides: *id024
+          x-docs-overrides: *id005
+      x-docs-overrides: *id025
       required:
         - text
         - status_type
@@ -25467,7 +27035,7 @@ components:
             - determined_climbers
             - phoenix_spreading_love
           example: dancing_unicorn
-      x-docs-overrides: &id031
+      x-docs-overrides: &id034
         properties.resource_type.example: story
     StoryCompact:
       description: >-
@@ -25548,7 +27116,7 @@ components:
             created the story.
           type: string
           example: marked today
-      x-docs-overrides: &id032
+      x-docs-overrides: &id035
         properties.resource_type.example: story
     StoryRequest:
       description: >-
@@ -25620,7 +27188,7 @@ components:
             - determined_climbers
             - phoenix_spreading_love
           example: dancing_unicorn
-      x-docs-overrides: *id031
+      x-docs-overrides: *id034
     StoryResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -26109,7 +27677,7 @@ components:
                 created the story.
               type: string
               example: marked today
-          x-docs-overrides: *id032
+          x-docs-overrides: *id035
           readOnly: true
         assignee:
           description: >-
@@ -26198,7 +27766,7 @@ components:
                 header).
               type: string
               example: Next Actions
-          x-docs-overrides: *id030
+          x-docs-overrides: *id033
           readOnly: true
         new_section:
           description: >-
@@ -26229,7 +27797,7 @@ components:
                 header).
               type: string
               example: Next Actions
-          x-docs-overrides: *id030
+          x-docs-overrides: *id033
           readOnly: true
         task:
           description: >-
@@ -26287,7 +27855,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           readOnly: true
         project:
           description: >-
@@ -26320,7 +27888,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
           readOnly: true
         tag:
           description: >-
@@ -26351,7 +27919,7 @@ components:
                 be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: &id033
+          x-docs-overrides: &id036
             properties.resource_type.example: tag
           readOnly: true
         custom_field:
@@ -26750,7 +28318,7 @@ components:
               readOnly: true
               example: blue
               nullable: true
-          x-docs-overrides: *id005
+          x-docs-overrides: *id007
           readOnly: true
         old_text_value:
           description: >-
@@ -27268,7 +28836,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           readOnly: true
         duplicated_from:
           description: >-
@@ -27326,7 +28894,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           readOnly: true
         dependency:
           description: >-
@@ -27384,7 +28952,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           readOnly: true
         source:
           description: >-
@@ -27461,9 +29029,9 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           readOnly: true
-      x-docs-overrides: *id031
+      x-docs-overrides: *id034
     StoryResponseDates:
       description: >-
         *Conditional*
@@ -27555,7 +29123,7 @@ components:
             tag (i.e. its description).
           type: string
           example: Mittens really likes the stuff from Humboldt.
-      x-docs-overrides: *id033
+      x-docs-overrides: *id036
     TagCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27585,7 +29153,7 @@ components:
             be longer.
           type: string
           example: Stuff to buy
-      x-docs-overrides: *id033
+      x-docs-overrides: *id036
     TagCreateTagForWorkspaceRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27656,7 +29224,7 @@ components:
           example:
             - '12345'
             - '42563'
-      x-docs-overrides: *id033
+      x-docs-overrides: *id036
     TagBaseRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27717,7 +29285,7 @@ components:
             tag (i.e. its description).
           type: string
           example: Mittens really likes the stuff from Humboldt.
-      x-docs-overrides: *id033
+      x-docs-overrides: *id036
     TagCreateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27794,7 +29362,7 @@ components:
           description: >-
             Gid of an object.
           example: '12345'
-      x-docs-overrides: *id033
+      x-docs-overrides: *id036
     TagUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27855,7 +29423,7 @@ components:
             tag (i.e. its description).
           type: string
           example: Mittens really likes the stuff from Humboldt.
-      x-docs-overrides: *id033
+      x-docs-overrides: *id036
     TagResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -27980,14 +29548,14 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         permalink_url:
           type: string
           readOnly: true
           description: >-
             A url that points directly to the object within Asana.
           example: https://app.asana.com/0/resource/123456789/list
-      x-docs-overrides: *id033
+      x-docs-overrides: *id036
     TaskAddFollowersRequest:
       type: object
       properties:
@@ -28443,7 +30011,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
               section:
                 description: >-
                   A generic Asana Resource, containing a globally unique identifier.A
@@ -28473,7 +30041,7 @@ components:
                       header).
                     type: string
                     example: Next Actions
-                x-docs-overrides: *id030
+                x-docs-overrides: *id033
         modified_at:
           description: |-
             The time at which this task was last modified.
@@ -28563,7 +30131,7 @@ components:
           example: 200
           readOnly: true
           nullable: true
-      x-docs-overrides: *id013
+      x-docs-overrides: *id014
     TaskCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -28619,7 +30187,7 @@ components:
               description: The type of resource.
               type: string
               example: user
-      x-docs-overrides: *id013
+      x-docs-overrides: *id014
     TaskTemplateCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -28647,7 +30215,7 @@ components:
             Name of the task template.
           type: string
           example: Packing list
-      x-docs-overrides: &id034
+      x-docs-overrides: &id037
         properties.resource_type.example: task_template
     TaskTemplateBase:
       description: >-
@@ -28676,7 +30244,7 @@ components:
             Name of the task template.
           type: string
           example: Packing list
-      x-docs-overrides: *id034
+      x-docs-overrides: *id037
     TaskTemplateRecipeCompact:
       type: object
       properties:
@@ -28760,7 +30328,7 @@ components:
                   can be longer.
                 type: string
                 example: Stuff to buy
-            x-docs-overrides: *id007
+            x-docs-overrides: *id005
         relative_start_on:
           nullable: true
           description: >-
@@ -29325,7 +30893,7 @@ components:
                 readOnly: true
                 example: blue
                 nullable: true
-            x-docs-overrides: *id005
+            x-docs-overrides: *id007
     TaskTemplateResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -29389,7 +30957,7 @@ components:
                     can be longer.
                   type: string
                   example: Stuff to buy
-              x-docs-overrides: *id007
+              x-docs-overrides: *id005
         template:
           description: >-
             The configuration for the task that will be created from this template.
@@ -29461,7 +31029,7 @@ components:
                           can be longer.
                         type: string
                         example: Stuff to buy
-                    x-docs-overrides: *id007
+                    x-docs-overrides: *id005
                 relative_start_on:
                   nullable: true
                   description: >-
@@ -30050,7 +31618,7 @@ components:
                         readOnly: true
                         example: blue
                         nullable: true
-                    x-docs-overrides: *id005
+                    x-docs-overrides: *id007
         created_by:
           description: >-
             The user who created this task template.
@@ -30088,7 +31656,7 @@ components:
           type: string
           format: date-time
           example: '2019-01-01T00:00:00.000Z'
-      x-docs-overrides: *id034
+      x-docs-overrides: *id037
     TaskCountResponse:
       description: A response object returned from the task count endpoint.
       type: object
@@ -30597,7 +32165,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
               section:
                 description: >-
                   A generic Asana Resource, containing a globally unique identifier.A
@@ -30627,7 +32195,7 @@ components:
                       header).
                     type: string
                     example: Next Actions
-                x-docs-overrides: *id030
+                x-docs-overrides: *id033
         modified_at:
           description: |-
             The time at which this task was last modified.
@@ -30824,7 +32392,7 @@ components:
             GID or globally-unique identifier of a custom_type_status_option
           example: '12345'
           nullable: true
-      x-docs-overrides: *id013
+      x-docs-overrides: *id014
     TaskResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -31226,7 +32794,7 @@ components:
                       can be longer.
                     type: string
                     example: Stuff to buy
-                x-docs-overrides: *id007
+                x-docs-overrides: *id005
               section:
                 description: >-
                   A generic Asana Resource, containing a globally unique identifier.A
@@ -31256,7 +32824,7 @@ components:
                       header).
                     type: string
                     example: Next Actions
-                x-docs-overrides: *id030
+                x-docs-overrides: *id033
         modified_at:
           description: |-
             The time at which this task was last modified.
@@ -31420,7 +32988,7 @@ components:
                 header).
               type: string
               example: Next Actions
-          x-docs-overrides: *id030
+          x-docs-overrides: *id033
           nullable: true
         custom_fields:
           description: >-
@@ -32195,7 +33763,7 @@ components:
                   - date
                   - people
                   - reference
-            x-docs-overrides: *id005
+            x-docs-overrides: *id007
           readOnly: true
         custom_type:
           description: >-
@@ -32223,7 +33791,7 @@ components:
               type: string
               description: The name of the custom type.
               example: Bug ticket
-          x-docs-overrides: *id008
+          x-docs-overrides: *id009
           nullable: true
         custom_type_status_option:
           description: >-
@@ -32247,7 +33815,7 @@ components:
               type: string
               description: The name of the custom type status option.
               example: Solution pending
-          x-docs-overrides: *id009
+          x-docs-overrides: *id010
           nullable: true
         followers:
           description: Array of users following this task.
@@ -32345,7 +33913,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           readOnly: true
           nullable: true
         projects:
@@ -32388,7 +33956,7 @@ components:
                   can be longer.
                 type: string
                 example: Stuff to buy
-            x-docs-overrides: *id007
+            x-docs-overrides: *id005
         tags:
           description: >-
             Array of tags associated with this task. In order to change tags on an
@@ -32424,7 +33992,7 @@ components:
                   be longer.
                 type: string
                 example: Stuff to buy
-            x-docs-overrides: *id033
+            x-docs-overrides: *id036
           example:
             - gid: '59746'
               name: Grade A
@@ -32463,7 +34031,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
           readOnly: true
         permalink_url:
           type: string
@@ -32471,7 +34039,7 @@ components:
           description: >-
             A url that points directly to the object within Asana.
           example: https://app.asana.com/1/12345/task/123456789
-      x-docs-overrides: *id013
+      x-docs-overrides: *id014
     TaskSetParentRequest:
       type: object
       properties:
@@ -32531,7 +34099,7 @@ components:
           description: The name of the team.
           type: string
           example: Marketing
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     TeamCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -32558,7 +34126,7 @@ components:
           description: The name of the team.
           type: string
           example: Marketing
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     TeamMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -32635,7 +34203,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id029
+          x-docs-overrides: *id030
         is_guest:
           type: boolean
           description: >-
@@ -32652,7 +34220,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: &id035
+      x-docs-overrides: &id038
         properties.resource_type.example: team_membership
     TeamMembershipCompact:
       description: >-
@@ -32730,7 +34298,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id029
+          x-docs-overrides: *id030
         is_guest:
           type: boolean
           description: >-
@@ -32747,7 +34315,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: *id035
+      x-docs-overrides: *id038
     TeamMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -32824,7 +34392,7 @@ components:
               description: The name of the team.
               type: string
               example: Marketing
-          x-docs-overrides: *id029
+          x-docs-overrides: *id030
         is_guest:
           type: boolean
           description: >-
@@ -32841,7 +34409,7 @@ components:
           description: >-
             Describes if the user is a team admin.
           example: false
-      x-docs-overrides: *id035
+      x-docs-overrides: *id038
     TeamRemoveUserRequest:
       type: object
       description: A user identification object for specification with the addUser/removeUser
@@ -32961,7 +34529,7 @@ components:
             Whether the team has been endorsed
           type: boolean
           example: false
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     TeamResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -33037,7 +34605,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         permalink_url:
           type: string
           readOnly: true
@@ -33108,7 +34676,7 @@ components:
             Whether the team has been endorsed
           type: boolean
           example: false
-      x-docs-overrides: *id029
+      x-docs-overrides: *id030
     TemplateRole:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -33224,9 +34792,9 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: *id036
+          x-docs-overrides: *id039
           nullable: true
-      x-docs-overrides: *id036
+      x-docs-overrides: *id039
     TimePeriodCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -33273,7 +34841,7 @@ components:
           description: >-
             A string representing the cadence code and the fiscal year.
           example: Q1 FY22
-      x-docs-overrides: *id036
+      x-docs-overrides: *id039
     TimePeriodResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -33366,9 +34934,9 @@ components:
               description: >-
                 A string representing the cadence code and the fiscal year.
               example: Q1 FY22
-          x-docs-overrides: *id036
+          x-docs-overrides: *id039
           nullable: true
-      x-docs-overrides: *id036
+      x-docs-overrides: *id039
     UserBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -33634,7 +35202,7 @@ components:
                 description: The name of the workspace.
                 type: string
                 example: My Company Workspace
-            x-docs-overrides: *id019
+            x-docs-overrides: *id020
         custom_fields:
           description: Array of Custom Fields.
           type: array
@@ -34039,7 +35607,7 @@ components:
                 readOnly: true
                 example: blue
                 nullable: true
-            x-docs-overrides: *id005
+            x-docs-overrides: *id007
       x-docs-overrides: *id001
     UserTaskListBase:
       description: >-
@@ -34130,8 +35698,8 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id019
-      x-docs-overrides: &id037
+              x-docs-overrides: *id020
+      x-docs-overrides: &id040
         properties.resource_type.example: user_task_list
     UserTaskListCompact:
       description: >-
@@ -34222,8 +35790,8 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id019
-      x-docs-overrides: *id037
+              x-docs-overrides: *id020
+      x-docs-overrides: *id040
     UserTaskListRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -34313,8 +35881,8 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id019
-      x-docs-overrides: *id037
+              x-docs-overrides: *id020
+      x-docs-overrides: *id040
     UserTaskListResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -34404,8 +35972,8 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id019
-      x-docs-overrides: *id037
+              x-docs-overrides: *id020
+      x-docs-overrides: *id040
     WebhookCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -34465,7 +36033,7 @@ components:
           format: uri
           readOnly: true
           example: https://example.com/receive-webhook/7654
-      x-docs-overrides: &id038
+      x-docs-overrides: &id041
         properties.resource_type.example: webhook
     WebhookFilter:
       type: object
@@ -34770,7 +36338,7 @@ components:
                   - due_at
                   - due_on
                   - dependencies
-      x-docs-overrides: *id038
+      x-docs-overrides: *id041
     WebhookUpdateRequest:
       type: object
       properties:
@@ -34874,7 +36442,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
     WorkspaceCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -34901,7 +36469,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
     WorkspaceMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -34977,8 +36545,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
-      x-docs-overrides: &id039
+          x-docs-overrides: *id020
+      x-docs-overrides: &id042
         properties.resource_type.example: workspace_membership
     WorkspaceMembershipCompact:
       description: >-
@@ -35055,8 +36623,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
-      x-docs-overrides: *id039
+          x-docs-overrides: *id020
+      x-docs-overrides: *id042
     WorkspaceMembershipRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -35132,8 +36700,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
-      x-docs-overrides: *id039
+          x-docs-overrides: *id020
+      x-docs-overrides: *id042
     WorkspaceMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -35209,7 +36777,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         user_task_list:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -35300,8 +36868,8 @@ components:
                       description: The name of the workspace.
                       type: string
                       example: My Company Workspace
-                  x-docs-overrides: *id019
-          x-docs-overrides: *id037
+                  x-docs-overrides: *id020
+          x-docs-overrides: *id040
           readOnly: true
         is_active:
           type: boolean
@@ -35354,7 +36922,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T02:06:58.147Z'
-      x-docs-overrides: *id039
+      x-docs-overrides: *id042
     WorkspaceRemoveUserRequest:
       type: object
       description: A user identification object for specification with the addUser/removeUser
@@ -35392,7 +36960,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
     WorkspaceResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -35431,7 +36999,7 @@ components:
           description: Whether the workspace is an *organization*.
           type: boolean
           example: false
-      x-docs-overrides: *id019
+      x-docs-overrides: *id020
     GoalMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -35479,7 +37047,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
@@ -35531,7 +37099,7 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
         role:
           type: string
@@ -35611,10 +37179,10 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
           deprecated: true
-      x-docs-overrides: *id040
+      x-docs-overrides: *id043
     GoalMembershipCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -35662,7 +37230,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
@@ -35714,7 +37282,7 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
         role:
           type: string
@@ -35794,7 +37362,7 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
           deprecated: true
         is_commenter:
@@ -35815,7 +37383,7 @@ components:
             Describes if the member is editor in goal. Will be null if the `goal_sals_api`
             change flag is enabled.
           example: false
-      x-docs-overrides: *id040
+      x-docs-overrides: *id043
     GoalMembershipResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -35863,7 +37431,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id018
+          x-docs-overrides: *id019
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
@@ -35915,7 +37483,7 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
         role:
           type: string
@@ -35995,7 +37563,7 @@ components:
                   example: Greg Sanchez
               x-docs-overrides: *id001
               nullable: true
-          x-docs-overrides: *id011
+          x-docs-overrides: *id012
           readOnly: true
           deprecated: true
         user:
@@ -36071,10 +37639,10 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
           deprecated: true
           readOnly: true
-      x-docs-overrides: *id040
+      x-docs-overrides: *id043
     MembershipUpdateRequest:
       type: object
       properties:
@@ -36178,7 +37746,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id018
+              x-docs-overrides: *id019
             parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.
@@ -36231,7 +37799,7 @@ components:
                       example: Greg Sanchez
                   x-docs-overrides: *id001
                   nullable: true
-              x-docs-overrides: *id011
+              x-docs-overrides: *id012
               readOnly: true
             role:
               type: string
@@ -36312,7 +37880,7 @@ components:
                       example: Greg Sanchez
                   x-docs-overrides: *id001
                   nullable: true
-              x-docs-overrides: *id011
+              x-docs-overrides: *id012
               readOnly: true
               deprecated: true
             user:
@@ -36388,10 +37956,10 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
               deprecated: true
               readOnly: true
-          x-docs-overrides: *id040
+          x-docs-overrides: *id043
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -36443,7 +38011,7 @@ components:
                     can be longer.
                   type: string
                   example: Stuff to buy
-              x-docs-overrides: *id007
+              x-docs-overrides: *id005
             member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -36467,7 +38035,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id018
+              x-docs-overrides: *id019
             access_level:
               description: >-
                 Whether the member has admin, editor, commenter, or viewer
@@ -36484,7 +38052,7 @@ components:
               description: Type of the membership.
               type: string
               example: project_membership
-          x-docs-overrides: *id027
+          x-docs-overrides: *id028
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -36536,7 +38104,7 @@ components:
                   description: The name of the portfolio.
                   type: string
                   example: Bug Portfolio
-              x-docs-overrides: *id021
+              x-docs-overrides: *id022
             member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -36560,7 +38128,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id018
+              x-docs-overrides: *id019
             access_level:
               description: >-
                 Whether the member has admin, editor, or viewer
@@ -36573,7 +38141,7 @@ components:
                 - viewer
               readOnly: true
               example: admin
-          x-docs-overrides: *id022
+          x-docs-overrides: *id023
         - description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
             Asana Resource, containing a globally unique identifier.
@@ -37006,7 +38574,7 @@ components:
                   readOnly: true
                   example: blue
                   nullable: true
-              x-docs-overrides: *id005
+              x-docs-overrides: *id007
             member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -37030,7 +38598,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id018
+              x-docs-overrides: *id019
             access_level:
               description: >-
                 Whether the member has admin, editor, or user
@@ -37042,7 +38610,7 @@ components:
                 - user
               readOnly: true
               example: admin
-          x-docs-overrides: *id026
+          x-docs-overrides: *id027
     UpdateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -37154,7 +38722,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         created_by:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -37184,7 +38752,7 @@ components:
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
-      x-docs-overrides: &id041
+      x-docs-overrides: &id044
         properties.resource_type.example: time_tracking_entry
     TimeTrackingEntryBase:
       description: >-
@@ -37257,7 +38825,7 @@ components:
                 can be longer.
               type: string
               example: Stuff to buy
-          x-docs-overrides: *id007
+          x-docs-overrides: *id005
         created_by:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -37343,7 +38911,7 @@ components:
                   description: The type of resource.
                   type: string
                   example: user
-          x-docs-overrides: *id013
+          x-docs-overrides: *id014
           readOnly: true
         created_at:
           description: The time at which this resource was created.
@@ -37378,7 +38946,7 @@ components:
           type: string
           readOnly: true
           example: My description of work done on this entry
-      x-docs-overrides: *id041
+      x-docs-overrides: *id044
     AccessRequestResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -37467,7 +39035,7 @@ components:
               readOnly: true
               example: task
               x-insert-after: gid
-          x-docs-overrides: &id042
+          x-docs-overrides: &id045
             properties.resource_type.example: project
           readOnly: true
       x-docs-overrides:
@@ -37494,7 +39062,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-      x-docs-overrides: *id042
+      x-docs-overrides: *id045
     AccessRequestCreateRequest:
       type: object
       required:
@@ -37682,6 +39250,24 @@ components:
             $ref: '#/components/schemas/BatchResponse'
         next_page:
           $ref: '#/components/schemas/NextPage'
+    BudgetResponseArray:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/BudgetResponse'
+        next_page:
+          $ref: '#/components/schemas/NextPage'
+    BudgetResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/BudgetResponse'
     CustomFieldSettingResponseArray:
       type: object
       required:
@@ -37958,6 +39544,24 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/TaskCountResponse'
+    RateOrPlaceholderCompactArray:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateOrPlaceholderCompact'
+        next_page:
+          $ref: '#/components/schemas/NextPage'
+    RateResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/RateResponse'
     ReactionCompactArray:
       type: object
       required:
@@ -39160,6 +40764,251 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /budgets:
+    get:
+      summary: Get all budgets
+      description: Gets all budgets for a given *parent*. This will at most return
+        a list of size 1 for a given *parent*.
+      operationId: getBudgets
+      tags:
+        - Budgets
+      parameters:
+        - name: parent
+          in: query
+          required: true
+          description: Globally unique identifier for the budget's parent object.
+            This currently can only be a `project`.
+          schema:
+            type: string
+          example: '1331'
+      responses:
+        200:
+          $ref: '#/components/responses/BudgetResponseArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create a budget
+      description: |-
+        Creates a new budget.
+      tags:
+        - Budgets
+      operationId: createBudget
+      requestBody:
+        description: The budget to create.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/BudgetRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/BudgetResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /budgets/{budget_gid}:
+    parameters:
+      - $ref: '#/components/parameters/budget_path_gid'
+    get:
+      summary: Get a budget
+      description: Returns the complete budget record for a single budget.
+      tags:
+        - Budgets
+      operationId: getBudget
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - actual
+            - actual.billable_status_filter
+            - actual.units
+            - actual.value
+            - budget_type
+            - estimate
+            - estimate.billable_status_filter
+            - estimate.enabled
+            - estimate.source
+            - estimate.units
+            - estimate.value
+            - parent
+            - parent.name
+            - total
+            - total.enabled
+            - total.units
+            - total.value
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - actual
+                - actual.billable_status_filter
+                - actual.units
+                - actual.value
+                - budget_type
+                - estimate
+                - estimate.billable_status_filter
+                - estimate.enabled
+                - estimate.source
+                - estimate.units
+                - estimate.value
+                - parent
+                - parent.name
+                - total
+                - total.enabled
+                - total.units
+                - total.value
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/BudgetResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update a budget
+      description: |-
+        An existing budget can be updated by making a PUT request on the URL for
+        that budget. Only the fields provided in the `data` block will be updated;
+        any unspecified fields will remain unchanged.
+      tags:
+        - Budgets
+      operationId: updateBudget
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - actual
+            - actual.billable_status_filter
+            - actual.units
+            - actual.value
+            - budget_type
+            - estimate
+            - estimate.billable_status_filter
+            - estimate.enabled
+            - estimate.source
+            - estimate.units
+            - estimate.value
+            - parent
+            - parent.name
+            - total
+            - total.enabled
+            - total.units
+            - total.value
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - actual
+                - actual.billable_status_filter
+                - actual.units
+                - actual.value
+                - budget_type
+                - estimate
+                - estimate.billable_status_filter
+                - estimate.enabled
+                - estimate.source
+                - estimate.units
+                - estimate.value
+                - parent
+                - parent.name
+                - total
+                - total.enabled
+                - total.units
+                - total.value
+          style: form
+          explode: false
+      requestBody:
+        description: The budget to update.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/BudgetRequest'
+                  required: true
+      responses:
+        200:
+          $ref: '#/components/responses/BudgetResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete a budget
+      description: |-
+        A specific, existing budget can be deleted by making a DELETE request on the URL for that budget.
+
+        Returns an empty data record.
+      tags:
+        - Budgets
+      operationId: deleteBudget
+      responses:
+        200:
+          $ref: '#/components/responses/EmptyResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
         403:
           $ref: '#/components/responses/Forbidden'
         404:
@@ -49948,6 +51797,277 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /rates:
+    get:
+      summary: Get multiple rates
+      description: >-
+        Returns a list of `rate` records. The possible types
+        for `parent` in this request are `project`. An additional `resource` (`user`
+        GID or
+        `placeholder` GID) can be passed in to filter to a specific rate.
+
+
+        Modifying placeholder rates is only available for Enterprise and Enterprise+
+        users.
+      tags:
+        - Rates
+      operationId: getRates
+      parameters:
+        - name: parent
+          in: query
+          description: >-
+            Globally unique identifier for `project`.
+          schema:
+            type: string
+          example: '159874'
+        - name: resource
+          in: query
+          description: Globally unique identifier for `user` or `placeholder`.
+          schema:
+            type: string
+          example: '1061493'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - offset
+            - path
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - offset
+                - path
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/RateOrPlaceholderCompactArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    post:
+      summary: Create a rate
+      description: Creates a new rate for a `parent` + `resource` combination.
+      tags:
+        - Rates
+      operationId: createRate
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_by
+            - created_by.name
+            - currency_code
+            - parent
+            - parent.name
+            - rate
+            - resource
+            - resource.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_by
+                - created_by.name
+                - currency_code
+                - parent
+                - parent.name
+                - rate
+                - resource
+                - resource.name
+          style: form
+          explode: false
+      requestBody:
+        description: The rate to create.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/RateRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/RateResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /rates/{rate_gid}:
+    parameters:
+      - $ref: '#/components/parameters/rate_path_gid'
+    get:
+      summary: Get a rate
+      description: Returns the complete rate record for a single rate.
+      tags:
+        - Rates
+      operationId: getRate
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_by
+            - created_by.name
+            - currency_code
+            - parent
+            - parent.name
+            - rate
+            - resource
+            - resource.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_by
+                - created_by.name
+                - currency_code
+                - parent
+                - parent.name
+                - rate
+                - resource
+                - resource.name
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/RateResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      summary: Update a rate
+      description: |-
+        An existing rate can be updated by making a PUT request on the URL for
+        that rate. Only the fields provided in the `data` block will be updated;
+        any unspecified fields will remain unchanged. (note that at this time, the only field that can be updated is the `rate` field.)
+
+        Returns the complete updated rate record.
+      tags:
+        - Rates
+      operationId: updateRate
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_by
+            - created_by.name
+            - currency_code
+            - parent
+            - parent.name
+            - rate
+            - resource
+            - resource.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_by
+                - created_by.name
+                - currency_code
+                - parent
+                - parent.name
+                - rate
+                - resource
+                - resource.name
+          style: form
+          explode: false
+      requestBody:
+        description: The updated fields for the rate.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/RateUpdateRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/RateResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      summary: Delete a rate
+      description: Deletes a rate.
+      tags:
+        - Rates
+      operationId: deleteRate
+      responses:
+        200:
+          $ref: '#/components/responses/EmptyResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
         403:
           $ref: '#/components/responses/Forbidden'
         404:
