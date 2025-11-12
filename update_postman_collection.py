@@ -15,9 +15,6 @@ import json
 import os
 import sys
 
-# TODO We might want to implement diff checker + 
-# replace the current all-in-one Postman API endpoint with granular updates.
-# [Internal Asanas] Reference: https://app.asana.com/0/0/1211836465749575/f
 def upload_to_postman():
     """Update Postman Collection via Postman API."""
     

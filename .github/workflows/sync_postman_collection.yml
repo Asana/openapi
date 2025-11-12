@@ -1,5 +1,3 @@
-# Automated pipeline to convert Open API Specification to Asana Postman collection and sync to Postman workspace.
-# [Internal Asanas] Learn more: https://app.asana.com/0/0/1211836466365216/f
 name: Sync Postman Collection
 
 on:
@@ -7,9 +5,8 @@ on:
     branches:
       - master
     paths:
-      - convert_oas_to_postman.py
       - update_postman_collection.py
-      - defs/**
+      - defs/asana_postman_collection.json
 
 permissions:
   id-token: write
@@ -19,23 +16,18 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      # ID of the Asana Postman collection
       POSTMAN_COLLECTION_ID: "37831743-a37a0580-d957-4a08-8fe0-c5c905679037"
-      # File path of the Postman collection json file to be created in defs directory
       POSTMAN_COLLECTION_FILE: "defs/asana_postman_collection.json"
-      OAS_FILE: "defs/asana_oas.yaml"
 
     steps:
       - name: Checkout repository 📚
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0  # needed for diff
 
       - name: Authenticate to AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-region: us-east-1
-          role-to-assume: arn:aws:iam::403483446840:role/autogen_github_actions_beta_push_openapi_spec_to_readme
+          role-to-assume: arn:aws:iam::403483446840:role/autogen_github_actions_beta_sync_postman_collection
 
       - name: Load secrets
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
@@ -62,4 +54,3 @@ jobs:
           python update_postman_collection.py
           echo ""
           echo "✅ Postman Collection has been updated successfully!"
-          echo "🔗 View it here: https://www.postman.com/collections/${POSTMAN_COLLECTION_ID}"
