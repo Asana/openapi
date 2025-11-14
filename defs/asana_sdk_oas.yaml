@@ -3998,7 +3998,6 @@ components:
                 between types preserves each value.
               type: number
               example: 100
-              readOnly: true
             units:
               description: >-
                 The units of the total value.
@@ -4163,7 +4162,6 @@ components:
                 between types preserves each value.
               type: number
               example: 100
-              readOnly: true
         parent:
           description: >-
             Globally unique ID of the parent object: project. Can only be set on create,
@@ -4385,7 +4383,6 @@ components:
             types preserves each value.
           type: number
           example: 100
-          readOnly: true
     BudgetTotalResponse:
       type: object
       description: >-
@@ -4418,7 +4415,6 @@ components:
             types preserves each value.
           type: number
           example: 100
-          readOnly: true
         units:
           description: >-
             The units of the total value.
