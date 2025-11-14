@@ -1,0 +1,56 @@
+name: Sync Postman Collection
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - update_postman_collection.py
+      - defs/asana_postman_collection.json
+
+permissions:
+  id-token: write
+
+jobs:
+  deploy-to-postman:
+    runs-on: ubuntu-latest
+
+    env:
+      POSTMAN_COLLECTION_ID: "37831743-a37a0580-d957-4a08-8fe0-c5c905679037"
+      POSTMAN_COLLECTION_FILE: "defs/asana_postman_collection.json"
+
+    steps:
+      - name: Checkout repository 📚
+        uses: actions/checkout@v5
+
+      - name: Authenticate to AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::403483446840:role/autogen_github_actions_beta_sync_postman_collection
+
+      - name: Load secrets
+        uses: aws-actions/aws-secretsmanager-get-secrets@v2
+        with:
+          secret-ids: POSTMAN_API_KEY,postman_api_key
+          # postman_api_key secret is stored as {key:"***..."}
+          parse-json-secrets: true
+
+      - name: Set up Python 🐍
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+          
+      - name: Install Python dependencies 📦
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyyaml requests
+
+      - name: Build Postman Collection from Open API Spec 🏗️
+        run: python convert_oas_to_postman.py
+      
+      - name: Publish Postman Collection 🚀
+        run: | 
+          python update_postman_collection.py
+          echo ""
+          echo "✅ Postman Collection has been updated successfully!"
