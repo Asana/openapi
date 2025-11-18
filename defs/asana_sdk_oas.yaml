@@ -3099,11 +3099,6 @@ components:
           example: external
           enum:
             - asana
-            - dropbox
-            - gdrive
-            - onedrive
-            - box
-            - vimeo
             - external
         file:
           description: >
@@ -3211,7 +3206,7 @@ components:
         host:
           description: >-
             The service hosting the attachment. Valid values are `asana`,
-            `dropbox`, `gdrive`, `box`, and `vimeo`.
+            `dropbox`, `gdrive`, `onedrive`, `box`, `vimeo`, and `external`.
           type: string
           readOnly: true
           example: dropbox
