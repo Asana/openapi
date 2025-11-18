@@ -34667,6 +34667,925 @@ components:
             Whether the team has been endorsed
           type: boolean
           example: false
+        custom_field_settings:
+          description: Array of Custom Field Settings applied to the team.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              Custom Fields Settings objects represent the many-to-many join of the
+              Custom Field and Project as well as stores information that is relevant
+              to that particular pairing.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              project:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.A
+                  generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.
+
+                  *Deprecated: new integrations should prefer the `parent` field.*
+                  The id of the project that this custom field settings refers to.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: >-
+                      Name of the project. This is generally a short sentence fragment
+                      that fits on a line in the UI for maximum readability. However,
+                      it
+                      can be longer.
+                    type: string
+                    example: Stuff to buy
+                x-docs-overrides: *id005
+                readOnly: true
+              is_important:
+                description: >-
+                  `is_important` is used in the Asana web application to determine
+                  if this custom field is displayed in the list/grid view of a project
+                  or portfolio.
+                type: boolean
+                readOnly: true
+                example: false
+              parent:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.A
+                  generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.
+
+                  The parent to which the custom field is applied. This can be a project
+                  or portfolio and indicates that the tasks or projects that the parent
+                  contains may be given custom field values for this custom field.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: >-
+                      Name of the project. This is generally a short sentence fragment
+                      that fits on a line in the UI for maximum readability. However,
+                      it
+                      can be longer.
+                    type: string
+                    example: Stuff to buy
+                x-docs-overrides: *id005
+                readOnly: true
+              custom_field:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  Custom Fields store the metadata that is used in order to add user-specified
+                  information to tasks in Asana. Be sure to reference the [custom
+                  fields](/reference/custom-fields) developer documentation for more
+                  information about how custom fields relate to various resources
+                  in Asana.
+
+
+                  Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
+                  which will make them read-only when accessed by other users. Attempting
+                  to edit a locked custom field will return HTTP error code `403 Forbidden`.A
+                  generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  Custom Fields store the metadata that is used in order to add user-specified
+                  information to tasks in Asana. Be sure to reference the [custom
+                  fields](/reference/custom-fields) developer documentation for more
+                  information about how custom fields relate to various resources
+                  in Asana.
+
+
+                  Users in Asana can [lock custom fields](https://asana.com/guide/help/premium/custom-fields#gl-lock-fields),
+                  which will make them read-only when accessed by other users. Attempting
+                  to edit a locked custom field will return HTTP error code `403 Forbidden`.
+
+                  The custom field that is applied to the `parent`.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: The name of the custom field.
+                    type: string
+                    example: Status
+                  type:
+                    description: >
+                      *Deprecated: new integrations should prefer the resource_subtype
+                      field.* The type of the custom field. Must be one of the given
+                      values.
+                    type: string
+                    readOnly: true
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                  enum_options:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `enum`
+                      or `multi_enum`.
+                      This array specifies the possible values which an `enum` custom
+                      field can adopt. To modify the enum options, refer to [working
+                      with enum
+                      options](/reference/createenumoptionforcustomfield).
+                    type: array
+                    items:
+                      description: >-
+                        A generic Asana Resource, containing a globally unique identifier.A
+                        generic Asana Resource, containing a globally unique identifier.
+
+                        Enum options are the possible values which an enum custom
+                        field can adopt. An enum custom field must contain at least
+                        1 enum option but no more than 500.
+
+
+                        You can add enum options to a custom field by using the `POST
+                        /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                        **It is not possible to remove or delete an enum option**.
+                        Instead, enum options can be disabled by updating the `enabled`
+                        field to false with the `PUT /enum_options/enum_option_gid`
+                        endpoint. Other attributes can be updated similarly.
+
+
+                        On creation of an enum option, `enabled` is always set to
+                        `true`, meaning the enum option is a selectable value for
+                        the custom field. Setting `enabled=false` is equivalent to
+                        “trashing” the enum option in the Asana web app within the
+                        “Edit Fields” dialog. The enum option will no longer be selectable
+                        but, if the enum option value was previously set within a
+                        task, the task will retain the value.
+
+
+                        Enum options are an ordered list and by default new enum options
+                        are inserted at the end. Ordering in relation to existing
+                        enum options can be specified on creation by using `insert_before`
+                        or `insert_after` to reference an existing enum option. Only
+                        one of `insert_before` and `insert_after` can be provided
+                        when creating a new enum option.
+
+
+                        An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                        endpoint.
+                      type: object
+                      properties:
+                        gid:
+                          description: >-
+                            Globally unique identifier of the resource, as a string.
+                          type: string
+                          readOnly: true
+                          example: '12345'
+                          x-insert-after: false
+                        resource_type:
+                          description: The base type of this resource.
+                          type: string
+                          readOnly: true
+                          example: task
+                          x-insert-after: gid
+                        name:
+                          description: The name of the enum option.
+                          type: string
+                          example: Low
+                        enabled:
+                          description: >-
+                            Whether or not the enum option is a selectable value for
+                            the
+                            custom field.
+                          type: boolean
+                          example: true
+                        color:
+                          description: >-
+                            The color of the enum option. Defaults to `none`.
+                          type: string
+                          example: blue
+                      x-docs-overrides: *id003
+                  enabled:
+                    description: >-
+                      *Conditional*. This field applies only to
+                      [custom field values](/docs/custom-fields-guide#/accessing-custom-field-values-on-tasks-or-projects)
+                      and is not available for
+                      [custom field definitions](/docs/custom-fields-guide#/accessing-custom-field-definitions).
+
+                      Determines if the custom field is enabled or not.
+                      For more details, see the
+                      [Custom Fields documentation](/docs/custom-fields-guide#/enabled-and-disabled-values).
+                    type: boolean
+                    readOnly: true
+                    example: true
+                  representation_type:
+                    description: >-
+                      This field tells the type of the custom field.
+                    type: string
+                    example: number
+                    readOnly: true
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                      - formula
+                      - custom_id
+                      - reference
+                  id_prefix:
+                    description: >-
+                      This field is the unique custom ID string for the custom field.
+                    type: string
+                    nullable: true
+                    example: ID
+                  input_restrictions:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `reference`.
+                      This array of strings reflects the allowed types of objects
+                      that can be written
+                      to a `reference` custom field value.
+                    type: array
+                    items:
+                      type: string
+                    example: task
+                  is_formula_field:
+                    description: >-
+                      *Conditional*. This flag describes whether a custom field is
+                      a formula custom field.
+                    type: boolean
+                    example: false
+                  date_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `date`.
+                      This object reflects the chosen date (and optionally, time)
+                      value
+                      of a `date` custom field. If no date is selected, the value
+                      of
+                      `date_value` will be `null`.
+                    type: object
+                    nullable: true
+                    properties:
+                      date:
+                        type: string
+                        description: >-
+                          A string representing the date in YYYY-MM-DD format.
+                        example: '2024-08-23'
+                      date_time:
+                        type: string
+                        description: >-
+                          A string representing the date in ISO 8601 format. If no
+                          time value
+                          is selected, the value of `date-time` will be `null`.
+                        example: '2024-08-23T22:00:00.000Z'
+                  enum_value:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      Enum options are the possible values which an enum custom field
+                      can adopt. An enum custom field must contain at least 1 enum
+                      option but no more than 500.
+
+
+                      You can add enum options to a custom field by using the `POST
+                      /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                      **It is not possible to remove or delete an enum option**. Instead,
+                      enum options can be disabled by updating the `enabled` field
+                      to false with the `PUT /enum_options/enum_option_gid` endpoint.
+                      Other attributes can be updated similarly.
+
+
+                      On creation of an enum option, `enabled` is always set to `true`,
+                      meaning the enum option is a selectable value for the custom
+                      field. Setting `enabled=false` is equivalent to “trashing” the
+                      enum option in the Asana web app within the “Edit Fields” dialog.
+                      The enum option will no longer be selectable but, if the enum
+                      option value was previously set within a task, the task will
+                      retain the value.
+
+
+                      Enum options are an ordered list and by default new enum options
+                      are inserted at the end. Ordering in relation to existing enum
+                      options can be specified on creation by using `insert_before`
+                      or `insert_after` to reference an existing enum option. Only
+                      one of `insert_before` and `insert_after` can be provided when
+                      creating a new enum option.
+
+
+                      An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                      endpoint.A generic Asana Resource, containing a globally unique
+                      identifier.A generic Asana Resource, containing a globally unique
+                      identifier.
+
+                      Enum options are the possible values which an enum custom field
+                      can adopt. An enum custom field must contain at least 1 enum
+                      option but no more than 500.
+
+
+                      You can add enum options to a custom field by using the `POST
+                      /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                      **It is not possible to remove or delete an enum option**. Instead,
+                      enum options can be disabled by updating the `enabled` field
+                      to false with the `PUT /enum_options/enum_option_gid` endpoint.
+                      Other attributes can be updated similarly.
+
+
+                      On creation of an enum option, `enabled` is always set to `true`,
+                      meaning the enum option is a selectable value for the custom
+                      field. Setting `enabled=false` is equivalent to “trashing” the
+                      enum option in the Asana web app within the “Edit Fields” dialog.
+                      The enum option will no longer be selectable but, if the enum
+                      option value was previously set within a task, the task will
+                      retain the value.
+
+
+                      Enum options are an ordered list and by default new enum options
+                      are inserted at the end. Ordering in relation to existing enum
+                      options can be specified on creation by using `insert_before`
+                      or `insert_after` to reference an existing enum option. Only
+                      one of `insert_before` and `insert_after` can be provided when
+                      creating a new enum option.
+
+
+                      An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                      endpoint.
+
+                      *Conditional*. Only relevant for custom fields of type `enum`.
+                      This object is the chosen value of an `enum` custom field.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: The name of the enum option.
+                        type: string
+                        example: Low
+                      enabled:
+                        description: >-
+                          Whether or not the enum option is a selectable value for
+                          the
+                          custom field.
+                        type: boolean
+                        example: true
+                      color:
+                        description: >-
+                          The color of the enum option. Defaults to `none`.
+                        type: string
+                        example: blue
+                    x-docs-overrides: *id003
+                    nullable: true
+                  multi_enum_values:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type
+                      `multi_enum`. This object is the chosen values of a `multi_enum`
+                      custom
+                      field.
+                    type: array
+                    items:
+                      description: >-
+                        A generic Asana Resource, containing a globally unique identifier.A
+                        generic Asana Resource, containing a globally unique identifier.
+
+                        Enum options are the possible values which an enum custom
+                        field can adopt. An enum custom field must contain at least
+                        1 enum option but no more than 500.
+
+
+                        You can add enum options to a custom field by using the `POST
+                        /custom_fields/custom_field_gid/enum_options` endpoint.
+
+
+                        **It is not possible to remove or delete an enum option**.
+                        Instead, enum options can be disabled by updating the `enabled`
+                        field to false with the `PUT /enum_options/enum_option_gid`
+                        endpoint. Other attributes can be updated similarly.
+
+
+                        On creation of an enum option, `enabled` is always set to
+                        `true`, meaning the enum option is a selectable value for
+                        the custom field. Setting `enabled=false` is equivalent to
+                        “trashing” the enum option in the Asana web app within the
+                        “Edit Fields” dialog. The enum option will no longer be selectable
+                        but, if the enum option value was previously set within a
+                        task, the task will retain the value.
+
+
+                        Enum options are an ordered list and by default new enum options
+                        are inserted at the end. Ordering in relation to existing
+                        enum options can be specified on creation by using `insert_before`
+                        or `insert_after` to reference an existing enum option. Only
+                        one of `insert_before` and `insert_after` can be provided
+                        when creating a new enum option.
+
+
+                        An enum options list can be reordered with the `POST /custom_fields/custom_field_gid/enum_options/insert`
+                        endpoint.
+                      type: object
+                      properties:
+                        gid:
+                          description: >-
+                            Globally unique identifier of the resource, as a string.
+                          type: string
+                          readOnly: true
+                          example: '12345'
+                          x-insert-after: false
+                        resource_type:
+                          description: The base type of this resource.
+                          type: string
+                          readOnly: true
+                          example: task
+                          x-insert-after: gid
+                        name:
+                          description: The name of the enum option.
+                          type: string
+                          example: Low
+                        enabled:
+                          description: >-
+                            Whether or not the enum option is a selectable value for
+                            the
+                            custom field.
+                          type: boolean
+                          example: true
+                        color:
+                          description: >-
+                            The color of the enum option. Defaults to `none`.
+                          type: string
+                          example: blue
+                      x-docs-overrides: *id003
+                  number_value:
+                    description: >-
+                      *Conditional*. This number is the value of a `number` custom
+                      field.
+                    type: number
+                    nullable: true
+                    example: 5.2
+                  text_value:
+                    description: >-
+                      *Conditional*. This string is the value of a `text` custom field.
+                    type: string
+                    nullable: true
+                    example: Some Value
+                  display_value:
+                    description: >-
+                      A string representation for the value of the custom field.
+                      Integrations that don't require the underlying type should
+                      use this field to read values. Using this field will future-proof
+                      an app against new custom field types.
+                    type: string
+                    readOnly: true
+                    example: blue
+                    nullable: true
+                  description:
+                    description: >-
+                      [Opt
+                      In](/docs/inputoutput-options).
+                      The description of the custom field.
+                    type: string
+                    example: Development team priority
+                  precision:
+                    description: >-
+                      Only relevant for custom fields of type `Number`. This field
+                      dictates the number of places after the decimal to round to,
+                      i.e.
+                      0 is integer values, 1 rounds to the nearest tenth, and so on.
+                      Must be between 0 and 6, inclusive.
+
+                      For percentage format, this may be unintuitive, as a value of
+                      0.25
+                      has a precision of 0, while a value of 0.251 has a precision
+                      of 1.
+                      This is due to 0.25 being displayed as 25%.
+
+                      The identifier format will always have a precision of 0.
+                    type: integer
+                    example: 2
+                  format:
+                    description: >-
+                      The format of this custom field.
+                    type: string
+                    enum:
+                      - currency
+                      - identifier
+                      - percentage
+                      - custom
+                      - duration
+                      - none
+                    example: custom
+                  currency_code:
+                    description: >-
+                      ISO 4217 currency code to format this custom field. This will
+                      be
+                      null if the `format` is not `currency`.
+                    type: string
+                    nullable: true
+                    example: EUR
+                  custom_label:
+                    description: >-
+                      This is the string that appears next to the custom field value.
+                      This will be null if the `format` is not `custom`.
+                    type: string
+                    nullable: true
+                    example: gold pieces
+                  custom_label_position:
+                    description: >-
+                      Only relevant for custom fields with `custom` format. This depicts
+                      where to place the custom label. This will be null if the `format`
+                      is not `custom`.
+                    type: string
+                    nullable: true
+                    enum:
+                      - prefix
+                      - suffix
+                      - null
+                    example: suffix
+                  is_global_to_workspace:
+                    description: >-
+                      This flag describes whether this custom field is available to
+                      every container in the workspace. Before project-specific custom
+                      fields, this field was always true.
+                    type: boolean
+                    example: true
+                    readOnly: true
+                  has_notifications_enabled:
+                    description: >-
+                      *Conditional*. This flag describes whether a follower of a task
+                      with this field should receive inbox notifications from changes
+                      to this field.
+                    type: boolean
+                    example: true
+                  asana_created_field:
+                    description: >-
+                      *Conditional*. A unique identifier to associate this field with
+                      the
+                      template source of truth.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    enum:
+                      - a_v_requirements
+                      - account_name
+                      - actionable
+                      - align_shipping_link
+                      - align_status
+                      - allotted_time
+                      - appointment
+                      - approval_stage
+                      - approved
+                      - article_series
+                      - board_committee
+                      - browser
+                      - campaign_audience
+                      - campaign_project_status
+                      - campaign_regions
+                      - channel_primary
+                      - client_topic_type
+                      - complete_by
+                      - contact
+                      - contact_email_address
+                      - content_channels
+                      - content_channels_needed
+                      - content_stage
+                      - content_type
+                      - contract
+                      - contract_status
+                      - cost
+                      - creation_stage
+                      - creative_channel
+                      - creative_needed
+                      - creative_needs
+                      - data_sensitivity
+                      - deal_size
+                      - delivery_appt
+                      - delivery_appt_date
+                      - department
+                      - department_responsible
+                      - design_request_needed
+                      - design_request_type
+                      - discussion_category
+                      - do_this_task
+                      - editorial_content_status
+                      - editorial_content_tag
+                      - editorial_content_type
+                      - effort
+                      - effort_level
+                      - est_completion_date
+                      - estimated_time
+                      - estimated_value
+                      - expected_cost
+                      - external_steps_needed
+                      - favorite_idea
+                      - feedback_type
+                      - financial
+                      - funding_amount
+                      - grant_application_process
+                      - hiring_candidate_status
+                      - idea_status
+                      - ids_link
+                      - ids_patient_link
+                      - implementation_stage
+                      - insurance
+                      - interview_area
+                      - interview_question_score
+                      - itero_scan_link
+                      - job_s_applied_to
+                      - lab
+                      - launch_status
+                      - lead_status
+                      - localization_language
+                      - localization_market_team
+                      - localization_status
+                      - meeting_minutes
+                      - meeting_needed
+                      - minutes
+                      - mrr
+                      - must_localize
+                      - name_of_foundation
+                      - need_to_follow_up
+                      - next_appointment
+                      - next_steps_sales
+                      - num_people
+                      - number_of_user_reports
+                      - office_location
+                      - onboarding_activity
+                      - owner
+                      - participants_needed
+                      - patient_date_of_birth
+                      - patient_email
+                      - patient_phone
+                      - patient_status
+                      - phone_number
+                      - planning_category
+                      - point_of_contact
+                      - position
+                      - post_format
+                      - prescription
+                      - priority
+                      - priority_level
+                      - product
+                      - product_stage
+                      - progress
+                      - project_size
+                      - project_status
+                      - proposed_budget
+                      - publish_status
+                      - reason_for_scan
+                      - referral
+                      - request_type
+                      - research_status
+                      - responsible_department
+                      - responsible_team
+                      - risk_assessment_status
+                      - room_name
+                      - sales_counterpart
+                      - sentiment
+                      - shipping_link
+                      - social_channels
+                      - stage
+                      - status
+                      - status_design
+                      - status_of_initiative
+                      - system_setup
+                      - task_progress
+                      - team
+                      - team_marketing
+                      - team_responsible
+                      - time_it_takes_to_complete_tasks
+                      - timeframe
+                      - treatment_type
+                      - type_work_requests_it
+                      - use_agency
+                      - user_name
+                      - vendor_category
+                      - vendor_type
+                      - word_count
+                      - null
+                    example: priority
+                  is_value_read_only:
+                    description: >-
+                      *Conditional*. This flag describes whether a custom field is
+                      read only.
+                    type: boolean
+                    example: false
+                  created_by:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      A *user* object represents an account in Asana that can be given
+                      access to various workspaces, projects, and tasks.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        type: string
+                        description: >-
+                          *Read-only except when same user as requester*. The user's
+                          name.
+                        example: Greg Sanchez
+                    x-docs-overrides: *id001
+                    nullable: true
+                  people_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `people`.
+                      This array of [compact user](/reference/users) objects reflects
+                      the values
+                      of a `people` custom field.
+                    type: array
+                    items:
+                      description: >-
+                        A generic Asana Resource, containing a globally unique identifier.A
+                        generic Asana Resource, containing a globally unique identifier.
+
+                        A *user* object represents an account in Asana that can be
+                        given access to various workspaces, projects, and tasks.
+                      type: object
+                      properties:
+                        gid:
+                          description: >-
+                            Globally unique identifier of the resource, as a string.
+                          type: string
+                          readOnly: true
+                          example: '12345'
+                          x-insert-after: false
+                        resource_type:
+                          description: The base type of this resource.
+                          type: string
+                          readOnly: true
+                          example: task
+                          x-insert-after: gid
+                        name:
+                          type: string
+                          description: >-
+                            *Read-only except when same user as requester*. The user's
+                            name.
+                          example: Greg Sanchez
+                      x-docs-overrides: *id001
+                  reference_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `reference`.
+                      This array of objects reflects the values of a `reference` custom
+                      field.
+                    type: array
+                    items:
+                      description: >-
+                        A generic Asana Resource, containing a globally unique identifier.
+                      type: object
+                      properties:
+                        gid:
+                          description: >-
+                            Globally unique identifier of the resource, as a string.
+                          type: string
+                          readOnly: true
+                          example: '12345'
+                          x-insert-after: false
+                        resource_type:
+                          description: The base type of this resource.
+                          type: string
+                          readOnly: true
+                          example: task
+                          x-insert-after: gid
+                        name:
+                          description: The name of the object.
+                          type: string
+                          example: Bug Task
+                  privacy_setting:
+                    description: >-
+                      The privacy setting of the custom field. *Note: Administrators
+                      in your organization may restrict the values of `privacy_setting`.*
+                    type: string
+                    enum:
+                      - public_with_guests
+                      - public
+                      - private
+                    example: public_with_guests
+                  default_access_level:
+                    description: >-
+                      The default access level when inviting new members to the custom
+                      field.
+                      This isn't applied when the `privacy_setting` is `private`,
+                      or the user is a guest.
+                      For local fields in a project or portfolio, the user must additionally
+                      have permission to modify the container itself.
+                    type: string
+                    enum:
+                      - admin
+                      - editor
+                      - user
+                    example: user
+                  resource_subtype:
+                    description: >
+                      The type of the custom field. Must be one of the given values.
+                    type: string
+                    readOnly: true
+                    example: text
+                    enum:
+                      - text
+                      - enum
+                      - multi_enum
+                      - number
+                      - date
+                      - people
+                      - reference
+                x-docs-overrides: *id007
+                readOnly: true
+            x-docs-overrides: *id008
       x-docs-overrides: *id030
     TemplateRole:
       description: >-
@@ -35011,6 +35930,53 @@ components:
           description: >-
             *Read-only except when same user as requester*. The user's name.
           example: Greg Sanchez
+      x-docs-overrides: *id001
+    UserUpdateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *user* object represents an account in Asana that can be given access to
+        various workspaces, projects, and tasks.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          type: string
+          description: >-
+            *Read-only except when same user as requester*. The user's name.
+          example: Greg Sanchez
+        custom_fields:
+          description: >-
+            An object where each key is the GID of a custom field and its corresponding
+            value is
+            either an enum GID, string, number, or object (depending on the custom
+            field type).
+            See the [custom fields guide](/docs/custom-fields-guide) for details on
+            creating and
+            updating custom field values.
+          type: object
+          additionalProperties:
+            type: string
+            description: >-
+              "{custom_field_gid}" => Value (can be text, enum GID, a number, etc.).
+              For date, use format "YYYY-MM-DD" (e.g., 2019-09-15).
+              For date-time, use ISO 8601 date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
+          example:
+            '5678904321': On Hold
+            '4578152156': Not Started
       x-docs-overrides: *id001
     UserBaseResponse:
       description: >-
@@ -41289,6 +42255,150 @@ paths:
                 - project
                 - project.name
                 - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/CustomFieldSettingResponseArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /teams/{team_gid}/custom_field_settings:
+    parameters:
+      - $ref: '#/components/parameters/team_path_gid'
+    get:
+      summary: Get a team's custom fields
+      description: >-
+        Returns a list of all of the custom fields settings on a team, in
+        compact form. Note that, as in all queries to collections which return
+        compact representation, `opt_fields` can be used to
+        include more data than is returned in the compact representation. See the
+        [documentation for input/output
+        options](https://developers.asana.com/docs/inputoutput-options)
+        for more information.
+      tags:
+        - Custom field settings
+      operationId: getCustomFieldSettingsForTeam
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_field
+            - custom_field.asana_created_field
+            - custom_field.created_by
+            - custom_field.created_by.name
+            - custom_field.currency_code
+            - custom_field.custom_label
+            - custom_field.custom_label_position
+            - custom_field.date_value
+            - custom_field.date_value.date
+            - custom_field.date_value.date_time
+            - custom_field.default_access_level
+            - custom_field.description
+            - custom_field.display_value
+            - custom_field.enabled
+            - custom_field.enum_options
+            - custom_field.enum_options.color
+            - custom_field.enum_options.enabled
+            - custom_field.enum_options.name
+            - custom_field.enum_value
+            - custom_field.enum_value.color
+            - custom_field.enum_value.enabled
+            - custom_field.enum_value.name
+            - custom_field.format
+            - custom_field.has_notifications_enabled
+            - custom_field.id_prefix
+            - custom_field.input_restrictions
+            - custom_field.is_formula_field
+            - custom_field.is_global_to_workspace
+            - custom_field.is_value_read_only
+            - custom_field.multi_enum_values
+            - custom_field.multi_enum_values.color
+            - custom_field.multi_enum_values.enabled
+            - custom_field.multi_enum_values.name
+            - custom_field.name
+            - custom_field.number_value
+            - custom_field.people_value
+            - custom_field.people_value.name
+            - custom_field.precision
+            - custom_field.privacy_setting
+            - custom_field.reference_value
+            - custom_field.reference_value.name
+            - custom_field.representation_type
+            - custom_field.resource_subtype
+            - custom_field.text_value
+            - custom_field.type
+            - is_important
+            - parent
+            - parent.name
+            - project
+            - project.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_field
+                - custom_field.asana_created_field
+                - custom_field.created_by
+                - custom_field.created_by.name
+                - custom_field.currency_code
+                - custom_field.custom_label
+                - custom_field.custom_label_position
+                - custom_field.date_value
+                - custom_field.date_value.date
+                - custom_field.date_value.date_time
+                - custom_field.default_access_level
+                - custom_field.description
+                - custom_field.display_value
+                - custom_field.enabled
+                - custom_field.enum_options
+                - custom_field.enum_options.color
+                - custom_field.enum_options.enabled
+                - custom_field.enum_options.name
+                - custom_field.enum_value
+                - custom_field.enum_value.color
+                - custom_field.enum_value.enabled
+                - custom_field.enum_value.name
+                - custom_field.format
+                - custom_field.has_notifications_enabled
+                - custom_field.id_prefix
+                - custom_field.input_restrictions
+                - custom_field.is_formula_field
+                - custom_field.is_global_to_workspace
+                - custom_field.is_value_read_only
+                - custom_field.multi_enum_values
+                - custom_field.multi_enum_values.color
+                - custom_field.multi_enum_values.enabled
+                - custom_field.multi_enum_values.name
+                - custom_field.name
+                - custom_field.number_value
+                - custom_field.people_value
+                - custom_field.people_value.name
+                - custom_field.precision
+                - custom_field.privacy_setting
+                - custom_field.reference_value
+                - custom_field.reference_value.name
+                - custom_field.representation_type
+                - custom_field.resource_subtype
+                - custom_field.text_value
+                - custom_field.type
+                - is_important
+                - parent
+                - parent.name
+                - project
+                - project.name
           style: form
           explode: false
       responses:
@@ -60372,6 +61482,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -60392,6 +61553,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -60452,6 +61664,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -60472,6 +61735,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -60520,6 +61834,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -60540,6 +61905,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -60602,6 +62018,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -60625,6 +62092,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -60690,6 +62208,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -60713,6 +62282,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -61784,6 +63404,7 @@ paths:
   /users/{user_gid}:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
+      - $ref: '#/components/parameters/workspace_query_param'
     get:
       summary: Get a user
       description: |-
@@ -61898,6 +63519,129 @@ paths:
       security:
         - oauth2:
             - users:read
+    put:
+      summary: Update a user
+      description: |-
+        A specific, existing user can be updated by making a PUT request on the
+        URL for that user. Only the fields provided in the `data` block will be
+        updated; any unspecified fields will remain unchanged.
+
+        Returns the complete updated user record.
+      tags:
+        - Users
+      operationId: updateUser
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.input_restrictions
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
+            - email
+            - name
+            - photo
+            - photo.image_1024x1024
+            - photo.image_128x128
+            - photo.image_21x21
+            - photo.image_27x27
+            - photo.image_36x36
+            - photo.image_60x60
+            - workspaces
+            - workspaces.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.input_restrictions
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
+                - email
+                - name
+                - photo
+                - photo.image_1024x1024
+                - photo.image_128x128
+                - photo.image_21x21
+                - photo.image_27x27
+                - photo.image_36x36
+                - photo.image_60x60
+                - workspaces
+                - workspaces.name
+          style: form
+          explode: false
+      requestBody:
+        description: The user to update.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/UserResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /users/{user_gid}/favorites:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
@@ -62213,6 +63957,246 @@ paths:
       security:
         - oauth2:
             - users:read
+  /workspaces/{workspace_gid}/users/{user_gid}:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/user_path_gid'
+    get:
+      summary: Get a user in a workspace or organization
+      description: |-
+        <b>Required scope: </b><code>users:read</code>
+
+        Returns the full user record for the single user with the provided ID in the specified workspace or organization.
+      tags:
+        - Users
+      operationId: getUserForWorkspace
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.input_restrictions
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
+            - email
+            - name
+            - photo
+            - photo.image_1024x1024
+            - photo.image_128x128
+            - photo.image_21x21
+            - photo.image_27x27
+            - photo.image_36x36
+            - photo.image_60x60
+            - workspaces
+            - workspaces.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.input_restrictions
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
+                - email
+                - name
+                - photo
+                - photo.image_1024x1024
+                - photo.image_128x128
+                - photo.image_21x21
+                - photo.image_27x27
+                - photo.image_36x36
+                - photo.image_60x60
+                - workspaces
+                - workspaces.name
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/UserResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - users:read
+    put:
+      summary: Update a user in a workspace or organization
+      description: >-
+        An existing user can be updated by making a PUT request on the URL for
+        that user in the specified workspace or organization. Only the fields provided
+        in the `data` block will be updated;
+        any unspecified fields will remain unchanged.
+      tags:
+        - Users
+      operationId: updateUserForWorkspace
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.input_restrictions
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
+            - email
+            - name
+            - photo
+            - photo.image_1024x1024
+            - photo.image_128x128
+            - photo.image_21x21
+            - photo.image_27x27
+            - photo.image_36x36
+            - photo.image_60x60
+            - workspaces
+            - workspaces.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.input_restrictions
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
+                - email
+                - name
+                - photo
+                - photo.image_1024x1024
+                - photo.image_128x128
+                - photo.image_21x21
+                - photo.image_27x27
+                - photo.image_36x36
+                - photo.image_60x60
+                - workspaces
+                - workspaces.name
+          style: form
+          explode: false
+      requestBody:
+        description: The user to update.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/UserResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /webhooks:
     get:
       summary: >-

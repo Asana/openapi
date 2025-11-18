@@ -8224,6 +8224,11 @@ components:
                 Whether the team has been endorsed
               type: boolean
               example: false
+            custom_field_settings:
+              description: Array of Custom Field Settings applied to the team.
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomFieldSettingResponse'
     TemplateRole:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -8333,6 +8338,31 @@ components:
           example: Greg Sanchez
     UserRequest:
       $ref: '#/components/schemas/UserBase'
+    UserUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/UserRequest'
+        - type: object
+          properties:
+            custom_fields:
+              description: >-
+                An object where each key is the GID of a custom field and its corresponding
+                value is
+                either an enum GID, string, number, or object (depending on the custom
+                field type).
+                See the [custom fields guide](/docs/custom-fields-guide) for details
+                on creating and
+                updating custom field values.
+              type: object
+              additionalProperties:
+                type: string
+                description: >-
+                  "{custom_field_gid}" => Value (can be text, enum GID, a number,
+                  etc.).
+                  For date, use format "YYYY-MM-DD" (e.g., 2019-09-15).
+                  For date-time, use ISO 8601 date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
+              example:
+                '5678904321': On Hold
+                '4578152156': Not Started
     UserBaseResponse:
       allOf:
         - $ref: '#/components/schemas/UserBase'
@@ -12546,6 +12576,161 @@ paths:
 
               result = client.custom_field_settings.get_custom_field_settings_for_portfolio(portfolio_gid:
               'portfolio_gid', param: "value", param: "value", options: {pretty: true})
+  /teams/{team_gid}/custom_field_settings:
+    parameters:
+      - $ref: '#/components/parameters/team_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get a team's custom fields
+      description: >-
+        Returns a list of all of the custom fields settings on a team, in
+        compact form. Note that, as in all queries to collections which return
+        compact representation, `opt_fields` can be used to
+        include more data than is returned in the compact representation. See the
+        [documentation for input/output
+        options](https://developers.asana.com/docs/inputoutput-options)
+        for more information.
+      tags:
+        - Custom field settings
+      operationId: getCustomFieldSettingsForTeam
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_field
+            - custom_field.asana_created_field
+            - custom_field.created_by
+            - custom_field.created_by.name
+            - custom_field.currency_code
+            - custom_field.custom_label
+            - custom_field.custom_label_position
+            - custom_field.date_value
+            - custom_field.date_value.date
+            - custom_field.date_value.date_time
+            - custom_field.default_access_level
+            - custom_field.description
+            - custom_field.display_value
+            - custom_field.enabled
+            - custom_field.enum_options
+            - custom_field.enum_options.color
+            - custom_field.enum_options.enabled
+            - custom_field.enum_options.name
+            - custom_field.enum_value
+            - custom_field.enum_value.color
+            - custom_field.enum_value.enabled
+            - custom_field.enum_value.name
+            - custom_field.format
+            - custom_field.has_notifications_enabled
+            - custom_field.id_prefix
+            - custom_field.input_restrictions
+            - custom_field.is_formula_field
+            - custom_field.is_global_to_workspace
+            - custom_field.is_value_read_only
+            - custom_field.multi_enum_values
+            - custom_field.multi_enum_values.color
+            - custom_field.multi_enum_values.enabled
+            - custom_field.multi_enum_values.name
+            - custom_field.name
+            - custom_field.number_value
+            - custom_field.people_value
+            - custom_field.people_value.name
+            - custom_field.precision
+            - custom_field.privacy_setting
+            - custom_field.reference_value
+            - custom_field.reference_value.name
+            - custom_field.representation_type
+            - custom_field.resource_subtype
+            - custom_field.text_value
+            - custom_field.type
+            - is_important
+            - parent
+            - parent.name
+            - project
+            - project.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_field
+                - custom_field.asana_created_field
+                - custom_field.created_by
+                - custom_field.created_by.name
+                - custom_field.currency_code
+                - custom_field.custom_label
+                - custom_field.custom_label_position
+                - custom_field.date_value
+                - custom_field.date_value.date
+                - custom_field.date_value.date_time
+                - custom_field.default_access_level
+                - custom_field.description
+                - custom_field.display_value
+                - custom_field.enabled
+                - custom_field.enum_options
+                - custom_field.enum_options.color
+                - custom_field.enum_options.enabled
+                - custom_field.enum_options.name
+                - custom_field.enum_value
+                - custom_field.enum_value.color
+                - custom_field.enum_value.enabled
+                - custom_field.enum_value.name
+                - custom_field.format
+                - custom_field.has_notifications_enabled
+                - custom_field.id_prefix
+                - custom_field.input_restrictions
+                - custom_field.is_formula_field
+                - custom_field.is_global_to_workspace
+                - custom_field.is_value_read_only
+                - custom_field.multi_enum_values
+                - custom_field.multi_enum_values.color
+                - custom_field.multi_enum_values.enabled
+                - custom_field.multi_enum_values.name
+                - custom_field.name
+                - custom_field.number_value
+                - custom_field.people_value
+                - custom_field.people_value.name
+                - custom_field.precision
+                - custom_field.privacy_setting
+                - custom_field.reference_value
+                - custom_field.reference_value.name
+                - custom_field.representation_type
+                - custom_field.resource_subtype
+                - custom_field.text_value
+                - custom_field.type
+                - is_important
+                - parent
+                - parent.name
+                - project
+                - project.name
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved custom field settings objects for a team.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomFieldSettingResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /custom_fields:
     parameters:
       - $ref: '#/components/parameters/pretty'
@@ -50958,6 +51143,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -50978,6 +51214,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -51160,6 +51447,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -51180,6 +51518,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -51348,6 +51737,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -51368,6 +51808,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -51555,6 +52046,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -51578,6 +52120,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -51775,6 +52368,57 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - custom_field_settings
+            - custom_field_settings.custom_field
+            - custom_field_settings.custom_field.asana_created_field
+            - custom_field_settings.custom_field.created_by
+            - custom_field_settings.custom_field.created_by.name
+            - custom_field_settings.custom_field.currency_code
+            - custom_field_settings.custom_field.custom_label
+            - custom_field_settings.custom_field.custom_label_position
+            - custom_field_settings.custom_field.date_value
+            - custom_field_settings.custom_field.date_value.date
+            - custom_field_settings.custom_field.date_value.date_time
+            - custom_field_settings.custom_field.default_access_level
+            - custom_field_settings.custom_field.description
+            - custom_field_settings.custom_field.display_value
+            - custom_field_settings.custom_field.enabled
+            - custom_field_settings.custom_field.enum_options
+            - custom_field_settings.custom_field.enum_options.color
+            - custom_field_settings.custom_field.enum_options.enabled
+            - custom_field_settings.custom_field.enum_options.name
+            - custom_field_settings.custom_field.enum_value
+            - custom_field_settings.custom_field.enum_value.color
+            - custom_field_settings.custom_field.enum_value.enabled
+            - custom_field_settings.custom_field.enum_value.name
+            - custom_field_settings.custom_field.format
+            - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.id_prefix
+            - custom_field_settings.custom_field.input_restrictions
+            - custom_field_settings.custom_field.is_formula_field
+            - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_value_read_only
+            - custom_field_settings.custom_field.multi_enum_values
+            - custom_field_settings.custom_field.multi_enum_values.color
+            - custom_field_settings.custom_field.multi_enum_values.enabled
+            - custom_field_settings.custom_field.multi_enum_values.name
+            - custom_field_settings.custom_field.name
+            - custom_field_settings.custom_field.number_value
+            - custom_field_settings.custom_field.people_value
+            - custom_field_settings.custom_field.people_value.name
+            - custom_field_settings.custom_field.precision
+            - custom_field_settings.custom_field.privacy_setting
+            - custom_field_settings.custom_field.reference_value
+            - custom_field_settings.custom_field.reference_value.name
+            - custom_field_settings.custom_field.representation_type
+            - custom_field_settings.custom_field.resource_subtype
+            - custom_field_settings.custom_field.text_value
+            - custom_field_settings.custom_field.type
+            - custom_field_settings.is_important
+            - custom_field_settings.parent
+            - custom_field_settings.parent.name
+            - custom_field_settings.project
+            - custom_field_settings.project.name
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -51798,6 +52442,57 @@ paths:
             items:
               type: string
               enum:
+                - custom_field_settings
+                - custom_field_settings.custom_field
+                - custom_field_settings.custom_field.asana_created_field
+                - custom_field_settings.custom_field.created_by
+                - custom_field_settings.custom_field.created_by.name
+                - custom_field_settings.custom_field.currency_code
+                - custom_field_settings.custom_field.custom_label
+                - custom_field_settings.custom_field.custom_label_position
+                - custom_field_settings.custom_field.date_value
+                - custom_field_settings.custom_field.date_value.date
+                - custom_field_settings.custom_field.date_value.date_time
+                - custom_field_settings.custom_field.default_access_level
+                - custom_field_settings.custom_field.description
+                - custom_field_settings.custom_field.display_value
+                - custom_field_settings.custom_field.enabled
+                - custom_field_settings.custom_field.enum_options
+                - custom_field_settings.custom_field.enum_options.color
+                - custom_field_settings.custom_field.enum_options.enabled
+                - custom_field_settings.custom_field.enum_options.name
+                - custom_field_settings.custom_field.enum_value
+                - custom_field_settings.custom_field.enum_value.color
+                - custom_field_settings.custom_field.enum_value.enabled
+                - custom_field_settings.custom_field.enum_value.name
+                - custom_field_settings.custom_field.format
+                - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.id_prefix
+                - custom_field_settings.custom_field.input_restrictions
+                - custom_field_settings.custom_field.is_formula_field
+                - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_value_read_only
+                - custom_field_settings.custom_field.multi_enum_values
+                - custom_field_settings.custom_field.multi_enum_values.color
+                - custom_field_settings.custom_field.multi_enum_values.enabled
+                - custom_field_settings.custom_field.multi_enum_values.name
+                - custom_field_settings.custom_field.name
+                - custom_field_settings.custom_field.number_value
+                - custom_field_settings.custom_field.people_value
+                - custom_field_settings.custom_field.people_value.name
+                - custom_field_settings.custom_field.precision
+                - custom_field_settings.custom_field.privacy_setting
+                - custom_field_settings.custom_field.reference_value
+                - custom_field_settings.custom_field.reference_value.name
+                - custom_field_settings.custom_field.representation_type
+                - custom_field_settings.custom_field.resource_subtype
+                - custom_field_settings.custom_field.text_value
+                - custom_field_settings.custom_field.type
+                - custom_field_settings.is_important
+                - custom_field_settings.parent
+                - custom_field_settings.parent.name
+                - custom_field_settings.project
+                - custom_field_settings.project.name
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -54521,6 +55216,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
       - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/workspace_query_param'
     get:
       summary: Get a user
       description: |-
@@ -54755,6 +55451,136 @@ paths:
 
               result = client.users.get_user(user_gid: 'user_gid', param: "value",
               param: "value", options: {pretty: true})
+    put:
+      summary: Update a user
+      description: |-
+        A specific, existing user can be updated by making a PUT request on the
+        URL for that user. Only the fields provided in the `data` block will be
+        updated; any unspecified fields will remain unchanged.
+
+        Returns the complete updated user record.
+      tags:
+        - Users
+      operationId: updateUser
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.input_restrictions
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
+            - email
+            - name
+            - photo
+            - photo.image_1024x1024
+            - photo.image_128x128
+            - photo.image_21x21
+            - photo.image_27x27
+            - photo.image_36x36
+            - photo.image_60x60
+            - workspaces
+            - workspaces.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.input_restrictions
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
+                - email
+                - name
+                - photo
+                - photo.image_1024x1024
+                - photo.image_128x128
+                - photo.image_21x21
+                - photo.image_27x27
+                - photo.image_36x36
+                - photo.image_60x60
+                - workspaces
+                - workspaces.name
+          style: form
+          explode: false
+      requestBody:
+        description: The user to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        200:
+          description: Successfully updated the specified user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /users/{user_gid}/favorites:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
@@ -55460,6 +56286,261 @@ paths:
 
               result = client.users.get_users_for_workspace(workspace_gid: 'workspace_gid',
               param: "value", param: "value", options: {pretty: true})
+  /workspaces/{workspace_gid}/users/{user_gid}:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/user_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get a user in a workspace or organization
+      description: |-
+        <b>Required scope: </b><code>users:read</code>
+
+        Returns the full user record for the single user with the provided ID in the specified workspace or organization.
+      tags:
+        - Users
+      operationId: getUserForWorkspace
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.input_restrictions
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
+            - email
+            - name
+            - photo
+            - photo.image_1024x1024
+            - photo.image_128x128
+            - photo.image_21x21
+            - photo.image_27x27
+            - photo.image_36x36
+            - photo.image_60x60
+            - workspaces
+            - workspaces.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.input_restrictions
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
+                - email
+                - name
+                - photo
+                - photo.image_1024x1024
+                - photo.image_128x128
+                - photo.image_21x21
+                - photo.image_27x27
+                - photo.image_36x36
+                - photo.image_60x60
+                - workspaces
+                - workspaces.name
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Returns the user specified.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - users:read
+    put:
+      summary: Update a user in a workspace or organization
+      description: >-
+        An existing user can be updated by making a PUT request on the URL for
+        that user in the specified workspace or organization. Only the fields provided
+        in the `data` block will be updated;
+        any unspecified fields will remain unchanged.
+      tags:
+        - Users
+      operationId: updateUserForWorkspace
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_fields
+            - custom_fields.date_value
+            - custom_fields.date_value.date
+            - custom_fields.date_value.date_time
+            - custom_fields.display_value
+            - custom_fields.enabled
+            - custom_fields.enum_options
+            - custom_fields.enum_options.color
+            - custom_fields.enum_options.enabled
+            - custom_fields.enum_options.name
+            - custom_fields.enum_value
+            - custom_fields.enum_value.color
+            - custom_fields.enum_value.enabled
+            - custom_fields.enum_value.name
+            - custom_fields.id_prefix
+            - custom_fields.input_restrictions
+            - custom_fields.is_formula_field
+            - custom_fields.multi_enum_values
+            - custom_fields.multi_enum_values.color
+            - custom_fields.multi_enum_values.enabled
+            - custom_fields.multi_enum_values.name
+            - custom_fields.name
+            - custom_fields.number_value
+            - custom_fields.representation_type
+            - custom_fields.text_value
+            - custom_fields.type
+            - email
+            - name
+            - photo
+            - photo.image_1024x1024
+            - photo.image_128x128
+            - photo.image_21x21
+            - photo.image_27x27
+            - photo.image_36x36
+            - photo.image_60x60
+            - workspaces
+            - workspaces.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_fields
+                - custom_fields.date_value
+                - custom_fields.date_value.date
+                - custom_fields.date_value.date_time
+                - custom_fields.display_value
+                - custom_fields.enabled
+                - custom_fields.enum_options
+                - custom_fields.enum_options.color
+                - custom_fields.enum_options.enabled
+                - custom_fields.enum_options.name
+                - custom_fields.enum_value
+                - custom_fields.enum_value.color
+                - custom_fields.enum_value.enabled
+                - custom_fields.enum_value.name
+                - custom_fields.id_prefix
+                - custom_fields.input_restrictions
+                - custom_fields.is_formula_field
+                - custom_fields.multi_enum_values
+                - custom_fields.multi_enum_values.color
+                - custom_fields.multi_enum_values.enabled
+                - custom_fields.multi_enum_values.name
+                - custom_fields.name
+                - custom_fields.number_value
+                - custom_fields.representation_type
+                - custom_fields.text_value
+                - custom_fields.type
+                - email
+                - name
+                - photo
+                - photo.image_1024x1024
+                - photo.image_128x128
+                - photo.image_21x21
+                - photo.image_27x27
+                - photo.image_36x36
+                - photo.image_60x60
+                - workspaces
+                - workspaces.name
+          style: form
+          explode: false
+      requestBody:
+        description: The user to update.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/UserUpdateRequest'
+      responses:
+        200:
+          description: Successfully updated the specified user.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /webhooks:
     parameters:
       - $ref: '#/components/parameters/pretty'
