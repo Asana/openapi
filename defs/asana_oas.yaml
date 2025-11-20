@@ -55900,7 +55900,7 @@ paths:
         200:
           description: >-
             Returns the user records for all the members of the team, including
-            guests and limited access users
+            guests and limited access users.
           content:
             application/json:
               schema:
