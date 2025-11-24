@@ -32,8 +32,9 @@ jobs:
       - name: Load secrets
         uses: aws-actions/aws-secretsmanager-get-secrets@v2
         with:
-          secret-ids: POSTMAN_API_KEY,postman_api_key
+          secret-ids: POSTMAN_API,postman_api_key
           # postman_api_key secret is stored as {key:"***..."}
+          # GitHub Actions environment variable name is POSTMAN_API so to access "key" from the json we can use POSTMAN_API_KEY
           parse-json-secrets: true
 
       - name: Set up Python 🐍
