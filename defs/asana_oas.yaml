@@ -3897,6 +3897,26 @@ components:
                 *Note* you can only write to this property if `metric` is set.
               example: green
               nullable: true
+            custom_fields:
+              description: >-
+                An object where each key is the GID of a custom field and its corresponding
+                value is
+                either an enum GID, string, number, or object (depending on the custom
+                field type).
+                See the [custom fields guide](/docs/custom-fields-guide) for details
+                on creating and
+                updating custom field values.
+              type: object
+              additionalProperties:
+                type: string
+                description: >-
+                  "{custom_field_gid}" => Value (can be text, enum GID, a number,
+                  etc.).
+                  For date, use format "YYYY-MM-DD" (e.g., 2019-09-15).
+                  For date-time, use ISO 8601 date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
+              example:
+                '5678904321': On Hold
+                '4578152156': Not Started
     GoalResponse:
       allOf:
         - $ref: '#/components/schemas/GoalBase'
@@ -3977,6 +3997,18 @@ components:
                 *Note* you can only write to this property if `metric` is set.
               example: green
               nullable: true
+            custom_fields:
+              description: Array of Custom Fields.
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomFieldCompact'
+            custom_field_settings:
+              description: "<p><strong style={{ color: \"#4573D2\" }}>Full object
+                requires scope: </strong><code>custom_fields:read</code></p>\n\nArray
+                of Custom Field Settings applied to the goal."
+              type: array
+              items:
+                $ref: '#/components/schemas/CustomFieldSettingResponse'
     GoalRelationshipBase:
       allOf:
         - $ref: '#/components/schemas/GoalRelationshipCompact'
@@ -12575,6 +12607,171 @@ paths:
 
               result = client.custom_field_settings.get_custom_field_settings_for_portfolio(portfolio_gid:
               'portfolio_gid', param: "value", param: "value", options: {pretty: true})
+  /goals/{goal_gid}/custom_field_settings:
+    parameters:
+      - $ref: '#/components/parameters/goal_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+    get:
+      summary: Get a goal's custom fields
+      description: >-
+        Returns a list of all of the custom fields settings on a goal, in
+        compact form. Note that, as in all queries to collections which return
+        compact representation, `opt_fields` can be used to
+        include more data than is returned in the compact representation. See the
+        [documentation for input/output
+        options](https://developers.asana.com/docs/inputoutput-options)
+        for more information.
+      tags:
+        - Custom field settings
+      operationId: getCustomFieldSettingsForGoal
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - custom_field
+            - custom_field.asana_created_field
+            - custom_field.created_by
+            - custom_field.created_by.name
+            - custom_field.currency_code
+            - custom_field.custom_label
+            - custom_field.custom_label_position
+            - custom_field.date_value
+            - custom_field.date_value.date
+            - custom_field.date_value.date_time
+            - custom_field.default_access_level
+            - custom_field.description
+            - custom_field.display_value
+            - custom_field.enabled
+            - custom_field.enum_options
+            - custom_field.enum_options.color
+            - custom_field.enum_options.enabled
+            - custom_field.enum_options.name
+            - custom_field.enum_value
+            - custom_field.enum_value.color
+            - custom_field.enum_value.enabled
+            - custom_field.enum_value.name
+            - custom_field.format
+            - custom_field.has_notifications_enabled
+            - custom_field.id_prefix
+            - custom_field.input_restrictions
+            - custom_field.is_formula_field
+            - custom_field.is_global_to_workspace
+            - custom_field.is_value_read_only
+            - custom_field.multi_enum_values
+            - custom_field.multi_enum_values.color
+            - custom_field.multi_enum_values.enabled
+            - custom_field.multi_enum_values.name
+            - custom_field.name
+            - custom_field.number_value
+            - custom_field.people_value
+            - custom_field.people_value.name
+            - custom_field.precision
+            - custom_field.privacy_setting
+            - custom_field.reference_value
+            - custom_field.reference_value.name
+            - custom_field.representation_type
+            - custom_field.resource_subtype
+            - custom_field.text_value
+            - custom_field.type
+            - is_important
+            - offset
+            - parent
+            - parent.name
+            - path
+            - project
+            - project.name
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - custom_field
+                - custom_field.asana_created_field
+                - custom_field.created_by
+                - custom_field.created_by.name
+                - custom_field.currency_code
+                - custom_field.custom_label
+                - custom_field.custom_label_position
+                - custom_field.date_value
+                - custom_field.date_value.date
+                - custom_field.date_value.date_time
+                - custom_field.default_access_level
+                - custom_field.description
+                - custom_field.display_value
+                - custom_field.enabled
+                - custom_field.enum_options
+                - custom_field.enum_options.color
+                - custom_field.enum_options.enabled
+                - custom_field.enum_options.name
+                - custom_field.enum_value
+                - custom_field.enum_value.color
+                - custom_field.enum_value.enabled
+                - custom_field.enum_value.name
+                - custom_field.format
+                - custom_field.has_notifications_enabled
+                - custom_field.id_prefix
+                - custom_field.input_restrictions
+                - custom_field.is_formula_field
+                - custom_field.is_global_to_workspace
+                - custom_field.is_value_read_only
+                - custom_field.multi_enum_values
+                - custom_field.multi_enum_values.color
+                - custom_field.multi_enum_values.enabled
+                - custom_field.multi_enum_values.name
+                - custom_field.name
+                - custom_field.number_value
+                - custom_field.people_value
+                - custom_field.people_value.name
+                - custom_field.precision
+                - custom_field.privacy_setting
+                - custom_field.reference_value
+                - custom_field.reference_value.name
+                - custom_field.representation_type
+                - custom_field.resource_subtype
+                - custom_field.text_value
+                - custom_field.type
+                - is_important
+                - offset
+                - parent
+                - parent.name
+                - path
+                - project
+                - project.name
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved custom field settings objects for a goal.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CustomFieldSettingResponse'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /teams/{team_gid}/custom_field_settings:
     parameters:
       - $ref: '#/components/parameters/team_path_gid'
@@ -20091,6 +20288,98 @@ paths:
 
               result = client.goals.get_parent_goals_for_goal(goal_gid: 'goal_gid',
               param: "value", param: "value", options: {pretty: true})
+  /goals/{goal_gid}/addCustomFieldSetting:
+    parameters:
+      - $ref: '#/components/parameters/goal_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    post:
+      summary: Add a custom field to a goal
+      description: |-
+        <b>Required scope: </b><code>goals:write</code>
+
+        Custom fields are associated with goals by way of custom field settings.  This method creates a setting for the goal.
+      tags:
+        - Goals
+      operationId: addCustomFieldSettingForGoal
+      security:
+        - oauth2:
+            - goals:write
+      requestBody:
+        description: Information about the custom field setting.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/AddCustomFieldSettingRequest'
+      responses:
+        200:
+          description: Successfully added the custom field to the goal.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CustomFieldSettingResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /goals/{goal_gid}/removeCustomFieldSetting:
+    parameters:
+      - $ref: '#/components/parameters/goal_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    post:
+      summary: Remove a custom field from a goal
+      description: |-
+        <b>Required scope: </b><code>goals:write</code>
+
+        Removes a custom field setting from a goal.
+      tags:
+        - Goals
+      operationId: removeCustomFieldSettingForGoal
+      security:
+        - oauth2:
+            - goals:write
+      requestBody:
+        description: Information about the custom field setting being removed.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/RemoveCustomFieldSettingRequest'
+      responses:
+        200:
+          description: Successfully removed the custom field from the goal.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/EmptyResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
   /jobs/{job_gid}:
     parameters:
       - $ref: '#/components/parameters/job_path_gid'
