@@ -1649,7 +1649,7 @@ components:
           nullable: true
           description: >-
             The amount of time associated with the allocation, represented as a percentage
-            or number of hours
+            or number of hours.
           properties:
             type:
               type: string
