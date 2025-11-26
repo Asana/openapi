@@ -65922,10 +65922,28 @@ paths:
           example: '12345'
         - name: workspace
           in: query
-          description: Globally unique identifier for the workspace.
+          description: >-
+            Globally unique identifier for the workspace. At least one of `entered_on_start_date`
+            or `entered_on_end_date` must be provided when filtering by workspace.
           schema:
             type: string
           example: '98765'
+        - name: entered_on_start_date
+          in: query
+          description: The start date for filtering time tracking entries by when
+            they were entered.
+          schema:
+            type: string
+            format: date
+          example: '2025-01-01'
+        - name: entered_on_end_date
+          in: query
+          description: The end date for filtering time tracking entries by when they
+            were entered.
+          schema:
+            type: string
+            format: date
+          example: '2025-12-31'
         - $ref: '#/components/parameters/limit'
         - $ref: '#/components/parameters/offset'
         - name: opt_fields
