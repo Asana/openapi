@@ -9414,6 +9414,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -9502,6 +9505,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -9574,6 +9580,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -9646,6 +9655,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -9760,6 +9772,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -9914,6 +9929,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -10021,6 +10039,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -10193,6 +10214,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -10363,6 +10387,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -10522,6 +10549,7 @@ paths:
         504:
           $ref: '#/components/responses/GatewayTimeout'
       security:
+        - personalAccessToken: []
         - oauth2:
             - attachments:read
       x-readme:
@@ -10669,6 +10697,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - attachments:delete
       x-readme:
@@ -10878,6 +10907,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - attachments:read
       x-readme:
@@ -11117,6 +11147,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - attachments:write
       x-readme:
@@ -11346,6 +11377,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -11539,6 +11573,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -11698,6 +11735,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -11757,6 +11797,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -11858,6 +11901,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -11970,6 +12016,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -12024,6 +12073,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -12209,6 +12261,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -12488,6 +12543,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -12772,6 +12830,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
   /teams/{team_gid}/custom_field_settings:
     parameters:
       - $ref: '#/components/parameters/team_path_gid'
@@ -12927,6 +12988,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
   /custom_fields:
     parameters:
       - $ref: '#/components/parameters/pretty'
@@ -13082,6 +13146,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - custom_fields:write
       x-readme:
@@ -13345,6 +13410,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - custom_fields:read
       x-readme:
@@ -13607,6 +13673,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - custom_fields:write
       x-readme:
@@ -13760,6 +13827,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -14018,6 +14088,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - custom_fields:read
       x-readme:
@@ -14205,6 +14276,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - custom_fields:write
       x-readme:
@@ -14391,6 +14463,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - custom_fields:write
       x-readme:
@@ -14585,6 +14658,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - custom_fields:write
       x-readme:
@@ -14783,6 +14857,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -14894,6 +14971,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -15097,6 +15177,9 @@ paths:
                     example: de4774f6915eae04714ca93bb2f5ee81
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -15255,6 +15338,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -15398,6 +15484,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -15503,6 +15592,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -15690,6 +15782,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -15895,6 +15990,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -16091,6 +16189,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -16250,6 +16351,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -16668,6 +16772,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - goals:read
       x-readme:
@@ -17077,6 +17182,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -17225,6 +17333,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -17678,6 +17789,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - goals:read
       x-readme:
@@ -18104,6 +18216,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -18515,6 +18630,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -18931,6 +19049,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -19349,6 +19470,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -19764,6 +19888,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -20172,6 +20299,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - goals:read
       x-readme:
@@ -20302,6 +20430,7 @@ paths:
         - Goals
       operationId: addCustomFieldSettingForGoal
       security:
+        - personalAccessToken: []
         - oauth2:
             - goals:write
       requestBody:
@@ -20348,6 +20477,7 @@ paths:
         - Goals
       operationId: removeCustomFieldSettingForGoal
       security:
+        - personalAccessToken: []
         - oauth2:
             - goals:write
       requestBody:
@@ -20466,6 +20596,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -20654,6 +20787,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -20802,6 +20938,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -20934,6 +21073,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -21045,6 +21187,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -21174,6 +21319,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -21334,6 +21482,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -21505,6 +21656,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -21691,6 +21845,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -21871,6 +22028,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -22056,6 +22216,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -22459,6 +22622,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:read
       x-readme:
@@ -22843,6 +23007,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:write
       x-readme:
@@ -23220,6 +23385,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:read
       x-readme:
@@ -23594,6 +23760,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:write
       x-readme:
@@ -23743,6 +23910,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -24161,6 +24331,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:read
       x-readme:
@@ -24327,6 +24498,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:write
       x-readme:
@@ -24487,6 +24659,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:write
       x-readme:
@@ -24617,6 +24790,7 @@ paths:
         - Portfolios
       operationId: addCustomFieldSettingForPortfolio
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:write
       requestBody:
@@ -24777,6 +24951,7 @@ paths:
         - Portfolios
       operationId: removeCustomFieldSettingForPortfolio
       security:
+        - personalAccessToken: []
         - oauth2:
             - portfolios:write
       requestBody:
@@ -25181,6 +25356,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -25557,6 +25735,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -25742,6 +25923,9 @@ paths:
           $ref: '#/components/responses/ServiceUnavailable'
         504:
           $ref: '#/components/responses/GatewayTimeout'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -25925,6 +26109,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -26073,6 +26260,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -26253,6 +26443,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -26437,6 +26630,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -26622,6 +26818,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -26812,6 +27011,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -26958,6 +27160,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -27148,6 +27353,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -27343,6 +27551,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -27536,6 +27747,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - project_templates:read
       x-readme:
@@ -27684,6 +27896,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -27842,6 +28057,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - project_templates:read
       x-readme:
@@ -28052,6 +28268,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - project_templates:read
       x-readme:
@@ -28278,6 +28495,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:write
       x-readme:
@@ -28724,6 +28942,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:read
       x-readme:
@@ -29163,6 +29382,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:write
       x-readme:
@@ -29594,6 +29814,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:read
       x-readme:
@@ -30022,6 +30243,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:write
       x-readme:
@@ -30174,6 +30396,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:delete
       x-readme:
@@ -30382,6 +30605,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:write
       x-readme:
@@ -30813,6 +31037,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:read
       x-readme:
@@ -31245,6 +31470,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:read
       x-readme:
@@ -31674,6 +31900,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:write
       x-readme:
@@ -32106,6 +32333,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:read
       x-readme:
@@ -32541,6 +32769,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:write
       x-readme:
@@ -32820,6 +33049,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:write
       x-readme:
@@ -32954,6 +33184,7 @@ paths:
         - Projects
       operationId: removeCustomFieldSettingForProject
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:write
       requestBody:
@@ -33180,6 +33411,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - projects:read
       x-readme:
@@ -33608,6 +33840,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -34033,6 +34268,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -34462,6 +34700,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -34888,6 +35129,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -35105,6 +35349,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -35302,6 +35549,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -35396,6 +35646,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -35481,6 +35734,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -35577,6 +35833,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -35628,6 +35887,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -35703,6 +35965,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -35797,6 +36062,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -35927,6 +36195,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -36112,6 +36383,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -36263,6 +36537,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -36440,6 +36717,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -36623,6 +36903,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -36787,6 +37070,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -36949,6 +37233,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -37166,6 +37453,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -37308,6 +37598,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -37546,6 +37839,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -37777,6 +38073,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -38240,6 +38539,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - stories:read
       x-readme:
@@ -38690,6 +38990,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - stories:write
       x-readme:
@@ -38838,6 +39139,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -39286,6 +39590,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - stories:read
       x-readme:
@@ -39745,6 +40050,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - stories:write
       x-readme:
@@ -39949,6 +40255,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tags:read
       x-readme:
@@ -40148,6 +40455,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tags:write
       x-readme:
@@ -40331,6 +40639,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tags:read
       x-readme:
@@ -40526,6 +40835,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tags:write
       x-readme:
@@ -40675,6 +40985,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -40861,6 +41174,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tags:read
       x-readme:
@@ -41060,6 +41374,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tags:read
       x-readme:
@@ -41260,6 +41575,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tags:write
       x-readme:
@@ -41449,6 +41765,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - task_templates:read
       x-readme:
@@ -41589,6 +41906,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - task_templates:read
       x-readme:
@@ -41696,6 +42014,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -41862,6 +42183,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -42273,6 +42597,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -42674,6 +42999,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -43064,6 +43390,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -43452,6 +43779,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -43606,6 +43934,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:delete
       x-readme:
@@ -43815,6 +44144,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -44206,6 +44536,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -44601,6 +44932,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -44995,6 +45327,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -45390,6 +45723,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -45786,6 +46120,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -46171,6 +46506,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -46561,6 +46897,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -46953,6 +47290,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -47119,6 +47457,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -47281,6 +47620,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -47670,6 +48010,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -47837,6 +48178,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -47999,6 +48341,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -48174,6 +48517,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -48337,6 +48681,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -48497,6 +48842,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -48657,6 +49003,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -49044,6 +49391,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -49433,6 +49781,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:write
       x-readme:
@@ -49581,6 +49930,7 @@ paths:
         - Tasks
       operationId: getTaskForCustomID
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       responses:
@@ -50345,6 +50695,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -50667,6 +51018,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - team_memberships:read
       x-readme:
@@ -50882,6 +51234,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - team_memberships:read
       x-readme:
@@ -51083,6 +51436,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - team_memberships:read
       x-readme:
@@ -51288,6 +51642,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - team_memberships:read
       x-readme:
@@ -51600,6 +51955,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -51895,6 +52253,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - teams:read
       x-readme:
@@ -52194,6 +52553,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -52506,6 +52868,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - teams:read
       x-readme:
@@ -52828,6 +53191,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - teams:read
       x-readme:
@@ -53027,6 +53391,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -53187,6 +53554,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -53363,6 +53733,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -53575,6 +53948,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -53771,6 +54147,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - time_tracking_entries:read
       x-readme:
@@ -53934,6 +54311,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -54087,6 +54467,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - time_tracking_entries:read
       x-readme:
@@ -54251,6 +54632,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -54357,6 +54741,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
@@ -54553,6 +54940,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - time_tracking_entries:read
       x-readme:
@@ -54763,6 +55151,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - workspace.typeahead:read
       x-readme:
@@ -54946,6 +55335,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -55127,6 +55517,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - tasks:read
       x-readme:
@@ -55397,6 +55788,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - users:read
       x-readme:
@@ -55642,6 +56034,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - users:read
       x-readme:
@@ -55887,6 +56280,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
   /users/{user_gid}/favorites:
     parameters:
       - $ref: '#/components/parameters/user_path_gid'
@@ -55973,6 +56369,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - users:read
       x-readme:
@@ -56228,6 +56625,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - users:read
       x-readme:
@@ -56474,6 +56872,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - users:read
       x-readme:
@@ -56716,6 +57115,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - users:read
     put:
@@ -56847,6 +57247,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
   /webhooks:
     parameters:
       - $ref: '#/components/parameters/pretty'
@@ -56952,6 +57355,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - webhooks:read
       x-readme:
@@ -57222,6 +57626,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - webhooks:write
       x-readme:
@@ -57419,6 +57824,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - webhooks:read
       x-readme:
@@ -57620,6 +58026,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - webhooks:write
       x-readme:
@@ -57769,6 +58176,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - webhooks:delete
       x-readme:
@@ -57957,6 +58365,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -58163,6 +58574,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -58364,6 +58778,9 @@ paths:
                       $ref: '#/components/schemas/WorkspaceMembershipCompact'
                   next_page:
                     $ref: '#/components/schemas/NextPage'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -58552,6 +58969,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - workspaces:read
       x-readme:
@@ -58725,6 +59143,7 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
       security:
+        - personalAccessToken: []
         - oauth2:
             - workspaces:read
       x-readme:
@@ -58905,6 +59324,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -59100,6 +59522,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -59277,6 +59702,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: java
@@ -59462,6 +59890,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
       x-readme:
         code-samples:
           - language: node
