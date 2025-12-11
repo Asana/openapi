@@ -2122,6 +2122,12 @@ components:
             but may appear in other contexts involving group-level changes.
           type: object
           additionalProperties: true
+        saml_response:
+          description: >-
+            The response received from the IdP when a user logs in with SAML SSO.
+            Present on `user_login_failed` and `user_login_succeeded` events.
+          type: string
+          nullable: true
       additionalProperties: true
     AuditLogEventResource:
       description: The primary object that was affected by this event.
