@@ -13217,10 +13217,8 @@ components:
             access_level:
               type: string
               description: >-
-                "Describes the membership access level for the goal. (`admin` and
-                `viewer` are currently only
-                available when you include the header: `Asana-Enable: goal_sals_api`.)
-                This is preferred over role."
+                "Describes the membership access level for the goal. This is preferred
+                over role."
               enum:
                 - viewer
                 - commenter
@@ -13292,18 +13290,18 @@ components:
               deprecated: true
               readOnly: true
               description: >-
-                *Deprecated: new integrations should prefer the `role` field.*
-                Describes if the member is comment only in goal. Will be null if the
-                `goal_sals_api` change flag is enabled.
+                *Deprecated: new integrations should prefer the `access_level` field.*
+                Describes if the member is comment only in goal. This field is deprecated
+                and will always be null.
               example: false
             is_editor:
               type: boolean
               deprecated: true
               readOnly: true
               description: >-
-                *Deprecated: new integrations should prefer the `role` field.*
-                Describes if the member is editor in goal. Will be null if the `goal_sals_api`
-                change flag is enabled.
+                *Deprecated: new integrations should prefer the `access_level` field.*
+                Describes if the member is editor in goal. This field is deprecated
+                and will always be null.
               example: false
           x-docs-overrides: &id043
             properties.resource_type.example: membership
@@ -39413,10 +39411,8 @@ components:
         access_level:
           type: string
           description: >-
-            "Describes the membership access level for the goal. (`admin` and `viewer`
-            are currently only
-            available when you include the header: `Asana-Enable: goal_sals_api`.)
-            This is preferred over role."
+            "Describes the membership access level for the goal. This is preferred
+            over role."
           enum:
             - viewer
             - commenter
@@ -39596,10 +39592,8 @@ components:
         access_level:
           type: string
           description: >-
-            "Describes the membership access level for the goal. (`admin` and `viewer`
-            are currently only
-            available when you include the header: `Asana-Enable: goal_sals_api`.)
-            This is preferred over role."
+            "Describes the membership access level for the goal. This is preferred
+            over role."
           enum:
             - viewer
             - commenter
@@ -39670,18 +39664,18 @@ components:
           deprecated: true
           readOnly: true
           description: >-
-            *Deprecated: new integrations should prefer the `role` field.*
-            Describes if the member is comment only in goal. Will be null if the `goal_sals_api`
-            change flag is enabled.
+            *Deprecated: new integrations should prefer the `access_level` field.*
+            Describes if the member is comment only in goal. This field is deprecated
+            and will always be null.
           example: false
         is_editor:
           type: boolean
           deprecated: true
           readOnly: true
           description: >-
-            *Deprecated: new integrations should prefer the `role` field.*
-            Describes if the member is editor in goal. Will be null if the `goal_sals_api`
-            change flag is enabled.
+            *Deprecated: new integrations should prefer the `access_level` field.*
+            Describes if the member is editor in goal. This field is deprecated and
+            will always be null.
           example: false
       x-docs-overrides: *id043
     GoalMembershipResponse:
@@ -39797,10 +39791,8 @@ components:
         access_level:
           type: string
           description: >-
-            "Describes the membership access level for the goal. (`admin` and `viewer`
-            are currently only
-            available when you include the header: `Asana-Enable: goal_sals_api`.)
-            This is preferred over role."
+            "Describes the membership access level for the goal. This is preferred
+            over role."
           enum:
             - viewer
             - commenter
@@ -39959,11 +39951,10 @@ components:
         access_level:
           description: >-
             Sets the access level for the member. Goals can have access levels `viewer`,
-            `commenter`, `editor` or `admin` (`viewer` and `admin` are currently only
-            available for Goals when you include the `Asana-Enable: goal_sals_api`
-            change flag header). Projects can have access levels `admin`, `editor`
-            or `commenter`. Portfolios can have access levels `admin`, `editor` or
-            `viewer`. Custom Fields can have access levels `admin`, `editor` or `user`.
+            `commenter`, `editor` or `admin`. Projects can have access levels `admin`,
+            `editor` or `commenter`. Portfolios can have access levels `admin`, `editor`
+            or `viewer`. Custom Fields can have access levels `admin`, `editor` or
+            `user`.
           type: string
           example: editor
     CreateMembershipRequest:
@@ -39972,11 +39963,10 @@ components:
         access_level:
           description: >-
             Sets the access level for the member. Goals can have access levels `viewer`,
-            `commenter`, `editor` or `admin` (`viewer` and `admin` are currently only
-            available for Goals when you include the `Asana-Enable: goal_sals_api`
-            change flag header). Projects can have access levels `admin`, `editor`
-            or `commenter`. Portfolios can have access levels `admin`, `editor` or
-            `viewer`. Custom Fields can have access levels `admin`, `editor` or `user`.
+            `commenter`, `editor` or `admin`. Projects can have access levels `admin`,
+            `editor` or `commenter`. Portfolios can have access levels `admin`, `editor`
+            or `viewer`. Custom Fields can have access levels `admin`, `editor` or
+            `user`.
           type: string
           example: editor
         member:
@@ -40113,10 +40103,8 @@ components:
             access_level:
               type: string
               description: >-
-                "Describes the membership access level for the goal. (`admin` and
-                `viewer` are currently only
-                available when you include the header: `Asana-Enable: goal_sals_api`.)
-                This is preferred over role."
+                "Describes the membership access level for the goal. This is preferred
+                over role."
               enum:
                 - viewer
                 - commenter
