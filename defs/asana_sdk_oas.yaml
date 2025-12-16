@@ -17069,6 +17069,45 @@ components:
             - none
             - null
           example: light-green
+        icon:
+          description: >-
+            The icon for a project.
+          type: string
+          nullable: true
+          enum:
+            - list
+            - board
+            - timeline
+            - calendar
+            - rocket
+            - people
+            - graph
+            - star
+            - bug
+            - light_bulb
+            - globe
+            - gear
+            - notebook
+            - computer
+            - check
+            - target
+            - html
+            - megaphone
+            - chat_bubbles
+            - briefcase
+            - page_layout
+            - mountain_flag
+            - puzzle
+            - presentation
+            - line_and_symbols
+            - speed_dial
+            - ribbon
+            - shoe
+            - shopping_basket
+            - map
+            - ticket
+            - coins
+          example: chat_bubbles
         created_at:
           description: The time at which this resource was created.
           type: string
@@ -20501,6 +20540,45 @@ components:
             - none
             - null
           example: light-green
+        icon:
+          description: >-
+            The icon for a project.
+          type: string
+          nullable: true
+          enum:
+            - list
+            - board
+            - timeline
+            - calendar
+            - rocket
+            - people
+            - graph
+            - star
+            - bug
+            - light_bulb
+            - globe
+            - gear
+            - notebook
+            - computer
+            - check
+            - target
+            - html
+            - megaphone
+            - chat_bubbles
+            - briefcase
+            - page_layout
+            - mountain_flag
+            - puzzle
+            - presentation
+            - line_and_symbols
+            - speed_dial
+            - ribbon
+            - shoe
+            - shopping_basket
+            - map
+            - ticket
+            - coins
+          example: chat_bubbles
         created_at:
           description: The time at which this resource was created.
           type: string
@@ -21865,6 +21943,45 @@ components:
             - none
             - null
           example: light-green
+        icon:
+          description: >-
+            The icon for a project.
+          type: string
+          nullable: true
+          enum:
+            - list
+            - board
+            - timeline
+            - calendar
+            - rocket
+            - people
+            - graph
+            - star
+            - bug
+            - light_bulb
+            - globe
+            - gear
+            - notebook
+            - computer
+            - check
+            - target
+            - html
+            - megaphone
+            - chat_bubbles
+            - briefcase
+            - page_layout
+            - mountain_flag
+            - puzzle
+            - presentation
+            - line_and_symbols
+            - speed_dial
+            - ribbon
+            - shoe
+            - shopping_basket
+            - map
+            - ticket
+            - coins
+          example: chat_bubbles
         created_at:
           description: The time at which this resource was created.
           type: string
@@ -23224,6 +23341,45 @@ components:
             - none
             - null
           example: light-green
+        icon:
+          description: >-
+            The icon for a project.
+          type: string
+          nullable: true
+          enum:
+            - list
+            - board
+            - timeline
+            - calendar
+            - rocket
+            - people
+            - graph
+            - star
+            - bug
+            - light_bulb
+            - globe
+            - gear
+            - notebook
+            - computer
+            - check
+            - target
+            - html
+            - megaphone
+            - chat_bubbles
+            - briefcase
+            - page_layout
+            - mountain_flag
+            - puzzle
+            - presentation
+            - line_and_symbols
+            - speed_dial
+            - ribbon
+            - shoe
+            - shopping_basket
+            - map
+            - ticket
+            - coins
+          example: chat_bubbles
         created_at:
           description: The time at which this resource was created.
           type: string
@@ -25043,45 +25199,6 @@ components:
               type: string
               example: Marketing
           x-docs-overrides: *id030
-        icon:
-          description: >-
-            The icon for a project.
-          type: string
-          nullable: true
-          enum:
-            - list
-            - board
-            - timeline
-            - calendar
-            - rocket
-            - people
-            - graph
-            - star
-            - bug
-            - light_bulb
-            - globe
-            - gear
-            - notebook
-            - computer
-            - check
-            - target
-            - html
-            - megaphone
-            - chat_bubbles
-            - briefcase
-            - page_layout
-            - mountain_flag
-            - puzzle
-            - presentation
-            - line_and_symbols
-            - speed_dial
-            - ribbon
-            - shoe
-            - shopping_basket
-            - map
-            - ticket
-            - coins
-          example: chat_bubbles
         permalink_url:
           type: string
           readOnly: true
