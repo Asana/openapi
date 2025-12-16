@@ -41420,6 +41420,30 @@ components:
           type: string
           format: date
           example: '2025-01-12'
+    UpdateTimesheetApprovalStatusRequest:
+      type: object
+      required:
+        - approval_status
+      description: A request to update a timesheet approval status.
+      properties:
+        approval_status:
+          description: >-
+            The desired approval status to transition to. Valid transitions depend
+            on
+            the current status of the timesheet approval status.
+          type: string
+          enum:
+            - SUBMITTED
+            - DRAFT
+            - APPROVED
+            - REJECTED
+          example: SUBMITTED
+        message:
+          description: >-
+            Optional message to include with the transition (e.g., reason for approval
+            or rejection).
+          type: string
+          example: Approved by manager
     TimesheetApprovalStatusCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -66472,6 +66496,74 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - timesheet_approval_statuses:read
+    put:
+      summary: Update a timesheet approval status
+      description: |-
+        <b>Required scope: </b><code>timesheet_approval_statuses:read</code>
+
+        Updates the approval status of a timesheet approval status. The update supports state transitions such as submitting, recalling submission, approving, and rejecting. Only the fields provided in the `data` block will be updated; any unspecified fields will remain unchanged. Invalid transitions will result in a 400 error.
+      tags:
+        - Timesheet approval statuses
+      operationId: updateTimesheetApprovalStatus
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - approval_status
+            - created_at
+            - end_date
+            - start_date
+            - user
+            - user.name
+            - workspace
+            - workspace.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - approval_status
+                - created_at
+                - end_date
+                - start_date
+                - user
+                - user.name
+                - workspace
+                - workspace.name
+          style: form
+          explode: false
+      requestBody:
+        description: The fields to update on the timesheet approval status.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/UpdateTimesheetApprovalStatusRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/TimesheetApprovalStatusResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
         403:
           $ref: '#/components/responses/Forbidden'
         404:
