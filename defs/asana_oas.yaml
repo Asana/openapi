@@ -1910,7 +1910,7 @@ components:
               format: uri
               readOnly: true
               nullable: true
-              example: https://s3.amazonaws.com/assets/123/Screenshot.png
+              example: https://s3.amazonaws.com/assets/1234/Screenshot.png
             permanent_url:
               description: >-
                 A stable URL for accessing the attachment through the Asana web application.
