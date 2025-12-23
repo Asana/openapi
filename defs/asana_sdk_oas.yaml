@@ -31042,21 +31042,30 @@ components:
         insert_after:
           description: >-
             A task in the project to insert the task after, or `null`
-            to insert at the beginning of the list.
+            to insert at the beginning of the list. When used with
+            `section`, `null` will insert at the beginning of the
+            specified section, otherwise the task must be in the
+            specified section.
           type: string
           nullable: true
           example: '124816'
         insert_before:
           description: >-
             A task in the project to insert the task before, or
-            `null` to insert at the end of the list.
+            `null` to insert at the end of the list. When used with
+            `section`, `null` will insert at the end of the specified
+            section, otherwise the task must be in the specified section.
           type: string
           nullable: true
           example: '432134'
         section:
           description: >-
             A section in the project to insert the task into. The
-            task will be inserted at the bottom of the section.
+            task will be inserted at the bottom of the section unless
+            combined with `insert_before: null` (end of section) or
+            `insert_after: null` (beginning of section). Can also be
+            combined with non-null `insert_before` or `insert_after`
+            to position relative to a task within the section.
           type: string
           nullable: true
           example: '987654'
@@ -62850,11 +62859,14 @@ paths:
         `addProject` can also be used to reorder a task within a project or
         section that already contains it.
 
-        At most one of `insert_before`, `insert_after`, or `section` should be
-        specified. Inserting into a section in an non-order-dependent way can be
-        done by specifying section, otherwise, to insert within a section in a
-        particular place, specify `insert_before` or `insert_after` and a task
-        within the section to anchor the position of this task.
+        **Positioning the task:**
+        - Use `insert_before` or `insert_after` with a task ID to position relative to another task
+        - Use `section` alone to add the task to the end of a section
+        - Use `section` with `insert_after: null` to add to the **beginning** of a section
+        - Use `section` with `insert_before: null` to add to the **end** of a section
+        - Use `section` with `insert_before` or `insert_after` (non-null) to position relative to a task within that section. The anchor task must be in the specified section.
+
+        At most one of `insert_before` or `insert_after` should be specified (both cannot be used together).
 
         A task can have at most 20 projects multi-homed to it.
 
@@ -62872,6 +62884,33 @@ paths:
               properties:
                 data:
                   $ref: '#/components/schemas/TaskAddProjectRequest'
+            examples:
+              addToEndOfSection:
+                summary: Add task to end of a section
+                value:
+                  data:
+                    project: '13579'
+                    section: '987654'
+              addToBeginningOfSection:
+                summary: Add task to beginning of a section
+                value:
+                  data:
+                    project: '13579'
+                    section: '987654'
+              addAfterTaskInSection:
+                summary: Add task after another task in a section
+                value:
+                  data:
+                    project: '13579'
+                    section: '987654'
+                    insert_after: '124816'
+              addBeforeTaskInSection:
+                summary: Add task before another task in a section
+                value:
+                  data:
+                    project: '13579'
+                    section: '987654'
+                    insert_before: '432134'
       responses:
         200:
           $ref: '#/components/responses/EmptyResponseData'
