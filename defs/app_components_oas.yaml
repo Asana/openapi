@@ -1,5 +1,5 @@
 ---
-openapi: 3.0.0
+openapi: 3.0.4
 info:
   description: >-
     This is the interface for handling requests for
@@ -904,6 +904,18 @@ components:
                 [FormField-RichText](/reference/modal-forms#formfield-richtext), [FormField-SingleLineText](/reference/modal-forms#formfield-singlelinetext),
                 [FormField-StaticText](/reference/modal-forms#formfield-statictext), [FormField-Typeahead](/reference/modal-forms#formfield-typeahead)
               type: array
+              items:
+                anyOf:
+                  - $ref: '#/components/schemas/FormField-Checkbox'
+                  - $ref: '#/components/schemas/FormField-Date'
+                  - $ref: '#/components/schemas/FormField-Datetime'
+                  - $ref: '#/components/schemas/FormField-Dropdown'
+                  - $ref: '#/components/schemas/FormField-MultiLineText'
+                  - $ref: '#/components/schemas/FormField-RadioButton'
+                  - $ref: '#/components/schemas/FormField-RichText'
+                  - $ref: '#/components/schemas/FormField-SingleLineText'
+                  - $ref: '#/components/schemas/FormField-StaticText'
+                  - $ref: '#/components/schemas/FormField-Typeahead'
             on_submit_callback:
               description: >-
                 The URL to `POST` the form to when the user clicks the submit button.
@@ -1435,6 +1447,11 @@ components:
 
                 Valid object schemas: [WidgetField-DatetimeWithIcon](/reference/widgets#widgetfield-datetimewithicon), [WidgetField-Pill](/reference/widgets#widgetfield-pill), [WidgetField-TextWithIcon](/reference/widgets#widgetfield-textwithicon).
               type: array
+              items:
+                anyOf:
+                  - $ref: '#/components/schemas/DatetimeWithIcon'
+                  - $ref: '#/components/schemas/WidgetField-Pill'
+                  - $ref: '#/components/schemas/WidgetField-TextWithIcon'
             subtitle:
               description: >-
                 The text to show under the title of the widget, next to "Open in {App Name}". If not provided, the
