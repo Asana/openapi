@@ -7174,6 +7174,16 @@ components:
                 - new
                 - inbox
               example: upcoming
+            assigned_by:
+              allOf:
+                - $ref: '#/components/schemas/UserCompact'
+                - readOnly: true
+                  nullable: true
+                  description: >-
+                    The user who assigned the task. This field is only returned when
+                    requesting it via opt_fields, and will be null if the task has
+                    no
+                    specific assigner (e.g., tasks created without an explicit assigner).
             completed:
               description: >-
                 True if the task is currently marked complete, false if not.
@@ -42305,6 +42315,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -42418,6 +42430,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -42706,6 +42720,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -42816,6 +42832,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -43106,6 +43124,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -43216,6 +43236,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -43484,6 +43506,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -43594,6 +43618,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -44238,6 +44264,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -44351,6 +44379,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -44632,6 +44662,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -44745,6 +44777,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -45026,6 +45060,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -45139,6 +45175,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -45421,6 +45459,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -45534,6 +45574,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -45818,6 +45860,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -45931,6 +45975,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -46203,6 +46249,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -46313,6 +46361,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -46593,6 +46643,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -46703,6 +46755,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -46983,6 +47037,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -47096,6 +47152,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -47699,6 +47757,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -47812,6 +47872,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -49105,6 +49167,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -49215,6 +49279,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -49494,6 +49560,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -49604,6 +49672,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -50414,6 +50484,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -50524,6 +50596,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section

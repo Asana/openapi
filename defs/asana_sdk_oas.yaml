@@ -31167,6 +31167,45 @@ components:
             - new
             - inbox
           example: upcoming
+        assigned_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user who assigned the task. This field is only returned when requesting
+            it via opt_fields, and will be null if the task has no specific assigner
+            (e.g., tasks created without an explicit assigner).
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+          nullable: true
         completed:
           description: >-
             True if the task is currently marked complete, false if not.
@@ -33321,6 +33360,45 @@ components:
             - new
             - inbox
           example: upcoming
+        assigned_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user who assigned the task. This field is only returned when requesting
+            it via opt_fields, and will be null if the task has no specific assigner
+            (e.g., tasks created without an explicit assigner).
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+          nullable: true
         completed:
           description: >-
             True if the task is currently marked complete, false if not.
@@ -33950,6 +34028,45 @@ components:
             - new
             - inbox
           example: upcoming
+        assigned_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user who assigned the task. This field is only returned when requesting
+            it via opt_fields, and will be null if the task has no specific assigner
+            (e.g., tasks created without an explicit assigner).
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+          nullable: true
         completed:
           description: >-
             True if the task is currently marked complete, false if not.
@@ -59179,6 +59296,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -59292,6 +59411,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -59441,6 +59562,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -59551,6 +59674,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -59704,6 +59829,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -59814,6 +59941,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -59962,6 +60091,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -60072,6 +60203,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -60348,6 +60481,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -60461,6 +60596,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -60610,6 +60747,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -60723,6 +60862,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -60871,6 +61012,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -60984,6 +61127,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -61135,6 +61280,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -61248,6 +61395,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -61396,6 +61545,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -61509,6 +61660,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -61652,6 +61805,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -61762,6 +61917,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -61917,6 +62074,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -62027,6 +62186,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -62182,6 +62343,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -62295,6 +62458,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -62525,6 +62690,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -62638,6 +62805,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -63068,6 +63237,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -63178,6 +63349,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -63331,6 +63504,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -63441,6 +63616,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
@@ -64066,6 +64243,8 @@ paths:
           example:
             - actual_time_minutes
             - approval_status
+            - assigned_by
+            - assigned_by.name
             - assignee
             - assignee.name
             - assignee_section
@@ -64176,6 +64355,8 @@ paths:
               enum:
                 - actual_time_minutes
                 - approval_status
+                - assigned_by
+                - assigned_by.name
                 - assignee
                 - assignee.name
                 - assignee_section
