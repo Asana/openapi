@@ -5288,7 +5288,10 @@ components:
               example: '12345'
             team:
               description: >-
-                The team that this project is shared with.
+                *Deprecated:* Updating the team a project is shared with is deprecated.
+                Use `POST /memberships` with `{ parent: project, member: team }` instead
+                to manage team sharing.
+              deprecated: true
               type: string
               example: '12345'
     ProjectResponse:
@@ -29983,6 +29986,12 @@ paths:
         you last retrieved the task.
 
         Returns the complete updated project record.
+
+        **Deprecation notice:** Updating the `team` field is deprecated. When this
+        field is included in the request, the `Asana-Change` response header will
+        indicate an affected deprecation. Clients should switch to using
+        `POST /memberships` with `{ parent: project, member: team }` to share a
+        project with a team.
       tags:
         - Projects
       operationId: updateProject
