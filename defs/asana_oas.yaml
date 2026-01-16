@@ -893,7 +893,7 @@ tags:
       be set on [goals](/reference/goals).
   - name: Time tracking entries
     description: >-
-      Asana’s native time tracking feature allows you to estimate the time needed
+      Asana's native time tracking feature allows you to estimate the time needed
       to complete a task, as well as record the actual time spent.
   - name: Typeahead
     description: >-
@@ -1346,6 +1346,16 @@ components:
         type: string
       example: '917392'
       x-env-variable: time_tracking_entry
+    timesheet_approval_status_path_gid:
+      name: timesheet_approval_status_gid
+      in: path
+      description: >-
+        Globally unique identifier for the timesheet approval status.
+      required: true
+      schema:
+        type: string
+      example: '917392'
+      x-env-variable: timesheet_approval_status
     user_query_param:
       name: user
       in: query
@@ -9370,6 +9380,9 @@ components:
             users:read: View access to users
             teams:read: View access to teams
             time_tracking_entries:read: View access to time tracking entries
+            timesheet_approval_statuses:read: View access to timesheet approval statuses
+            timesheet_approval_statuses:write: Create and modify access to timesheet
+              approval statuses
             stories:read: View access to stories
             stories:write: Create and modify access to stories
             tags:read: View access to tags
@@ -55050,6 +55063,13 @@ paths:
               except ApiException as e:
                   print("Exception when calling TimeTrackingEntriesApi->get_time_tracking_entries: %s\n" % e)
             name: python-sdk-v5
+  /timesheet_approval_statuses/{timesheet_approval_status_gid}:
+    parameters:
+      - $ref: '#/components/parameters/timesheet_approval_status_path_gid'
+      - $ref: '#/components/parameters/pretty'
+  /timesheet_approval_statuses:
+    parameters:
+      - $ref: '#/components/parameters/pretty'
   /workspaces/{workspace_gid}/typeahead:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'

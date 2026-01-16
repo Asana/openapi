@@ -893,7 +893,7 @@ tags:
       be set on [goals](/reference/goals).
   - name: Time tracking entries
     description: >-
-      Asana’s native time tracking feature allows you to estimate the time needed
+      Asana's native time tracking feature allows you to estimate the time needed
       to complete a task, as well as record the actual time spent.
   - name: Typeahead
     description: >-
@@ -1305,6 +1305,16 @@ components:
         type: string
       example: '917392'
       x-env-variable: time_tracking_entry
+    timesheet_approval_status_path_gid:
+      name: timesheet_approval_status_gid
+      in: path
+      description: >-
+        Globally unique identifier for the timesheet approval status.
+      required: true
+      schema:
+        type: string
+      example: '917392'
+      x-env-variable: timesheet_approval_status
     user_query_param:
       name: user
       in: query
@@ -66366,6 +66376,9 @@ paths:
       security:
         - oauth2:
             - time_tracking_entries:read
+  /timesheet_approval_statuses/{timesheet_approval_status_gid}:
+    parameters:
+      - $ref: '#/components/parameters/timesheet_approval_status_path_gid'
   /workspaces/{workspace_gid}/typeahead:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
