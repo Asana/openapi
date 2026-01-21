@@ -51746,6 +51746,7 @@ paths:
 
         Returns the compact project records for some filtered set of projects. Use one or more of the parameters provided to filter the projects returned.
         *Note: This endpoint may timeout for large domains. Try filtering by team!*
+        **The `team` filter is deprecated.** Please use `GET /memberships` with `{ member: team, resource_subtype: project_membership }` to find projects shared with a team.
       tags:
         - Projects
       operationId: getProjects
@@ -51761,10 +51762,14 @@ paths:
           example: '1331'
         - name: team
           in: query
-          description: The team to filter projects on.
+          description: >-
+            **Deprecated.** The team to filter projects on. Please use `GET /memberships`
+            with
+            `{ member: team, resource_subtype: project_membership }` instead.
           schema:
             type: string
           example: '14916'
+          deprecated: true
         - $ref: '#/components/parameters/archived_query_param'
         - name: opt_fields
           in: query
