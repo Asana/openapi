@@ -31230,6 +31230,7 @@ paths:
         <b>Required scope: </b><code>projects:read</code>
 
         Returns the compact project records for all projects in the team.
+        *Deprecated: This endpoint is deprecated. Use `GET /memberships` with `member` set to the team GID and `resource_subtype` set to `project_membership` to fetch projects shared with a team.*
       tags:
         - Projects
       operationId: getProjectsForTeam
@@ -31531,6 +31532,7 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      deprecated: true
       security:
         - personalAccessToken: []
         - oauth2:
@@ -32090,7 +32092,7 @@ paths:
         <b>Required scope: </b><code>projects:read</code>
 
         Returns the compact project records for all projects in the workspace.
-        *Note: This endpoint may timeout for large domains. Prefer the `/teams/{team_gid}/projects` endpoint.*
+        *Note: This endpoint may timeout for large domains. To fetch projects shared with a specific team, use `GET /memberships` with `member` set to the team GID and `resource_subtype` set to `project_membership`.*
       tags:
         - Projects
       operationId: getProjectsForWorkspace
