@@ -4858,6 +4858,8 @@ components:
               description: >-
                 The privacy setting of the project. *Note: Administrators in your
                 organization may restrict the values of `privacy_setting`.*
+                The value `private_to_team` is deprecated. Use `POST /memberships`
+                to share a project with a team after creation.
               type: string
               enum:
                 - public_to_workspace
@@ -5251,7 +5253,10 @@ components:
               example: '12345'
             team:
               description: >-
-                The team that this project is shared with.
+                *Deprecated:* The team to share this project with is deprecated.
+                Use `POST /memberships` with `{ parent: project, member: team }`
+                to share a project with a team after creation.
+              deprecated: true
               type: string
               example: '12345'
             workspace:
@@ -5629,8 +5634,10 @@ components:
           example: true
         privacy_setting:
           description: >-
-            The privacy setting of the project. *Note: Administrators in your organization
-            may restrict the values of `privacy_setting`.*
+            The privacy setting of the project. *Note: Administrators in your
+            organization may restrict the values of `privacy_setting`.*
+            The value `private_to_team` is deprecated. Use `POST /memberships`
+            to share a project with a team after creation.
           type: string
           enum:
             - public_to_workspace
@@ -29145,6 +29152,13 @@ paths:
         supply a `team` to share the project with.
 
         Returns the full record of the newly created project.
+
+        **Deprecation notice:** The `team` parameter and the `private_to_team`
+        value for `privacy_setting` are deprecated. When either is included in
+        the request, the `Asana-Change` response header will indicate an affected
+        deprecation. Clients should switch to using `POST /memberships` with
+        `{ parent: project, member: team }` to share a project with a team after
+        creation.
       tags:
         - Projects
       operationId: createProject
