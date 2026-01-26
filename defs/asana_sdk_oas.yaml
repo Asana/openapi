@@ -10437,7 +10437,10 @@ components:
           example: green
           nullable: true
         custom_fields:
-          description: Array of Custom Fields.
+          description: >-
+            Array of custom field values applied directly to the goal itself.
+            These represent the values set on the goal,
+            not the fields available for items in the goal.
           type: array
           items:
             description: >-
@@ -10842,7 +10845,11 @@ components:
                 nullable: true
             x-docs-overrides: *id007
         custom_field_settings:
-          description: Array of Custom Field Settings applied to the goal.
+          description: >-
+            Array of custom field definitions that are enabled for the goal.
+            These represent which custom fields are available to be used on items
+            within the goal,
+            but do not include any values.
           type: array
           items:
             description: >-
