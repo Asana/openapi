@@ -15443,7 +15443,11 @@ components:
               example: Greg Sanchez
           x-docs-overrides: *id001
         custom_field_settings:
-          description: Array of custom field settings applied to the portfolio.
+          description: >-
+            Array of custom field definitions that are enabled for the portfolio.
+            These represent which custom fields are available to be used on items
+            within the portfolio,
+            but do not include any values.
           type: array
           items:
             description: >-
@@ -16416,7 +16420,10 @@ components:
           x-docs-overrides: *id025
           nullable: true
         custom_fields:
-          description: Array of Custom Fields.
+          description: >-
+            Array of custom field values applied directly to the portfolio itself.
+            These represent the values set on the portfolio,
+            not the fields available for items in the portfolio.
           type: array
           items:
             description: >-
@@ -17321,7 +17328,11 @@ components:
           x-docs-overrides: *id025
           nullable: true
         custom_field_settings:
-          description: Array of Custom Field Settings (in compact form).
+          description: >-
+            Array of custom field definitions that are enabled for the project.
+            These represent which custom fields are available to be used on tasks
+            within the project,
+            but do not include any values.
           readOnly: true
           type: array
           items:
@@ -20793,7 +20804,11 @@ components:
           x-docs-overrides: *id025
           nullable: true
         custom_field_settings:
-          description: Array of Custom Field Settings (in compact form).
+          description: >-
+            Array of custom field definitions that are enabled for the project.
+            These represent which custom fields are available to be used on tasks
+            within the project,
+            but do not include any values.
           readOnly: true
           type: array
           items:
@@ -22201,7 +22216,11 @@ components:
           x-docs-overrides: *id025
           nullable: true
         custom_field_settings:
-          description: Array of Custom Field Settings (in compact form).
+          description: >-
+            Array of custom field definitions that are enabled for the project.
+            These represent which custom fields are available to be used on tasks
+            within the project,
+            but do not include any values.
           readOnly: true
           type: array
           items:
@@ -23604,7 +23623,11 @@ components:
           x-docs-overrides: *id025
           nullable: true
         custom_field_settings:
-          description: Array of Custom Field Settings (in compact form).
+          description: >-
+            Array of custom field definitions that are enabled for the project.
+            These represent which custom fields are available to be used on tasks
+            within the project,
+            but do not include any values.
           readOnly: true
           type: array
           items:
@@ -24662,7 +24685,10 @@ components:
             - editor
           example: admin
         custom_fields:
-          description: Array of Custom Fields.
+          description: >-
+            Array of custom field values applied directly to the project itself.
+            These represent the values set on the project,
+            not the fields available for tasks in the project.
           readOnly: true
           type: array
           items:
