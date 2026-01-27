@@ -16657,7 +16657,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -16684,7 +16683,6 @@ paths:
             - num_likes
             - owner
             - owner.name
-            - privacy_setting
             - start_on
             - status
             - team
@@ -16781,7 +16779,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -16808,7 +16805,6 @@ paths:
                 - num_likes
                 - owner
                 - owner.name
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -17059,7 +17055,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -17086,7 +17081,6 @@ paths:
             - num_likes
             - owner
             - owner.name
-            - privacy_setting
             - start_on
             - status
             - team
@@ -17183,7 +17177,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -17210,7 +17203,6 @@ paths:
                 - num_likes
                 - owner
                 - owner.name
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -17660,7 +17652,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -17689,7 +17680,6 @@ paths:
             - owner
             - owner.name
             - path
-            - privacy_setting
             - start_on
             - status
             - team
@@ -17787,7 +17777,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -17816,7 +17805,6 @@ paths:
                 - owner
                 - owner.name
                 - path
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -18088,7 +18076,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -18115,7 +18102,6 @@ paths:
             - num_likes
             - owner
             - owner.name
-            - privacy_setting
             - start_on
             - status
             - team
@@ -18212,7 +18198,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -18239,7 +18224,6 @@ paths:
                 - num_likes
                 - owner
                 - owner.name
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -18501,7 +18485,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -18528,7 +18511,6 @@ paths:
             - num_likes
             - owner
             - owner.name
-            - privacy_setting
             - start_on
             - status
             - team
@@ -18625,7 +18607,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -18652,7 +18633,6 @@ paths:
                 - num_likes
                 - owner
                 - owner.name
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -18919,7 +18899,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -18946,7 +18925,6 @@ paths:
             - num_likes
             - owner
             - owner.name
-            - privacy_setting
             - start_on
             - status
             - team
@@ -19043,7 +19021,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -19070,7 +19047,6 @@ paths:
                 - num_likes
                 - owner
                 - owner.name
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -19339,7 +19315,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -19366,7 +19341,6 @@ paths:
             - num_likes
             - owner
             - owner.name
-            - privacy_setting
             - start_on
             - status
             - team
@@ -19463,7 +19437,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -19490,7 +19463,6 @@ paths:
                 - num_likes
                 - owner
                 - owner.name
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -19756,7 +19728,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -19783,7 +19754,6 @@ paths:
             - num_likes
             - owner
             - owner.name
-            - privacy_setting
             - start_on
             - status
             - team
@@ -19880,7 +19850,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -19907,7 +19876,6 @@ paths:
                 - num_likes
                 - owner
                 - owner.name
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -20173,7 +20141,6 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
-            - default_access_level
             - due_on
             - followers
             - followers.name
@@ -20200,7 +20167,6 @@ paths:
             - num_likes
             - owner
             - owner.name
-            - privacy_setting
             - start_on
             - status
             - team
@@ -20297,7 +20263,6 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
-                - default_access_level
                 - due_on
                 - followers
                 - followers.name
@@ -20324,7 +20289,6 @@ paths:
                 - num_likes
                 - owner
                 - owner.name
-                - privacy_setting
                 - start_on
                 - status
                 - team
@@ -20648,8 +20612,6 @@ paths:
             - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
-            - new_task_template
-            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -20673,8 +20635,6 @@ paths:
                 - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
-                - new_task_template
-                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -28521,8 +28481,6 @@ paths:
             - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
-            - new_task_template
-            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -28546,8 +28504,6 @@ paths:
                 - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
-                - new_task_template
-                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -30645,8 +30601,6 @@ paths:
             - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
-            - new_task_template
-            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -30670,8 +30624,6 @@ paths:
                 - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
-                - new_task_template
-                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -35376,8 +35328,6 @@ paths:
             - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
-            - new_task_template
-            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -35401,8 +35351,6 @@ paths:
                 - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
-                - new_task_template
-                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -42177,8 +42125,6 @@ paths:
             - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
-            - new_task_template
-            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -42202,8 +42148,6 @@ paths:
                 - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
-                - new_task_template
-                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
@@ -44147,8 +44091,6 @@ paths:
             - new_task.created_by
             - new_task.name
             - new_task.resource_subtype
-            - new_task_template
-            - new_task_template.name
             - resource_subtype
             - status
           schema:
@@ -44172,8 +44114,6 @@ paths:
                 - new_task.created_by
                 - new_task.name
                 - new_task.resource_subtype
-                - new_task_template
-                - new_task_template.name
                 - resource_subtype
                 - status
           style: form
