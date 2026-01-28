@@ -9408,6 +9408,9 @@ components:
             projects:delete: Delete access to projects
             projects:read: View access to projects
             projects:write: Create and modify access to projects
+            roles:read: View access to roles
+            roles:write: Create and modify access to roles
+            roles:delete: Delete access to roles
             users:read: View access to users
             teams:read: View access to teams
             time_tracking_entries:read: View access to time tracking entries
