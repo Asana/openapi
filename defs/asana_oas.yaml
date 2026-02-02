@@ -4023,13 +4023,10 @@ components:
                 $ref: '#/components/schemas/CustomFieldCompact'
             custom_field_settings:
               description: >-
-                <p><strong style={{ color: "#4573D2" }}>Full object requires scope:
-                </strong><code>custom_fields:read</code></p>
-
-
-                Array of custom field definitions that are enabled for the goal. These
-                represent which custom fields are available to be used on items within
-                the goal, but do not include any values.
+                Array of custom field definitions that are enabled for the goal.
+                These represent which custom fields are available to be used on items
+                within the goal,
+                but do not include any values.
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldSettingResponse'
@@ -4596,13 +4593,10 @@ components:
               $ref: '#/components/schemas/UserCompact'
             custom_field_settings:
               description: >-
-                <p><strong style={{ color: "#4573D2" }}>Full object requires scope:
-                </strong><code>custom_fields:read</code></p>
-
-
                 Array of custom field definitions that are enabled for the portfolio.
                 These represent which custom fields are available to be used on items
-                within the portfolio, but do not include any values.
+                within the portfolio,
+                but do not include any values.
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldSettingResponse'
@@ -4804,13 +4798,10 @@ components:
                   description: The latest `status_update` posted to this project.
             custom_field_settings:
               description: >-
-                <p><strong style={{ color: "#4573D2" }}>Full object requires scope:
-                </strong><code>custom_fields:read</code></p>
-
-
                 Array of custom field definitions that are enabled for the project.
                 These represent which custom fields are available to be used on tasks
-                within the project, but do not include any values.
+                within the project,
+                but do not include any values.
               readOnly: true
               type: array
               items:
@@ -12156,14 +12147,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a project's custom fields
-      description: >-
-        Returns a list of all of the custom fields settings on a project, in
-        compact form. Note that, as in all queries to collections which return
-        compact representation, `opt_fields` can be used to
-        include more data than is returned in the compact representation. See the
-        [documentation for input/output
-        options](https://developers.asana.com/docs/inputoutput-options)
-        for more information.
+      description: |-
+        <b>Required scope: </b><code>projects:read</code>
+
+        Returns a list of all of the custom fields settings on a project, in compact form. Note that, as in all queries to collections which return compact representation, `opt_fields` can be used to include more data than is returned in the compact representation. See the [documentation for input/output options](https://developers.asana.com/docs/inputoutput-options) for more information.
       tags:
         - Custom field settings
       operationId: getCustomFieldSettingsForProject
@@ -12315,7 +12302,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - personalAccessToken: []
-        - oauth2: []
+        - oauth2:
+            - projects:read
       x-readme:
         code-samples:
           - language: java
@@ -12442,9 +12430,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a portfolio's custom fields
-      description: >-
-        Returns a list of all of the custom fields settings on a portfolio, in
-        compact form.
+      description: |-
+        <b>Required scope: </b><code>portfolios:read</code>
+
+        Returns a list of all of the custom fields settings on a portfolio, in compact form.
       tags:
         - Custom field settings
       operationId: getCustomFieldSettingsForPortfolio
@@ -12596,7 +12585,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - personalAccessToken: []
-        - oauth2: []
+        - oauth2:
+            - portfolios:read
       x-readme:
         code-samples:
           - language: java
@@ -12723,14 +12713,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a goal's custom fields
-      description: >-
-        Returns a list of all of the custom fields settings on a goal, in
-        compact form. Note that, as in all queries to collections which return
-        compact representation, `opt_fields` can be used to
-        include more data than is returned in the compact representation. See the
-        [documentation for input/output
-        options](https://developers.asana.com/docs/inputoutput-options)
-        for more information.
+      description: |-
+        <b>Required scope: </b><code>goals:read</code>
+
+        Returns a list of all of the custom fields settings on a goal, in compact form. Note that, as in all queries to collections which return compact representation, `opt_fields` can be used to include more data than is returned in the compact representation. See the [documentation for input/output options](https://developers.asana.com/docs/inputoutput-options) for more information.
       tags:
         - Custom field settings
       operationId: getCustomFieldSettingsForGoal
@@ -12882,7 +12868,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - personalAccessToken: []
-        - oauth2: []
+        - oauth2:
+            - goals:read
       x-readme:
         code-samples:
           - language: node
@@ -12912,14 +12899,10 @@ paths:
       - $ref: '#/components/parameters/pretty'
     get:
       summary: Get a team's custom fields
-      description: >-
-        Returns a list of all of the custom fields settings on a team, in
-        compact form. Note that, as in all queries to collections which return
-        compact representation, `opt_fields` can be used to
-        include more data than is returned in the compact representation. See the
-        [documentation for input/output
-        options](https://developers.asana.com/docs/inputoutput-options)
-        for more information.
+      description: |-
+        <b>Required scope: </b><code>teams:read</code>
+
+        Returns a list of all of the custom fields settings on a team, in compact form. Note that, as in all queries to collections which return compact representation, `opt_fields` can be used to include more data than is returned in the compact representation. See the [documentation for input/output options](https://developers.asana.com/docs/inputoutput-options) for more information.
       tags:
         - Custom field settings
       operationId: getCustomFieldSettingsForTeam
@@ -13063,7 +13046,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - personalAccessToken: []
-        - oauth2: []
+        - oauth2:
+            - teams:read
       x-readme:
         code-samples:
           - language: node
@@ -16561,10 +16545,6 @@ paths:
           <tr>
             <td><code>time_period</code></td>
             <td><code>time_periods:read</code></td>
-          </tr>
-          <tr>
-            <td><code>custom_field_settings</code></td>
-            <td><code>custom_fields:read</code></td>
           </tr>
         </table>
 
@@ -23211,17 +23191,6 @@ paths:
       description: |-
         <b>Required scope: </b><code>portfolios:read</code>
 
-        <table>
-          <tr>
-            <th>Field</th>
-            <th>Required Scope</th>
-          </tr>
-          <tr>
-            <td><code>custom_field_settings</code></td>
-            <td><code>custom_fields:read</code></td>
-          </tr>
-        </table>
-
         Returns the complete portfolio record for a single portfolio.
       tags:
         - Portfolios
@@ -29573,10 +29542,6 @@ paths:
             <th>Required Scope</th>
           </tr>
           <tr>
-            <td><code>custom_field_settings</code></td>
-            <td><code>custom_fields:read</code></td>
-          </tr>
-          <tr>
             <td><code>team</code></td>
             <td><code>teams:read</code></td>
           </tr>
@@ -33395,10 +33360,6 @@ paths:
           <tr>
             <th>Field</th>
             <th>Required Scope</th>
-          </tr>
-          <tr>
-            <td><code>custom_field_settings</code></td>
-            <td><code>custom_fields:read</code></td>
           </tr>
           <tr>
             <td><code>team</code></td>

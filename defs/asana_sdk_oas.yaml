@@ -43623,14 +43623,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a project's custom fields
-      description: >-
-        Returns a list of all of the custom fields settings on a project, in
-        compact form. Note that, as in all queries to collections which return
-        compact representation, `opt_fields` can be used to
-        include more data than is returned in the compact representation. See the
-        [documentation for input/output
-        options](https://developers.asana.com/docs/inputoutput-options)
-        for more information.
+      description: |-
+        <b>Required scope: </b><code>projects:read</code>
+
+        Returns a list of all of the custom fields settings on a project, in compact form. Note that, as in all queries to collections which return compact representation, `opt_fields` can be used to include more data than is returned in the compact representation. See the [documentation for input/output options](https://developers.asana.com/docs/inputoutput-options) for more information.
       tags:
         - Custom field settings
       operationId: getCustomFieldSettingsForProject
@@ -43768,6 +43764,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
   /portfolios/{portfolio_gid}/custom_field_settings:
     parameters:
       - $ref: '#/components/parameters/portfolio_path_gid'
@@ -43775,9 +43774,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a portfolio's custom fields
-      description: >-
-        Returns a list of all of the custom fields settings on a portfolio, in
-        compact form.
+      description: |-
+        <b>Required scope: </b><code>portfolios:read</code>
+
+        Returns a list of all of the custom fields settings on a portfolio, in compact form.
       tags:
         - Custom field settings
       operationId: getCustomFieldSettingsForPortfolio
@@ -43915,6 +43915,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - portfolios:read
   /goals/{goal_gid}/custom_field_settings:
     parameters:
       - $ref: '#/components/parameters/goal_path_gid'
@@ -43922,14 +43925,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get a goal's custom fields
-      description: >-
-        Returns a list of all of the custom fields settings on a goal, in
-        compact form. Note that, as in all queries to collections which return
-        compact representation, `opt_fields` can be used to
-        include more data than is returned in the compact representation. See the
-        [documentation for input/output
-        options](https://developers.asana.com/docs/inputoutput-options)
-        for more information.
+      description: |-
+        <b>Required scope: </b><code>goals:read</code>
+
+        Returns a list of all of the custom fields settings on a goal, in compact form. Note that, as in all queries to collections which return compact representation, `opt_fields` can be used to include more data than is returned in the compact representation. See the [documentation for input/output options](https://developers.asana.com/docs/inputoutput-options) for more information.
       tags:
         - Custom field settings
       operationId: getCustomFieldSettingsForGoal
@@ -44067,19 +44066,18 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - goals:read
   /teams/{team_gid}/custom_field_settings:
     parameters:
       - $ref: '#/components/parameters/team_path_gid'
     get:
       summary: Get a team's custom fields
-      description: >-
-        Returns a list of all of the custom fields settings on a team, in
-        compact form. Note that, as in all queries to collections which return
-        compact representation, `opt_fields` can be used to
-        include more data than is returned in the compact representation. See the
-        [documentation for input/output
-        options](https://developers.asana.com/docs/inputoutput-options)
-        for more information.
+      description: |-
+        <b>Required scope: </b><code>teams:read</code>
+
+        Returns a list of all of the custom fields settings on a team, in compact form. Note that, as in all queries to collections which return compact representation, `opt_fields` can be used to include more data than is returned in the compact representation. See the [documentation for input/output options](https://developers.asana.com/docs/inputoutput-options) for more information.
       tags:
         - Custom field settings
       operationId: getCustomFieldSettingsForTeam
@@ -44211,6 +44209,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - teams:read
   /custom_fields:
     post:
       summary: Create a custom field
