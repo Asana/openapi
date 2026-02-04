@@ -48824,6 +48824,8 @@ paths:
     get:
       summary: Get a job by id
       description: |-
+        <b>Required scope: </b><code>jobs:read</code>
+
         Returns the full record for a job.
       tags:
         - Jobs
@@ -48892,6 +48894,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - jobs:read
   /memberships:
     get:
       summary: Get multiple memberships

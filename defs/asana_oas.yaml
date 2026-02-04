@@ -7536,9 +7536,9 @@ components:
               readOnly: true
               nullable: true
     TaskCompact:
-      description: >-
-        The *task* is the basic object around which many operations in Asana
-        are centered.
+      description: "<p><strong style={{ color: \"#4573D2\" }}>Full object requires
+        scope: </strong><code>tasks:read</code></p>\n\nThe *task* is the basic object
+        around which many operations in Asana are centered."
       type: object
       properties:
         gid:
@@ -9445,6 +9445,7 @@ components:
             custom_fields:read: View access to custom fields
             custom_fields:write: Create and modify access to custom fields
             goals:read: View access to goals
+            jobs:read: View access to jobs
             tasks:read: View access to tasks
             tasks:write: Create and modify access to tasks
             tasks:delete: Delete access to tasks
@@ -20625,6 +20626,31 @@ paths:
     get:
       summary: Get a job by id
       description: |-
+        <b>Required scope: </b><code>jobs:read</code>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>new_task_template</code></td>
+            <td><code>task_templates:read</code></td>
+          </tr>
+          <tr>
+            <td><code>new_project</code></td>
+            <td><code>projects:read</code></td>
+          </tr>
+          <tr>
+            <td><code>new_task</code></td>
+            <td><code>tasks:read</code></td>
+          </tr>
+          <tr>
+            <td><code>new_project_template</code></td>
+            <td><code>project_templates:read</code></td>
+          </tr>
+        </table>
+
         Returns the full record for a job.
       tags:
         - Jobs
@@ -20702,7 +20728,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - personalAccessToken: []
-        - oauth2: []
+        - oauth2:
+            - jobs:read
       x-readme:
         code-samples:
           - language: java
