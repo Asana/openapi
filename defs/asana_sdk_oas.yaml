@@ -109,17 +109,17 @@ security:
 x-readme:
   proxy-enabled: false
 tags:
+  - name: Access requests
+    description: >-
+      An access request object represents a user's request to an item, such as a project
+      or portfolio, that they do not have access to. The request is sent to the owner
+      of the item for approval.
   - name: Allocations
     description: >-
       An allocation object represents how much of a resource (e.g. person, team) is
       dedicated to a specific work object (e.g. project, portfolio) over a specific
       period of time. The effort value of an allocation object can be a percentage
       or number of hours.
-  - name: Access requests
-    description: >-
-      An access request object represents a user's request to an item, such as a project
-      or portfolio, that they do not have access to. The request is sent to the owner
-      of the item for approval.
   - name: Attachments
     description: >-
       An *attachment* object represents any file attached to a task in Asana,
@@ -291,6 +291,14 @@ tags:
       preserves each type's value.
       For time budgets: stored and read as minutes.
       For cost budgets: stored and read in the domain's currency.
+  - name: Custom field settings
+    description: >-
+      Custom fields are attached to a particular project with the custom
+      field settings resource. This resource both represents the
+      many-to-many join of the custom field and project as well as stores
+      information that is relevant to that particular pairing. For instance,
+      the `is_important` property determines some possible
+      application-specific handling of that custom field.
   - name: Custom fields
     description: >-
       _Note: Custom fields are a premium feature. Integrations which work
@@ -556,14 +564,6 @@ tags:
       of the user and project. When building your application, it is best to be
       defensive and not assume the given user will have read or write access
       to a custom field, and fail gracefully when this occurs.
-  - name: Custom field settings
-    description: >-
-      Custom fields are attached to a particular project with the custom
-      field settings resource. This resource both represents the
-      many-to-many join of the custom field and project as well as stores
-      information that is relevant to that particular pairing. For instance,
-      the `is_important` property determines some possible
-      application-specific handling of that custom field.
   - name: Custom types
     description: >-
       A custom type allows distinct categorizations of objects based on their specific
@@ -649,14 +649,14 @@ tags:
 
       *Note: Resource exports are only available to [Service Accounts](https://asana.com/guide/help/premium/service-accounts)
       from an Enterprise+ organization or an organization with the Compliance Management Add-on.
-  - name: Goals
-    description: >-
-      A goal is an object in the goal-tracking system that helps your organization
-      drive measurable results.
   - name: Goal relationships
     description: >-
       A goal relationship is an object representing the relationship between a goal
       and another goal, a project, a task, or a portfolio.
+  - name: Goals
+    description: >-
+      A goal is an object in the goal-tracking system that helps your organization
+      drive measurable results.
   - name: Jobs
     description: >-
       Jobs represent processes that handle asynchronous work. A job created when an
@@ -703,6 +703,9 @@ tags:
       *Note: These endpoints are only available to [Service
       Accounts](https://asana.com/guide/help/premium/service-accounts) of an
       [Enterprise](https://asana.com/enterprise) organization.*
+  - name: Portfolio memberships
+    description: >-
+      This object determines if a user is a member of a portfolio.
   - name: Portfolios
     description: >-
       A portfolio gives a high-level overview of the status of multiple
@@ -712,40 +715,6 @@ tags:
 
       Portfolios have some restrictions on size. Each portfolio has a max of 1500
       items and, like projects, a maximum of 20 custom fields.
-  - name: Portfolio memberships
-    description: >-
-      This object determines if a user is a member of a portfolio.
-  - name: Projects
-    description: >-
-      A project represents a prioritized list of tasks in Asana or a board
-      with columns of tasks represented as cards. A project exists in a single
-      workspace or organization and is accessible to a subset of users in that
-      workspace or organization, depending on its permissions.
-
-
-      Projects in organizations are shared with a single team. Currently, the team
-      of a project cannot be changed via the API. Non-organization
-      workspaces do not have teams and so you should not specify the team of
-      project in a regular workspace.
-
-
-      Followers of a project are a subset of the members of that project.
-      Followers of a project will receive all updates including tasks
-      created, added and removed from that project. Members of the project
-      have access to and will receive status updates of the project. Adding
-      followers to a project will add them as members if they are not
-      already, removing followers from a project will not affect membership.
-
-
-      **Note:** You can use certain project endpoints to operate on
-      [user task lists](/reference/user-task-lists) ([My Tasks](https://asana.com/guide/help/fundamentals/my-tasks))
-      by substituting the `{project_gid}` with the `{user_task_list_gid}`. For example,
-      you can perform
-      operations on the custom fields of a user task list by using the following
-      projects endpoints: [Add a custom field to a project](/reference/addcustomfieldsettingforproject),
-      [Remove a custom field from a project](/reference/removecustomfieldsettingforproject)
-      and
-      [Get a project's custom fields](/reference/getcustomfieldsettingsforproject)
   - name: Project briefs
     description: >-
       A project brief object represents a rich text document that describes
@@ -786,12 +755,43 @@ tags:
 
       Project templates in organizations are shared with a single team. Currently, the
       team of a project template cannot be changed via the API.
-  - name: Reactions
-    description: |-
-      A reaction is an object that represents a user's emoji reaction on a status update, comment, task completion, or attachment.
+  - name: Projects
+    description: >-
+      A project represents a prioritized list of tasks in Asana or a board
+      with columns of tasks represented as cards. A project exists in a single
+      workspace or organization and is accessible to a subset of users in that
+      workspace or organization, depending on its permissions.
+
+
+      Projects in organizations are shared with a single team. Currently, the team
+      of a project cannot be changed via the API. Non-organization
+      workspaces do not have teams and so you should not specify the team of
+      project in a regular workspace.
+
+
+      Followers of a project are a subset of the members of that project.
+      Followers of a project will receive all updates including tasks
+      created, added and removed from that project. Members of the project
+      have access to and will receive status updates of the project. Adding
+      followers to a project will add them as members if they are not
+      already, removing followers from a project will not affect membership.
+
+
+      **Note:** You can use certain project endpoints to operate on
+      [user task lists](/reference/user-task-lists) ([My Tasks](https://asana.com/guide/help/fundamentals/my-tasks))
+      by substituting the `{project_gid}` with the `{user_task_list_gid}`. For example,
+      you can perform
+      operations on the custom fields of a user task list by using the following
+      projects endpoints: [Add a custom field to a project](/reference/addcustomfieldsettingforproject),
+      [Remove a custom field from a project](/reference/removecustomfieldsettingforproject)
+      and
+      [Get a project's custom fields](/reference/getcustomfieldsettingsforproject)
   - name: Rates
     description: >-
       A rate object represents the rate of a resource for a parent object.
+  - name: Reactions
+    description: |-
+      A reaction is an object that represents a user's emoji reaction on a status update, comment, task completion, or attachment.
   - name: Rules
     description: |-
       [Asana rules](https://help.asana.com/s/article/rules?language=en_US) allow you to automate common patterns
@@ -851,6 +851,15 @@ tags:
       we will simplify them in the future so it is not encouraged to rely
       too heavily on it. Unlike projects, tags do not provide any ordering
       on the tasks they are associated with.
+  - name: Task templates
+    description: >-
+      A task template is an object that allows new tasks to be created
+      with a predefined setup, which may include followers, dependencies, custom fields,
+      etc.
+      It simplifies the process of running a workflow that involves a similar
+      set of work every time.
+
+      Task templates are contained within a single project.
   - name: Tasks
     description: >-
       The task is the basic object around which many operations in Asana are
@@ -871,22 +880,13 @@ tags:
       retrieve *all* fields or *specific set* of the fields, use
       [field selectors](/docs/inputoutput-options) to manipulate what data is included
       in a response.
-  - name: Task templates
+  - name: Team memberships
     description: >-
-      A task template is an object that allows new tasks to be created
-      with a predefined setup, which may include followers, dependencies, custom fields,
-      etc.
-      It simplifies the process of running a workflow that involves a similar
-      set of work every time.
-
-      Task templates are contained within a single project.
+      This object determines if a user is a member of a team.
   - name: Teams
     description: >-
       A team is used to group related projects and people together within an
       organization. Each project in an organization is associated with a team.
-  - name: Team memberships
-    description: >-
-      This object determines if a user is a member of a team.
   - name: Time periods
     description: >-
       A time period is an object that represents a domain-scoped date range that can
@@ -899,6 +899,11 @@ tags:
     description: >-
       The typeahead search API provides search for objects from a single
       workspace.
+  - name: User task lists
+    description: >-
+      A user task list represents the tasks assigned to a particular user.
+      This list is the user's [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
+      list.
   - name: Users
     description: >-
       A user object represents an account in Asana that can be given access to
@@ -909,11 +914,6 @@ tags:
       IDs. However, the special string identifier `me` can be used anywhere
       a user ID is accepted, to refer to the current authenticated user
       (e.g, `GET /users/me`).
-  - name: User task lists
-    description: >-
-      A user task list represents the tasks assigned to a particular user.
-      This list is the user's [My Tasks](https://asana.com/guide/help/fundamentals/my-tasks)
-      list.
   - name: Webhooks
     description: >-
       Webhooks allow you to subscribe to notifications about events that occur on
@@ -921,6 +921,9 @@ tags:
 
 
       For a more detailed explanation of webhooks see the [overview of webhooks](/docs/webhooks-guide).
+  - name: Workspace memberships
+    description: >-
+      This object determines if a user is a member of a workspace.
   - name: Workspaces
     description: >-
       A *workspace* is the highest-level organizational unit in Asana. All
@@ -940,9 +943,6 @@ tags:
       until after some reasonable grace period following any further
       announcements, you can still reference organizations in any
       `workspace` parameter.
-  - name: Workspace memberships
-    description: >-
-      This object determines if a user is a member of a workspace.
 components:
   parameters:
     limit:
