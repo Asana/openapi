@@ -7571,6 +7571,7 @@ components:
             - default_task
             - milestone
             - approval
+            - custom
           example: default_task
         created_by:
           type: object
@@ -7961,7 +7962,9 @@ components:
               readOnly: false
               x-env-variable: true
               description: >-
-                GID or globally-unique identifier of a custom_type.
+                *Conditional:* You can only set custom_type if task `resource_subtype`
+                is `custom`.
+                GID or globally-unique identifier of a task's custom type.
               example: '12345'
               nullable: true
             custom_type_status_option:
@@ -7969,7 +7972,9 @@ components:
               readOnly: false
               x-env-variable: true
               description: >-
-                GID or globally-unique identifier of a custom_type_status_option
+                *Conditional:* You can only set custom_type_status_option if task
+                `resource_subtype` is `custom`
+                GID or globally-unique identifier of a custom type's status option.
               example: '12345'
               nullable: true
     TaskResponse:
