@@ -9169,6 +9169,20 @@ components:
           description: >-
             *Optional*. The gid of the project which the time is attributable to.
           example: '987654'
+        billable_status:
+          description: >-
+            *Optional*. The current billable status of the entry.
+          type: string
+          enum:
+            - billable
+            - nonBillable
+            - notApplicable
+          example: billable
+        description:
+          description: >-
+            *Optional*. The description of the entry.
+          type: string
+          example: My description of work done on this entry
     CreateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -9189,6 +9203,20 @@ components:
           description: >-
             *Optional*. The gid of the project which the time is attributable to.
           example: '987654'
+        billable_status:
+          description: >-
+            *Optional*. The current billable status of the entry.
+          type: string
+          enum:
+            - billable
+            - nonBillable
+            - notApplicable
+          example: billable
+        description:
+          description: >-
+            *Optional*. The description of the entry.
+          type: string
+          example: My description of work done on this entry
     TimeTrackingEntryCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
