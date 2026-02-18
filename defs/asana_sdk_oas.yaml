@@ -73,6 +73,9 @@ info:
     - RuleTriggerResponse
     - ResourceExportResponse
     - ResourceExportCompact
+    - ResourceExportCompact
+    - RbacRoleResponse
+    - RbacRoleCompact
     - SectionResponse
     - SectionCompact
     - StatusUpdateResponse
@@ -792,6 +795,16 @@ tags:
   - name: Reactions
     description: |-
       A reaction is an object that represents a user's emoji reaction on a status update, comment, task completion, or attachment.
+  - name: Roles
+    description: >-
+      Roles allow workspaces to create and manage workspace-level custom user roles,
+      providing centralized control
+      over what users can do in Asana via Role-Based Access Control (RBAC).
+
+      Super admins can define roles with specific permission sets and assign users
+      to these roles, helping workspaces
+      meet security and compliance requirements and standardizing how users work in
+      Asana.
   - name: Rules
     description: |-
       [Asana rules](https://help.asana.com/s/article/rules?language=en_US) allow you to automate common patterns
@@ -1822,6 +1835,16 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ReactionCompactArray'
+    RbacRoleResponseArray:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/RbacRoleResponseArray'
+    RbacRoleResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/RbacRoleResponseData'
     RuleTriggerResponseData:
       content:
         application/json; charset=UTF-8:
@@ -42274,6 +42297,800 @@ components:
             Whether the current user has reacted with the emoji variant on the object.
           type: boolean
           example: false
+    RbacRoleCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *role* represents a group of permissions that can be assigned to a user
+        or team.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            The name of the role.
+          type: string
+          example: Project Admin
+        description:
+          description: >-
+            The description of the role.
+          type: string
+          example: This role has full access to the project.
+        is_standard_role:
+          description: Whether the role is a standard role or a custom role.
+          type: boolean
+          example: true
+      x-docs-overrides: &id047
+        properties.resource_type.example: role
+    RbacRoleBase:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *role* represents a group of permissions that can be assigned to a user
+        or team.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            The name of the role.
+          type: string
+          example: Project Admin
+        description:
+          description: >-
+            The description of the role.
+          type: string
+          example: This role has full access to the project.
+        is_standard_role:
+          description: Whether the role is a standard role or a custom role.
+          type: boolean
+          example: true
+        creation_time:
+          description: The time at which this role was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        modified_at:
+          description: >-
+            The time at which this role was last modified.
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2012-02-22T02:06:58.147Z'
+        workspace:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.
+
+            *Create-only*. The workspace this role is associated with. Once created,
+            roles cannot be moved to a different workspace. This attribute can only
+            be specified at creation time.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the workspace.
+              type: string
+              example: My Company Workspace
+          x-docs-overrides: *id020
+          readOnly: true
+        base_role_type:
+          description: >-
+            The base role type of the role.
+          type: string
+          enum:
+            - guest
+            - member
+            - admin
+            - super_admin
+        permissions:
+          description: The permissions of the role.
+          type: object
+          properties:
+            create_app_authorization:
+              description: Controls whether users with this role can create app authorizations
+              type: boolean
+              example: true
+            create_pat_authorization:
+              description: Controls whether users with this role can create PAT authorizations
+              type: boolean
+              example: true
+            share_goal_with_domain:
+              description: Controls whether users with this role can create company-wide
+                goals
+              type: boolean
+              example: true
+            share_portfolios_with_org:
+              description: Controls whether users with this role can create portfolios
+                that are shared with the organization and share existing portfolios
+                to the organization
+              type: boolean
+              example: true
+            assign_roles:
+              description: Controls whether users with this role can assign guest,
+                member, and admin roles to other users
+              type: boolean
+              example: true
+            manage_roles:
+              description: Controls whether users with this role can create, edit,
+                and delete roles
+              type: boolean
+              example: true
+            export_project_data:
+              description: Controls whether users with this role can export project
+                data
+              type: boolean
+              example: true
+            task_deletion_policy:
+              description: Determines what tasks users with this role are allowed
+                to delete
+              type: string
+              enum:
+                - all
+                - owned
+                - none
+              example: all
+            download_mobile_attachments:
+              description: Controls whether users with this role can download attachments
+                from mobile app
+              type: boolean
+              example: true
+            import_data:
+              description: Controls whether users with this role can import data into
+                the domain
+              type: boolean
+              example: true
+            create_global_custom_fields:
+              description: Controls whether users with this role can create global
+                custom fields
+              type: boolean
+              example: true
+            upload_attachments:
+              description: Controls whether users with this role can upload attachments
+              type: boolean
+              example: true
+            create_team:
+              description: Controls whether users with this role can create teams
+              type: boolean
+              example: true
+            allowed_guest_invites:
+              description: Controls what type of email users with this role are allowed
+                to invite
+              type: string
+              enum:
+                - all
+                - none
+              example: all
+            create_and_edit_ai_automations:
+              description: Controls whether users with this role can create and edit
+                AI automations
+              type: boolean
+              example: true
+            proactive_ai:
+              description: Controls whether users with this role can use proactive
+                AI features
+              type: boolean
+              example: true
+            standard_ai:
+              description: Controls whether users with this role can use standard
+                AI features
+              type: boolean
+              example: true
+      x-docs-overrides: *id047
+    RbacRoleResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *role* represents a group of permissions that can be assigned to a user
+        or team.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            The name of the role.
+          type: string
+          example: Project Admin
+        description:
+          description: >-
+            The description of the role.
+          type: string
+          example: This role has full access to the project.
+        is_standard_role:
+          description: Whether the role is a standard role or a custom role.
+          type: boolean
+          example: true
+        creation_time:
+          description: The time at which this role was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        modified_at:
+          description: >-
+            The time at which this role was last modified.
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2012-02-22T02:06:58.147Z'
+        workspace:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.
+
+            *Create-only*. The workspace this role is associated with. Once created,
+            roles cannot be moved to a different workspace. This attribute can only
+            be specified at creation time.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the workspace.
+              type: string
+              example: My Company Workspace
+          x-docs-overrides: *id020
+          readOnly: true
+        base_role_type:
+          description: >-
+            The base role type of the role.
+          type: string
+          enum:
+            - guest
+            - member
+            - admin
+            - super_admin
+        permissions:
+          description: The permissions of the role.
+          type: object
+          properties:
+            create_app_authorization:
+              description: Controls whether users with this role can create app authorizations
+              type: boolean
+              example: true
+            create_pat_authorization:
+              description: Controls whether users with this role can create PAT authorizations
+              type: boolean
+              example: true
+            share_goal_with_domain:
+              description: Controls whether users with this role can create company-wide
+                goals
+              type: boolean
+              example: true
+            share_portfolios_with_org:
+              description: Controls whether users with this role can create portfolios
+                that are shared with the organization and share existing portfolios
+                to the organization
+              type: boolean
+              example: true
+            assign_roles:
+              description: Controls whether users with this role can assign guest,
+                member, and admin roles to other users
+              type: boolean
+              example: true
+            manage_roles:
+              description: Controls whether users with this role can create, edit,
+                and delete roles
+              type: boolean
+              example: true
+            export_project_data:
+              description: Controls whether users with this role can export project
+                data
+              type: boolean
+              example: true
+            task_deletion_policy:
+              description: Determines what tasks users with this role are allowed
+                to delete
+              type: string
+              enum:
+                - all
+                - owned
+                - none
+              example: all
+            download_mobile_attachments:
+              description: Controls whether users with this role can download attachments
+                from mobile app
+              type: boolean
+              example: true
+            import_data:
+              description: Controls whether users with this role can import data into
+                the domain
+              type: boolean
+              example: true
+            create_global_custom_fields:
+              description: Controls whether users with this role can create global
+                custom fields
+              type: boolean
+              example: true
+            upload_attachments:
+              description: Controls whether users with this role can upload attachments
+              type: boolean
+              example: true
+            create_team:
+              description: Controls whether users with this role can create teams
+              type: boolean
+              example: true
+            allowed_guest_invites:
+              description: Controls what type of email users with this role are allowed
+                to invite
+              type: string
+              enum:
+                - all
+                - none
+              example: all
+            create_and_edit_ai_automations:
+              description: Controls whether users with this role can create and edit
+                AI automations
+              type: boolean
+              example: true
+            proactive_ai:
+              description: Controls whether users with this role can use proactive
+                AI features
+              type: boolean
+              example: true
+            standard_ai:
+              description: Controls whether users with this role can use standard
+                AI features
+              type: boolean
+              example: true
+      x-docs-overrides: *id047
+    RbacRoleRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *role* represents a group of permissions that can be assigned to a user
+        or team.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            The name of the role.
+          type: string
+          example: Project Admin
+        description:
+          description: >-
+            The description of the role.
+          type: string
+          example: This role has full access to the project.
+        is_standard_role:
+          description: Whether the role is a standard role or a custom role.
+          type: boolean
+          example: true
+        creation_time:
+          description: The time at which this role was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        modified_at:
+          description: >-
+            The time at which this role was last modified.
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2012-02-22T02:06:58.147Z'
+        workspace:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.
+
+            *Create-only*. The workspace this role is associated with. Once created,
+            roles cannot be moved to a different workspace. This attribute can only
+            be specified at creation time.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the workspace.
+              type: string
+              example: My Company Workspace
+          x-docs-overrides: *id020
+          readOnly: true
+        base_role_type:
+          description: >-
+            The base role type of the role.
+          type: string
+          enum:
+            - guest
+            - member
+            - admin
+            - super_admin
+        permissions:
+          description: The permissions of the role.
+          type: object
+          properties:
+            create_app_authorization:
+              description: Controls whether users with this role can create app authorizations
+              type: boolean
+              example: true
+            create_pat_authorization:
+              description: Controls whether users with this role can create PAT authorizations
+              type: boolean
+              example: true
+            share_goal_with_domain:
+              description: Controls whether users with this role can create company-wide
+                goals
+              type: boolean
+              example: true
+            share_portfolios_with_org:
+              description: Controls whether users with this role can create portfolios
+                that are shared with the organization and share existing portfolios
+                to the organization
+              type: boolean
+              example: true
+            assign_roles:
+              description: Controls whether users with this role can assign guest,
+                member, and admin roles to other users
+              type: boolean
+              example: true
+            manage_roles:
+              description: Controls whether users with this role can create, edit,
+                and delete roles
+              type: boolean
+              example: true
+            export_project_data:
+              description: Controls whether users with this role can export project
+                data
+              type: boolean
+              example: true
+            task_deletion_policy:
+              description: Determines what tasks users with this role are allowed
+                to delete
+              type: string
+              enum:
+                - all
+                - owned
+                - none
+              example: all
+            download_mobile_attachments:
+              description: Controls whether users with this role can download attachments
+                from mobile app
+              type: boolean
+              example: true
+            import_data:
+              description: Controls whether users with this role can import data into
+                the domain
+              type: boolean
+              example: true
+            create_global_custom_fields:
+              description: Controls whether users with this role can create global
+                custom fields
+              type: boolean
+              example: true
+            upload_attachments:
+              description: Controls whether users with this role can upload attachments
+              type: boolean
+              example: true
+            create_team:
+              description: Controls whether users with this role can create teams
+              type: boolean
+              example: true
+            allowed_guest_invites:
+              description: Controls what type of email users with this role are allowed
+                to invite
+              type: string
+              enum:
+                - all
+                - none
+              example: all
+            create_and_edit_ai_automations:
+              description: Controls whether users with this role can create and edit
+                AI automations
+              type: boolean
+              example: true
+            proactive_ai:
+              description: Controls whether users with this role can use proactive
+                AI features
+              type: boolean
+              example: true
+            standard_ai:
+              description: Controls whether users with this role can use standard
+                AI features
+              type: boolean
+              example: true
+      x-docs-overrides: *id047
+    RbacRoleUpdateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *role* represents a group of permissions that can be assigned to a user
+        or team.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            The name of the role.
+          type: string
+          example: Project Admin
+        description:
+          description: >-
+            The description of the role.
+          type: string
+          example: This role has full access to the project.
+        is_standard_role:
+          description: Whether the role is a standard role or a custom role.
+          type: boolean
+          example: true
+        creation_time:
+          description: The time at which this role was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        modified_at:
+          description: >-
+            The time at which this role was last modified.
+          type: string
+          readOnly: true
+          format: date-time
+          example: '2012-02-22T02:06:58.147Z'
+        workspace:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.
+
+            *Create-only*. The workspace this role is associated with. Once created,
+            roles cannot be moved to a different workspace. This attribute can only
+            be specified at creation time.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the workspace.
+              type: string
+              example: My Company Workspace
+          x-docs-overrides: *id020
+          readOnly: true
+        base_role_type:
+          description: >-
+            The base role type of the role.
+          type: string
+          enum:
+            - guest
+            - member
+            - admin
+            - super_admin
+        permissions:
+          description: The permissions of the role.
+          type: object
+          properties:
+            create_app_authorization:
+              description: Controls whether users with this role can create app authorizations
+              type: boolean
+              example: true
+            create_pat_authorization:
+              description: Controls whether users with this role can create PAT authorizations
+              type: boolean
+              example: true
+            share_goal_with_domain:
+              description: Controls whether users with this role can create company-wide
+                goals
+              type: boolean
+              example: true
+            share_portfolios_with_org:
+              description: Controls whether users with this role can create portfolios
+                that are shared with the organization and share existing portfolios
+                to the organization
+              type: boolean
+              example: true
+            assign_roles:
+              description: Controls whether users with this role can assign guest,
+                member, and admin roles to other users
+              type: boolean
+              example: true
+            manage_roles:
+              description: Controls whether users with this role can create, edit,
+                and delete roles
+              type: boolean
+              example: true
+            export_project_data:
+              description: Controls whether users with this role can export project
+                data
+              type: boolean
+              example: true
+            task_deletion_policy:
+              description: Determines what tasks users with this role are allowed
+                to delete
+              type: string
+              enum:
+                - all
+                - owned
+                - none
+              example: all
+            download_mobile_attachments:
+              description: Controls whether users with this role can download attachments
+                from mobile app
+              type: boolean
+              example: true
+            import_data:
+              description: Controls whether users with this role can import data into
+                the domain
+              type: boolean
+              example: true
+            create_global_custom_fields:
+              description: Controls whether users with this role can create global
+                custom fields
+              type: boolean
+              example: true
+            upload_attachments:
+              description: Controls whether users with this role can upload attachments
+              type: boolean
+              example: true
+            create_team:
+              description: Controls whether users with this role can create teams
+              type: boolean
+              example: true
+            allowed_guest_invites:
+              description: Controls what type of email users with this role are allowed
+                to invite
+              type: string
+              enum:
+                - all
+                - none
+              example: all
+            create_and_edit_ai_automations:
+              description: Controls whether users with this role can create and edit
+                AI automations
+              type: boolean
+              example: true
+            proactive_ai:
+              description: Controls whether users with this role can use proactive
+                AI features
+              type: boolean
+              example: true
+            standard_ai:
+              description: Controls whether users with this role can use standard
+                AI features
+              type: boolean
+              example: true
+      x-docs-overrides: *id047
     AccessRequestResponseArray:
       type: object
       required:
@@ -42680,6 +43497,24 @@ components:
             $ref: '#/components/schemas/ReactionCompact'
         next_page:
           $ref: '#/components/schemas/NextPage'
+    RbacRoleResponseArray:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RbacRoleResponse'
+        next_page:
+          $ref: '#/components/schemas/NextPage'
+    RbacRoleResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/RbacRoleResponse'
     RuleTriggerResponseData:
       type: object
       required:
@@ -57034,6 +57869,439 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+  /roles:
+    get:
+      summary: Get multiple roles
+      description: |-
+        <b>Required scope: </b><code>roles:read</code>
+
+        Returns all RBAC roles for a workspace.
+      tags:
+        - Roles
+      operationId: getRoles
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: workspace
+          in: query
+          description: >-
+            The workspace or organization to filter roles on.
+          schema:
+            type: string
+          example: '1331'
+        - $ref: '#/components/parameters/archived_query_param'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - base_role_type
+            - creation_time
+            - description
+            - is_standard_role
+            - modified_at
+            - name
+            - offset
+            - path
+            - permissions
+            - permissions.allowed_guest_invites
+            - permissions.assign_roles
+            - permissions.create_and_edit_ai_automations
+            - permissions.create_app_authorization
+            - permissions.create_global_custom_fields
+            - permissions.create_pat_authorization
+            - permissions.create_team
+            - permissions.download_mobile_attachments
+            - permissions.export_project_data
+            - permissions.import_data
+            - permissions.manage_roles
+            - permissions.proactive_ai
+            - permissions.share_goal_with_domain
+            - permissions.share_portfolios_with_org
+            - permissions.standard_ai
+            - permissions.task_deletion_policy
+            - permissions.upload_attachments
+            - uri
+            - workspace
+            - workspace.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - base_role_type
+                - creation_time
+                - description
+                - is_standard_role
+                - modified_at
+                - name
+                - offset
+                - path
+                - permissions
+                - permissions.allowed_guest_invites
+                - permissions.assign_roles
+                - permissions.create_and_edit_ai_automations
+                - permissions.create_app_authorization
+                - permissions.create_global_custom_fields
+                - permissions.create_pat_authorization
+                - permissions.create_team
+                - permissions.download_mobile_attachments
+                - permissions.export_project_data
+                - permissions.import_data
+                - permissions.manage_roles
+                - permissions.proactive_ai
+                - permissions.share_goal_with_domain
+                - permissions.share_portfolios_with_org
+                - permissions.standard_ai
+                - permissions.task_deletion_policy
+                - permissions.upload_attachments
+                - uri
+                - workspace
+                - workspace.name
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/RbacRoleResponseArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - roles:read
+    post:
+      summary: Create a role
+      description: |-
+        <b>Required scope: </b><code>roles:write</code>
+
+        Creates a new RBAC role in the workspace.
+      tags:
+        - Roles
+      operationId: createRole
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - base_role_type
+            - creation_time
+            - description
+            - is_standard_role
+            - modified_at
+            - name
+            - permissions
+            - permissions.allowed_guest_invites
+            - permissions.assign_roles
+            - permissions.create_and_edit_ai_automations
+            - permissions.create_app_authorization
+            - permissions.create_global_custom_fields
+            - permissions.create_pat_authorization
+            - permissions.create_team
+            - permissions.download_mobile_attachments
+            - permissions.export_project_data
+            - permissions.import_data
+            - permissions.manage_roles
+            - permissions.proactive_ai
+            - permissions.share_goal_with_domain
+            - permissions.share_portfolios_with_org
+            - permissions.standard_ai
+            - permissions.task_deletion_policy
+            - permissions.upload_attachments
+            - workspace
+            - workspace.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - base_role_type
+                - creation_time
+                - description
+                - is_standard_role
+                - modified_at
+                - name
+                - permissions
+                - permissions.allowed_guest_invites
+                - permissions.assign_roles
+                - permissions.create_and_edit_ai_automations
+                - permissions.create_app_authorization
+                - permissions.create_global_custom_fields
+                - permissions.create_pat_authorization
+                - permissions.create_team
+                - permissions.download_mobile_attachments
+                - permissions.export_project_data
+                - permissions.import_data
+                - permissions.manage_roles
+                - permissions.proactive_ai
+                - permissions.share_goal_with_domain
+                - permissions.share_portfolios_with_org
+                - permissions.standard_ai
+                - permissions.task_deletion_policy
+                - permissions.upload_attachments
+                - workspace
+                - workspace.name
+          style: form
+          explode: false
+      requestBody:
+        description: The role to create.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/RbacRoleRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/RbacRoleResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - roles:write
+  /roles/{role_gid}:
+    parameters:
+      - $ref: '#/components/parameters/role_path_gid'
+    get:
+      summary: Get a role
+      description: |-
+        <b>Required scope: </b><code>roles:read</code>
+
+        Returns the complete role record for a single role.
+      tags:
+        - Roles
+      operationId: getRole
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - base_role_type
+            - creation_time
+            - description
+            - is_standard_role
+            - modified_at
+            - name
+            - permissions
+            - permissions.allowed_guest_invites
+            - permissions.assign_roles
+            - permissions.create_and_edit_ai_automations
+            - permissions.create_app_authorization
+            - permissions.create_global_custom_fields
+            - permissions.create_pat_authorization
+            - permissions.create_team
+            - permissions.download_mobile_attachments
+            - permissions.export_project_data
+            - permissions.import_data
+            - permissions.manage_roles
+            - permissions.proactive_ai
+            - permissions.share_goal_with_domain
+            - permissions.share_portfolios_with_org
+            - permissions.standard_ai
+            - permissions.task_deletion_policy
+            - permissions.upload_attachments
+            - workspace
+            - workspace.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - base_role_type
+                - creation_time
+                - description
+                - is_standard_role
+                - modified_at
+                - name
+                - permissions
+                - permissions.allowed_guest_invites
+                - permissions.assign_roles
+                - permissions.create_and_edit_ai_automations
+                - permissions.create_app_authorization
+                - permissions.create_global_custom_fields
+                - permissions.create_pat_authorization
+                - permissions.create_team
+                - permissions.download_mobile_attachments
+                - permissions.export_project_data
+                - permissions.import_data
+                - permissions.manage_roles
+                - permissions.proactive_ai
+                - permissions.share_goal_with_domain
+                - permissions.share_portfolios_with_org
+                - permissions.standard_ai
+                - permissions.task_deletion_policy
+                - permissions.upload_attachments
+                - workspace
+                - workspace.name
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/RbacRoleResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - roles:read
+    put:
+      summary: Update a role
+      description: |-
+        <b>Required scope: </b><code>roles:write</code>
+
+        Updates a role in a workspace.
+      tags:
+        - Roles
+      operationId: updateRole
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - base_role_type
+            - creation_time
+            - description
+            - is_standard_role
+            - modified_at
+            - name
+            - permissions
+            - permissions.allowed_guest_invites
+            - permissions.assign_roles
+            - permissions.create_and_edit_ai_automations
+            - permissions.create_app_authorization
+            - permissions.create_global_custom_fields
+            - permissions.create_pat_authorization
+            - permissions.create_team
+            - permissions.download_mobile_attachments
+            - permissions.export_project_data
+            - permissions.import_data
+            - permissions.manage_roles
+            - permissions.proactive_ai
+            - permissions.share_goal_with_domain
+            - permissions.share_portfolios_with_org
+            - permissions.standard_ai
+            - permissions.task_deletion_policy
+            - permissions.upload_attachments
+            - workspace
+            - workspace.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - base_role_type
+                - creation_time
+                - description
+                - is_standard_role
+                - modified_at
+                - name
+                - permissions
+                - permissions.allowed_guest_invites
+                - permissions.assign_roles
+                - permissions.create_and_edit_ai_automations
+                - permissions.create_app_authorization
+                - permissions.create_global_custom_fields
+                - permissions.create_pat_authorization
+                - permissions.create_team
+                - permissions.download_mobile_attachments
+                - permissions.export_project_data
+                - permissions.import_data
+                - permissions.manage_roles
+                - permissions.proactive_ai
+                - permissions.share_goal_with_domain
+                - permissions.share_portfolios_with_org
+                - permissions.standard_ai
+                - permissions.task_deletion_policy
+                - permissions.upload_attachments
+                - workspace
+                - workspace.name
+          style: form
+          explode: false
+      requestBody:
+        description: The updated fields for the role.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/RbacRoleRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/RbacRoleResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - roles:write
+    delete:
+      summary: Delete a role
+      description: |-
+        <b>Required scope: </b><code>roles:delete</code>
+
+        Deletes a role from a workspace.
+      tags:
+        - Roles
+      operationId: deleteRole
+      responses:
+        200:
+          $ref: '#/components/responses/EmptyResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - roles:delete
   /rule_triggers/{rule_trigger_gid}/run:
     parameters:
       - $ref: '#/components/parameters/rule_trigger_path_gid'
