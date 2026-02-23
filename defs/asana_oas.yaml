@@ -4155,6 +4155,8 @@ components:
             - failed
           readOnly: true
           example: in_progress
+        new_portfolio:
+          $ref: '#/components/schemas/PortfolioCompact'
         new_project:
           $ref: '#/components/schemas/ProjectCompact'
         new_task:
@@ -20857,6 +20859,10 @@ paths:
             <td><code>task_templates:read</code></td>
           </tr>
           <tr>
+            <td><code>new_portfolio</code></td>
+            <td><code>portfolios:read</code></td>
+          </tr>
+          <tr>
             <td><code>new_project</code></td>
             <td><code>projects:read</code></td>
           </tr>
@@ -20886,6 +20892,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -20909,6 +20917,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -28749,6 +28759,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -28772,6 +28784,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -30865,6 +30879,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -30888,6 +30904,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -35588,6 +35606,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -35611,6 +35631,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -42865,6 +42887,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -42888,6 +42912,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -44831,6 +44857,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -44854,6 +44882,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template

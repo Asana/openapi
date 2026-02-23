@@ -10170,7 +10170,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: &id020
+          x-docs-overrides: &id021
             properties.resource_type.example: workspace
         followers:
           type: array
@@ -12338,6 +12338,39 @@ components:
             - failed
           readOnly: true
           example: in_progress
+        new_portfolio:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *portfolio* gives a high-level overview of the status of multiple initiatives
+            in Asana. Portfolios provide a dashboard overview of the state of multiple
+            projects, including a progress report and the most recent [project status](/reference/project-statuses)
+            update.
+
+            Portfolios have some restrictions on size. Each portfolio has a max of
+            1500 items and, like projects, a max of 20 custom fields.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the portfolio.
+              type: string
+              example: Bug Portfolio
+          x-docs-overrides: &id015
+            properties.resource_type.example: portfolio
         new_project:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12458,7 +12491,7 @@ components:
                 Name of the project template.
               type: string
               example: Packing list
-          x-docs-overrides: &id015
+          x-docs-overrides: &id016
             properties.resource_type.example: project_template
         new_graph_export:
           description: >-
@@ -12513,7 +12546,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: &id016
+          x-docs-overrides: &id017
             properties.resource_type.example: graph_export
         new_resource_export:
           description: >-
@@ -12565,9 +12598,9 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: &id017
+          x-docs-overrides: &id018
             properties.resource_type.example: export_request
-      x-docs-overrides: &id018
+      x-docs-overrides: &id019
         properties.resource_type.example: job
     JobCompact:
       description: >-
@@ -12609,6 +12642,38 @@ components:
             - failed
           readOnly: true
           example: in_progress
+        new_portfolio:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *portfolio* gives a high-level overview of the status of multiple initiatives
+            in Asana. Portfolios provide a dashboard overview of the state of multiple
+            projects, including a progress report and the most recent [project status](/reference/project-statuses)
+            update.
+
+            Portfolios have some restrictions on size. Each portfolio has a max of
+            1500 items and, like projects, a max of 20 custom fields.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the portfolio.
+              type: string
+              example: Bug Portfolio
+          x-docs-overrides: *id015
         new_project:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12729,7 +12794,7 @@ components:
                 Name of the project template.
               type: string
               example: Packing list
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
         new_graph_export:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12783,7 +12848,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id016
+          x-docs-overrides: *id017
         new_resource_export:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12834,8 +12899,8 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id017
-      x-docs-overrides: *id018
+          x-docs-overrides: *id018
+      x-docs-overrides: *id019
     JobResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12876,6 +12941,38 @@ components:
             - failed
           readOnly: true
           example: in_progress
+        new_portfolio:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *portfolio* gives a high-level overview of the status of multiple initiatives
+            in Asana. Portfolios provide a dashboard overview of the state of multiple
+            projects, including a progress report and the most recent [project status](/reference/project-statuses)
+            update.
+
+            Portfolios have some restrictions on size. Each portfolio has a max of
+            1500 items and, like projects, a max of 20 custom fields.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the portfolio.
+              type: string
+              example: Bug Portfolio
+          x-docs-overrides: *id015
         new_project:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -12996,7 +13093,7 @@ components:
                 Name of the project template.
               type: string
               example: Packing list
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
         new_graph_export:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13050,7 +13147,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id016
+          x-docs-overrides: *id017
         new_resource_export:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -13101,8 +13198,8 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id017
-      x-docs-overrides: *id018
+          x-docs-overrides: *id018
+      x-docs-overrides: *id019
     Like:
       type: object
       description: >-
@@ -13165,7 +13262,7 @@ components:
           type: string
           description: The name of the member
           example: Greg Sanchez
-      x-docs-overrides: &id019
+      x-docs-overrides: &id020
         properties.resource_type.example: member
     MembershipCompact:
       anyOf:
@@ -13215,7 +13312,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.
@@ -13445,7 +13542,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             access_level:
               description: >-
                 Whether the member has admin, editor, commenter, or viewer
@@ -13513,8 +13610,7 @@ components:
                   description: The name of the portfolio.
                   type: string
                   example: Bug Portfolio
-              x-docs-overrides: &id022
-                properties.resource_type.example: portfolio
+              x-docs-overrides: *id015
             member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -13538,7 +13634,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             access_level:
               description: >-
                 Whether the member has admin, editor, or viewer
@@ -14013,7 +14109,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             access_level:
               description: >-
                 Whether the member has admin, editor, or user
@@ -14102,7 +14198,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             access_level:
               description: >-
                 Whether the member has admin, editor, user, or viewer
@@ -14257,8 +14353,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
-      x-docs-overrides: &id021
+          x-docs-overrides: *id021
+      x-docs-overrides: &id022
         properties.resource_type.example: organization_export
     OrganizationExportCompact:
       description: >-
@@ -14343,8 +14439,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
-      x-docs-overrides: *id021
+          x-docs-overrides: *id021
+      x-docs-overrides: *id022
     OrganizationExportRequest:
       type: object
       description: >-
@@ -14439,8 +14535,8 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
-      x-docs-overrides: *id021
+          x-docs-overrides: *id021
+      x-docs-overrides: *id022
     PortfolioAddItemRequest:
       type: object
       required:
@@ -14557,7 +14653,7 @@ components:
             - editor
             - viewer
           example: viewer
-      x-docs-overrides: *id022
+      x-docs-overrides: *id015
     PortfolioCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -14589,7 +14685,7 @@ components:
           description: The name of the portfolio.
           type: string
           example: Bug Portfolio
-      x-docs-overrides: *id022
+      x-docs-overrides: *id015
     PortfolioMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -14642,7 +14738,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id022
+          x-docs-overrides: *id015
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -14666,7 +14762,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
@@ -14731,7 +14827,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id022
+          x-docs-overrides: *id015
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -14825,7 +14921,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id022
+          x-docs-overrides: *id015
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -14918,7 +15014,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id022
+          x-docs-overrides: *id015
         user:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -15011,7 +15107,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id022
+          x-docs-overrides: *id015
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -15035,7 +15131,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
@@ -15098,7 +15194,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id022
+          x-docs-overrides: *id015
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -15122,7 +15218,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
@@ -15191,7 +15287,7 @@ components:
               description: The name of the portfolio.
               type: string
               example: Bug Portfolio
-          x-docs-overrides: *id022
+          x-docs-overrides: *id015
         member:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -15215,7 +15311,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, or viewer
@@ -15340,7 +15436,7 @@ components:
           type: boolean
           deprecated: true
           example: false
-      x-docs-overrides: *id022
+      x-docs-overrides: *id015
     PortfolioUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -15450,7 +15546,7 @@ components:
           example:
             '5678904321': On Hold
             '4578152156': Not Started
-      x-docs-overrides: *id022
+      x-docs-overrides: *id015
     PortfolioResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -17053,7 +17149,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
         permalink_url:
           type: string
           readOnly: true
@@ -17108,8 +17204,8 @@ components:
                   Name of the project template.
                 type: string
                 example: Packing list
-            x-docs-overrides: *id015
-      x-docs-overrides: *id022
+            x-docs-overrides: *id016
+      x-docs-overrides: *id015
     Preview:
       type: object
       description: >-
@@ -19267,7 +19363,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -19726,7 +19822,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -20185,7 +20281,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, or user
@@ -20274,7 +20370,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, user, or viewer
@@ -20364,7 +20460,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, user, or viewer
@@ -20454,7 +20550,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, user, or viewer
@@ -20545,7 +20641,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -20636,7 +20732,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -20725,7 +20821,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -20818,7 +20914,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         access_level:
           description: >-
             Whether the member has admin, editor, commenter, or viewer
@@ -25729,7 +25825,7 @@ components:
                 Name of the project template.
               type: string
               example: Packing list
-          x-docs-overrides: *id015
+          x-docs-overrides: *id016
           nullable: true
         workspace:
           description: >-
@@ -25768,7 +25864,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
           readOnly: true
       x-docs-overrides: *id005
     ProjectSectionInsertRequest:
@@ -26088,7 +26184,7 @@ components:
             Name of the project template.
           type: string
           example: Packing list
-      x-docs-overrides: *id015
+      x-docs-overrides: *id016
     ProjectTemplateBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -26281,7 +26377,7 @@ components:
                 description: >-
                   Name of the template role.
                 example: Designer
-      x-docs-overrides: *id015
+      x-docs-overrides: *id016
     ProjectTemplateResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -26474,7 +26570,7 @@ components:
                 description: >-
                   Name of the template role.
                 example: Designer
-      x-docs-overrides: *id015
+      x-docs-overrides: *id016
     ProjectTemplateInstantiateProjectRequest:
       type: object
       required:
@@ -27060,7 +27156,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T03:06:58.147Z'
-      x-docs-overrides: *id017
+      x-docs-overrides: *id018
     ResourceExportResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -27147,7 +27243,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id017
+          x-docs-overrides: *id018
       x-docs-overrides:
         properties.resource_type.example: job
     GraphExportRequest:
@@ -27215,7 +27311,7 @@ components:
           format: date-time
           readOnly: true
           example: '2012-02-22T03:06:58.147Z'
-      x-docs-overrides: *id016
+      x-docs-overrides: *id017
     GraphExportResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -27305,7 +27401,7 @@ components:
               format: date-time
               readOnly: true
               example: '2012-02-22T03:06:58.147Z'
-          x-docs-overrides: *id016
+          x-docs-overrides: *id017
       x-docs-overrides:
         properties.resource_type.example: job
     RateBase:
@@ -31469,7 +31565,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
         permalink_url:
           type: string
           readOnly: true
@@ -36087,7 +36183,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
           readOnly: true
         permalink_url:
           type: string
@@ -36661,7 +36757,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
         permalink_url:
           type: string
           readOnly: true
@@ -38224,7 +38320,7 @@ components:
                 description: The name of the workspace.
                 type: string
                 example: My Company Workspace
-            x-docs-overrides: *id020
+            x-docs-overrides: *id021
         custom_fields:
           description: Array of Custom Fields.
           type: array
@@ -38720,7 +38816,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id020
+              x-docs-overrides: *id021
       x-docs-overrides: &id041
         properties.resource_type.example: user_task_list
     UserTaskListCompact:
@@ -38812,7 +38908,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id020
+              x-docs-overrides: *id021
       x-docs-overrides: *id041
     UserTaskListRequest:
       description: >-
@@ -38903,7 +38999,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id020
+              x-docs-overrides: *id021
       x-docs-overrides: *id041
     UserTaskListResponse:
       description: >-
@@ -38994,7 +39090,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id020
+              x-docs-overrides: *id021
       x-docs-overrides: *id041
     WebhookCompact:
       description: >-
@@ -39464,7 +39560,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id020
+      x-docs-overrides: *id021
     WorkspaceCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -39491,7 +39587,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id020
+      x-docs-overrides: *id021
     WorkspaceMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -39567,7 +39663,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
       x-docs-overrides: &id043
         properties.resource_type.example: workspace_membership
     WorkspaceMembershipCompact:
@@ -39645,7 +39741,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
       x-docs-overrides: *id043
     WorkspaceMembershipRequest:
       description: >-
@@ -39722,7 +39818,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
       x-docs-overrides: *id043
     WorkspaceMembershipResponse:
       description: >-
@@ -39799,7 +39895,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
         user_task_list:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -39890,7 +39986,7 @@ components:
                       description: The name of the workspace.
                       type: string
                       example: My Company Workspace
-                  x-docs-overrides: *id020
+                  x-docs-overrides: *id021
           x-docs-overrides: *id041
           readOnly: true
         is_active:
@@ -39982,7 +40078,7 @@ components:
           description: The name of the workspace.
           type: string
           example: My Company Workspace
-      x-docs-overrides: *id020
+      x-docs-overrides: *id021
     WorkspaceResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -40021,7 +40117,7 @@ components:
           description: Whether the workspace is an *organization*.
           type: boolean
           example: false
-      x-docs-overrides: *id020
+      x-docs-overrides: *id021
     GoalMembershipBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -40069,7 +40165,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
@@ -40250,7 +40346,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
@@ -40449,7 +40545,7 @@ components:
               type: string
               description: The name of the member
               example: Greg Sanchez
-          x-docs-overrides: *id019
+          x-docs-overrides: *id020
         parent:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.
@@ -40655,7 +40751,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
           deprecated: true
           readOnly: true
       x-docs-overrides: *id044
@@ -40760,7 +40856,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             parent:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.
@@ -40968,7 +41064,7 @@ components:
                   description: The name of the workspace.
                   type: string
                   example: My Company Workspace
-              x-docs-overrides: *id020
+              x-docs-overrides: *id021
               deprecated: true
               readOnly: true
           x-docs-overrides: *id044
@@ -41047,7 +41143,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             access_level:
               description: >-
                 Whether the member has admin, editor, commenter, or viewer
@@ -41116,7 +41212,7 @@ components:
                   description: The name of the portfolio.
                   type: string
                   example: Bug Portfolio
-              x-docs-overrides: *id022
+              x-docs-overrides: *id015
             member:
               description: >-
                 A generic Asana Resource, containing a globally unique identifier.A
@@ -41140,7 +41236,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             access_level:
               description: >-
                 Whether the member has admin, editor, or viewer
@@ -41610,7 +41706,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             access_level:
               description: >-
                 Whether the member has admin, editor, or user
@@ -41698,7 +41794,7 @@ components:
                   type: string
                   description: The name of the member
                   example: Greg Sanchez
-              x-docs-overrides: *id019
+              x-docs-overrides: *id020
             access_level:
               description: >-
                 Whether the member has admin, editor, user, or viewer
@@ -42419,7 +42515,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
           readOnly: true
         base_role_type:
           description: >-
@@ -42608,7 +42704,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
           readOnly: true
         base_role_type:
           description: >-
@@ -42797,7 +42893,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
           readOnly: true
         base_role_type:
           description: >-
@@ -42986,7 +43082,7 @@ components:
               description: The name of the workspace.
               type: string
               example: My Company Workspace
-          x-docs-overrides: *id020
+          x-docs-overrides: *id021
           readOnly: true
         base_role_type:
           description: >-
@@ -49723,6 +49819,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -49746,6 +49844,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -53066,6 +53166,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -53089,6 +53191,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -54428,6 +54532,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -54451,6 +54557,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -57490,6 +57598,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -57513,6 +57623,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -61032,6 +61144,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -61055,6 +61169,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
@@ -62275,6 +62391,8 @@ paths:
             - new_graph_export.completed_at
             - new_graph_export.created_at
             - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
             - new_project
             - new_project.name
             - new_project_template
@@ -62298,6 +62416,8 @@ paths:
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
                 - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
                 - new_project
                 - new_project.name
                 - new_project_template
