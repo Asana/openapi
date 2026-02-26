@@ -835,13 +835,17 @@ tags:
       centralized inspection and management of a customer's deployed SaaS apps
       via an SSPM provider.
   - name: Status updates
-    description: |-
+    description: >-
       A status update is an update on the progress of a particular object,
       and is sent out to all followers when created. These updates
       include both text describing the update and a `status_type` intended to
-      represent the overall state of the project. These include: `on_track` for projects that
-      are on track, `at_risk` for projects at risk, `off_track` for projects that
-      are behind, and `on_hold` for projects on hold.
+      represent the overall state of the object.
+
+      The valid values for `status_type` depend on the parent of the status update:
+      - Projects: `on_track`, `at_risk`, `off_track`, `on_hold`, `complete`, `dropped`.
+      - Portfolios: `on_track`, `at_risk`, `off_track`, `on_hold`, `complete`, `dropped`.
+      - Goals: `on_track`, `at_risk`, `off_track`, `achieved`, `partial`, `missed`,
+      `dropped`.
 
       Status updates can be created and deleted, but not modified.
   - name: Stories
@@ -10410,14 +10414,14 @@ components:
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.A generic Asana
+            intended to represent the overall state of the object.A generic Asana
             Resource, containing a globally unique identifier.A generic Asana Resource,
             containing a globally unique identifier.
 
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.
+            intended to represent the overall state of the object.
 
             The latest `status_update` posted to this goal.
           type: object
@@ -16602,14 +16606,14 @@ components:
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.A generic Asana
+            intended to represent the overall state of the object.A generic Asana
             Resource, containing a globally unique identifier.A generic Asana Resource,
             containing a globally unique identifier.
 
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.
+            intended to represent the overall state of the object.
 
             The latest `status_update` posted to this portfolio.
           type: object
@@ -17510,14 +17514,14 @@ components:
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.A generic Asana
+            intended to represent the overall state of the object.A generic Asana
             Resource, containing a globally unique identifier.A generic Asana Resource,
             containing a globally unique identifier.
 
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.
+            intended to represent the overall state of the object.
 
             The latest `status_update` posted to this project.
           type: object
@@ -21256,14 +21260,14 @@ components:
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.A generic Asana
+            intended to represent the overall state of the object.A generic Asana
             Resource, containing a globally unique identifier.A generic Asana Resource,
             containing a globally unique identifier.
 
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.
+            intended to represent the overall state of the object.
 
             The latest `status_update` posted to this project.
           type: object
@@ -22668,14 +22672,14 @@ components:
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.A generic Asana
+            intended to represent the overall state of the object.A generic Asana
             Resource, containing a globally unique identifier.A generic Asana Resource,
             containing a globally unique identifier.
 
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.
+            intended to represent the overall state of the object.
 
             The latest `status_update` posted to this project.
           type: object
@@ -24075,14 +24079,14 @@ components:
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.A generic Asana
+            intended to represent the overall state of the object.A generic Asana
             Resource, containing a globally unique identifier.A generic Asana Resource,
             containing a globally unique identifier.
 
             A *status update* is an update on the progress of a particular project,
             portfolio, or goal, and is sent out to all of its parent's followers when
             created. These updates include both text describing the update and a `status_type`
-            intended to represent the overall state of the project.
+            intended to represent the overall state of the object.
 
             The latest `status_update` posted to this project.
           type: object
@@ -28457,7 +28461,7 @@ components:
         A *status update* is an update on the progress of a particular project, portfolio,
         or goal, and is sent out to all of its parent's followers when created. These
         updates include both text describing the update and a `status_type` intended
-        to represent the overall state of the project.
+        to represent the overall state of the object.
       type: object
       properties:
         gid:
@@ -28506,8 +28510,13 @@ components:
             <body>The project <strong>is</strong> moving forward according to
             plan...</body>
         status_type:
-          description: The type associated with the status update. This represents
-            the current state of the object this object is on.
+          description: |-
+            The type associated with the status update. This represents the current state of the object this object is on.
+
+            The valid values for `status_type` depend on the parent of the status update:
+            - Projects: `on_track`, `at_risk`, `off_track`, `on_hold`, `complete`, `dropped`.
+            - Portfolios: `on_track`, `at_risk`, `off_track`, `on_hold`, `complete`, `dropped`.
+            - Goals: `on_track`, `at_risk`, `off_track`, `achieved`, `partial`, `missed`, `dropped`.
           type: string
           enum:
             - on_track
@@ -28531,7 +28540,7 @@ components:
         A *status update* is an update on the progress of a particular project, portfolio,
         or goal, and is sent out to all of its parent's followers when created. These
         updates include both text describing the update and a `status_type` intended
-        to represent the overall state of the project.
+        to represent the overall state of the object.
       type: object
       properties:
         gid:
@@ -28575,7 +28584,7 @@ components:
         A *status update* is an update on the progress of a particular project, portfolio,
         or goal, and is sent out to all of its parent's followers when created. These
         updates include both text describing the update and a `status_type` intended
-        to represent the overall state of the project.
+        to represent the overall state of the object.
       type: object
       properties:
         gid:
@@ -28624,8 +28633,13 @@ components:
             <body>The project <strong>is</strong> moving forward according to
             plan...</body>
         status_type:
-          description: The type associated with the status update. This represents
-            the current state of the object this object is on.
+          description: |-
+            The type associated with the status update. This represents the current state of the object this object is on.
+
+            The valid values for `status_type` depend on the parent of the status update:
+            - Projects: `on_track`, `at_risk`, `off_track`, `on_hold`, `complete`, `dropped`.
+            - Portfolios: `on_track`, `at_risk`, `off_track`, `on_hold`, `complete`, `dropped`.
+            - Goals: `on_track`, `at_risk`, `off_track`, `achieved`, `partial`, `missed`, `dropped`.
           type: string
           enum:
             - on_track
@@ -28655,7 +28669,7 @@ components:
         A *status update* is an update on the progress of a particular project, portfolio,
         or goal, and is sent out to all of its parent's followers when created. These
         updates include both text describing the update and a `status_type` intended
-        to represent the overall state of the project.
+        to represent the overall state of the object.
       type: object
       properties:
         gid:
@@ -28704,8 +28718,13 @@ components:
             <body>The project <strong>is</strong> moving forward according to
             plan...</body>
         status_type:
-          description: The type associated with the status update. This represents
-            the current state of the object this object is on.
+          description: |-
+            The type associated with the status update. This represents the current state of the object this object is on.
+
+            The valid values for `status_type` depend on the parent of the status update:
+            - Projects: `on_track`, `at_risk`, `off_track`, `on_hold`, `complete`, `dropped`.
+            - Portfolios: `on_track`, `at_risk`, `off_track`, `on_hold`, `complete`, `dropped`.
+            - Goals: `on_track`, `at_risk`, `off_track`, `achieved`, `partial`, `missed`, `dropped`.
           type: string
           enum:
             - on_track
