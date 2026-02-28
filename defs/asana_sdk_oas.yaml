@@ -1,5 +1,5 @@
 ---
-openapi: 3.0.0
+openapi: 3.0.4
 info:
   description: >-
     This is the interface for interacting with the [Asana
@@ -1610,231 +1610,277 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
     AccessRequestResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AccessRequestResponseArray'
     AccessRequestResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AccessRequestResponseData'
     EmptyResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/EmptyResponseData'
     AllocationResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AllocationResponseData'
     AllocationResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AllocationResponseArray'
     AttachmentResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AttachmentResponseData'
     AttachmentResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AttachmentResponseArray'
     AuditLogEventArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AuditLogEventArray'
     BatchResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/BatchResponseArray'
     BudgetResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/BudgetResponseArray'
     BudgetResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/BudgetResponseData'
     CustomFieldSettingResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/CustomFieldSettingResponseArray'
     CustomFieldResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/CustomFieldResponseData'
     CustomFieldResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/CustomFieldResponseArray'
     EnumOptionData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/EnumOptionData'
     CustomTypeResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/CustomTypeResponseArray'
     CustomTypeResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/CustomTypeResponseData'
     EventResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/EventResponseArray'
     GraphExportResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/GraphExportResponseData'
     ResourceExportResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ResourceExportResponseData'
     GoalRelationshipResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/GoalRelationshipResponseData'
     GoalRelationshipResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/GoalRelationshipResponseArray'
     GoalResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/GoalResponseData'
     GoalResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/GoalResponseArray'
     CustomFieldSettingResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/CustomFieldSettingResponseData'
     JobResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/JobResponseData'
     MembershipResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/MembershipResponseArray'
     MembershipResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/MembershipResponseData'
     OrganizationExportResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/OrganizationExportResponseData'
     DeprecatedPortfolioMembershipResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/DeprecatedPortfolioMembershipResponseArray'
     DeprecatedPortfolioMembershipResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/DeprecatedPortfolioMembershipResponseData'
     PortfolioResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/PortfolioResponseArray'
     PortfolioResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/PortfolioResponseData'
     ProjectResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectResponseArray'
     ProjectBriefResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectBriefResponseData'
     ProjectMembershipNormalResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectMembershipNormalResponseData'
     ProjectMembershipCompactArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectMembershipCompactArray'
     ProjectStatusResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectStatusResponseData'
     ProjectStatusResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectStatusResponseArray'
     ProjectTemplateResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectTemplateResponseData'
     ProjectTemplateResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectTemplateResponseArray'
     ProjectResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/ProjectResponseData'
     TaskCountResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TaskCountResponseData'
     RateOrPlaceholderCompactArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/RateOrPlaceholderCompactArray'
     RateResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/RateResponseData'
     ReactionCompactArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
@@ -1850,161 +1896,193 @@ components:
           schema:
             $ref: '#/components/schemas/RbacRoleResponseData'
     RuleTriggerResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/RuleTriggerResponseData'
     SectionResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/SectionResponseData'
     SectionResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/SectionResponseArray'
     StatusUpdateResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/StatusUpdateResponseData'
     StatusUpdateResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/StatusUpdateResponseArray'
     StoryResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/StoryResponseData'
     StoryResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/StoryResponseArray'
     TagResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TagResponseArray'
     TagResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TagResponseData'
     TaskTemplateResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TaskTemplateResponseArray'
     TaskTemplateResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TaskTemplateResponseData'
     TaskResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TaskResponseArray'
     TaskResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TaskResponseData'
     TeamMembershipResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TeamMembershipResponseData'
     TeamMembershipResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TeamMembershipResponseArray'
     TeamResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TeamResponseData'
     TeamResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TeamResponseArray'
     TimePeriodResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TimePeriodResponseData'
     TimePeriodResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TimePeriodResponseArray'
     TimeTrackingEntryCompactArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TimeTrackingEntryCompactArray'
     TimeTrackingEntryBaseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TimeTrackingEntryBaseData'
     AsanaNamedResourceArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AsanaNamedResourceArray'
     UserTaskListResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/UserTaskListResponseData'
     UserResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/UserResponseArray'
     UserResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/UserResponseData'
     WebhookResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/WebhookResponseArray'
     WebhookResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/WebhookResponseData'
     WorkspaceMembershipResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/WorkspaceMembershipResponseData'
     WorkspaceMembershipResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/WorkspaceMembershipResponseArray'
     WorkspaceResponseArray:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/WorkspaceResponseArray'
     WorkspaceResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/WorkspaceResponseData'
     UserBaseResponseData:
+      description: ''
       content:
         application/json; charset=UTF-8:
           schema:
