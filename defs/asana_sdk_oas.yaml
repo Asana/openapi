@@ -68429,7 +68429,7 @@ paths:
     get:
       summary: Get objects via typeahead
       description: |-
-        <b>Required scope: </b><code>workspace.typeahead:read</code>
+        <b>Required scope: </b><code>workspaces.typeahead:read</code>
 
         Retrieves objects in the workspace based via an auto-completion/typeahead
         search algorithm. This feature is meant to provide results quickly, so do
@@ -68502,7 +68502,7 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - oauth2:
-            - workspace.typeahead:read
+            - workspaces.typeahead:read
   /user_task_lists/{user_task_list_gid}:
     parameters:
       - $ref: '#/components/parameters/user_task_list_path_gid'
