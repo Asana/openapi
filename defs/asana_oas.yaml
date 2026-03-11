@@ -9685,6 +9685,9 @@ components:
             portfolios:read: View access to portfolios
             portfolios:write: Create and modify access to portfolios
             project_templates:read: View access to project templates
+            project_portfolio_settings:read: View access to project portfolio settings
+            project_portfolio_settings:write: Create and modify access to project
+              portfolio settings
             projects:delete: Delete access to projects
             projects:read: View access to projects
             projects:write: Create and modify access to projects
@@ -27300,6 +27303,24 @@ paths:
 
               result = client.project_memberships.get_project_memberships_for_project(project_gid:
               'project_gid', param: "value", param: "value", options: {pretty: true})
+  /project_portfolio_settings/{project_portfolio_setting_gid}:
+    parameters:
+      - name: project_portfolio_setting_gid
+        in: path
+        required: true
+        description: Globally unique identifier for the project portfolio setting.
+        schema:
+          type: string
+        example: '1234'
+      - $ref: '#/components/parameters/pretty'
+  /projects/{project_gid}/project_portfolio_settings:
+    parameters:
+      - $ref: '#/components/parameters/project_path_gid'
+      - $ref: '#/components/parameters/pretty'
+  /portfolios/{portfolio_gid}/project_portfolio_settings:
+    parameters:
+      - $ref: '#/components/parameters/portfolio_path_gid'
+      - $ref: '#/components/parameters/pretty'
   /project_statuses/{project_status_gid}:
     parameters:
       - $ref: '#/components/parameters/project_status_path_gid'

@@ -52688,6 +52688,21 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+  /project_portfolio_settings/{project_portfolio_setting_gid}:
+    parameters:
+      - name: project_portfolio_setting_gid
+        in: path
+        required: true
+        description: Globally unique identifier for the project portfolio setting.
+        schema:
+          type: string
+        example: '1234'
+  /projects/{project_gid}/project_portfolio_settings:
+    parameters:
+      - $ref: '#/components/parameters/project_path_gid'
+  /portfolios/{portfolio_gid}/project_portfolio_settings:
+    parameters:
+      - $ref: '#/components/parameters/portfolio_path_gid'
   /project_statuses/{project_status_gid}:
     parameters:
       - $ref: '#/components/parameters/project_status_path_gid'
