@@ -5128,6 +5128,34 @@ components:
                 as the start dates in the original project.
               type: string
               example: '2019-05-21'
+    PortfolioDuplicateRequest:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          description: The name of the new portfolio.
+          type: string
+          example: New Portfolio Name
+        include:
+          description: |-
+            A comma-separated list of elements to include when duplicating a portfolio.
+
+            **Auto-included fields (non-configurable)**
+            - Custom field settings
+            - Views (tabs)
+
+            **Optional fields (configurable)**
+            - description
+            - members
+            - permissions
+            - templates
+            - rules
+            - child_projects
+            - child_portfolios
+          type: string
+          example:
+            - description,members,permissions,templates,rules,child_projects,child_portfolios
     CustomFieldMembershipBase:
       $ref: '#/components/schemas/CustomFieldMembershipCompact'
     CustomFieldMembershipCompact:
@@ -26222,6 +26250,108 @@ paths:
 
               result = client.portfolios.remove_members_for_portfolio(portfolio_gid:
               'portfolio_gid', field: "value", field: "value", options: {pretty: true})
+  /portfolios/{portfolio_gid}/duplicate:
+    parameters:
+      - $ref: '#/components/parameters/portfolio_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    post:
+      summary: Duplicate a portfolio
+      description: |-
+        <b>Required scope: </b><code>portfolios:write</code>
+
+        Creates and returns a job that will asynchronously handle the duplication.
+      tags:
+        - Portfolios
+      operationId: duplicatePortfolio
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
+            - new_project
+            - new_project.name
+            - new_project_template
+            - new_project_template.name
+            - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
+            - new_task
+            - new_task.created_by
+            - new_task.name
+            - new_task.resource_subtype
+            - resource_subtype
+            - status
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
+                - new_project
+                - new_project.name
+                - new_project_template
+                - new_project_template.name
+                - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
+                - new_task
+                - new_task.created_by
+                - new_task.name
+                - new_task.resource_subtype
+                - resource_subtype
+                - status
+          style: form
+          explode: false
+      requestBody:
+        description: >-
+          Describes the duplicate's name and the elements that will be duplicated.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/PortfolioDuplicateRequest'
+      responses:
+        201:
+          description: Successfully created the job to handle duplication.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/JobResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - portfolios:write
   /project_briefs/{project_brief_gid}:
     parameters:
       - $ref: '#/components/parameters/project_brief_path_gid'
