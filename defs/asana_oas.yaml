@@ -736,6 +736,11 @@ tags:
       permissions (i.e., whether a user has full access to the project or
       comment-only access) are accessible through the project memberships
       endpoints described here.
+  - name: Project portfolio settings
+    description: >-
+      A project portfolio setting represents the relationship between a project
+      and a portfolio. It controls configuration such as whether portfolio
+      members inherit access to the project.
   - name: Project statuses
     description: |-
       *Deprecated: new integrations should prefer using [status updates](/reference/status-updates)*
@@ -1198,6 +1203,16 @@ components:
         type: string
       example: '1331'
       x-env-variable: project_membership
+    project_portfolio_setting_path_gid:
+      name: project_portfolio_setting_gid
+      in: path
+      description: >-
+        Globally unique identifier for the project portfolio setting.
+      required: true
+      schema:
+        type: string
+      example: '1331'
+      x-env-variable: project_portfolio_setting
     project_status_path_gid:
       name: project_status_gid
       in: path
@@ -5330,6 +5345,59 @@ components:
                 - comment_only
               readOnly: true
               example: full_write
+    ProjectPortfolioSettingCompact:
+      description: >-
+        A project portfolio setting represents the relationship between a project
+        and a portfolio, including configuration such as access control inheritance.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: project_portfolio_setting
+          x-insert-after: gid
+        project:
+          description: The project associated with this setting.
+          allOf:
+            - $ref: '#/components/schemas/ProjectCompact'
+            - type: object
+        portfolio:
+          description: The portfolio associated with this setting.
+          allOf:
+            - $ref: '#/components/schemas/PortfolioCompact'
+            - type: object
+        is_access_control_inherited:
+          description: >-
+            When true, the portfolio members gain access to the project.
+          type: boolean
+          example: true
+    ProjectPortfolioSettingResponse:
+      allOf:
+        - $ref: '#/components/schemas/ProjectPortfolioSettingCompact'
+        - type: object
+          properties:
+            created_at:
+              description: The time at which this project portfolio setting was created.
+              type: string
+              format: date-time
+              readOnly: true
+              example: '2012-02-22T02:06:58.147Z'
+    ProjectPortfolioSettingUpdateRequest:
+      type: object
+      properties:
+        is_access_control_inherited:
+          description: >-
+            When true, the portfolio members gain access to the project.
+          type: boolean
+          example: true
     ProjectRequest:
       allOf:
         - $ref: '#/components/schemas/ProjectBase'
@@ -27433,24 +27501,6 @@ paths:
 
               result = client.project_memberships.get_project_memberships_for_project(project_gid:
               'project_gid', param: "value", param: "value", options: {pretty: true})
-  /project_portfolio_settings/{project_portfolio_setting_gid}:
-    parameters:
-      - name: project_portfolio_setting_gid
-        in: path
-        required: true
-        description: Globally unique identifier for the project portfolio setting.
-        schema:
-          type: string
-        example: '1234'
-      - $ref: '#/components/parameters/pretty'
-  /projects/{project_gid}/project_portfolio_settings:
-    parameters:
-      - $ref: '#/components/parameters/project_path_gid'
-      - $ref: '#/components/parameters/pretty'
-  /portfolios/{portfolio_gid}/project_portfolio_settings:
-    parameters:
-      - $ref: '#/components/parameters/portfolio_path_gid'
-      - $ref: '#/components/parameters/pretty'
   /project_statuses/{project_status_gid}:
     parameters:
       - $ref: '#/components/parameters/project_status_path_gid'
