@@ -27501,6 +27501,284 @@ paths:
 
               result = client.project_memberships.get_project_memberships_for_project(project_gid:
               'project_gid', param: "value", param: "value", options: {pretty: true})
+  /project_portfolio_settings/{project_portfolio_setting_gid}:
+    parameters:
+      - $ref: '#/components/parameters/project_portfolio_setting_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get a project portfolio setting
+      description: |-
+        <b>Required scope: </b><code>project_portfolio_settings:read</code>
+
+        Returns the complete project portfolio setting record for a single project portfolio setting.
+      tags:
+        - Project portfolio settings
+      operationId: getProjectPortfolioSetting
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_at
+            - is_access_control_inherited
+            - portfolio
+            - project
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - is_access_control_inherited
+                - portfolio
+                - project
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved the requested project portfolio setting.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProjectPortfolioSettingResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - project_portfolio_settings:read
+    put:
+      summary: Update a project portfolio setting
+      description: |-
+        <b>Required scope: </b><code>project_portfolio_settings:write</code>
+
+        An existing project portfolio setting can be updated by making a PUT
+        request on the URL for that setting. Only the fields provided in the
+        `data` block will be updated; any unspecified fields will remain
+        unchanged.
+
+        Returns the complete updated project portfolio setting record.
+      tags:
+        - Project portfolio settings
+      operationId: updateProjectPortfolioSetting
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_at
+            - is_access_control_inherited
+            - portfolio
+            - project
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - is_access_control_inherited
+                - portfolio
+                - project
+          style: form
+          explode: false
+      requestBody:
+        description: The updated fields for the project portfolio setting.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/ProjectPortfolioSettingUpdateRequest'
+      responses:
+        200:
+          description: Successfully updated the project portfolio setting.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ProjectPortfolioSettingResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - project_portfolio_settings:write
+  /projects/{project_gid}/project_portfolio_settings:
+    parameters:
+      - $ref: '#/components/parameters/project_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+    get:
+      summary: Get project portfolio settings for a project
+      description: |-
+        <b>Required scope: </b><code>project_portfolio_settings:read</code>
+
+        Returns a compact representation of all of the project portfolio settings for the given project.
+      tags:
+        - Project portfolio settings
+      operationId: getProjectPortfolioSettingsForProject
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_at
+            - is_access_control_inherited
+            - offset
+            - path
+            - portfolio
+            - project
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - is_access_control_inherited
+                - offset
+                - path
+                - portfolio
+                - project
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved the requested project's project portfolio settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProjectPortfolioSettingCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - project_portfolio_settings:read
+  /portfolios/{portfolio_gid}/project_portfolio_settings:
+    parameters:
+      - $ref: '#/components/parameters/portfolio_path_gid'
+      - $ref: '#/components/parameters/pretty'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+    get:
+      summary: Get project portfolio settings for a portfolio
+      description: |-
+        <b>Required scope: </b><code>project_portfolio_settings:read</code>
+
+        Returns a compact representation of all of the project portfolio settings for the given portfolio.
+      tags:
+        - Project portfolio settings
+      operationId: getProjectPortfolioSettingsForPortfolio
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - created_at
+            - is_access_control_inherited
+            - offset
+            - path
+            - portfolio
+            - project
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - is_access_control_inherited
+                - offset
+                - path
+                - portfolio
+                - project
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          description: >-
+            Successfully retrieved the requested portfolio's project portfolio settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ProjectPortfolioSettingCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - project_portfolio_settings:read
   /project_statuses/{project_status_gid}:
     parameters:
       - $ref: '#/components/parameters/project_status_path_gid'
