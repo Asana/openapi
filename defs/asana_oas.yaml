@@ -51340,6 +51340,7 @@ paths:
             - default_task
             - milestone
             - approval
+            - custom
           default: milestone
       - name: assignee.any
         in: query
@@ -51771,6 +51772,22 @@ paths:
         For example, if the gid of the custom field is 12345, these query parameter to find tasks where it is set would be `custom_fields.12345.is_set=true`. To match an exact value for an enum custom field, use the gid of the desired enum option and not the name of the enum option: `custom_fields.12345.value=67890`.
 
         **Not Supported**: searching for multiple exact matches of a custom field, searching for multi-enum custom field
+
+        #### Custom task type parameters
+        | Parameter name | Accepted type |
+        |---|---|
+        | custom_types.{gid}.custom_type_status_option.gid | Enum option GID |
+
+        This parameter filters tasks by their custom task status option. The `{gid}` is the GID of the custom task type, and the value is the GID of a valid status option for that type's status field.
+
+        **Requirements**:
+        - `resource_subtype=custom` must be set when using this parameter.
+        - Only one `custom_types.*` parameter may be specified per request.
+        - The provided custom task type GID must reference a valid custom object type.
+        - The status option GID must be a valid option for the custom type's status field.
+        - Cannot be combined with `custom_fields.{status_field_gid}.value` when `{status_field_gid}` is the status field belonging to the same custom task type.
+
+        For example, to find custom tasks of type `12345` with status option `67890`: `custom_types.12345.custom_type_status_option.gid=67890&resource_subtype=custom`.
 
         *Note: If you specify `projects.any` and `sections.any`, you will receive tasks for the project **and** tasks for the section. If you're looking for only tasks in a section, omit the `projects.any` from the request.*
       tags:
