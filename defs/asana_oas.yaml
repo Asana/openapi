@@ -1543,6 +1543,16 @@ components:
         type: string
       example: '321654'
       x-env-variable: message
+    ooo_entry_path_gid:
+      name: ooo_entry_gid
+      in: path
+      description: >-
+        Globally unique identifier for the OOO entry.
+      required: true
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: ooo_entry
     allocation_path_gid:
       name: allocation_gid
       in: path
@@ -4287,6 +4297,67 @@ components:
           description: A full uri containing the query parameters to fetch for next_page
           example: 
             https://app.asana.com/api/1.0/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
+    OooEntryBase:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: ooo_entry
+          x-insert-after: gid
+        start_date:
+          type: string
+          format: date
+          description: >-
+            The day on which the OOO entry starts.
+          example: '2024-01-01'
+        end_date:
+          type: string
+          format: date
+          description: >-
+            The day on which the OOO entry ends.
+          example: '2024-01-15'
+    OooEntryResponse:
+      allOf:
+        - $ref: '#/components/schemas/OooEntryBase'
+        - type: object
+          properties:
+            user:
+              $ref: '#/components/schemas/UserCompact'
+              type: object
+              description: >-
+                The user who is out of office.
+            created_by:
+              $ref: '#/components/schemas/UserCompact'
+              type: object
+              description: >-
+                The user who created the OOO entry.
+    OooEntryCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/OooEntryBase'
+        - type: object
+          properties:
+            user:
+              type: string
+              description: >-
+                Globally unique identifier for the user who is out of office.
+            workspace:
+              type: string
+              description: >-
+                Globally unique identifier for the workspace.
+              example: '98765'
+    OooEntryUpdateRequest:
+      $ref: '#/components/schemas/OooEntryBase'
     OrganizationExportBase:
       $ref: '#/components/schemas/OrganizationExportCompact'
     OrganizationExportCompact:
