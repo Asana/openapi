@@ -9861,6 +9861,9 @@ components:
             custom_fields:write: Create and modify access to custom fields
             goals:read: View access to goals
             jobs:read: View access to jobs
+            ooo_entries:read: View access to OOO entries
+            ooo_entries:write: Create and modify access to OOO entries
+            ooo_entries:delete: Delete access to OOO entries
             tasks:read: View access to tasks
             tasks:write: Create and modify access to tasks
             tasks:delete: Delete access to tasks
