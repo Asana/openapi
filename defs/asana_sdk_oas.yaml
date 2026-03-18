@@ -42911,9 +42911,11 @@ components:
           type: string
           example: This role has full access to the project.
         is_standard_role:
-          description: Whether the role is a standard role or a custom role.
+          description: >-
+            Whether the role is a standard role or a custom role.
+            Defaults to `false`.
           type: boolean
-          example: true
+          example: false
       x-docs-overrides: &id049
         properties.resource_type.example: role
     RbacRoleBase:
@@ -42949,9 +42951,11 @@ components:
           type: string
           example: This role has full access to the project.
         is_standard_role:
-          description: Whether the role is a standard role or a custom role.
+          description: >-
+            Whether the role is a standard role or a custom role.
+            Defaults to `false`.
           type: boolean
-          example: true
+          example: false
         creation_time:
           description: The time at which this role was created.
           type: string
@@ -42965,43 +42969,6 @@ components:
           readOnly: true
           format: date-time
           example: '2012-02-22T02:06:58.147Z'
-        workspace:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.A generic Asana Resource, containing
-            a globally unique identifier.A generic Asana Resource, containing a globally
-            unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.
-
-            *Create-only*. The workspace this role is associated with. Once created,
-            roles cannot be moved to a different workspace. This attribute can only
-            be specified at creation time.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              description: The name of the workspace.
-              type: string
-              example: My Company Workspace
-          x-docs-overrides: *id022
-          readOnly: true
         base_role_type:
           description: >-
             The base role type of the role.
@@ -43138,9 +43105,11 @@ components:
           type: string
           example: This role has full access to the project.
         is_standard_role:
-          description: Whether the role is a standard role or a custom role.
+          description: >-
+            Whether the role is a standard role or a custom role.
+            Defaults to `false`.
           type: boolean
-          example: true
+          example: false
         creation_time:
           description: The time at which this role was created.
           type: string
@@ -43154,43 +43123,6 @@ components:
           readOnly: true
           format: date-time
           example: '2012-02-22T02:06:58.147Z'
-        workspace:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.A generic Asana Resource, containing
-            a globally unique identifier.A generic Asana Resource, containing a globally
-            unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.
-
-            *Create-only*. The workspace this role is associated with. Once created,
-            roles cannot be moved to a different workspace. This attribute can only
-            be specified at creation time.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              description: The name of the workspace.
-              type: string
-              example: My Company Workspace
-          x-docs-overrides: *id022
-          readOnly: true
         base_role_type:
           description: >-
             The base role type of the role.
@@ -43293,6 +43225,43 @@ components:
                 AI features
               type: boolean
               example: true
+        workspace:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *workspace* is the highest-level organizational unit in Asana. All projects
+            and tasks have an associated workspace.
+
+            *Create-only*. The workspace this role is associated with. Once created,
+            roles cannot be moved to a different workspace. This attribute can only
+            be specified at creation time.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              description: The name of the workspace.
+              type: string
+              example: My Company Workspace
+          x-docs-overrides: *id022
+          readOnly: true
       x-docs-overrides: *id049
     RbacRoleRequest:
       description: >-
@@ -43327,9 +43296,11 @@ components:
           type: string
           example: This role has full access to the project.
         is_standard_role:
-          description: Whether the role is a standard role or a custom role.
+          description: >-
+            Whether the role is a standard role or a custom role.
+            Defaults to `false`.
           type: boolean
-          example: true
+          example: false
         creation_time:
           description: The time at which this role was created.
           type: string
@@ -43343,43 +43314,6 @@ components:
           readOnly: true
           format: date-time
           example: '2012-02-22T02:06:58.147Z'
-        workspace:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.A generic Asana Resource, containing
-            a globally unique identifier.A generic Asana Resource, containing a globally
-            unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.
-
-            *Create-only*. The workspace this role is associated with. Once created,
-            roles cannot be moved to a different workspace. This attribute can only
-            be specified at creation time.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              description: The name of the workspace.
-              type: string
-              example: My Company Workspace
-          x-docs-overrides: *id022
-          readOnly: true
         base_role_type:
           description: >-
             The base role type of the role.
@@ -43482,7 +43416,19 @@ components:
                 AI features
               type: boolean
               example: true
+        workspace:
+          type: string
+          description: >-
+            *Create-only*. The GID of the workspace this role is associated with.
+            Once created, roles cannot be moved to a different workspace.
+            This attribute can only be specified at creation time.
+          example: '12345'
       x-docs-overrides: *id049
+      required:
+        - name
+        - description
+        - base_role_type
+        - workspace
     RbacRoleUpdateRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -43516,9 +43462,11 @@ components:
           type: string
           example: This role has full access to the project.
         is_standard_role:
-          description: Whether the role is a standard role or a custom role.
+          description: >-
+            Whether the role is a standard role or a custom role.
+            Defaults to `false`.
           type: boolean
-          example: true
+          example: false
         creation_time:
           description: The time at which this role was created.
           type: string
@@ -43532,43 +43480,6 @@ components:
           readOnly: true
           format: date-time
           example: '2012-02-22T02:06:58.147Z'
-        workspace:
-          description: >-
-            A generic Asana Resource, containing a globally unique identifier.A generic
-            Asana Resource, containing a globally unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.A generic Asana Resource, containing
-            a globally unique identifier.A generic Asana Resource, containing a globally
-            unique identifier.
-
-            A *workspace* is the highest-level organizational unit in Asana. All projects
-            and tasks have an associated workspace.
-
-            *Create-only*. The workspace this role is associated with. Once created,
-            roles cannot be moved to a different workspace. This attribute can only
-            be specified at creation time.
-          type: object
-          properties:
-            gid:
-              description: >-
-                Globally unique identifier of the resource, as a string.
-              type: string
-              readOnly: true
-              example: '12345'
-              x-insert-after: false
-            resource_type:
-              description: The base type of this resource.
-              type: string
-              readOnly: true
-              example: task
-              x-insert-after: gid
-            name:
-              description: The name of the workspace.
-              type: string
-              example: My Company Workspace
-          x-docs-overrides: *id022
-          readOnly: true
         base_role_type:
           description: >-
             The base role type of the role.
@@ -59200,7 +59111,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/RbacRoleRequest'
+                  $ref: '#/components/schemas/RbacRoleUpdateRequest'
       responses:
         200:
           $ref: '#/components/responses/RbacRoleResponseData'
