@@ -93,6 +93,8 @@ info:
     - TeamCompact
     - TimePeriodResponse
     - TimePeriodCompact
+    - TimeTrackingCategoryResponse
+    - TimeTrackingCategoryCompact
     - UserTaskListResponse
     - UserTaskListCompact
     - UserResponse
@@ -1332,6 +1334,16 @@ components:
         type: string
       example: '917392'
       x-env-variable: time_period
+    time_tracking_category_path_gid:
+      name: time_tracking_category_gid
+      in: path
+      description: >-
+        Globally unique identifier for the time tracking category.
+      required: true
+      schema:
+        type: string
+      example: '917392'
+      x-env-variable: time_tracking_category
     time_tracking_entry_path_gid:
       name: time_tracking_entry_gid
       in: path

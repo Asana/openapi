@@ -92,6 +92,8 @@ info:
     - TeamCompact
     - TimePeriodResponse
     - TimePeriodCompact
+    - TimeTrackingCategoryResponse
+    - TimeTrackingCategoryCompact
     - UserTaskListResponse
     - UserTaskListCompact
     - UserResponse
@@ -1373,6 +1375,16 @@ components:
         type: string
       example: '917392'
       x-env-variable: time_period
+    time_tracking_category_path_gid:
+      name: time_tracking_category_gid
+      in: path
+      description: >-
+        Globally unique identifier for the time tracking category.
+      required: true
+      schema:
+        type: string
+      example: '917392'
+      x-env-variable: time_tracking_category
     time_tracking_entry_path_gid:
       name: time_tracking_entry_gid
       in: path
@@ -10013,6 +10025,10 @@ components:
             roles:delete: Delete access to roles
             users:read: View access to users
             teams:read: View access to teams
+            time_tracking_categories:read: View access to time tracking categories
+            time_tracking_categories:write: Create and modify access to time tracking
+              categories
+            time_tracking_categories:delete: Delete access to time tracking categories
             time_tracking_entries:read: View access to time tracking entries
             timesheet_approval_statuses:read: View access to timesheet approval statuses
             timesheet_approval_statuses:write: Create and modify access to timesheet
