@@ -3001,14 +3001,16 @@ components:
             people_value:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `people`.
-                This array of user GIDs reflects the users to be written to a `people`
-                custom field. Note that *write* operations will replace existing users
+                This array of user GIDs, emails, or the string "me",
+                reflects the users to be written to a `people` custom field.
+                Note that *write* operations will replace existing users
                 (if any) in the custom field with the users specified in this array.
               type: array
               items:
                 type: string
                 description: >-
-                  The GID of a user.
+                  A string identifying a user. This can either be the string "me",
+                  an email, or the gid of a user.
               example:
                 - '12345'
             reference_value:
@@ -5942,7 +5944,7 @@ components:
             $ref: '#/components/schemas/DateVariableRequest'
         requested_roles:
           description: >-
-            Array of mappings of template roles to user ids
+            Array of mappings of template roles to users.
           type: array
           items:
             $ref: '#/components/schemas/RequestedRoleRequest'
@@ -6001,7 +6003,8 @@ components:
           example: '1'
         value:
           description: >-
-            The user id that should be assigned to the template role.
+            A string identifying a user that should be assigned to the template role.
+            This can either be the string "me", an email, or the gid of a user.
           type: string
           example: '123'
     ProjectSaveAsTemplateRequest:
@@ -8076,7 +8079,8 @@ components:
               readOnly: false
               x-env-variable: true
               description: >-
-                Gid of a user.
+                A string identifying a user. This can either be the string "me", an
+                email, or the gid of a user.
               example: '12345'
               nullable: true
             assignee_section:
@@ -8124,7 +8128,8 @@ components:
               items:
                 type: string
                 description: >-
-                  Gid of a user.
+                  A string identifying a user. This can either be the string "me",
+                  an email, or the gid of a user.
               example:
                 - '12345'
             parent:
@@ -34472,20 +34477,25 @@ paths:
         example: 12345,67890
       - name: owner.any
         in: query
-        description: Comma-separated list of user identifiers to filter on as project
-          owners.
+        description: >-
+          Comma-separated list of user identifiers to filter on as project owners.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,67890
       - name: members.any
         in: query
-        description: Comma-separated list of user identifiers to filter on as members.
+        description: >-
+          Comma-separated list of user identifiers to filter on as members.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,67890
       - name: members.not
         in: query
-        description: Comma-separated list of user identifiers to exclude as members.
+        description: >-
+          Comma-separated list of user identifiers to exclude as members.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,67890
@@ -52943,14 +52953,16 @@ paths:
       - name: assignee.any
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
       - name: assignee.not
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
@@ -53034,56 +53046,64 @@ paths:
       - name: followers.any
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
       - name: followers.not
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
       - name: created_by.any
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
       - name: created_by.not
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
       - name: assigned_by.any
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
       - name: assigned_by.not
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
       - name: liked_by.not
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
       - name: commented_on_by.not
         in: query
         description: >-
-          Comma-separated list of user identifiers
+          Comma-separated list of user identifiers.
+          This can either be the string "me", an email, or the gid of a user.
         schema:
           type: string
         example: 12345,23456,34567
