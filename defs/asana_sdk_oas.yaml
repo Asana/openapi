@@ -915,6 +915,14 @@ tags:
     description: >-
       A time period is an object that represents a domain-scoped date range that can
       be set on [goals](/reference/goals).
+  - name: Time tracking categories
+    description: >-
+      A time tracking category is a label that can be assigned to time tracking entries
+      to classify
+      logged time. Categories are workspace-scoped and managed by admin users, allowing
+      for
+      more granular reporting and filtering of time entries (e.g., 'Development',
+      'Meetings').
   - name: Time tracking entries
     description: >-
       Asana's native time tracking feature allows you to estimate the time needed
@@ -1996,11 +2004,21 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TimePeriodResponseArray'
+    TimeTrackingCategoryResponseData:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/TimeTrackingCategoryResponseData'
     TimeTrackingEntryCompactArray:
       content:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/TimeTrackingEntryCompactArray'
+    TimeTrackingCategoryResponseArray:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/TimeTrackingCategoryResponseArray'
     TimeTrackingEntryBaseData:
       content:
         application/json; charset=UTF-8:
@@ -42363,6 +42381,16 @@ components:
             *Optional*. The description of the entry.
           type: string
           example: My description of work done on this entry
+        categories:
+          description: >-
+            *Optional*. The gids of time tracking categories to assign to
+            this time tracking entry. Existing categories will be overridden.
+            Currently limited to a maximum of 1 category.
+          type: array
+          items:
+            type: string
+          example:
+            - '12345'
     CreateTimeTrackingEntryRequest:
       type: object
       properties:
@@ -42397,6 +42425,16 @@ components:
             *Optional*. The description of the entry.
           type: string
           example: My description of work done on this entry
+        categories:
+          description: >-
+            *Optional*. The gids of time tracking categories to assign to
+            this time tracking entry. Existing categories will be overridden.
+            Currently limited to a maximum of 1 category.
+          type: array
+          items:
+            type: string
+          example:
+            - '12345'
     TimeTrackingEntryCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -42693,7 +42731,277 @@ components:
           type: string
           readOnly: true
           example: My description of work done on this entry
+        categories:
+          description: >-
+            The categories linked to this time tracking entry.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              A *time tracking category* is a label that can be assigned to time tracking
+              entries. Categories are workspace-scoped and allow users to classify
+              logged time (e.g., 'Development', 'Meetings').
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              name:
+                description: >-
+                  The name of the time tracking category.
+                type: string
+                example: Development
+              color:
+                description: >-
+                  The color associated with this category for display purposes.
+                type: string
+                enum:
+                  - none
+                  - red
+                  - orange
+                  - yellow-orange
+                  - yellow
+                  - yellow-green
+                  - green
+                  - blue-green
+                  - aqua
+                  - blue
+                  - indigo
+                  - purple
+                  - magenta
+                  - hot-pink
+                  - pink
+                  - cool-gray
+                example: blue
+            x-docs-overrides: &id048
+              properties.resource_type.example: time_tracking_category
+          readOnly: true
       x-docs-overrides: *id047
+    TimeTrackingCategoryCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *time tracking category* is a label that can be assigned to time tracking
+        entries. Categories are workspace-scoped and allow users to classify logged
+        time (e.g., 'Development', 'Meetings').
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            The name of the time tracking category.
+          type: string
+          example: Development
+        color:
+          description: >-
+            The color associated with this category for display purposes.
+          type: string
+          enum:
+            - none
+            - red
+            - orange
+            - yellow-orange
+            - yellow
+            - yellow-green
+            - green
+            - blue-green
+            - aqua
+            - blue
+            - indigo
+            - purple
+            - magenta
+            - hot-pink
+            - pink
+            - cool-gray
+          example: blue
+      x-docs-overrides: *id048
+    TimeTrackingCategoryResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A *time tracking category* is a label that can be assigned to time tracking
+        entries. Categories are workspace-scoped and allow users to classify logged
+        time (e.g., 'Development', 'Meetings').
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            The name of the time tracking category.
+          type: string
+          example: Development
+        color:
+          description: >-
+            The color associated with this category for display purposes.
+          type: string
+          enum:
+            - none
+            - red
+            - orange
+            - yellow-orange
+            - yellow
+            - yellow-green
+            - green
+            - blue-green
+            - aqua
+            - blue
+            - indigo
+            - purple
+            - magenta
+            - hot-pink
+            - pink
+            - cool-gray
+          example: blue
+        is_archived:
+          description: >-
+            Whether the category is archived. Archived categories cannot be
+            assigned to new time entries but remain visible on existing entries.
+          type: boolean
+          example: false
+      x-docs-overrides: *id048
+    TimeTrackingCategoryBaseRequest:
+      type: object
+      properties:
+        name:
+          description: >-
+            The name of the time tracking category (e.g., 'Development', 'Meetings').
+          type: string
+          example: Development
+        color:
+          description: >-
+            The color associated with this category for display purposes.
+          type: string
+          enum:
+            - none
+            - red
+            - orange
+            - yellow-orange
+            - yellow
+            - yellow-green
+            - green
+            - blue-green
+            - aqua
+            - blue
+            - indigo
+            - purple
+            - magenta
+            - hot-pink
+            - pink
+            - cool-gray
+          example: blue
+    TimeTrackingCategoryCreateRequest:
+      type: object
+      properties:
+        name:
+          description: >-
+            The name of the time tracking category (e.g., 'Development', 'Meetings').
+          type: string
+          example: Development
+        color:
+          description: >-
+            The color associated with this category for display purposes.
+          type: string
+          enum:
+            - none
+            - red
+            - orange
+            - yellow-orange
+            - yellow
+            - yellow-green
+            - green
+            - blue-green
+            - aqua
+            - blue
+            - indigo
+            - purple
+            - magenta
+            - hot-pink
+            - pink
+            - cool-gray
+          example: blue
+        workspace:
+          description: >-
+            Globally unique identifier for the workspace.
+          type: string
+          example: '12345'
+      required:
+        - workspace
+        - name
+    TimeTrackingCategoryUpdateRequest:
+      type: object
+      properties:
+        name:
+          description: >-
+            The name of the time tracking category (e.g., 'Development', 'Meetings').
+          type: string
+          example: Development
+        color:
+          description: >-
+            The color associated with this category for display purposes.
+          type: string
+          enum:
+            - none
+            - red
+            - orange
+            - yellow-orange
+            - yellow
+            - yellow-green
+            - green
+            - blue-green
+            - aqua
+            - blue
+            - indigo
+            - purple
+            - magenta
+            - hot-pink
+            - pink
+            - cool-gray
+          example: blue
+        is_archived:
+          description: >-
+            *Optional*. Whether the category is archived. Archived categories cannot
+            be
+            assigned to new time entries but remain visible on existing entries.
+          type: boolean
+          example: false
     CreateTimesheetApprovalStatusRequest:
       type: object
       required:
@@ -42861,7 +43169,7 @@ components:
             - APPROVED
             - REJECTED
           example: DRAFT
-      x-docs-overrides: &id048
+      x-docs-overrides: &id049
         properties.resource_type.example: timesheet_approval_status
     TimesheetApprovalStatusResponse:
       description: >-
@@ -42983,7 +43291,7 @@ components:
             - APPROVED
             - REJECTED
           example: DRAFT
-      x-docs-overrides: *id048
+      x-docs-overrides: *id049
     AccessRequestResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -43072,7 +43380,7 @@ components:
               readOnly: true
               example: task
               x-insert-after: gid
-          x-docs-overrides: &id049
+          x-docs-overrides: &id050
             properties.resource_type.example: project
           readOnly: true
       x-docs-overrides:
@@ -43099,7 +43407,7 @@ components:
           readOnly: true
           example: task
           x-insert-after: gid
-      x-docs-overrides: *id049
+      x-docs-overrides: *id050
     AccessRequestCreateRequest:
       type: object
       required:
@@ -43242,7 +43550,7 @@ components:
             Defaults to `false`.
           type: boolean
           example: false
-      x-docs-overrides: &id050
+      x-docs-overrides: &id051
         properties.resource_type.example: role
     RbacRoleBase:
       description: >-
@@ -43397,7 +43705,7 @@ components:
                 AI features
               type: boolean
               example: true
-      x-docs-overrides: *id050
+      x-docs-overrides: *id051
     RbacRoleResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -43588,7 +43896,7 @@ components:
               example: My Company Workspace
           x-docs-overrides: *id022
           readOnly: true
-      x-docs-overrides: *id050
+      x-docs-overrides: *id051
     RbacRoleRequest:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -43749,7 +44057,7 @@ components:
             Once created, roles cannot be moved to a different workspace.
             This attribute can only be specified at creation time.
           example: '12345'
-      x-docs-overrides: *id050
+      x-docs-overrides: *id051
       required:
         - name
         - description
@@ -43908,7 +44216,7 @@ components:
                 AI features
               type: boolean
               example: true
-      x-docs-overrides: *id050
+      x-docs-overrides: *id051
     AccessRequestResponseArray:
       type: object
       required:
@@ -44520,6 +44828,13 @@ components:
             $ref: '#/components/schemas/TimePeriodResponse'
         next_page:
           $ref: '#/components/schemas/NextPage'
+    TimeTrackingCategoryResponseData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/TimeTrackingCategoryResponse'
     TimeTrackingEntryCompactArray:
       type: object
       required:
@@ -44529,6 +44844,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/TimeTrackingEntryCompact'
+        next_page:
+          $ref: '#/components/schemas/NextPage'
+    TimeTrackingCategoryResponseArray:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeTrackingCategoryResponse'
         next_page:
           $ref: '#/components/schemas/NextPage'
     TimeTrackingEntryBaseData:
@@ -69545,6 +69871,348 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+  /time_tracking_categories/{time_tracking_category_gid}:
+    parameters:
+      - $ref: '#/components/parameters/time_tracking_category_path_gid'
+    get:
+      summary: Get a time tracking category
+      description: |-
+        <b>Required scope: </b><code>time_tracking_categories:read</code>
+
+        Returns the complete time tracking category record for a single time tracking category.
+      tags:
+        - Time tracking categories
+      operationId: getTimeTrackingCategory
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - color
+            - is_archived
+            - name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - color
+                - is_archived
+                - name
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/TimeTrackingCategoryResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_categories:read
+    put:
+      summary: Update a time tracking category
+      description: |-
+        <b>Required scope: </b><code>time_tracking_categories:write</code>
+
+        Updates the properties of a time tracking category. Only the fields provided in the
+        `data` block will be updated; any unspecified fields will remain unchanged.
+
+        Returns the complete updated time tracking category record.
+      tags:
+        - Time tracking categories
+      operationId: updateTimeTrackingCategory
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - color
+            - is_archived
+            - name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - color
+                - is_archived
+                - name
+          style: form
+          explode: false
+      requestBody:
+        description: The updated fields for the time tracking category.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/TimeTrackingCategoryUpdateRequest'
+      responses:
+        200:
+          $ref: '#/components/responses/TimeTrackingCategoryResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_categories:write
+    delete:
+      summary: Delete a time tracking category
+      description: |-
+        <b>Required scope: </b><code>time_tracking_categories:delete</code>
+
+        Deletes a specific, existing time tracking category.
+
+        Returns an empty data record.
+      tags:
+        - Time tracking categories
+      operationId: deleteTimeTrackingCategory
+      responses:
+        200:
+          $ref: '#/components/responses/EmptyResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_categories:delete
+  /time_tracking_categories/{time_tracking_category_gid}/time_tracking_entries:
+    parameters:
+      - $ref: '#/components/parameters/time_tracking_category_path_gid'
+    get:
+      summary: Get time tracking entries for a time tracking category
+      description: |-
+        <b>Required scope: </b><code>time_tracking_categories:read</code>
+
+        Returns a paginated list of time tracking entries filtered by a given time tracking category.
+      tags:
+        - Time tracking categories
+      operationId: getTimeTrackingEntriesForTimeTrackingCategory
+      parameters:
+        - name: start_date
+          in: query
+          description: The start date for filtering time tracking entries by their
+            entry date.
+          schema:
+            type: string
+            format: date
+          example: '2025-01-01'
+        - name: end_date
+          in: query
+          description: The end date for filtering time tracking entries by their entry
+            date.
+          schema:
+            type: string
+            format: date
+          example: '2025-12-31'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - attributable_to
+            - attributable_to.name
+            - created_by
+            - created_by.name
+            - duration_minutes
+            - entered_on
+            - offset
+            - path
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - attributable_to
+                - attributable_to.name
+                - created_by
+                - created_by.name
+                - duration_minutes
+                - entered_on
+                - offset
+                - path
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/TimeTrackingEntryCompactArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_categories:read
+  /time_tracking_categories:
+    get:
+      summary: Get time tracking categories for a workspace
+      description: |-
+        <b>Required scope: </b><code>time_tracking_categories:read</code>
+
+        Returns a paginated list of time tracking categories for a given workspace.
+      tags:
+        - Time tracking categories
+      operationId: getTimeTrackingCategories
+      parameters:
+        - name: workspace
+          in: query
+          required: true
+          description: Globally unique identifier for the workspace.
+          schema:
+            type: string
+          example: '12345'
+        - name: is_archived
+          in: query
+          description: >-
+            Filter by archived status. If not provided, defaults to returning non-archived
+            categories.
+          schema:
+            type: boolean
+          example: false
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - color
+            - is_archived
+            - name
+            - offset
+            - path
+            - uri
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - color
+                - is_archived
+                - name
+                - offset
+                - path
+                - uri
+          style: form
+          explode: false
+      responses:
+        200:
+          $ref: '#/components/responses/TimeTrackingCategoryResponseArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_categories:read
+    post:
+      summary: Create a time tracking category
+      description: |-
+        <b>Required scope: </b><code>time_tracking_categories:write</code>
+
+        Creates a new time tracking category in a given workspace.
+
+        Returns the record of the newly created time tracking category.
+      tags:
+        - Time tracking categories
+      operationId: createTimeTrackingCategory
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - color
+            - is_archived
+            - name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - color
+                - is_archived
+                - name
+          style: form
+          explode: false
+      requestBody:
+        description: Information about the time tracking category.
+        required: true
+        content:
+          application/json; charset=UTF-8:
+            schema:
+              type: object
+              properties:
+                data:
+                  $ref: '#/components/schemas/TimeTrackingCategoryCreateRequest'
+      responses:
+        201:
+          $ref: '#/components/responses/TimeTrackingCategoryResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - time_tracking_categories:write
   /tasks/{task_gid}/time_tracking_entries:
     parameters:
       - $ref: '#/components/parameters/task_path_gid'
@@ -69629,6 +70297,9 @@ paths:
             - attributable_to
             - attributable_to.name
             - billable_status
+            - categories
+            - categories.color
+            - categories.name
             - created_at
             - created_by
             - created_by.name
@@ -69648,6 +70319,9 @@ paths:
                 - attributable_to
                 - attributable_to.name
                 - billable_status
+                - categories
+                - categories.color
+                - categories.name
                 - created_at
                 - created_by
                 - created_by.name
@@ -69707,6 +70381,9 @@ paths:
             - attributable_to
             - attributable_to.name
             - billable_status
+            - categories
+            - categories.color
+            - categories.name
             - created_at
             - created_by
             - created_by.name
@@ -69726,6 +70403,9 @@ paths:
                 - attributable_to
                 - attributable_to.name
                 - billable_status
+                - categories
+                - categories.color
+                - categories.name
                 - created_at
                 - created_by
                 - created_by.name
@@ -69781,6 +70461,9 @@ paths:
             - attributable_to
             - attributable_to.name
             - billable_status
+            - categories
+            - categories.color
+            - categories.name
             - created_at
             - created_by
             - created_by.name
@@ -69800,6 +70483,9 @@ paths:
                 - attributable_to
                 - attributable_to.name
                 - billable_status
+                - categories
+                - categories.color
+                - categories.name
                 - created_at
                 - created_by
                 - created_by.name
