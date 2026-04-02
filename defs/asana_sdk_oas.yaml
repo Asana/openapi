@@ -42536,7 +42536,64 @@ components:
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
-      x-docs-overrides: &id047
+        categories:
+          description: >-
+            The categories linked to this time tracking entry.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              A *time tracking category* is a label that can be assigned to time tracking
+              entries. Categories are workspace-scoped and allow users to classify
+              logged time (e.g., 'Development', 'Meetings').
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              name:
+                description: >-
+                  The name of the time tracking category.
+                type: string
+                example: Development
+              color:
+                description: >-
+                  The color associated with this category for display purposes.
+                type: string
+                enum:
+                  - none
+                  - red
+                  - orange
+                  - yellow-orange
+                  - yellow
+                  - yellow-green
+                  - green
+                  - blue-green
+                  - aqua
+                  - blue
+                  - indigo
+                  - purple
+                  - magenta
+                  - hot-pink
+                  - pink
+                  - cool-gray
+                example: blue
+            x-docs-overrides: &id047
+              properties.resource_type.example: time_tracking_category
+          readOnly: true
+      x-docs-overrides: &id048
         properties.resource_type.example: time_tracking_entry
     TimeTrackingEntryBase:
       description: >-
@@ -42639,6 +42696,62 @@ components:
               example: Greg Sanchez
           x-docs-overrides: *id001
           readOnly: true
+        categories:
+          description: >-
+            The categories linked to this time tracking entry.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.A
+              generic Asana Resource, containing a globally unique identifier.
+
+              A *time tracking category* is a label that can be assigned to time tracking
+              entries. Categories are workspace-scoped and allow users to classify
+              logged time (e.g., 'Development', 'Meetings').
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+              name:
+                description: >-
+                  The name of the time tracking category.
+                type: string
+                example: Development
+              color:
+                description: >-
+                  The color associated with this category for display purposes.
+                type: string
+                enum:
+                  - none
+                  - red
+                  - orange
+                  - yellow-orange
+                  - yellow
+                  - yellow-green
+                  - green
+                  - blue-green
+                  - aqua
+                  - blue
+                  - indigo
+                  - purple
+                  - magenta
+                  - hot-pink
+                  - pink
+                  - cool-gray
+                example: blue
+            x-docs-overrides: *id047
+          readOnly: true
         task:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -42731,64 +42844,7 @@ components:
           type: string
           readOnly: true
           example: My description of work done on this entry
-        categories:
-          description: >-
-            The categories linked to this time tracking entry.
-          type: array
-          items:
-            description: >-
-              A generic Asana Resource, containing a globally unique identifier.A
-              generic Asana Resource, containing a globally unique identifier.
-
-              A *time tracking category* is a label that can be assigned to time tracking
-              entries. Categories are workspace-scoped and allow users to classify
-              logged time (e.g., 'Development', 'Meetings').
-            type: object
-            properties:
-              gid:
-                description: >-
-                  Globally unique identifier of the resource, as a string.
-                type: string
-                readOnly: true
-                example: '12345'
-                x-insert-after: false
-              resource_type:
-                description: The base type of this resource.
-                type: string
-                readOnly: true
-                example: task
-                x-insert-after: gid
-              name:
-                description: >-
-                  The name of the time tracking category.
-                type: string
-                example: Development
-              color:
-                description: >-
-                  The color associated with this category for display purposes.
-                type: string
-                enum:
-                  - none
-                  - red
-                  - orange
-                  - yellow-orange
-                  - yellow
-                  - yellow-green
-                  - green
-                  - blue-green
-                  - aqua
-                  - blue
-                  - indigo
-                  - purple
-                  - magenta
-                  - hot-pink
-                  - pink
-                  - cool-gray
-                example: blue
-            x-docs-overrides: &id048
-              properties.resource_type.example: time_tracking_category
-          readOnly: true
-      x-docs-overrides: *id047
+      x-docs-overrides: *id048
     TimeTrackingCategoryCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -42839,7 +42895,7 @@ components:
             - pink
             - cool-gray
           example: blue
-      x-docs-overrides: *id048
+      x-docs-overrides: *id047
     TimeTrackingCategoryResponse:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -42896,7 +42952,7 @@ components:
             assigned to new time entries but remain visible on existing entries.
           type: boolean
           example: false
-      x-docs-overrides: *id048
+      x-docs-overrides: *id047
     TimeTrackingCategoryBaseRequest:
       type: object
       properties:
@@ -70046,6 +70102,9 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - categories
+            - categories.color
+            - categories.name
             - created_by
             - created_by.name
             - duration_minutes
@@ -70060,6 +70119,9 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - categories
+                - categories.color
+                - categories.name
                 - created_by
                 - created_by.name
                 - duration_minutes
@@ -70237,6 +70299,9 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - categories
+            - categories.color
+            - categories.name
             - created_by
             - created_by.name
             - duration_minutes
@@ -70251,6 +70316,9 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - categories
+                - categories.color
+                - categories.name
                 - created_by
                 - created_by.name
                 - duration_minutes
@@ -70625,6 +70693,9 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - categories
+            - categories.color
+            - categories.name
             - created_by
             - created_by.name
             - duration_minutes
@@ -70639,6 +70710,9 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - categories
+                - categories.color
+                - categories.name
                 - created_by
                 - created_by.name
                 - duration_minutes

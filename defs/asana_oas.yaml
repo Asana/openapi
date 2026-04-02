@@ -9498,6 +9498,13 @@ components:
         created_by:
           $ref: '#/components/schemas/UserCompact'
           readOnly: true
+        categories:
+          description: >-
+            The categories linked to this time tracking entry.
+          type: array
+          items:
+            $ref: '#/components/schemas/TimeTrackingCategoryCompact'
+          readOnly: true
     TimeTrackingEntryBase:
       allOf:
         - $ref: '#/components/schemas/TimeTrackingEntryCompact'
@@ -9539,13 +9546,6 @@ components:
               type: string
               readOnly: true
               example: My description of work done on this entry
-            categories:
-              description: >-
-                The categories linked to this time tracking entry.
-              type: array
-              items:
-                $ref: '#/components/schemas/TimeTrackingCategoryCompact'
-              readOnly: true
     TimeTrackingCategoryCompact:
       description: >-
         A *time tracking category* is a label that can be assigned to time
@@ -57378,6 +57378,9 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - categories
+            - categories.color
+            - categories.name
             - created_by
             - created_by.name
             - duration_minutes
@@ -57392,6 +57395,9 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - categories
+                - categories.color
+                - categories.name
                 - created_by
                 - created_by.name
                 - duration_minutes
@@ -57604,6 +57610,9 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - categories
+            - categories.color
+            - categories.name
             - created_by
             - created_by.name
             - duration_minutes
@@ -57618,6 +57627,9 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - categories
+                - categories.color
+                - categories.name
                 - created_by
                 - created_by.name
                 - duration_minutes
@@ -58414,6 +58426,9 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - categories
+            - categories.color
+            - categories.name
             - created_by
             - created_by.name
             - duration_minutes
@@ -58428,6 +58443,9 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - categories
+                - categories.color
+                - categories.name
                 - created_by
                 - created_by.name
                 - duration_minutes
