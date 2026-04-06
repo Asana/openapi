@@ -1030,6 +1030,16 @@ components:
         type: string
       example: '12345'
       x-env-variable: access_request
+    agent_path_gid:
+      name: agent_gid
+      in: path
+      description: >-
+        Globally unique identifier for the agent.
+      required: true
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: agent
     attachment_path_gid:
       name: attachment_gid
       in: path
