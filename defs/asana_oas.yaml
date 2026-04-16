@@ -9185,7 +9185,10 @@ components:
               type: object
               readOnly: true
               nullable: true
+              deprecated: true
               description: >-
+                *Deprecated:* Use the [`/ooo_entries`](/reference/getoooentries) endpoints
+                instead.
                 Contains keys `start_on` and `end_on` for the vacation dates for the
                 user in this workspace.
                 If `start_on` is null, the entire `vacation_dates` object will be
@@ -9194,16 +9197,24 @@ components:
                 be null.
               properties:
                 start_on:
-                  description: The day on which the user's vacation in this workspace
-                    starts. This is a date with `YYYY-MM-DD` format.
+                  description: >-
+                    *Deprecated:* Use the [`/ooo_entries`](/reference/getoooentries)
+                    endpoints instead.
+                    The day on which the user's vacation in this workspace starts.
+                    This is a date with `YYYY-MM-DD` format.
                   type: string
+                  deprecated: true
                   example: '2022-11-05'
                 end_on:
-                  description: The day on which the user's vacation in this workspace
-                    ends, or null if there is no end date. This is a date with `YYYY-MM-DD`
-                    format.
+                  description: >-
+                    *Deprecated:* Use the [`/ooo_entries`](/reference/getoooentries)
+                    endpoints instead.
+                    The day on which the user's vacation in this workspace ends, or
+                    null if there is no end date.
+                    This is a date with `YYYY-MM-DD` format.
                   nullable: true
                   type: string
+                  deprecated: true
                   example: '2022-11-07'
             created_at:
               description: The time at which this resource was created.
