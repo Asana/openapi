@@ -32462,8 +32462,8 @@ components:
         external:
           description: >-
             *OAuth Required*. *Conditional*. This field is returned only
-            if external values are set or included by using [Opt In]
-            (/docs/inputoutput-options).
+            if external values are set or included by using
+            [Opt In](/docs/inputoutput-options).
 
             The external field allows you to store app-specific metadata on
             tasks, including a gid that can be used to retrieve tasks and a
@@ -34407,7 +34407,7 @@ components:
             task template will be used.
           type: string
           example: New Task
-    TaskRequest:
+    TaskRequestBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
         Asana Resource, containing a globally unique identifier.
@@ -34657,8 +34657,8 @@ components:
         external:
           description: >-
             *OAuth Required*. *Conditional*. This field is returned only
-            if external values are set or included by using [Opt In]
-            (/docs/inputoutput-options).
+            if external values are set or included by using
+            [Opt In](/docs/inputoutput-options).
 
             The external field allows you to store app-specific metadata on
             tasks, including a gid that can be used to retrieve tasks and a
@@ -35010,6 +35010,626 @@ components:
           example:
             '5678904321': On Hold
             '4578152156': Not Started
+        parent:
+          type: string
+          readOnly: false
+          x-env-variable: true
+          description: >-
+            Gid of a task.
+          example: '12345'
+          nullable: true
+      x-docs-overrides: *id014
+    TaskCreateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        The *task* is the basic object around which many operations in Asana are centered.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the task. This is generally a short sentence fragment that
+            fits on a line in the UI for maximum readability. However, it can
+            be longer.
+          type: string
+          example: Buy catnip
+        resource_subtype:
+          type: string
+          description: >-
+            The subtype of this resource. Different subtypes retain many of
+            the same fields and behavior, but may render differently in Asana
+            or represent resources with different semantic meaning.
+
+            The resource_subtype `milestone` represent a single moment in
+            time. This means tasks with this subtype cannot have a start_date.
+          enum:
+            - default_task
+            - milestone
+            - approval
+            - custom
+          example: default_task
+        created_by:
+          type: object
+          readOnly: true
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            A *user* object represents an account in Asana that can be given
+            access to various workspaces, projects, and tasks.
+          properties:
+            gid:
+              description: Globally unique identifier of the resource.
+              type: string
+              example: '1111'
+            resource_type:
+              description: The type of resource.
+              type: string
+              example: user
+        approval_status:
+          type: string
+          description: >-
+            *Conditional* Reflects the approval status of this task. This
+            field is kept in sync with `completed`, meaning `pending`
+            translates to false while `approved`, `rejected`, and
+            `changes_requested` translate to true. If you set completed
+            to true, this field will be set to `approved`.
+          enum:
+            - pending
+            - approved
+            - rejected
+            - changes_requested
+          example: pending
+        assignee_status:
+          description: >-
+            *Deprecated* Scheduling status of this task for the user it is assigned
+            to.
+            This field can only be set if the assignee is non-null.
+            Setting this field to "inbox" or "upcoming" inserts it at the top
+            of the section, while the other options will insert at the bottom.
+          type: string
+          enum:
+            - today
+            - upcoming
+            - later
+            - new
+            - inbox
+          example: upcoming
+        assigned_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user who assigned the task. This field is only returned when requesting
+            it via opt_fields, and will be null if the task has no specific assigner
+            (e.g., tasks created without an explicit assigner).
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+          nullable: true
+        completed:
+          description: >-
+            True if the task is currently marked complete, false if not.
+          type: boolean
+          example: false
+        completed_at:
+          description: >-
+            The time at which this task was completed, or null if the task is
+            incomplete.
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          example: '2012-02-22T02:06:58.147Z'
+        completed_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+          nullable: true
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        dependencies:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            Array of resources referencing tasks that this task depends on.
+            The objects contain only the gid of the dependency.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+          readOnly: true
+        dependents:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            Array of resources referencing tasks that depend on this task. The
+            objects contain only the ID of the dependent.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+          readOnly: true
+        due_at:
+          description: >-
+            The UTC date and time on which this task is due, or null if the
+            task has no due time. This takes an ISO 8601 date string in UTC
+            and should not be used together with `due_on`.
+          type: string
+          format: date-time
+          example: '2019-09-15T02:06:58.147Z'
+          nullable: true
+        due_on:
+          description: >-
+            The localized date on which this task is due, or null if the task
+            has no due date. This takes a date with `YYYY-MM-DD` format and
+            should not be used together with `due_at`.
+          type: string
+          format: date
+          example: '2019-09-15'
+          nullable: true
+        external:
+          description: >-
+            *OAuth Required*. *Conditional*. This field is returned only
+            if external values are set or included by using
+            [Opt In](/docs/inputoutput-options).
+
+            The external field allows you to store app-specific metadata on
+            tasks, including a gid that can be used to retrieve tasks and a
+            data blob that can store app-specific character strings. Note that
+            you will need to authenticate with Oauth to access or modify this
+            data. Once an external gid is set, you can use the notation
+            `external:custom_gid` to reference your object anywhere in the API
+            where you may use the original object gid. See the page on Custom
+            External Data for more details.
+          type: object
+          properties:
+            gid:
+              type: string
+              example: '1234'
+            data:
+              type: string
+              example: A blob of information.
+          example:
+            gid: my_gid
+            data: A blob of information
+        html_notes:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            The notes of the text with formatting as HTML.
+          type: string
+          example: >-
+            <body>Mittens <em>really</em> likes the stuff from
+            Humboldt.</body>
+        hearted:
+          description: >-
+            *Deprecated - please use liked instead* True if the task is
+            hearted by the authorized user, false if not.
+          type: boolean
+          example: true
+          readOnly: true
+        hearts:
+          description: >-
+            *Deprecated - please use likes instead* Array of likes for users
+            who have hearted this task.
+          type: array
+          items:
+            type: object
+            description: >-
+              An object to represent a user's like.
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the object, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+              user:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *user* object represents an account in Asana that can be given
+                  access to various workspaces, projects, and tasks.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    type: string
+                    description: >-
+                      *Read-only except when same user as requester*. The user's name.
+                    example: Greg Sanchez
+                x-docs-overrides: *id001
+          readOnly: true
+        is_rendered_as_separator:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            In some contexts tasks can be rendered as a visual separator;
+            for instance, subtasks can appear similar to
+            [sections](/reference/sections) without being true
+            `section` objects. If a `task` object is rendered this way in any
+            context it will have the property `is_rendered_as_separator` set
+            to `true`. This parameter only applies to regular tasks with
+            `resource_subtype` of `default_task`. Tasks with `resource_subtype`
+            of `milestone`, `approval`, or custom task types will not
+            have this property and cannot be rendered as separators.
+          type: boolean
+          example: false
+          readOnly: true
+        liked:
+          description: >-
+            True if the task is liked by the authorized user, false if not.
+          type: boolean
+          example: true
+        likes:
+          description: Array of likes for users who have liked this task.
+          type: array
+          items:
+            type: object
+            description: >-
+              An object to represent a user's like.
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the object, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+              user:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *user* object represents an account in Asana that can be given
+                  access to various workspaces, projects, and tasks.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    type: string
+                    description: >-
+                      *Read-only except when same user as requester*. The user's name.
+                    example: Greg Sanchez
+                x-docs-overrides: *id001
+          readOnly: true
+        memberships:
+          description: >-
+            *Create-only*. Array of projects this task is associated with
+            and the section it is in. At task creation time, this array can be
+            used to add the task to specific sections. After task creation,
+            these associations can be modified using the `addProject` and
+            `removeProject` endpoints. Note that over time, more types of
+            memberships may be added to this property.
+          type: array
+          readOnly: true
+          items:
+            type: object
+            properties:
+              project:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: >-
+                      Name of the project. This is generally a short sentence fragment
+                      that fits on a line in the UI for maximum readability. However,
+                      it
+                      can be longer.
+                    type: string
+                    example: Stuff to buy
+                x-docs-overrides: *id005
+              section:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *section* is a subdivision of a project that groups tasks together.
+                  It can either be a header above a list of tasks in a list view or
+                  a column in a board view of a project.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: >-
+                      The name of the section (i.e. the text displayed as the section
+                      header).
+                    type: string
+                    example: Next Actions
+                x-docs-overrides: *id036
+        modified_at:
+          description: |-
+            The time at which this task was last modified.
+
+            The following conditions will change `modified_at`:
+
+            - story is created on a task
+            - story is trashed on a task
+            - attachment is trashed on a task
+            - task is assigned or unassigned
+            - custom field value is changed
+            - the task itself is trashed
+            - Or if any of the following fields are updated:
+              - completed
+              - name
+              - due_date
+              - description
+              - attachments
+              - items
+              - schedule_status
+
+            The following conditions will _not_ change `modified_at`:
+
+            - moving to a new container (project, portfolio, etc)
+            - comments being added to the task (but the stories they generate
+              _will_ affect `modified_at`)
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        notes:
+          description: >-
+            Free-form textual information associated with the
+            task (i.e. its description).
+          type: string
+          example: Mittens really likes the stuff from Humboldt.
+        num_hearts:
+          description: >-
+            *Deprecated - please use likes instead* The number of users who
+            have hearted this task.
+          type: integer
+          example: 5
+          readOnly: true
+        num_likes:
+          description: The number of users who have liked this task.
+          type: integer
+          example: 5
+          readOnly: true
+        num_subtasks:
+          description: >
+            [Opt
+            In](/docs/inputoutput-options).
+            The number of subtasks on this task.
+          type: integer
+          example: 3
+          readOnly: true
+        start_at:
+          description: >-
+            Date and time on which work begins for the task, or null if the task
+            has no start time. This takes an ISO 8601 date string in UTC
+            and should not be used together with `start_on`.
+
+            *Note: `due_at` must be present in the request when
+            setting or unsetting the `start_at` parameter.*
+          type: string
+          nullable: true
+          format: date-time
+          example: '2019-09-14T02:06:58.147Z'
+        start_on:
+          description: >-
+            The day on which work begins for the task , or null if the task
+            has no start date. This takes a date with `YYYY-MM-DD` format and
+            should not be used together with `start_at`.
+
+            *Note: `due_on` or `due_at` must be present in the request when
+            setting or unsetting the `start_on` parameter.*
+          type: string
+          nullable: true
+          format: date
+          example: '2019-09-14'
+        actual_time_minutes:
+          description: >-
+            This value represents the sum of all the Time Tracking entries in
+            the Actual Time field on a given Task. It is represented as a nullable
+            long value.
+          type: number
+          example: 200
+          readOnly: true
+          nullable: true
+        assignee:
+          type: string
+          readOnly: false
+          x-env-variable: true
+          description: >-
+            A string identifying a user. This can either be the string "me", an email,
+            or the gid of a user.
+          example: '12345'
+          nullable: true
+        assignee_section:
+          nullable: true
+          type: string
+          description: >-
+            The *assignee section* is a subdivision of a project that groups
+            tasks together in the assignee's "My tasks" list. It can either be a
+            header above a list of tasks in a list view or a column in a board
+            view of "My tasks."
+
+            The `assignee_section` property will be returned in the response only
+            if the request was sent by the user who is the assignee of the task.
+            Note that you can only write to `assignee_section` with the gid of an
+            existing section visible in the user's "My tasks" list.
+          example: '12345'
+        custom_fields:
+          description: >-
+            An object where each key is the GID of a custom field and its corresponding
+            value is
+            either an enum GID, string, number, object, or array (depending on the
+            custom field type).
+            See the [custom fields guide](/docs/custom-fields-guide) for details on
+            creating and
+            updating custom field values.
+          type: object
+          additionalProperties:
+            type: string
+            description: >-
+              "{custom_field_gid}" => Value (can be text, a number, etc.). For date,
+              use format "YYYY-MM-DD" (e.g., 2019-09-15). For date-time, use ISO 8601
+              date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
+          example:
+            '5678904321': On Hold
+            '4578152156': Not Started
+        parent:
+          type: string
+          readOnly: false
+          x-env-variable: true
+          description: >-
+            Gid of a task.
+          example: '12345'
+          nullable: true
         followers:
           type: array
           description: >-
@@ -35024,14 +35644,6 @@ components:
               email, or the gid of a user.
           example:
             - '12345'
-        parent:
-          type: string
-          readOnly: false
-          x-env-variable: true
-          description: >-
-            Gid of a task.
-          example: '12345'
-          nullable: true
         projects:
           type: array
           description: >-
@@ -35061,6 +35673,618 @@ components:
           description: >-
             Gid of a workspace.
           example: '12345'
+      x-docs-overrides: *id014
+    TaskUpdateRequest:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        The *task* is the basic object around which many operations in Asana are centered.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        name:
+          description: >-
+            Name of the task. This is generally a short sentence fragment that
+            fits on a line in the UI for maximum readability. However, it can
+            be longer.
+          type: string
+          example: Buy catnip
+        resource_subtype:
+          type: string
+          description: >-
+            The subtype of this resource. Different subtypes retain many of
+            the same fields and behavior, but may render differently in Asana
+            or represent resources with different semantic meaning.
+
+            The resource_subtype `milestone` represent a single moment in
+            time. This means tasks with this subtype cannot have a start_date.
+          enum:
+            - default_task
+            - milestone
+            - approval
+            - custom
+          example: default_task
+        created_by:
+          type: object
+          readOnly: true
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            A *user* object represents an account in Asana that can be given
+            access to various workspaces, projects, and tasks.
+          properties:
+            gid:
+              description: Globally unique identifier of the resource.
+              type: string
+              example: '1111'
+            resource_type:
+              description: The type of resource.
+              type: string
+              example: user
+        approval_status:
+          type: string
+          description: >-
+            *Conditional* Reflects the approval status of this task. This
+            field is kept in sync with `completed`, meaning `pending`
+            translates to false while `approved`, `rejected`, and
+            `changes_requested` translate to true. If you set completed
+            to true, this field will be set to `approved`.
+          enum:
+            - pending
+            - approved
+            - rejected
+            - changes_requested
+          example: pending
+        assignee_status:
+          description: >-
+            *Deprecated* Scheduling status of this task for the user it is assigned
+            to.
+            This field can only be set if the assignee is non-null.
+            Setting this field to "inbox" or "upcoming" inserts it at the top
+            of the section, while the other options will insert at the bottom.
+          type: string
+          enum:
+            - today
+            - upcoming
+            - later
+            - new
+            - inbox
+          example: upcoming
+        assigned_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user who assigned the task. This field is only returned when requesting
+            it via opt_fields, and will be null if the task has no specific assigner
+            (e.g., tasks created without an explicit assigner).
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+          nullable: true
+        completed:
+          description: >-
+            True if the task is currently marked complete, false if not.
+          type: boolean
+          example: false
+        completed_at:
+          description: >-
+            The time at which this task was completed, or null if the task is
+            incomplete.
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          example: '2012-02-22T02:06:58.147Z'
+        completed_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id001
+          readOnly: true
+          nullable: true
+        created_at:
+          description: The time at which this resource was created.
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        dependencies:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            Array of resources referencing tasks that this task depends on.
+            The objects contain only the gid of the dependency.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+          readOnly: true
+        dependents:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            Array of resources referencing tasks that depend on this task. The
+            objects contain only the ID of the dependent.
+          type: array
+          items:
+            description: >-
+              A generic Asana Resource, containing a globally unique identifier.
+            type: object
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the resource, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+                x-insert-after: false
+              resource_type:
+                description: The base type of this resource.
+                type: string
+                readOnly: true
+                example: task
+                x-insert-after: gid
+          readOnly: true
+        due_at:
+          description: >-
+            The UTC date and time on which this task is due, or null if the
+            task has no due time. This takes an ISO 8601 date string in UTC
+            and should not be used together with `due_on`.
+          type: string
+          format: date-time
+          example: '2019-09-15T02:06:58.147Z'
+          nullable: true
+        due_on:
+          description: >-
+            The localized date on which this task is due, or null if the task
+            has no due date. This takes a date with `YYYY-MM-DD` format and
+            should not be used together with `due_at`.
+          type: string
+          format: date
+          example: '2019-09-15'
+          nullable: true
+        external:
+          description: >-
+            *OAuth Required*. *Conditional*. This field is returned only
+            if external values are set or included by using
+            [Opt In](/docs/inputoutput-options).
+
+            The external field allows you to store app-specific metadata on
+            tasks, including a gid that can be used to retrieve tasks and a
+            data blob that can store app-specific character strings. Note that
+            you will need to authenticate with Oauth to access or modify this
+            data. Once an external gid is set, you can use the notation
+            `external:custom_gid` to reference your object anywhere in the API
+            where you may use the original object gid. See the page on Custom
+            External Data for more details.
+          type: object
+          properties:
+            gid:
+              type: string
+              example: '1234'
+            data:
+              type: string
+              example: A blob of information.
+          example:
+            gid: my_gid
+            data: A blob of information
+        html_notes:
+          description: >-
+            [Opt
+            In](/docs/inputoutput-options).
+            The notes of the text with formatting as HTML.
+          type: string
+          example: >-
+            <body>Mittens <em>really</em> likes the stuff from
+            Humboldt.</body>
+        hearted:
+          description: >-
+            *Deprecated - please use liked instead* True if the task is
+            hearted by the authorized user, false if not.
+          type: boolean
+          example: true
+          readOnly: true
+        hearts:
+          description: >-
+            *Deprecated - please use likes instead* Array of likes for users
+            who have hearted this task.
+          type: array
+          items:
+            type: object
+            description: >-
+              An object to represent a user's like.
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the object, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+              user:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *user* object represents an account in Asana that can be given
+                  access to various workspaces, projects, and tasks.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    type: string
+                    description: >-
+                      *Read-only except when same user as requester*. The user's name.
+                    example: Greg Sanchez
+                x-docs-overrides: *id001
+          readOnly: true
+        is_rendered_as_separator:
+          description: >-
+            [Opt In](/docs/inputoutput-options).
+            In some contexts tasks can be rendered as a visual separator;
+            for instance, subtasks can appear similar to
+            [sections](/reference/sections) without being true
+            `section` objects. If a `task` object is rendered this way in any
+            context it will have the property `is_rendered_as_separator` set
+            to `true`. This parameter only applies to regular tasks with
+            `resource_subtype` of `default_task`. Tasks with `resource_subtype`
+            of `milestone`, `approval`, or custom task types will not
+            have this property and cannot be rendered as separators.
+          type: boolean
+          example: false
+          readOnly: true
+        liked:
+          description: >-
+            True if the task is liked by the authorized user, false if not.
+          type: boolean
+          example: true
+        likes:
+          description: Array of likes for users who have liked this task.
+          type: array
+          items:
+            type: object
+            description: >-
+              An object to represent a user's like.
+            properties:
+              gid:
+                description: >-
+                  Globally unique identifier of the object, as a string.
+                type: string
+                readOnly: true
+                example: '12345'
+              user:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *user* object represents an account in Asana that can be given
+                  access to various workspaces, projects, and tasks.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    type: string
+                    description: >-
+                      *Read-only except when same user as requester*. The user's name.
+                    example: Greg Sanchez
+                x-docs-overrides: *id001
+          readOnly: true
+        memberships:
+          description: >-
+            *Create-only*. Array of projects this task is associated with
+            and the section it is in. At task creation time, this array can be
+            used to add the task to specific sections. After task creation,
+            these associations can be modified using the `addProject` and
+            `removeProject` endpoints. Note that over time, more types of
+            memberships may be added to this property.
+          type: array
+          readOnly: true
+          items:
+            type: object
+            properties:
+              project:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *project* represents a prioritized list of tasks in Asana or a
+                  board with columns of tasks represented as cards. It exists in a
+                  single workspace or organization and is accessible to a subset of
+                  users in that workspace or organization, depending on its permissions.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: >-
+                      Name of the project. This is generally a short sentence fragment
+                      that fits on a line in the UI for maximum readability. However,
+                      it
+                      can be longer.
+                    type: string
+                    example: Stuff to buy
+                x-docs-overrides: *id005
+              section:
+                description: >-
+                  A generic Asana Resource, containing a globally unique identifier.A
+                  generic Asana Resource, containing a globally unique identifier.
+
+                  A *section* is a subdivision of a project that groups tasks together.
+                  It can either be a header above a list of tasks in a list view or
+                  a column in a board view of a project.
+                type: object
+                properties:
+                  gid:
+                    description: >-
+                      Globally unique identifier of the resource, as a string.
+                    type: string
+                    readOnly: true
+                    example: '12345'
+                    x-insert-after: false
+                  resource_type:
+                    description: The base type of this resource.
+                    type: string
+                    readOnly: true
+                    example: task
+                    x-insert-after: gid
+                  name:
+                    description: >-
+                      The name of the section (i.e. the text displayed as the section
+                      header).
+                    type: string
+                    example: Next Actions
+                x-docs-overrides: *id036
+        modified_at:
+          description: |-
+            The time at which this task was last modified.
+
+            The following conditions will change `modified_at`:
+
+            - story is created on a task
+            - story is trashed on a task
+            - attachment is trashed on a task
+            - task is assigned or unassigned
+            - custom field value is changed
+            - the task itself is trashed
+            - Or if any of the following fields are updated:
+              - completed
+              - name
+              - due_date
+              - description
+              - attachments
+              - items
+              - schedule_status
+
+            The following conditions will _not_ change `modified_at`:
+
+            - moving to a new container (project, portfolio, etc)
+            - comments being added to the task (but the stories they generate
+              _will_ affect `modified_at`)
+          type: string
+          format: date-time
+          readOnly: true
+          example: '2012-02-22T02:06:58.147Z'
+        notes:
+          description: >-
+            Free-form textual information associated with the
+            task (i.e. its description).
+          type: string
+          example: Mittens really likes the stuff from Humboldt.
+        num_hearts:
+          description: >-
+            *Deprecated - please use likes instead* The number of users who
+            have hearted this task.
+          type: integer
+          example: 5
+          readOnly: true
+        num_likes:
+          description: The number of users who have liked this task.
+          type: integer
+          example: 5
+          readOnly: true
+        num_subtasks:
+          description: >
+            [Opt
+            In](/docs/inputoutput-options).
+            The number of subtasks on this task.
+          type: integer
+          example: 3
+          readOnly: true
+        start_at:
+          description: >-
+            Date and time on which work begins for the task, or null if the task
+            has no start time. This takes an ISO 8601 date string in UTC
+            and should not be used together with `start_on`.
+
+            *Note: `due_at` must be present in the request when
+            setting or unsetting the `start_at` parameter.*
+          type: string
+          nullable: true
+          format: date-time
+          example: '2019-09-14T02:06:58.147Z'
+        start_on:
+          description: >-
+            The day on which work begins for the task , or null if the task
+            has no start date. This takes a date with `YYYY-MM-DD` format and
+            should not be used together with `start_at`.
+
+            *Note: `due_on` or `due_at` must be present in the request when
+            setting or unsetting the `start_on` parameter.*
+          type: string
+          nullable: true
+          format: date
+          example: '2019-09-14'
+        actual_time_minutes:
+          description: >-
+            This value represents the sum of all the Time Tracking entries in
+            the Actual Time field on a given Task. It is represented as a nullable
+            long value.
+          type: number
+          example: 200
+          readOnly: true
+          nullable: true
+        assignee:
+          type: string
+          readOnly: false
+          x-env-variable: true
+          description: >-
+            A string identifying a user. This can either be the string "me", an email,
+            or the gid of a user.
+          example: '12345'
+          nullable: true
+        assignee_section:
+          nullable: true
+          type: string
+          description: >-
+            The *assignee section* is a subdivision of a project that groups
+            tasks together in the assignee's "My tasks" list. It can either be a
+            header above a list of tasks in a list view or a column in a board
+            view of "My tasks."
+
+            The `assignee_section` property will be returned in the response only
+            if the request was sent by the user who is the assignee of the task.
+            Note that you can only write to `assignee_section` with the gid of an
+            existing section visible in the user's "My tasks" list.
+          example: '12345'
+        custom_fields:
+          description: >-
+            An object where each key is the GID of a custom field and its corresponding
+            value is
+            either an enum GID, string, number, object, or array (depending on the
+            custom field type).
+            See the [custom fields guide](/docs/custom-fields-guide) for details on
+            creating and
+            updating custom field values.
+          type: object
+          additionalProperties:
+            type: string
+            description: >-
+              "{custom_field_gid}" => Value (can be text, a number, etc.). For date,
+              use format "YYYY-MM-DD" (e.g., 2019-09-15). For date-time, use ISO 8601
+              date string in UTC (e.g., 2019-09-15T02:06:58.147Z).
+          example:
+            '5678904321': On Hold
+            '4578152156': Not Started
+        parent:
+          type: string
+          readOnly: false
+          x-env-variable: true
+          description: >-
+            Gid of a task.
+          example: '12345'
+          nullable: true
         custom_type:
           type: string
           readOnly: false
@@ -35332,8 +36556,8 @@ components:
         external:
           description: >-
             *OAuth Required*. *Conditional*. This field is returned only
-            if external values are set or included by using [Opt In]
-            (/docs/inputoutput-options).
+            if external values are set or included by using
+            [Opt In](/docs/inputoutput-options).
 
             The external field allows you to store app-specific metadata on
             tasks, including a gid that can be used to retrieve tasks and a
@@ -58211,7 +59435,8 @@ paths:
         #### Premium access
         Like the Asana web product's advance search feature, this search endpoint will only be available to premium Asana users. A user is premium if any of the following is true:
 
-        - The workspace in which the search is being performed is a premium workspace - The user is a member of a premium team inside the workspace
+        - The workspace in which the search is being performed is a premium workspace
+        - The user is a member of a premium team inside the workspace
 
         Even if a user is only a member of a premium team inside a non-premium workspace, search will allow them to find data anywhere in the workspace, not just inside the premium team. Making a search request using credentials of a non-premium user will result in a `402 Payment Required` error.
         #### Pagination
@@ -64869,7 +66094,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TaskRequest'
+                  $ref: '#/components/schemas/TaskCreateRequest'
       responses:
         201:
           $ref: '#/components/responses/TaskResponseData'
@@ -65398,7 +66623,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TaskRequest'
+                  $ref: '#/components/schemas/TaskUpdateRequest'
       responses:
         200:
           $ref: '#/components/responses/TaskResponseData'
@@ -67116,7 +68341,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TaskRequest'
+                  $ref: '#/components/schemas/TaskCreateRequest'
       responses:
         201:
           $ref: '#/components/responses/TaskResponseData'
@@ -69296,7 +70521,8 @@ paths:
         #### Premium access
         Like the Asana web product's advance search feature, this search endpoint will only be available to premium Asana users. A user is premium if any of the following is true:
 
-        - The workspace in which the search is being performed is a premium workspace - The user is a member of a premium team inside the workspace
+        - The workspace in which the search is being performed is a premium workspace
+        - The user is a member of a premium team inside the workspace
 
         Even if a user is only a member of a premium team inside a non-premium workspace, search will allow them to find data anywhere in the workspace, not just inside the premium team. Making a search request using credentials of a non-premium user will result in a `402 Payment Required` error.
         #### Pagination

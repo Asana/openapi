@@ -7591,8 +7591,8 @@ components:
             external:
               description: >-
                 *OAuth Required*. *Conditional*. This field is returned only
-                if external values are set or included by using [Opt In]
-                (/docs/inputoutput-options).
+                if external values are set or included by using
+                [Opt In](/docs/inputoutput-options).
 
                 The external field allows you to store app-specific metadata on
                 tasks, including a gid that can be used to retrieve tasks and a
@@ -8107,7 +8107,7 @@ components:
             task template will be used.
           type: string
           example: New Task
-    TaskRequest:
+    TaskRequestBase:
       allOf:
         - $ref: '#/components/schemas/TaskBase'
         - type: object
@@ -8156,6 +8156,19 @@ components:
               example:
                 '5678904321': On Hold
                 '4578152156': Not Started
+            parent:
+              type: string
+              readOnly: false
+              x-env-variable: true
+              description: >-
+                Gid of a task.
+              example: '12345'
+              nullable: true
+    TaskCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/TaskRequestBase'
+        - type: object
+          properties:
             followers:
               type: array
               description: >-
@@ -8170,14 +8183,6 @@ components:
                   an email, or the gid of a user.
               example:
                 - '12345'
-            parent:
-              type: string
-              readOnly: false
-              x-env-variable: true
-              description: >-
-                Gid of a task.
-              example: '12345'
-              nullable: true
             projects:
               type: array
               description: >-
@@ -8208,6 +8213,11 @@ components:
               description: >-
                 Gid of a workspace.
               example: '12345'
+    TaskUpdateRequest:
+      allOf:
+        - $ref: '#/components/schemas/TaskRequestBase'
+        - type: object
+          properties:
             custom_type:
               type: string
               readOnly: false
@@ -35232,7 +35242,8 @@ paths:
         #### Premium access
         Like the Asana web product's advance search feature, this search endpoint will only be available to premium Asana users. A user is premium if any of the following is true:
 
-        - The workspace in which the search is being performed is a premium workspace - The user is a member of a premium team inside the workspace
+        - The workspace in which the search is being performed is a premium workspace
+        - The user is a member of a premium team inside the workspace
 
         Even if a user is only a member of a premium team inside a non-premium workspace, search will allow them to find data anywhere in the workspace, not just inside the premium team. Making a search request using credentials of a non-premium user will result in a `402 Payment Required` error.
         #### Pagination
@@ -47334,7 +47345,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TaskRequest'
+                  $ref: '#/components/schemas/TaskCreateRequest'
       responses:
         201:
           description: Successfully created a new task.
@@ -48120,7 +48131,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TaskRequest'
+                  $ref: '#/components/schemas/TaskUpdateRequest'
       responses:
         200:
           description: Successfully updated the specified task.
@@ -50863,7 +50874,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/TaskRequest'
+                  $ref: '#/components/schemas/TaskCreateRequest'
       responses:
         201:
           description: Successfully created the specified subtask.
@@ -54840,7 +54851,8 @@ paths:
         #### Premium access
         Like the Asana web product's advance search feature, this search endpoint will only be available to premium Asana users. A user is premium if any of the following is true:
 
-        - The workspace in which the search is being performed is a premium workspace - The user is a member of a premium team inside the workspace
+        - The workspace in which the search is being performed is a premium workspace
+        - The user is a member of a premium team inside the workspace
 
         Even if a user is only a member of a premium team inside a non-premium workspace, search will allow them to find data anywhere in the workspace, not just inside the premium team. Making a search request using credentials of a non-premium user will result in a `402 Payment Required` error.
         #### Pagination
