@@ -44868,12 +44868,12 @@ components:
           description: >-
             The name of the role.
           type: string
-          example: Project Admin
+          example: Developer
         description:
           description: >-
             The description of the role.
           type: string
-          example: This role has full access to the project.
+          example: This role has exclusive access to create app and PAT tokens.
         is_standard_role:
           description: >-
             Whether the role is a standard role or a custom role.
@@ -44908,12 +44908,12 @@ components:
           description: >-
             The name of the role.
           type: string
-          example: Project Admin
+          example: Developer
         description:
           description: >-
             The description of the role.
           type: string
-          example: This role has full access to the project.
+          example: This role has exclusive access to create app and PAT tokens.
         is_standard_role:
           description: >-
             Whether the role is a standard role or a custom role.
@@ -45062,12 +45062,12 @@ components:
           description: >-
             The name of the role.
           type: string
-          example: Project Admin
+          example: Developer
         description:
           description: >-
             The description of the role.
           type: string
-          example: This role has full access to the project.
+          example: This role has exclusive access to create app and PAT tokens.
         is_standard_role:
           description: >-
             Whether the role is a standard role or a custom role.
@@ -45253,12 +45253,12 @@ components:
           description: >-
             The name of the role.
           type: string
-          example: Project Admin
+          example: Developer
         description:
           description: >-
             The description of the role.
           type: string
-          example: This role has full access to the project.
+          example: This role has exclusive access to create app and PAT tokens.
         is_standard_role:
           description: >-
             Whether the role is a standard role or a custom role.
@@ -45419,12 +45419,12 @@ components:
           description: >-
             The name of the role.
           type: string
-          example: Project Admin
+          example: Developer
         description:
           description: >-
             The description of the role.
           type: string
-          example: This role has full access to the project.
+          example: This role has exclusive access to create app and PAT tokens.
         is_standard_role:
           description: >-
             Whether the role is a standard role or a custom role.
