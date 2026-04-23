@@ -351,7 +351,7 @@ tags:
       #### Types of custom fields
 
 
-      Integrations using custom fields need to be aware of the six basic types that
+      Integrations using custom fields need to be aware of the seven basic types that
       a custom field can adopt. These types are:
 
 
@@ -370,6 +370,8 @@ tags:
       * `people` - a list of active contributors (i.e., where their relationship to
       the work is defined in the custom field title)
 
+      * `reference` - a reference to another Asana object (task, project, portfolio,
+      goal, etc.)
 
       #### Example use case
 
@@ -436,6 +438,18 @@ tags:
       On the task's custom field value, the enum will have an `enum_value`
       property which will be the same as one of the choices from the list
       defined in the custom field metadata.
+
+
+      #### Reference custom fields
+
+
+      A `reference` custom field stores a list of references to other Asana objects.
+
+
+      The `input_restrictions` field on the custom field definition specifies which
+      object types are allowed as values. Possible values include: `task`, `project`,
+      `portfolio`, and `goal`. `input_restrictions` cannot be an empty array, it
+      must have at least one object type.
 
 
       #### Querying an organization for its custom fields
