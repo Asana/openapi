@@ -7649,6 +7649,15 @@ components:
                 description: The name of the object.
                 type: string
                 example: Bug Task
+        html_text_value:
+          description: >-
+            *Conditional*. Only relevant for custom fields of type `text`.
+            This is the HTML representation of the text value of a custom field,
+            corresponding to the `text_value` plain-text field.
+          type: string
+          readOnly: true
+          nullable: true
+          example: <body>Some Value</body>
         privacy_setting:
           description: >-
             The privacy setting of the custom field. *Note: Administrators in your
@@ -8583,6 +8592,15 @@ components:
                     description: The name of the object.
                     type: string
                     example: Bug Task
+            html_text_value:
+              description: >-
+                *Conditional*. Only relevant for custom fields of type `text`.
+                This is the HTML representation of the text value of a custom field,
+                corresponding to the `text_value` plain-text field.
+              type: string
+              readOnly: true
+              nullable: true
+              example: <body>Some Value</body>
             privacy_setting:
               description: >-
                 The privacy setting of the custom field. *Note: Administrators in
@@ -11900,6 +11918,16 @@ components:
                           description: The name of the object.
                           type: string
                           example: Bug Task
+                  html_text_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `text`.
+                      This is the HTML representation of the text value of a custom
+                      field,
+                      corresponding to the `text_value` plain-text field.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    example: <body>Some Value</body>
                   privacy_setting:
                     description: >-
                       The privacy setting of the custom field. *Note: Administrators
@@ -16884,6 +16912,16 @@ components:
                           description: The name of the object.
                           type: string
                           example: Bug Task
+                  html_text_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `text`.
+                      This is the HTML representation of the text value of a custom
+                      field,
+                      corresponding to the `text_value` plain-text field.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    example: <body>Some Value</body>
                   privacy_setting:
                     description: >-
                       The privacy setting of the custom field. *Note: Administrators
@@ -18770,6 +18808,16 @@ components:
                           description: The name of the object.
                           type: string
                           example: Bug Task
+                  html_text_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `text`.
+                      This is the HTML representation of the text value of a custom
+                      field,
+                      corresponding to the `text_value` plain-text field.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    example: <body>Some Value</body>
                   privacy_setting:
                     description: >-
                       The privacy setting of the custom field. *Note: Administrators
@@ -22757,6 +22805,16 @@ components:
                           description: The name of the object.
                           type: string
                           example: Bug Task
+                  html_text_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `text`.
+                      This is the HTML representation of the text value of a custom
+                      field,
+                      corresponding to the `text_value` plain-text field.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    example: <body>Some Value</body>
                   privacy_setting:
                     description: >-
                       The privacy setting of the custom field. *Note: Administrators
@@ -24169,6 +24227,16 @@ components:
                           description: The name of the object.
                           type: string
                           example: Bug Task
+                  html_text_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `text`.
+                      This is the HTML representation of the text value of a custom
+                      field,
+                      corresponding to the `text_value` plain-text field.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    example: <body>Some Value</body>
                   privacy_setting:
                     description: >-
                       The privacy setting of the custom field. *Note: Administrators
@@ -25576,6 +25644,16 @@ components:
                           description: The name of the object.
                           type: string
                           example: Bug Task
+                  html_text_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `text`.
+                      This is the HTML representation of the text value of a custom
+                      field,
+                      corresponding to the `text_value` plain-text field.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    example: <body>Some Value</body>
                   privacy_setting:
                     description: >-
                       The privacy setting of the custom field. *Note: Administrators
@@ -37692,6 +37770,15 @@ components:
                       description: The name of the object.
                       type: string
                       example: Bug Task
+              html_text_value:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type `text`.
+                  This is the HTML representation of the text value of a custom field,
+                  corresponding to the `text_value` plain-text field.
+                type: string
+                readOnly: true
+                nullable: true
+                example: <body>Some Value</body>
               privacy_setting:
                 description: >-
                   The privacy setting of the custom field. *Note: Administrators in
@@ -39522,6 +39609,16 @@ components:
                           description: The name of the object.
                           type: string
                           example: Bug Task
+                  html_text_value:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `text`.
+                      This is the HTML representation of the text value of a custom
+                      field,
+                      corresponding to the `text_value` plain-text field.
+                    type: string
+                    readOnly: true
+                    nullable: true
+                    example: <body>Some Value</body>
                   privacy_setting:
                     description: >-
                       The privacy setting of the custom field. *Note: Administrators
@@ -47544,6 +47641,7 @@ paths:
             - custom_field.enum_value.name
             - custom_field.format
             - custom_field.has_notifications_enabled
+            - custom_field.html_text_value
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
@@ -47602,6 +47700,7 @@ paths:
                 - custom_field.enum_value.name
                 - custom_field.format
                 - custom_field.has_notifications_enabled
+                - custom_field.html_text_value
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
@@ -47695,6 +47794,7 @@ paths:
             - custom_field.enum_value.name
             - custom_field.format
             - custom_field.has_notifications_enabled
+            - custom_field.html_text_value
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
@@ -47753,6 +47853,7 @@ paths:
                 - custom_field.enum_value.name
                 - custom_field.format
                 - custom_field.has_notifications_enabled
+                - custom_field.html_text_value
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
@@ -47846,6 +47947,7 @@ paths:
             - custom_field.enum_value.name
             - custom_field.format
             - custom_field.has_notifications_enabled
+            - custom_field.html_text_value
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
@@ -47904,6 +48006,7 @@ paths:
                 - custom_field.enum_value.name
                 - custom_field.format
                 - custom_field.has_notifications_enabled
+                - custom_field.html_text_value
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
@@ -47995,6 +48098,7 @@ paths:
             - custom_field.enum_value.name
             - custom_field.format
             - custom_field.has_notifications_enabled
+            - custom_field.html_text_value
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
@@ -48050,6 +48154,7 @@ paths:
                 - custom_field.enum_value.name
                 - custom_field.format
                 - custom_field.has_notifications_enabled
+                - custom_field.html_text_value
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
@@ -48144,6 +48249,7 @@ paths:
             - enum_value.name
             - format
             - has_notifications_enabled
+            - html_text_value
             - id_prefix
             - input_restrictions
             - is_formula_field
@@ -48193,6 +48299,7 @@ paths:
                 - enum_value.name
                 - format
                 - has_notifications_enabled
+                - html_text_value
                 - id_prefix
                 - input_restrictions
                 - is_formula_field
@@ -48292,6 +48399,7 @@ paths:
             - enum_value.name
             - format
             - has_notifications_enabled
+            - html_text_value
             - id_prefix
             - input_restrictions
             - is_formula_field
@@ -48341,6 +48449,7 @@ paths:
                 - enum_value.name
                 - format
                 - has_notifications_enabled
+                - html_text_value
                 - id_prefix
                 - input_restrictions
                 - is_formula_field
@@ -48425,6 +48534,7 @@ paths:
             - enum_value.name
             - format
             - has_notifications_enabled
+            - html_text_value
             - id_prefix
             - input_restrictions
             - is_formula_field
@@ -48474,6 +48584,7 @@ paths:
                 - enum_value.name
                 - format
                 - has_notifications_enabled
+                - html_text_value
                 - id_prefix
                 - input_restrictions
                 - is_formula_field
@@ -48592,6 +48703,7 @@ paths:
             - enum_value.name
             - format
             - has_notifications_enabled
+            - html_text_value
             - id_prefix
             - input_restrictions
             - is_formula_field
@@ -48644,6 +48756,7 @@ paths:
                 - enum_value.name
                 - format
                 - has_notifications_enabled
+                - html_text_value
                 - id_prefix
                 - input_restrictions
                 - is_formula_field
@@ -49588,6 +49701,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -49712,6 +49826,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -49870,6 +49985,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -49994,6 +50110,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -50227,6 +50344,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -50354,6 +50472,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -50513,6 +50632,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -50637,6 +50757,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -50802,6 +50923,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -50926,6 +51048,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -51093,6 +51216,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -51217,6 +51341,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -51386,6 +51511,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -51510,6 +51636,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -51676,6 +51803,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -51800,6 +51928,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -51966,6 +52095,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -52090,6 +52220,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -53220,6 +53351,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -53328,6 +53460,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -53472,6 +53605,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -53577,6 +53711,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -53725,6 +53860,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -53830,6 +53966,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -53969,6 +54106,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -54074,6 +54212,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -54262,6 +54401,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -54395,6 +54535,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -54700,6 +54841,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -54805,6 +54947,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -54950,6 +55093,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -55055,6 +55199,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -56449,6 +56594,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -56582,6 +56728,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -56762,6 +56909,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -56892,6 +57040,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -57065,6 +57214,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -57195,6 +57345,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -57369,6 +57520,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -57499,6 +57651,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -57795,6 +57948,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -57928,6 +58082,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -58097,6 +58252,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -58230,6 +58386,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -58395,6 +58552,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -58525,6 +58683,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -58702,6 +58861,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -58835,6 +58995,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -59003,6 +59164,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -59133,6 +59295,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -59536,6 +59699,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -59666,6 +59830,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -59807,6 +59972,7 @@ paths:
             - custom_field.enum_value.name
             - custom_field.format
             - custom_field.has_notifications_enabled
+            - custom_field.html_text_value
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
@@ -59862,6 +60028,7 @@ paths:
                 - custom_field.enum_value.name
                 - custom_field.format
                 - custom_field.has_notifications_enabled
+                - custom_field.html_text_value
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
@@ -60086,6 +60253,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -60216,6 +60384,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -60386,6 +60555,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -60516,6 +60686,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -60690,6 +60861,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -60820,6 +60992,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -60991,6 +61164,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -61121,6 +61295,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -65651,6 +65826,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -65766,6 +65942,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -65917,6 +66094,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -66029,6 +66207,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -66184,6 +66363,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -66296,6 +66476,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -66446,6 +66627,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -66558,6 +66740,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -66840,6 +67023,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -66955,6 +67139,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -67106,6 +67291,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -67221,6 +67407,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -67371,6 +67558,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -67486,6 +67674,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -67639,6 +67828,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -67754,6 +67944,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -67904,6 +68095,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -68019,6 +68211,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -68164,6 +68357,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -68276,6 +68470,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -68433,6 +68628,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -68545,6 +68741,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -68702,6 +68899,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -68817,6 +69015,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -69049,6 +69248,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -69164,6 +69364,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -69596,6 +69797,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -69708,6 +69910,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -69863,6 +70066,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -69975,6 +70179,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -70634,6 +70839,7 @@ paths:
             - custom_fields.enum_value.name
             - custom_fields.format
             - custom_fields.has_notifications_enabled
+            - custom_fields.html_text_value
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
@@ -70746,6 +70952,7 @@ paths:
                 - custom_fields.enum_value.name
                 - custom_fields.format
                 - custom_fields.has_notifications_enabled
+                - custom_fields.html_text_value
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
@@ -71155,6 +71362,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -71226,6 +71434,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -71337,6 +71546,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -71408,6 +71618,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -71507,6 +71718,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -71578,6 +71790,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -71691,6 +71904,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -71765,6 +71979,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
@@ -71881,6 +72096,7 @@ paths:
             - custom_field_settings.custom_field.enum_value.name
             - custom_field_settings.custom_field.format
             - custom_field_settings.custom_field.has_notifications_enabled
+            - custom_field_settings.custom_field.html_text_value
             - custom_field_settings.custom_field.id_prefix
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
@@ -71955,6 +72171,7 @@ paths:
                 - custom_field_settings.custom_field.enum_value.name
                 - custom_field_settings.custom_field.format
                 - custom_field_settings.custom_field.has_notifications_enabled
+                - custom_field_settings.custom_field.html_text_value
                 - custom_field_settings.custom_field.id_prefix
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
