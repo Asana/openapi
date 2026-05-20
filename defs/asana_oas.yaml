@@ -119,6 +119,11 @@ tags:
       An access request object represents a user's request to an item, such as a project
       or portfolio, that they do not have access to. The request is sent to the owner
       of the item for approval.
+  - name: Agents
+    description: >-
+      An *agent* object represents a software program that can perceive its environment,
+      reason, plan, and take autonomous actions to achieve specific goals.
+      Agents may be built by Asana, provided by apps, or defined by the system.
   - name: Allocations
     description: >-
       An allocation object represents how much of a resource (e.g. person, team) is
@@ -1728,6 +1733,101 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
   schemas:
+    AgentCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: agent
+          x-insert-after: gid
+        resource_subtype:
+          description: >-
+            The subtype of the agent. `asana_teammate` is an Asana-built teammate.
+          type: string
+          readOnly: true
+          enum:
+            - asana_teammate
+          example: asana_teammate
+        name:
+          description: >-
+            The display name of the agent.
+          type: string
+          readOnly: true
+          example: Developer Blog Writer
+    AgentResponse:
+      allOf:
+        - $ref: '#/components/schemas/AgentCompact'
+        - type: object
+          required:
+            - workspace
+          properties:
+            description:
+              description: A brief description of what the agent does.
+              type: string
+              readOnly: true
+              nullable: true
+            behavior_guidance:
+              description: >-
+                A description of the agent's behavior.
+              type: string
+              readOnly: true
+              nullable: true
+            workspace:
+              description: The workspace this agent is instantiated within.
+              readOnly: true
+              allOf:
+                - $ref: '#/components/schemas/WorkspaceCompact'
+                - type: object
+            photo:
+              type: object
+              nullable: true
+              readOnly: true
+              description: >-
+                A map of the agent's avatar image in various sizes, or null if no
+                photo is set.
+              properties:
+                image_21x21:
+                  type: string
+                  format: uri
+                  description: PNG image at 21x21 pixels.
+                image_27x27:
+                  type: string
+                  format: uri
+                  description: PNG image at 27x27 pixels.
+                image_36x36:
+                  type: string
+                  format: uri
+                  description: PNG image at 36x36 pixels.
+                image_60x60:
+                  type: string
+                  format: uri
+                  description: PNG image at 60x60 pixels.
+                image_128x128:
+                  type: string
+                  format: uri
+                  description: PNG image at 128x128 pixels.
+                image_1024x1024:
+                  type: string
+                  format: uri
+                  description: JPEG image at 1024x1024 pixels.
+              example:
+                image_21x21: https://...
+                image_27x27: https://...
+                image_36x36: https://...
+                image_60x60: https://...
+                image_128x128: https://...
+                image_1024x1024: https://...
     AllocationBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -10155,6 +10255,11 @@ components:
                     AI features
                   type: boolean
                   example: true
+                create_and_edit_ai_teammates:
+                  description: Controls whether users with this role can create and
+                    edit AI teammates
+                  type: boolean
+                  example: true
     RbacRoleResponse:
       allOf:
         - $ref: '#/components/schemas/RbacRoleBase'
@@ -10612,6 +10717,166 @@ paths:
               except ApiException as e:
                   print("Exception when calling AccessRequestsApi->reject_access_request: %s\n" % e)
             name: python-sdk-v5
+  /workspaces/{workspace_gid}/agents:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get a list of agents in a workspace
+      description: >-
+        Returns the compact records of agents (AI Teammates) configured. Use `opt_fields`
+        to request additional fields.
+        in the workspace.
+      tags:
+        - Agents
+      operationId: getAgentsForWorkspace
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - behavior_guidance
+            - description
+            - name
+            - offset
+            - path
+            - photo
+            - photo.image_1024x1024
+            - photo.image_128x128
+            - photo.image_21x21
+            - photo.image_27x27
+            - photo.image_36x36
+            - photo.image_60x60
+            - resource_subtype
+            - uri
+            - workspace
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - behavior_guidance
+                - description
+                - name
+                - offset
+                - path
+                - photo
+                - photo.image_1024x1024
+                - photo.image_128x128
+                - photo.image_21x21
+                - photo.image_27x27
+                - photo.image_36x36
+                - photo.image_60x60
+                - resource_subtype
+                - uri
+                - workspace
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Successfully retrieved the requested workspace's agents.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AgentCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
+  /agents/{agent_gid}:
+    parameters:
+      - $ref: '#/components/parameters/agent_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get an agent
+      description: >-
+        Returns the complete record for a single agent (AI Teammate).
+      tags:
+        - Agents
+      operationId: getAgent
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include.
+          required: false
+          example:
+            - behavior_guidance
+            - description
+            - name
+            - photo
+            - photo.image_1024x1024
+            - photo.image_128x128
+            - photo.image_21x21
+            - photo.image_27x27
+            - photo.image_36x36
+            - photo.image_60x60
+            - resource_subtype
+            - workspace
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - behavior_guidance
+                - description
+                - name
+                - photo
+                - photo.image_1024x1024
+                - photo.image_128x128
+                - photo.image_21x21
+                - photo.image_27x27
+                - photo.image_36x36
+                - photo.image_60x60
+                - resource_subtype
+                - workspace
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Successfully retrieved the requested agent.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/AgentResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2: []
   /allocations/{allocation_gid}:
     parameters:
       - $ref: '#/components/parameters/allocation_path_gid'
@@ -39050,6 +39315,7 @@ paths:
             - permissions.allowed_guest_invites
             - permissions.assign_roles
             - permissions.create_and_edit_ai_automations
+            - permissions.create_and_edit_ai_teammates
             - permissions.create_app_authorization
             - permissions.create_global_custom_fields
             - permissions.create_pat_authorization
@@ -39084,6 +39350,7 @@ paths:
                 - permissions.allowed_guest_invites
                 - permissions.assign_roles
                 - permissions.create_and_edit_ai_automations
+                - permissions.create_and_edit_ai_teammates
                 - permissions.create_app_authorization
                 - permissions.create_global_custom_fields
                 - permissions.create_pat_authorization
@@ -39211,6 +39478,7 @@ paths:
             - permissions.allowed_guest_invites
             - permissions.assign_roles
             - permissions.create_and_edit_ai_automations
+            - permissions.create_and_edit_ai_teammates
             - permissions.create_app_authorization
             - permissions.create_global_custom_fields
             - permissions.create_pat_authorization
@@ -39242,6 +39510,7 @@ paths:
                 - permissions.allowed_guest_invites
                 - permissions.assign_roles
                 - permissions.create_and_edit_ai_automations
+                - permissions.create_and_edit_ai_teammates
                 - permissions.create_app_authorization
                 - permissions.create_global_custom_fields
                 - permissions.create_pat_authorization
@@ -39371,6 +39640,7 @@ paths:
             - permissions.allowed_guest_invites
             - permissions.assign_roles
             - permissions.create_and_edit_ai_automations
+            - permissions.create_and_edit_ai_teammates
             - permissions.create_app_authorization
             - permissions.create_global_custom_fields
             - permissions.create_pat_authorization
@@ -39402,6 +39672,7 @@ paths:
                 - permissions.allowed_guest_invites
                 - permissions.assign_roles
                 - permissions.create_and_edit_ai_automations
+                - permissions.create_and_edit_ai_teammates
                 - permissions.create_app_authorization
                 - permissions.create_global_custom_fields
                 - permissions.create_pat_authorization
@@ -39517,6 +39788,7 @@ paths:
             - permissions.allowed_guest_invites
             - permissions.assign_roles
             - permissions.create_and_edit_ai_automations
+            - permissions.create_and_edit_ai_teammates
             - permissions.create_app_authorization
             - permissions.create_global_custom_fields
             - permissions.create_pat_authorization
@@ -39548,6 +39820,7 @@ paths:
                 - permissions.allowed_guest_invites
                 - permissions.assign_roles
                 - permissions.create_and_edit_ai_automations
+                - permissions.create_and_edit_ai_teammates
                 - permissions.create_app_authorization
                 - permissions.create_global_custom_fields
                 - permissions.create_pat_authorization
@@ -60869,15 +61142,20 @@ paths:
         in: query
         description: >-
           The type of values the typeahead should return. You can choose from one
-          of the following: `custom_field`, `goal`, `project`, `project_template`,
+          of the following: `actor`, `agent`, `custom_field`, `goal`, `project`, `project_template`,
           `portfolio`, `tag`, `task`, `team`, and `user`. Note that unlike in the
           names
           of endpoints, the types listed here are in singular form (e.g. `task`).
           Using multiple types is not yet supported.
+          The `agent` type returns only agents, currently limited to AI Teammates,
+          which are Asana's first-party agents.
+          The `actor` type returns a combined set of users and agents.
         required: true
         schema:
           type: string
           enum:
+            - actor
+            - agent
             - custom_field
             - goal
             - project
@@ -60962,6 +61240,8 @@ paths:
         Leaving the `query` string empty or omitted will give you results, still
         following the resource ordering above. This could be used to list users or
         projects that are relevant for the requesting user's api token.
+
+        The `agent` type returns only agents, currently limited to AI Teammates, which are Asana's first-party agents. The `actor` type returns a combined set of users and agents.
       tags:
         - Typeahead
       operationId: typeaheadForWorkspace
