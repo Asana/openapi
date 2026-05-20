@@ -21,6 +21,8 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0
   version: '1.0'
   x-docs-schema-whitelist:
+    - AgentCompact
+    - AgentResponse
     - AsanaResource
     - AsanaNamedResource
     - AuditLogEvent
@@ -46782,8 +46784,7 @@ paths:
       summary: Get a list of agents in a workspace
       description: >-
         Returns the compact records of agents (AI Teammates) configured. Use `opt_fields`
-        to request additional fields.
-        in the workspace.
+        to request additional fields in the workspace.
       tags:
         - Agents
       operationId: getAgentsForWorkspace
