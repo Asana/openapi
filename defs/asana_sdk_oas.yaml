@@ -2615,6 +2615,7 @@ components:
                     - number
                     - date
                     - people
+                    - reference
                 enum_options:
                   description: >-
                     *Conditional*. Only relevant for custom fields of type `enum`
@@ -2724,6 +2725,7 @@ components:
                     - people
                     - formula
                     - custom_id
+                    - reference
                 id_prefix:
                   description: >-
                     This field is the unique custom ID string for the custom field.
@@ -2731,15 +2733,21 @@ components:
                   nullable: true
                   example: ID
                 input_restrictions:
-                  description: >-
-                    *Conditional*. Only relevant for custom fields of type `reference`.
-                    This array of strings reflects the allowed types of objects that
-                    can be written
-                    to a `reference` custom field value.
                   type: array
                   items:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `reference`.
+                      This array of strings reflects the allowed types of objects
+                      that can be written
+                      to a `reference` custom field value.
                     type: string
-                  example: task
+                    enum:
+                      - task
+                      - project
+                      - portfolio
+                      - goal
+                  example:
+                    - task
                 is_formula_field:
                   description: >-
                     *Conditional*. This flag describes whether a custom field is a
@@ -4811,6 +4819,7 @@ components:
             - number
             - date
             - people
+            - reference
         enum_options:
           description: >-
             *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -4915,6 +4924,7 @@ components:
             - people
             - formula
             - custom_id
+            - reference
         id_prefix:
           description: >-
             This field is the unique custom ID string for the custom field.
@@ -4922,15 +4932,21 @@ components:
           nullable: true
           example: ID
         input_restrictions:
-          description: >-
-            *Conditional*. Only relevant for custom fields of type `reference`.
-            This array of strings reflects the allowed types of objects that can be
-            written
-            to a `reference` custom field value.
           type: array
           items:
+            description: >-
+              *Conditional*. Only relevant for custom fields of type `reference`.
+              This array of strings reflects the allowed types of objects that can
+              be written
+              to a `reference` custom field value.
             type: string
-          example: task
+            enum:
+              - task
+              - project
+              - portfolio
+              - goal
+          example:
+            - task
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -5427,6 +5443,7 @@ components:
             - number
             - date
             - people
+            - reference
         enum_options:
           description: >-
             *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -5531,6 +5548,7 @@ components:
             - people
             - formula
             - custom_id
+            - reference
         id_prefix:
           description: >-
             This field is the unique custom ID string for the custom field.
@@ -5538,15 +5556,21 @@ components:
           nullable: true
           example: ID
         input_restrictions:
-          description: >-
-            *Conditional*. Only relevant for custom fields of type `reference`.
-            This array of strings reflects the allowed types of objects that can be
-            written
-            to a `reference` custom field value.
           type: array
           items:
+            description: >-
+              *Conditional*. Only relevant for custom fields of type `reference`.
+              This array of strings reflects the allowed types of objects that can
+              be written
+              to a `reference` custom field value.
             type: string
-          example: task
+            enum:
+              - task
+              - project
+              - portfolio
+              - goal
+          example:
+            - task
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -5823,6 +5847,7 @@ components:
             - number
             - date
             - people
+            - reference
         enum_options:
           description: >-
             *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -5927,6 +5952,7 @@ components:
             - people
             - formula
             - custom_id
+            - reference
         id_prefix:
           description: >-
             This field is the unique custom ID string for the custom field.
@@ -5934,15 +5960,21 @@ components:
           nullable: true
           example: ID
         input_restrictions:
-          description: >-
-            *Conditional*. Only relevant for custom fields of type `reference`.
-            This array of strings reflects the allowed types of objects that can be
-            written
-            to a `reference` custom field value.
           type: array
           items:
+            description: >-
+              *Conditional*. Only relevant for custom fields of type `reference`.
+              This array of strings reflects the allowed types of objects that can
+              be written
+              to a `reference` custom field value.
             type: string
-          example: task
+            enum:
+              - task
+              - project
+              - portfolio
+              - goal
+          example:
+            - task
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -6481,6 +6513,7 @@ components:
             - number
             - date
             - people
+            - reference
         enum_options:
           description: >-
             *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -6585,6 +6618,7 @@ components:
             - people
             - formula
             - custom_id
+            - reference
         id_prefix:
           description: >-
             This field is the unique custom ID string for the custom field.
@@ -6592,15 +6626,21 @@ components:
           nullable: true
           example: ID
         input_restrictions:
-          description: >-
-            *Conditional*. Only relevant for custom fields of type `reference`.
-            This array of strings reflects the allowed types of objects that can be
-            written
-            to a `reference` custom field value.
           type: array
           items:
+            description: >-
+              *Conditional*. Only relevant for custom fields of type `reference`.
+              This array of strings reflects the allowed types of objects that can
+              be written
+              to a `reference` custom field value.
             type: string
-          example: task
+            enum:
+              - task
+              - project
+              - portfolio
+              - goal
+          example:
+            - task
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -7153,6 +7193,7 @@ components:
             - number
             - date
             - people
+            - reference
         enum_options:
           description: >-
             *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -7265,15 +7306,21 @@ components:
           nullable: true
           example: ID
         input_restrictions:
-          description: >-
-            *Conditional*. Only relevant for custom fields of type `reference`.
-            This array of strings reflects the allowed types of objects that can be
-            written
-            to a `reference` custom field value.
           type: array
           items:
+            description: >-
+              *Conditional*. Only relevant for custom fields of type `reference`.
+              This array of strings reflects the allowed types of objects that can
+              be written
+              to a `reference` custom field value.
             type: string
-          example: task
+            enum:
+              - task
+              - project
+              - portfolio
+              - goal
+          example:
+            - task
         is_formula_field:
           description: >-
             *Conditional*. This flag describes whether a custom field is a formula
@@ -8092,6 +8139,7 @@ components:
                 - number
                 - date
                 - people
+                - reference
             enum_options:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -8204,15 +8252,21 @@ components:
               nullable: true
               example: ID
             input_restrictions:
-              description: >-
-                *Conditional*. Only relevant for custom fields of type `reference`.
-                This array of strings reflects the allowed types of objects that can
-                be written
-                to a `reference` custom field value.
               type: array
               items:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type `reference`.
+                  This array of strings reflects the allowed types of objects that
+                  can be written
+                  to a `reference` custom field value.
                 type: string
-              example: task
+                enum:
+                  - task
+                  - project
+                  - portfolio
+                  - goal
+              example:
+                - task
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -10848,6 +10902,7 @@ components:
                   - number
                   - date
                   - people
+                  - reference
               enum_options:
                 description: >-
                   *Conditional*. Only relevant for custom fields of type `enum` or
@@ -10954,6 +11009,7 @@ components:
                   - people
                   - formula
                   - custom_id
+                  - reference
               id_prefix:
                 description: >-
                   This field is the unique custom ID string for the custom field.
@@ -10961,15 +11017,21 @@ components:
                 nullable: true
                 example: ID
               input_restrictions:
-                description: >-
-                  *Conditional*. Only relevant for custom fields of type `reference`.
-                  This array of strings reflects the allowed types of objects that
-                  can be written
-                  to a `reference` custom field value.
                 type: array
                 items:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `reference`.
+                    This array of strings reflects the allowed types of objects that
+                    can be written
+                    to a `reference` custom field value.
                   type: string
-                example: task
+                  enum:
+                    - task
+                    - project
+                    - portfolio
+                    - goal
+                example:
+                  - task
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -11393,6 +11455,7 @@ components:
                       - number
                       - date
                       - people
+                      - reference
                   enum_options:
                     description: >-
                       *Conditional*. Only relevant for custom fields of type `enum`
@@ -11509,15 +11572,21 @@ components:
                     nullable: true
                     example: ID
                   input_restrictions:
-                    description: >-
-                      *Conditional*. Only relevant for custom fields of type `reference`.
-                      This array of strings reflects the allowed types of objects
-                      that can be written
-                      to a `reference` custom field value.
                     type: array
                     items:
+                      description: >-
+                        *Conditional*. Only relevant for custom fields of type `reference`.
+                        This array of strings reflects the allowed types of objects
+                        that can be written
+                        to a `reference` custom field value.
                       type: string
-                    example: task
+                      enum:
+                        - task
+                        - project
+                        - portfolio
+                        - goal
+                    example:
+                      - task
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -14061,6 +14130,7 @@ components:
                     - number
                     - date
                     - people
+                    - reference
                 enum_options:
                   description: >-
                     *Conditional*. Only relevant for custom fields of type `enum`
@@ -14169,6 +14239,7 @@ components:
                     - people
                     - formula
                     - custom_id
+                    - reference
                 id_prefix:
                   description: >-
                     This field is the unique custom ID string for the custom field.
@@ -14176,15 +14247,21 @@ components:
                   nullable: true
                   example: ID
                 input_restrictions:
-                  description: >-
-                    *Conditional*. Only relevant for custom fields of type `reference`.
-                    This array of strings reflects the allowed types of objects that
-                    can be written
-                    to a `reference` custom field value.
                   type: array
                   items:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `reference`.
+                      This array of strings reflects the allowed types of objects
+                      that can be written
+                      to a `reference` custom field value.
                     type: string
-                  example: task
+                    enum:
+                      - task
+                      - project
+                      - portfolio
+                      - goal
+                  example:
+                    - task
                 is_formula_field:
                   description: >-
                     *Conditional*. This flag describes whether a custom field is a
@@ -16387,6 +16464,7 @@ components:
                       - number
                       - date
                       - people
+                      - reference
                   enum_options:
                     description: >-
                       *Conditional*. Only relevant for custom fields of type `enum`
@@ -16503,15 +16581,21 @@ components:
                     nullable: true
                     example: ID
                   input_restrictions:
-                    description: >-
-                      *Conditional*. Only relevant for custom fields of type `reference`.
-                      This array of strings reflects the allowed types of objects
-                      that can be written
-                      to a `reference` custom field value.
                     type: array
                     items:
+                      description: >-
+                        *Conditional*. Only relevant for custom fields of type `reference`.
+                        This array of strings reflects the allowed types of objects
+                        that can be written
+                        to a `reference` custom field value.
                       type: string
-                    example: task
+                      enum:
+                        - task
+                        - project
+                        - portfolio
+                        - goal
+                    example:
+                      - task
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -17237,6 +17321,7 @@ components:
                   - number
                   - date
                   - people
+                  - reference
               enum_options:
                 description: >-
                   *Conditional*. Only relevant for custom fields of type `enum` or
@@ -17343,6 +17428,7 @@ components:
                   - people
                   - formula
                   - custom_id
+                  - reference
               id_prefix:
                 description: >-
                   This field is the unique custom ID string for the custom field.
@@ -17350,15 +17436,21 @@ components:
                 nullable: true
                 example: ID
               input_restrictions:
-                description: >-
-                  *Conditional*. Only relevant for custom fields of type `reference`.
-                  This array of strings reflects the allowed types of objects that
-                  can be written
-                  to a `reference` custom field value.
                 type: array
                 items:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `reference`.
+                    This array of strings reflects the allowed types of objects that
+                    can be written
+                    to a `reference` custom field value.
                   type: string
-                example: task
+                  enum:
+                    - task
+                    - project
+                    - portfolio
+                    - goal
+                example:
+                  - task
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -18283,6 +18375,7 @@ components:
                       - number
                       - date
                       - people
+                      - reference
                   enum_options:
                     description: >-
                       *Conditional*. Only relevant for custom fields of type `enum`
@@ -18399,15 +18492,21 @@ components:
                     nullable: true
                     example: ID
                   input_restrictions:
-                    description: >-
-                      *Conditional*. Only relevant for custom fields of type `reference`.
-                      This array of strings reflects the allowed types of objects
-                      that can be written
-                      to a `reference` custom field value.
                     type: array
                     items:
+                      description: >-
+                        *Conditional*. Only relevant for custom fields of type `reference`.
+                        This array of strings reflects the allowed types of objects
+                        that can be written
+                        to a `reference` custom field value.
                       type: string
-                    example: task
+                      enum:
+                        - task
+                        - project
+                        - portfolio
+                        - goal
+                    example:
+                      - task
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -19564,6 +19663,7 @@ components:
                 - number
                 - date
                 - people
+                - reference
             enum_options:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -19668,6 +19768,7 @@ components:
                 - people
                 - formula
                 - custom_id
+                - reference
             id_prefix:
               description: >-
                 This field is the unique custom ID string for the custom field.
@@ -19675,15 +19776,21 @@ components:
               nullable: true
               example: ID
             input_restrictions:
-              description: >-
-                *Conditional*. Only relevant for custom fields of type `reference`.
-                This array of strings reflects the allowed types of objects that can
-                be written
-                to a `reference` custom field value.
               type: array
               items:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type `reference`.
+                  This array of strings reflects the allowed types of objects that
+                  can be written
+                  to a `reference` custom field value.
                 type: string
-              example: task
+                enum:
+                  - task
+                  - project
+                  - portfolio
+                  - goal
+              example:
+                - task
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -20023,6 +20130,7 @@ components:
                 - number
                 - date
                 - people
+                - reference
             enum_options:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -20127,6 +20235,7 @@ components:
                 - people
                 - formula
                 - custom_id
+                - reference
             id_prefix:
               description: >-
                 This field is the unique custom ID string for the custom field.
@@ -20134,15 +20243,21 @@ components:
               nullable: true
               example: ID
             input_restrictions:
-              description: >-
-                *Conditional*. Only relevant for custom fields of type `reference`.
-                This array of strings reflects the allowed types of objects that can
-                be written
-                to a `reference` custom field value.
               type: array
               items:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type `reference`.
+                  This array of strings reflects the allowed types of objects that
+                  can be written
+                  to a `reference` custom field value.
                 type: string
-              example: task
+                enum:
+                  - task
+                  - project
+                  - portfolio
+                  - goal
+              example:
+                - task
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -20482,6 +20597,7 @@ components:
                 - number
                 - date
                 - people
+                - reference
             enum_options:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -20586,6 +20702,7 @@ components:
                 - people
                 - formula
                 - custom_id
+                - reference
             id_prefix:
               description: >-
                 This field is the unique custom ID string for the custom field.
@@ -20593,15 +20710,21 @@ components:
               nullable: true
               example: ID
             input_restrictions:
-              description: >-
-                *Conditional*. Only relevant for custom fields of type `reference`.
-                This array of strings reflects the allowed types of objects that can
-                be written
-                to a `reference` custom field value.
               type: array
               items:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type `reference`.
+                  This array of strings reflects the allowed types of objects that
+                  can be written
+                  to a `reference` custom field value.
                 type: string
-              example: task
+                enum:
+                  - task
+                  - project
+                  - portfolio
+                  - goal
+              example:
+                - task
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -22280,6 +22403,7 @@ components:
                       - number
                       - date
                       - people
+                      - reference
                   enum_options:
                     description: >-
                       *Conditional*. Only relevant for custom fields of type `enum`
@@ -22396,15 +22520,21 @@ components:
                     nullable: true
                     example: ID
                   input_restrictions:
-                    description: >-
-                      *Conditional*. Only relevant for custom fields of type `reference`.
-                      This array of strings reflects the allowed types of objects
-                      that can be written
-                      to a `reference` custom field value.
                     type: array
                     items:
+                      description: >-
+                        *Conditional*. Only relevant for custom fields of type `reference`.
+                        This array of strings reflects the allowed types of objects
+                        that can be written
+                        to a `reference` custom field value.
                       type: string
-                    example: task
+                      enum:
+                        - task
+                        - project
+                        - portfolio
+                        - goal
+                    example:
+                      - task
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -23702,6 +23832,7 @@ components:
                       - number
                       - date
                       - people
+                      - reference
                   enum_options:
                     description: >-
                       *Conditional*. Only relevant for custom fields of type `enum`
@@ -23818,15 +23949,21 @@ components:
                     nullable: true
                     example: ID
                   input_restrictions:
-                    description: >-
-                      *Conditional*. Only relevant for custom fields of type `reference`.
-                      This array of strings reflects the allowed types of objects
-                      that can be written
-                      to a `reference` custom field value.
                     type: array
                     items:
+                      description: >-
+                        *Conditional*. Only relevant for custom fields of type `reference`.
+                        This array of strings reflects the allowed types of objects
+                        that can be written
+                        to a `reference` custom field value.
                       type: string
-                    example: task
+                      enum:
+                        - task
+                        - project
+                        - portfolio
+                        - goal
+                    example:
+                      - task
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -25119,6 +25256,7 @@ components:
                       - number
                       - date
                       - people
+                      - reference
                   enum_options:
                     description: >-
                       *Conditional*. Only relevant for custom fields of type `enum`
@@ -25235,15 +25373,21 @@ components:
                     nullable: true
                     example: ID
                   input_restrictions:
-                    description: >-
-                      *Conditional*. Only relevant for custom fields of type `reference`.
-                      This array of strings reflects the allowed types of objects
-                      that can be written
-                      to a `reference` custom field value.
                     type: array
                     items:
+                      description: >-
+                        *Conditional*. Only relevant for custom fields of type `reference`.
+                        This array of strings reflects the allowed types of objects
+                        that can be written
+                        to a `reference` custom field value.
                       type: string
-                    example: task
+                      enum:
+                        - task
+                        - project
+                        - portfolio
+                        - goal
+                    example:
+                      - task
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -26054,6 +26198,7 @@ components:
                   - number
                   - date
                   - people
+                  - reference
               enum_options:
                 description: >-
                   *Conditional*. Only relevant for custom fields of type `enum` or
@@ -26160,6 +26305,7 @@ components:
                   - people
                   - formula
                   - custom_id
+                  - reference
               id_prefix:
                 description: >-
                   This field is the unique custom ID string for the custom field.
@@ -26167,15 +26313,21 @@ components:
                 nullable: true
                 example: ID
               input_restrictions:
-                description: >-
-                  *Conditional*. Only relevant for custom fields of type `reference`.
-                  This array of strings reflects the allowed types of objects that
-                  can be written
-                  to a `reference` custom field value.
                 type: array
                 items:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `reference`.
+                    This array of strings reflects the allowed types of objects that
+                    can be written
+                    to a `reference` custom field value.
                   type: string
-                example: task
+                  enum:
+                    - task
+                    - project
+                    - portfolio
+                    - goal
+                example:
+                  - task
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -30817,6 +30969,7 @@ components:
                 - number
                 - date
                 - people
+                - reference
             enum_options:
               description: >-
                 *Conditional*. Only relevant for custom fields of type `enum` or `multi_enum`.
@@ -30921,6 +31074,7 @@ components:
                 - people
                 - formula
                 - custom_id
+                - reference
             id_prefix:
               description: >-
                 This field is the unique custom ID string for the custom field.
@@ -30928,15 +31082,21 @@ components:
               nullable: true
               example: ID
             input_restrictions:
-              description: >-
-                *Conditional*. Only relevant for custom fields of type `reference`.
-                This array of strings reflects the allowed types of objects that can
-                be written
-                to a `reference` custom field value.
               type: array
               items:
+                description: >-
+                  *Conditional*. Only relevant for custom fields of type `reference`.
+                  This array of strings reflects the allowed types of objects that
+                  can be written
+                  to a `reference` custom field value.
                 type: string
-              example: task
+                enum:
+                  - task
+                  - project
+                  - portfolio
+                  - goal
+              example:
+                - task
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
@@ -33441,6 +33601,7 @@ components:
                   - number
                   - date
                   - people
+                  - reference
               enum_options:
                 description: >-
                   *Conditional*. Only relevant for custom fields of type `enum` or
@@ -33547,6 +33708,7 @@ components:
                   - people
                   - formula
                   - custom_id
+                  - reference
               id_prefix:
                 description: >-
                   This field is the unique custom ID string for the custom field.
@@ -33554,15 +33716,21 @@ components:
                 nullable: true
                 example: ID
               input_restrictions:
-                description: >-
-                  *Conditional*. Only relevant for custom fields of type `reference`.
-                  This array of strings reflects the allowed types of objects that
-                  can be written
-                  to a `reference` custom field value.
                 type: array
                 items:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `reference`.
+                    This array of strings reflects the allowed types of objects that
+                    can be written
+                    to a `reference` custom field value.
                   type: string
-                example: task
+                  enum:
+                    - task
+                    - project
+                    - portfolio
+                    - goal
+                example:
+                  - task
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -34147,6 +34315,7 @@ components:
                           - number
                           - date
                           - people
+                          - reference
                       enum_options:
                         description: >-
                           *Conditional*. Only relevant for custom fields of type `enum`
@@ -34258,6 +34427,7 @@ components:
                           - people
                           - formula
                           - custom_id
+                          - reference
                       id_prefix:
                         description: >-
                           This field is the unique custom ID string for the custom
@@ -34266,15 +34436,22 @@ components:
                         nullable: true
                         example: ID
                       input_restrictions:
-                        description: >-
-                          *Conditional*. Only relevant for custom fields of type `reference`.
-                          This array of strings reflects the allowed types of objects
-                          that can be written
-                          to a `reference` custom field value.
                         type: array
                         items:
+                          description: >-
+                            *Conditional*. Only relevant for custom fields of type
+                            `reference`.
+                            This array of strings reflects the allowed types of objects
+                            that can be written
+                            to a `reference` custom field value.
                           type: string
-                        example: task
+                          enum:
+                            - task
+                            - project
+                            - portfolio
+                            - goal
+                        example:
+                          - task
                       is_formula_field:
                         description: >-
                           *Conditional*. This flag describes whether a custom field
@@ -37261,6 +37438,7 @@ components:
                   - number
                   - date
                   - people
+                  - reference
               enum_options:
                 description: >-
                   *Conditional*. Only relevant for custom fields of type `enum` or
@@ -37375,15 +37553,21 @@ components:
                 nullable: true
                 example: ID
               input_restrictions:
-                description: >-
-                  *Conditional*. Only relevant for custom fields of type `reference`.
-                  This array of strings reflects the allowed types of objects that
-                  can be written
-                  to a `reference` custom field value.
                 type: array
                 items:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `reference`.
+                    This array of strings reflects the allowed types of objects that
+                    can be written
+                    to a `reference` custom field value.
                   type: string
-                example: task
+                  enum:
+                    - task
+                    - project
+                    - portfolio
+                    - goal
+                example:
+                  - task
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -39084,6 +39268,7 @@ components:
                       - number
                       - date
                       - people
+                      - reference
                   enum_options:
                     description: >-
                       *Conditional*. Only relevant for custom fields of type `enum`
@@ -39200,15 +39385,21 @@ components:
                     nullable: true
                     example: ID
                   input_restrictions:
-                    description: >-
-                      *Conditional*. Only relevant for custom fields of type `reference`.
-                      This array of strings reflects the allowed types of objects
-                      that can be written
-                      to a `reference` custom field value.
                     type: array
                     items:
+                      description: >-
+                        *Conditional*. Only relevant for custom fields of type `reference`.
+                        This array of strings reflects the allowed types of objects
+                        that can be written
+                        to a `reference` custom field value.
                       type: string
-                    example: task
+                      enum:
+                        - task
+                        - project
+                        - portfolio
+                        - goal
+                    example:
+                      - task
                   is_formula_field:
                     description: >-
                       *Conditional*. This flag describes whether a custom field is
@@ -40451,6 +40642,7 @@ components:
                   - number
                   - date
                   - people
+                  - reference
               enum_options:
                 description: >-
                   *Conditional*. Only relevant for custom fields of type `enum` or
@@ -40557,6 +40749,7 @@ components:
                   - people
                   - formula
                   - custom_id
+                  - reference
               id_prefix:
                 description: >-
                   This field is the unique custom ID string for the custom field.
@@ -40564,15 +40757,21 @@ components:
                 nullable: true
                 example: ID
               input_restrictions:
-                description: >-
-                  *Conditional*. Only relevant for custom fields of type `reference`.
-                  This array of strings reflects the allowed types of objects that
-                  can be written
-                  to a `reference` custom field value.
                 type: array
                 items:
+                  description: >-
+                    *Conditional*. Only relevant for custom fields of type `reference`.
+                    This array of strings reflects the allowed types of objects that
+                    can be written
+                    to a `reference` custom field value.
                   type: string
-                example: task
+                  enum:
+                    - task
+                    - project
+                    - portfolio
+                    - goal
+                example:
+                  - task
               is_formula_field:
                 description: >-
                   *Conditional*. This flag describes whether a custom field is a formula
@@ -43413,6 +43612,7 @@ components:
                     - number
                     - date
                     - people
+                    - reference
                 enum_options:
                   description: >-
                     *Conditional*. Only relevant for custom fields of type `enum`
@@ -43521,6 +43721,7 @@ components:
                     - people
                     - formula
                     - custom_id
+                    - reference
                 id_prefix:
                   description: >-
                     This field is the unique custom ID string for the custom field.
@@ -43528,15 +43729,21 @@ components:
                   nullable: true
                   example: ID
                 input_restrictions:
-                  description: >-
-                    *Conditional*. Only relevant for custom fields of type `reference`.
-                    This array of strings reflects the allowed types of objects that
-                    can be written
-                    to a `reference` custom field value.
                   type: array
                   items:
+                    description: >-
+                      *Conditional*. Only relevant for custom fields of type `reference`.
+                      This array of strings reflects the allowed types of objects
+                      that can be written
+                      to a `reference` custom field value.
                     type: string
-                  example: task
+                    enum:
+                      - task
+                      - project
+                      - portfolio
+                      - goal
+                  example:
+                    - task
                 is_formula_field:
                   description: >-
                     *Conditional*. This flag describes whether a custom field is a
