@@ -53828,7 +53828,11 @@ paths:
       description: |-
         <b>Required scope: </b><code>portfolios:read</code>
 
-        Returns a list of the portfolios in compact representation that are owned by the current API user.
+        Returns a list of the portfolios in compact representation.
+        The portfolios are filtered based on the following criteria:
+        - If the request is made from a regular API user (PAT or OAuth), then only portfolios owned by the current API user are returned.
+        - If the request is made from a Service Account without the `owner` parameter, then all portfolios across the workspace are returned.
+        - If the request is made from a Service Account with the `owner` parameter, then only portfolios owned by the specified user are returned.
       tags:
         - Portfolios
       operationId: getPortfolios
