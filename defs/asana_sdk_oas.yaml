@@ -19488,13 +19488,6 @@ components:
           description: The name of the new project.
           type: string
           example: New Project Name
-        team:
-          description: >-
-            Sets the team of the new project. If team is not defined,
-            the new project will be in the same team as the the
-            original project.
-          type: string
-          example: '12345'
         include:
           description: |-
             A comma-separated list of elements to include when duplicating a project.
