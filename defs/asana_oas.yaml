@@ -35409,7 +35409,7 @@ paths:
       - name: sort_by
         in: query
         description: >-
-          One of `due_date`, `created_at`, `completed_at`, or `modified_at`,
+          One of `due_date`, `created_at`, `completed_at`, `relevance`, or `modified_at`,
           defaults to `modified_at`.
         schema:
           type: string
@@ -35418,6 +35418,7 @@ paths:
             - created_at
             - completed_at
             - modified_at
+            - relevance
           default: modified_at
         example: modified_at
       - name: sort_ascending
@@ -55238,7 +55239,7 @@ paths:
       - name: sort_by
         in: query
         description: >-
-          One of `due_date`, `created_at`, `completed_at`, `likes`, or
+          One of `due_date`, `created_at`, `completed_at`, `likes`, `relevance`, or
           `modified_at`, defaults to `modified_at`
         schema:
           type: string
@@ -55248,6 +55249,7 @@ paths:
             - completed_at
             - likes
             - modified_at
+            - relevance
           default: modified_at
         example: likes
       - name: sort_ascending
