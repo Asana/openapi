@@ -45518,6 +45518,47 @@ components:
                 AI teammates
               type: boolean
               example: true
+            share_teams_with_org:
+              description: Controls whether users with this role can share teams with
+                the organization
+              type: boolean
+              example: true
+            create_goal:
+              description: Controls whether users with this role can create goals
+              type: boolean
+              example: true
+            create_project:
+              description: Controls whether users with this role can create projects
+              type: boolean
+              example: true
+            create_read_only_link:
+              description: Controls whether users with this role can create read-only
+                links
+              type: boolean
+              example: true
+            create_portfolio:
+              description: Controls whether users with this role can create portfolios
+              type: boolean
+              example: true
+            view_public_teams:
+              description: Controls whether users with this role can view public teams
+              type: boolean
+              example: true
+            view_shared_with_org_projects:
+              description: Controls whether users with this role can view projects
+                shared with the organization
+              type: boolean
+              example: true
+            view_shared_with_org_tasks:
+              description: Controls whether users with this role can view tasks shared
+                with the organization
+              type: boolean
+              example: true
+            view_shared_with_org_portfolios:
+              description: Controls whether users with this role can view portfolios
+                shared with the organization
+              type: boolean
+              example: true
       x-docs-overrides: *id052
     RbacRoleResponse:
       description: >-
@@ -45675,6 +45716,47 @@ components:
             create_and_edit_ai_teammates:
               description: Controls whether users with this role can create and edit
                 AI teammates
+              type: boolean
+              example: true
+            share_teams_with_org:
+              description: Controls whether users with this role can share teams with
+                the organization
+              type: boolean
+              example: true
+            create_goal:
+              description: Controls whether users with this role can create goals
+              type: boolean
+              example: true
+            create_project:
+              description: Controls whether users with this role can create projects
+              type: boolean
+              example: true
+            create_read_only_link:
+              description: Controls whether users with this role can create read-only
+                links
+              type: boolean
+              example: true
+            create_portfolio:
+              description: Controls whether users with this role can create portfolios
+              type: boolean
+              example: true
+            view_public_teams:
+              description: Controls whether users with this role can view public teams
+              type: boolean
+              example: true
+            view_shared_with_org_projects:
+              description: Controls whether users with this role can view projects
+                shared with the organization
+              type: boolean
+              example: true
+            view_shared_with_org_tasks:
+              description: Controls whether users with this role can view tasks shared
+                with the organization
+              type: boolean
+              example: true
+            view_shared_with_org_portfolios:
+              description: Controls whether users with this role can view portfolios
+                shared with the organization
               type: boolean
               example: true
         workspace:
@@ -45873,6 +45955,47 @@ components:
                 AI teammates
               type: boolean
               example: true
+            share_teams_with_org:
+              description: Controls whether users with this role can share teams with
+                the organization
+              type: boolean
+              example: true
+            create_goal:
+              description: Controls whether users with this role can create goals
+              type: boolean
+              example: true
+            create_project:
+              description: Controls whether users with this role can create projects
+              type: boolean
+              example: true
+            create_read_only_link:
+              description: Controls whether users with this role can create read-only
+                links
+              type: boolean
+              example: true
+            create_portfolio:
+              description: Controls whether users with this role can create portfolios
+              type: boolean
+              example: true
+            view_public_teams:
+              description: Controls whether users with this role can view public teams
+              type: boolean
+              example: true
+            view_shared_with_org_projects:
+              description: Controls whether users with this role can view projects
+                shared with the organization
+              type: boolean
+              example: true
+            view_shared_with_org_tasks:
+              description: Controls whether users with this role can view tasks shared
+                with the organization
+              type: boolean
+              example: true
+            view_shared_with_org_portfolios:
+              description: Controls whether users with this role can view portfolios
+                shared with the organization
+              type: boolean
+              example: true
         workspace:
           type: string
           description: >-
@@ -46042,6 +46165,47 @@ components:
             create_and_edit_ai_teammates:
               description: Controls whether users with this role can create and edit
                 AI teammates
+              type: boolean
+              example: true
+            share_teams_with_org:
+              description: Controls whether users with this role can share teams with
+                the organization
+              type: boolean
+              example: true
+            create_goal:
+              description: Controls whether users with this role can create goals
+              type: boolean
+              example: true
+            create_project:
+              description: Controls whether users with this role can create projects
+              type: boolean
+              example: true
+            create_read_only_link:
+              description: Controls whether users with this role can create read-only
+                links
+              type: boolean
+              example: true
+            create_portfolio:
+              description: Controls whether users with this role can create portfolios
+              type: boolean
+              example: true
+            view_public_teams:
+              description: Controls whether users with this role can view public teams
+              type: boolean
+              example: true
+            view_shared_with_org_projects:
+              description: Controls whether users with this role can view projects
+                shared with the organization
+              type: boolean
+              example: true
+            view_shared_with_org_tasks:
+              description: Controls whether users with this role can view tasks shared
+                with the organization
+              type: boolean
+              example: true
+            view_shared_with_org_portfolios:
+              description: Controls whether users with this role can view portfolios
+                shared with the organization
               type: boolean
               example: true
       x-docs-overrides: *id052
@@ -62389,7 +62553,11 @@ paths:
             - permissions.create_and_edit_ai_teammates
             - permissions.create_app_authorization
             - permissions.create_global_custom_fields
+            - permissions.create_goal
             - permissions.create_pat_authorization
+            - permissions.create_portfolio
+            - permissions.create_project
+            - permissions.create_read_only_link
             - permissions.create_team
             - permissions.download_mobile_attachments
             - permissions.export_project_data
@@ -62398,9 +62566,14 @@ paths:
             - permissions.proactive_ai
             - permissions.share_goal_with_domain
             - permissions.share_portfolios_with_org
+            - permissions.share_teams_with_org
             - permissions.standard_ai
             - permissions.task_deletion_policy
             - permissions.upload_attachments
+            - permissions.view_public_teams
+            - permissions.view_shared_with_org_portfolios
+            - permissions.view_shared_with_org_projects
+            - permissions.view_shared_with_org_tasks
             - uri
             - workspace
             - workspace.name
@@ -62424,7 +62597,11 @@ paths:
                 - permissions.create_and_edit_ai_teammates
                 - permissions.create_app_authorization
                 - permissions.create_global_custom_fields
+                - permissions.create_goal
                 - permissions.create_pat_authorization
+                - permissions.create_portfolio
+                - permissions.create_project
+                - permissions.create_read_only_link
                 - permissions.create_team
                 - permissions.download_mobile_attachments
                 - permissions.export_project_data
@@ -62433,9 +62610,14 @@ paths:
                 - permissions.proactive_ai
                 - permissions.share_goal_with_domain
                 - permissions.share_portfolios_with_org
+                - permissions.share_teams_with_org
                 - permissions.standard_ai
                 - permissions.task_deletion_policy
                 - permissions.upload_attachments
+                - permissions.view_public_teams
+                - permissions.view_shared_with_org_portfolios
+                - permissions.view_shared_with_org_projects
+                - permissions.view_shared_with_org_tasks
                 - uri
                 - workspace
                 - workspace.name
@@ -62487,7 +62669,11 @@ paths:
             - permissions.create_and_edit_ai_teammates
             - permissions.create_app_authorization
             - permissions.create_global_custom_fields
+            - permissions.create_goal
             - permissions.create_pat_authorization
+            - permissions.create_portfolio
+            - permissions.create_project
+            - permissions.create_read_only_link
             - permissions.create_team
             - permissions.download_mobile_attachments
             - permissions.export_project_data
@@ -62496,9 +62682,14 @@ paths:
             - permissions.proactive_ai
             - permissions.share_goal_with_domain
             - permissions.share_portfolios_with_org
+            - permissions.share_teams_with_org
             - permissions.standard_ai
             - permissions.task_deletion_policy
             - permissions.upload_attachments
+            - permissions.view_public_teams
+            - permissions.view_shared_with_org_portfolios
+            - permissions.view_shared_with_org_projects
+            - permissions.view_shared_with_org_tasks
             - workspace
             - workspace.name
           schema:
@@ -62519,7 +62710,11 @@ paths:
                 - permissions.create_and_edit_ai_teammates
                 - permissions.create_app_authorization
                 - permissions.create_global_custom_fields
+                - permissions.create_goal
                 - permissions.create_pat_authorization
+                - permissions.create_portfolio
+                - permissions.create_project
+                - permissions.create_read_only_link
                 - permissions.create_team
                 - permissions.download_mobile_attachments
                 - permissions.export_project_data
@@ -62528,9 +62723,14 @@ paths:
                 - permissions.proactive_ai
                 - permissions.share_goal_with_domain
                 - permissions.share_portfolios_with_org
+                - permissions.share_teams_with_org
                 - permissions.standard_ai
                 - permissions.task_deletion_policy
                 - permissions.upload_attachments
+                - permissions.view_public_teams
+                - permissions.view_shared_with_org_portfolios
+                - permissions.view_shared_with_org_projects
+                - permissions.view_shared_with_org_tasks
                 - workspace
                 - workspace.name
           style: form
@@ -62594,7 +62794,11 @@ paths:
             - permissions.create_and_edit_ai_teammates
             - permissions.create_app_authorization
             - permissions.create_global_custom_fields
+            - permissions.create_goal
             - permissions.create_pat_authorization
+            - permissions.create_portfolio
+            - permissions.create_project
+            - permissions.create_read_only_link
             - permissions.create_team
             - permissions.download_mobile_attachments
             - permissions.export_project_data
@@ -62603,9 +62807,14 @@ paths:
             - permissions.proactive_ai
             - permissions.share_goal_with_domain
             - permissions.share_portfolios_with_org
+            - permissions.share_teams_with_org
             - permissions.standard_ai
             - permissions.task_deletion_policy
             - permissions.upload_attachments
+            - permissions.view_public_teams
+            - permissions.view_shared_with_org_portfolios
+            - permissions.view_shared_with_org_projects
+            - permissions.view_shared_with_org_tasks
             - workspace
             - workspace.name
           schema:
@@ -62626,7 +62835,11 @@ paths:
                 - permissions.create_and_edit_ai_teammates
                 - permissions.create_app_authorization
                 - permissions.create_global_custom_fields
+                - permissions.create_goal
                 - permissions.create_pat_authorization
+                - permissions.create_portfolio
+                - permissions.create_project
+                - permissions.create_read_only_link
                 - permissions.create_team
                 - permissions.download_mobile_attachments
                 - permissions.export_project_data
@@ -62635,9 +62848,14 @@ paths:
                 - permissions.proactive_ai
                 - permissions.share_goal_with_domain
                 - permissions.share_portfolios_with_org
+                - permissions.share_teams_with_org
                 - permissions.standard_ai
                 - permissions.task_deletion_policy
                 - permissions.upload_attachments
+                - permissions.view_public_teams
+                - permissions.view_shared_with_org_portfolios
+                - permissions.view_shared_with_org_projects
+                - permissions.view_shared_with_org_tasks
                 - workspace
                 - workspace.name
           style: form
@@ -62688,7 +62906,11 @@ paths:
             - permissions.create_and_edit_ai_teammates
             - permissions.create_app_authorization
             - permissions.create_global_custom_fields
+            - permissions.create_goal
             - permissions.create_pat_authorization
+            - permissions.create_portfolio
+            - permissions.create_project
+            - permissions.create_read_only_link
             - permissions.create_team
             - permissions.download_mobile_attachments
             - permissions.export_project_data
@@ -62697,9 +62919,14 @@ paths:
             - permissions.proactive_ai
             - permissions.share_goal_with_domain
             - permissions.share_portfolios_with_org
+            - permissions.share_teams_with_org
             - permissions.standard_ai
             - permissions.task_deletion_policy
             - permissions.upload_attachments
+            - permissions.view_public_teams
+            - permissions.view_shared_with_org_portfolios
+            - permissions.view_shared_with_org_projects
+            - permissions.view_shared_with_org_tasks
             - workspace
             - workspace.name
           schema:
@@ -62720,7 +62947,11 @@ paths:
                 - permissions.create_and_edit_ai_teammates
                 - permissions.create_app_authorization
                 - permissions.create_global_custom_fields
+                - permissions.create_goal
                 - permissions.create_pat_authorization
+                - permissions.create_portfolio
+                - permissions.create_project
+                - permissions.create_read_only_link
                 - permissions.create_team
                 - permissions.download_mobile_attachments
                 - permissions.export_project_data
@@ -62729,9 +62960,14 @@ paths:
                 - permissions.proactive_ai
                 - permissions.share_goal_with_domain
                 - permissions.share_portfolios_with_org
+                - permissions.share_teams_with_org
                 - permissions.standard_ai
                 - permissions.task_deletion_policy
                 - permissions.upload_attachments
+                - permissions.view_public_teams
+                - permissions.view_shared_with_org_portfolios
+                - permissions.view_shared_with_org_projects
+                - permissions.view_shared_with_org_tasks
                 - workspace
                 - workspace.name
           style: form
