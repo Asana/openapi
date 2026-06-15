@@ -1591,6 +1591,46 @@ components:
         type: string
       example: '12345'
       x-env-variable: role
+    ai_studio_start_at:
+      name: start_at
+      in: query
+      description: >-
+        Inclusive lower bound. Runs are ordered and filtered by when their usage was
+        recorded (the
+        monotonic timestamp used for incremental polling), not by `run_started_at`.
+        Omitted ⇒ the
+        2025-01-08 floor — no credit data exists before then, and there is no limit
+        on how far back
+        you can query. A value earlier than 2025-01-08 is treated as 2025-01-08 (not
+        rejected),
+        matching the audit log.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    ai_studio_end_at:
+      name: end_at
+      in: query
+      description: >-
+        Filter to runs whose usage was recorded before this time (exclusive) — by
+        when the run's
+        credit usage was recorded, not by `run_started_at`. Defaults to the time of
+        the request.
+      required: false
+      schema:
+        type: string
+        format: date-time
+    ai_studio_seat_state:
+      name: state
+      in: query
+      description: Filter seats to this state.
+      required: false
+      schema:
+        type: string
+        enum:
+          - active
+          - revoked
+          - expired
   responses:
     GenericErrorResponse:
       description: >-
