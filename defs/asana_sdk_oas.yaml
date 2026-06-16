@@ -1630,7 +1630,18 @@ components:
         enum:
           - active
           - revoked
-          - expired
+    ai_studio_division_gid:
+      name: division_gid
+      in: query
+      description: >-
+        Scope results to a single division (its gid). Omitted ⇒ the org's first
+        licensed division. Use this to retrieve only one division's slice (e.g. for
+        a
+        division-level admin or billing owner) rather than the whole organization.
+      required: false
+      schema:
+        type: string
+        format: id
   responses:
     GenericErrorResponse:
       description: >-
