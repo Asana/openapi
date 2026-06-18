@@ -44882,13 +44882,14 @@ components:
           example: '12345'
         start_date:
           description: >-
-            The start date of the timesheet week (must be a Monday).
+            The start date of the timesheet week (must be a Monday or Sunday).
           type: string
           format: date
           example: '2025-01-06'
         end_date:
           description: >-
-            The end date of the timesheet week (must be the following Sunday).
+            The end date of the timesheet week (must be the following Sunday for Monday
+            starts, or the following Saturday for Sunday starts).
           type: string
           format: date
           example: '2025-01-12'
@@ -74360,7 +74361,7 @@ paths:
       description: |-
         <b>Required scope: </b><code>timesheet_approval_statuses:write</code>
 
-        Creates a new timesheet approval status for a user's timesheet week. The start_date must be a Monday and end_date must be the following Sunday.
+        Creates a new timesheet approval status for a user's timesheet week. The start_date must be a Monday or Sunday, and end_date must be the last day of that week (Sunday for a Monday start, Saturday for a Sunday start).
         Returns the created timesheet approval status record.
       tags:
         - Timesheet approval statuses
