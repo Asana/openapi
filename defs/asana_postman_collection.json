@@ -117832,7 +117832,7 @@
               }
             },
             "description": {
-              "content": "Creates a time tracking entry on a given task.\n\nReturns the record of the newly created time tracking entry.\n\n## Request Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  |  |\n| `data.duration_minutes` | integer |  | Time in minutes tracked by the entry. Must be greater than 0 |\n| `data.entered_on` | string(date) |  | *Optional*. The day that this entry is logged on. Defaults to today if not specified |\n| `data.attributable_to` | string |  | *Optional*. The gid of the project which the time is attributable to. |\n| `data.billable_status` | string | `billable`, `nonBillable`, `notApplicable` | *Optional*. The current billable status of the entry. |\n| `data.description` | string |  | *Optional*. The description of the entry. |\n| `data.categories` | array[string] |  | *Optional*. The gids of time tracking categories to assign to this time tracking entry. Existing categories will be overridden. Currently limited to a maximum of 1 category. |\n\n## Response Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  | A generic Asana Resource, containing a globally unique identifier. |\n| `data.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.resource_type` | string |  | The base type of this resource. |\n| `data.duration_minutes` | integer |  | Time in minutes tracked by the entry. |\n| `data.entered_on` | string(date) |  | The day that this entry is logged on. |\n| `data.attributable_to` | object |  | The attributable to project specifies which project's budget a time entry should be counted toward, if the task belongs to more than one project. If it only belongs to one project, it should be that project. |\n| `data.attributable_to.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.attributable_to.resource_type` | string |  | The base type of this resource. |\n| `data.attributable_to.name` | string |  | Name of the project. This is generally a short sentence fragment that fits on a line in the UI for maximum readability. However, it can be longer. |\n| `data.created_by` | object |  | A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks. |\n| `data.created_by.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.created_by.resource_type` | string |  | The base type of this resource. |\n| `data.created_by.name` | string |  | *Read-only except when same user as requester*. The user's name. |\n| `data.categories` | array[object] |  | The categories linked to this time tracking entry. |\n| `data.categories[].gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.categories[].resource_type` | string |  | The base type of this resource. |\n| `data.categories[].name` | string |  | The name of the time tracking category. |\n| `data.categories[].color` | string | `none`, `red`, `orange`, `yellow-orange`, `yellow`, `yellow-green`, `green`, `blue-green`, `aqua`, `blue`, ... (+6 more) | The color associated with this category for display purposes. |\n| `data.task` | object |  | <p><strong style={{ color: \"#4573D2\" }}>Full object requires scope: </strong><code>tasks:read</code></p> The *task* is the basic object around which many operations in Asana are centered. |\n| `data.task.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.task.resource_type` | string |  | The base type of this resource. |\n| `data.task.name` | string |  | The name of the task. |\n| `data.task.resource_subtype` | string | `default_task`, `milestone`, `approval`, `custom` | The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning. The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date. |\n| `data.task.created_by` | object |  | [Opt In](https://developers.asana.com/docs/inputoutput-options). A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks. |\n| `data.task.created_by.gid` | string |  | Globally unique identifier of the resource. |\n| `data.task.created_by.resource_type` | string |  | The type of resource. |\n| `data.created_at` | string(date-time) |  | The time at which this resource was created. |\n| `data.approval_status` | string | `DRAFT`, `SUBMITTED`, `APPROVED`, `REJECTED` | *Optional*. The current approval status of the entry. |\n| `data.billable_status` | string | `billable`, `nonBillable`, `notApplicable` | *Optional*. The current billable status of the entry. |\n| `data.description` | string |  | *Optional*. The description of the entry. |",
+              "content": "Creates a time tracking entry on a given task.\n\nReturns the record of the newly created time tracking entry.\n\n#### Access requirements\n\nAccess to this endpoint has two levels:\n\n- **Endpoint access** requires time tracking to be available through the domain's plan\nor add-ons. A request from a domain without time tracking access returns a\n`402 Payment Required` error for every request to this endpoint.\n\n- **Field access** for some request fields requires the Timesheets and Budgets add-on.\nFields with this requirement are noted in the request schema. Including one of these\nfields without the add-on returns a `402 Payment Required` error, even when the rest of\nthe request is valid.\n\nBecause the field-level requirement is separate, the same endpoint may return `201` or\n`402` for the same domain depending on which fields are sent: a request that only uses\nfields available with endpoint access succeeds on any domain that meets the endpoint\nrequirement, while a request that includes a field requiring the add-on also requires\nthe add-on.\n\n## Request Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  |  |\n| `data.duration_minutes` | integer |  | Time in minutes tracked by the entry. Must be greater than 0 |\n| `data.entered_on` | string(date) |  | *Optional*. The day that this entry is logged on. Defaults to today if not specified |\n| `data.attributable_to` | string |  | *Optional*. The gid of the project which the time is attributable to. |\n| `data.billable_status` | string | `billable`, `nonBillable`, `notApplicable` | *Optional*. The current billable status of the entry. This field requires the Timesheets and Budgets add-on; including it without the add-on returns a `402 Payment Required` error. |\n| `data.description` | string |  | *Optional*. The description of the entry. This field requires the Timesheets and Budgets add-on; including it without the add-on returns a `402 Payment Required` error. |\n| `data.categories` | array[string] |  | *Optional*. The gids of time tracking categories to assign to this time tracking entry. Existing categories will be overridden. Currently limited to a maximum of 1 category. This field requires the Timesheets and Budgets add-on; including it without the add-on returns a `402 Payment Required` error. |\n\n## Response Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  | A generic Asana Resource, containing a globally unique identifier. |\n| `data.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.resource_type` | string |  | The base type of this resource. |\n| `data.duration_minutes` | integer |  | Time in minutes tracked by the entry. |\n| `data.entered_on` | string(date) |  | The day that this entry is logged on. |\n| `data.attributable_to` | object |  | The attributable to project specifies which project's budget a time entry should be counted toward, if the task belongs to more than one project. If it only belongs to one project, it should be that project. |\n| `data.attributable_to.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.attributable_to.resource_type` | string |  | The base type of this resource. |\n| `data.attributable_to.name` | string |  | Name of the project. This is generally a short sentence fragment that fits on a line in the UI for maximum readability. However, it can be longer. |\n| `data.created_by` | object |  | A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks. |\n| `data.created_by.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.created_by.resource_type` | string |  | The base type of this resource. |\n| `data.created_by.name` | string |  | *Read-only except when same user as requester*. The user's name. |\n| `data.categories` | array[object] |  | The categories linked to this time tracking entry. |\n| `data.categories[].gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.categories[].resource_type` | string |  | The base type of this resource. |\n| `data.categories[].name` | string |  | The name of the time tracking category. |\n| `data.categories[].color` | string | `none`, `red`, `orange`, `yellow-orange`, `yellow`, `yellow-green`, `green`, `blue-green`, `aqua`, `blue`, ... (+6 more) | The color associated with this category for display purposes. |\n| `data.task` | object |  | <p><strong style={{ color: \"#4573D2\" }}>Full object requires scope: </strong><code>tasks:read</code></p> The *task* is the basic object around which many operations in Asana are centered. |\n| `data.task.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.task.resource_type` | string |  | The base type of this resource. |\n| `data.task.name` | string |  | The name of the task. |\n| `data.task.resource_subtype` | string | `default_task`, `milestone`, `approval`, `custom` | The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning. The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date. |\n| `data.task.created_by` | object |  | [Opt In](https://developers.asana.com/docs/inputoutput-options). A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks. |\n| `data.task.created_by.gid` | string |  | Globally unique identifier of the resource. |\n| `data.task.created_by.resource_type` | string |  | The type of resource. |\n| `data.created_at` | string(date-time) |  | The time at which this resource was created. |\n| `data.approval_status` | string | `DRAFT`, `SUBMITTED`, `APPROVED`, `REJECTED` | *Optional*. The current approval status of the entry. |\n| `data.billable_status` | string | `billable`, `nonBillable`, `notApplicable` | *Optional*. The current billable status of the entry. |\n| `data.description` | string |  | *Optional*. The description of the entry. |",
               "type": "text/markdown"
             }
           },
@@ -118041,6 +118041,77 @@
               },
               "code": 401,
               "status": "Unauthorized",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[402] The request was valid, but the queried object or object mutation specified in the request is above your current premium level.",
+              "originalRequest": {
+                "method": "POST",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tasks",
+                    ":task_gid",
+                    "time_tracking_entries"
+                  ],
+                  "variable": [
+                    {
+                      "key": "task_gid",
+                      "value": "321654",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "The task to operate on.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "opt_pretty",
+                      "value": "True",
+                      "type": "boolean",
+                      "disabled": true,
+                      "description": {
+                        "content": "Provides “pretty” output.\nProvides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "opt_fields",
+                      "value": "approval_status,attributable_to,attributable_to.name,billable_status,categories,categories.color,categories.name,created_at,created_by,created_by.name,description,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype",
+                      "type": "array",
+                      "disabled": true,
+                      "description": {
+                        "content": "This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 402,
+              "status": "Payment Required",
               "header": [
                 {
                   "key": "Content-Type",
@@ -118798,7 +118869,7 @@
               }
             },
             "description": {
-              "content": "A specific, existing time tracking entry can be updated by making a `PUT` request on\nthe URL for that time tracking entry. Only the fields provided in the `data` block\nwill be updated; any unspecified fields will remain unchanged.\n\nWhen using this method, it is best to specify only those fields you wish\nto change, or else you may overwrite changes made by another user since\nyou last retrieved the task.\n\nReturns the complete updated time tracking entry record.\n\n## Request Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  |  |\n| `data.duration_minutes` | integer |  | *Optional*. Time in minutes tracked by the entry |\n| `data.entered_on` | string(date) |  | *Optional*. The day that this entry is logged on. Defaults to today if no day specified |\n| `data.attributable_to` | string |  | *Optional*. The gid of the project which the time is attributable to. |\n| `data.billable_status` | string | `billable`, `nonBillable`, `notApplicable` | *Optional*. The current billable status of the entry. |\n| `data.description` | string |  | *Optional*. The description of the entry. |\n| `data.categories` | array[string] |  | *Optional*. The gids of time tracking categories to assign to this time tracking entry. Existing categories will be overridden. Currently limited to a maximum of 1 category. |\n\n## Response Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  | A generic Asana Resource, containing a globally unique identifier. |\n| `data.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.resource_type` | string |  | The base type of this resource. |\n| `data.duration_minutes` | integer |  | Time in minutes tracked by the entry. |\n| `data.entered_on` | string(date) |  | The day that this entry is logged on. |\n| `data.attributable_to` | object |  | The attributable to project specifies which project's budget a time entry should be counted toward, if the task belongs to more than one project. If it only belongs to one project, it should be that project. |\n| `data.attributable_to.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.attributable_to.resource_type` | string |  | The base type of this resource. |\n| `data.attributable_to.name` | string |  | Name of the project. This is generally a short sentence fragment that fits on a line in the UI for maximum readability. However, it can be longer. |\n| `data.created_by` | object |  | A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks. |\n| `data.created_by.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.created_by.resource_type` | string |  | The base type of this resource. |\n| `data.created_by.name` | string |  | *Read-only except when same user as requester*. The user's name. |\n| `data.categories` | array[object] |  | The categories linked to this time tracking entry. |\n| `data.categories[].gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.categories[].resource_type` | string |  | The base type of this resource. |\n| `data.categories[].name` | string |  | The name of the time tracking category. |\n| `data.categories[].color` | string | `none`, `red`, `orange`, `yellow-orange`, `yellow`, `yellow-green`, `green`, `blue-green`, `aqua`, `blue`, ... (+6 more) | The color associated with this category for display purposes. |\n| `data.task` | object |  | <p><strong style={{ color: \"#4573D2\" }}>Full object requires scope: </strong><code>tasks:read</code></p> The *task* is the basic object around which many operations in Asana are centered. |\n| `data.task.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.task.resource_type` | string |  | The base type of this resource. |\n| `data.task.name` | string |  | The name of the task. |\n| `data.task.resource_subtype` | string | `default_task`, `milestone`, `approval`, `custom` | The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning. The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date. |\n| `data.task.created_by` | object |  | [Opt In](https://developers.asana.com/docs/inputoutput-options). A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks. |\n| `data.task.created_by.gid` | string |  | Globally unique identifier of the resource. |\n| `data.task.created_by.resource_type` | string |  | The type of resource. |\n| `data.created_at` | string(date-time) |  | The time at which this resource was created. |\n| `data.approval_status` | string | `DRAFT`, `SUBMITTED`, `APPROVED`, `REJECTED` | *Optional*. The current approval status of the entry. |\n| `data.billable_status` | string | `billable`, `nonBillable`, `notApplicable` | *Optional*. The current billable status of the entry. |\n| `data.description` | string |  | *Optional*. The description of the entry. |",
+              "content": "A specific, existing time tracking entry can be updated by making a `PUT` request on\nthe URL for that time tracking entry. Only the fields provided in the `data` block\nwill be updated; any unspecified fields will remain unchanged.\n\nWhen using this method, it is best to specify only those fields you wish\nto change, or else you may overwrite changes made by another user since\nyou last retrieved the task.\n\nReturns the complete updated time tracking entry record.\n\n#### Access requirements\n\nAccess to this endpoint has two levels:\n\n- **Endpoint access** requires time tracking to be available through the domain's plan\nor add-ons. A request from a domain without time tracking access returns a\n`402 Payment Required` error for every request to this endpoint.\n\n- **Field access** for some request fields requires the Timesheets and Budgets add-on.\nFields with this requirement are noted in the request schema. Including one of these\nfields without the add-on returns a `402 Payment Required` error, even when the rest of\nthe request is valid.\n\nBecause the field-level requirement is separate, the same endpoint may return `200` or\n`402` for the same domain depending on which fields are sent: a request that only uses\nfields available with endpoint access succeeds on any domain that meets the endpoint\nrequirement, while a request that includes a field requiring the add-on also requires\nthe add-on.\n\n## Request Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  |  |\n| `data.duration_minutes` | integer |  | *Optional*. Time in minutes tracked by the entry |\n| `data.entered_on` | string(date) |  | *Optional*. The day that this entry is logged on. Defaults to today if no day specified |\n| `data.attributable_to` | string |  | *Optional*. The gid of the project which the time is attributable to. |\n| `data.billable_status` | string | `billable`, `nonBillable`, `notApplicable` | *Optional*. The current billable status of the entry. This field requires the Timesheets and Budgets add-on; including it without the add-on returns a `402 Payment Required` error. |\n| `data.description` | string |  | *Optional*. The description of the entry. This field requires the Timesheets and Budgets add-on; including it without the add-on returns a `402 Payment Required` error. |\n| `data.categories` | array[string] |  | *Optional*. The gids of time tracking categories to assign to this time tracking entry. Existing categories will be overridden. Currently limited to a maximum of 1 category. This field requires the Timesheets and Budgets add-on; including it without the add-on returns a `402 Payment Required` error. |\n\n## Response Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  | A generic Asana Resource, containing a globally unique identifier. |\n| `data.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.resource_type` | string |  | The base type of this resource. |\n| `data.duration_minutes` | integer |  | Time in minutes tracked by the entry. |\n| `data.entered_on` | string(date) |  | The day that this entry is logged on. |\n| `data.attributable_to` | object |  | The attributable to project specifies which project's budget a time entry should be counted toward, if the task belongs to more than one project. If it only belongs to one project, it should be that project. |\n| `data.attributable_to.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.attributable_to.resource_type` | string |  | The base type of this resource. |\n| `data.attributable_to.name` | string |  | Name of the project. This is generally a short sentence fragment that fits on a line in the UI for maximum readability. However, it can be longer. |\n| `data.created_by` | object |  | A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks. |\n| `data.created_by.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.created_by.resource_type` | string |  | The base type of this resource. |\n| `data.created_by.name` | string |  | *Read-only except when same user as requester*. The user's name. |\n| `data.categories` | array[object] |  | The categories linked to this time tracking entry. |\n| `data.categories[].gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.categories[].resource_type` | string |  | The base type of this resource. |\n| `data.categories[].name` | string |  | The name of the time tracking category. |\n| `data.categories[].color` | string | `none`, `red`, `orange`, `yellow-orange`, `yellow`, `yellow-green`, `green`, `blue-green`, `aqua`, `blue`, ... (+6 more) | The color associated with this category for display purposes. |\n| `data.task` | object |  | <p><strong style={{ color: \"#4573D2\" }}>Full object requires scope: </strong><code>tasks:read</code></p> The *task* is the basic object around which many operations in Asana are centered. |\n| `data.task.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data.task.resource_type` | string |  | The base type of this resource. |\n| `data.task.name` | string |  | The name of the task. |\n| `data.task.resource_subtype` | string | `default_task`, `milestone`, `approval`, `custom` | The subtype of this resource. Different subtypes retain many of the same fields and behavior, but may render differently in Asana or represent resources with different semantic meaning. The resource_subtype `milestone` represent a single moment in time. This means tasks with this subtype cannot have a start_date. |\n| `data.task.created_by` | object |  | [Opt In](https://developers.asana.com/docs/inputoutput-options). A *user* object represents an account in Asana that can be given access to various workspaces, projects, and tasks. |\n| `data.task.created_by.gid` | string |  | Globally unique identifier of the resource. |\n| `data.task.created_by.resource_type` | string |  | The type of resource. |\n| `data.created_at` | string(date-time) |  | The time at which this resource was created. |\n| `data.approval_status` | string | `DRAFT`, `SUBMITTED`, `APPROVED`, `REJECTED` | *Optional*. The current approval status of the entry. |\n| `data.billable_status` | string | `billable`, `nonBillable`, `notApplicable` | *Optional*. The current billable status of the entry. |\n| `data.description` | string |  | *Optional*. The description of the entry. |",
               "type": "text/markdown"
             }
           },
@@ -119004,6 +119075,76 @@
               },
               "code": 401,
               "status": "Unauthorized",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[402] The request was valid, but the queried object or object mutation specified in the request is above your current premium level.",
+              "originalRequest": {
+                "method": "PUT",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "time_tracking_entries",
+                    ":time_tracking_entry_gid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "time_tracking_entry_gid",
+                      "value": "917392",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the time tracking entry.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "opt_pretty",
+                      "value": "True",
+                      "type": "boolean",
+                      "disabled": true,
+                      "description": {
+                        "content": "Provides “pretty” output.\nProvides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "opt_fields",
+                      "value": "approval_status,attributable_to,attributable_to.name,billable_status,categories,categories.color,categories.name,created_at,created_by,created_by.name,description,duration_minutes,entered_on,task,task.created_by,task.name,task.resource_subtype",
+                      "type": "array",
+                      "disabled": true,
+                      "description": {
+                        "content": "This endpoint returns a resource which excludes some properties by default. To include those optional properties, set this query parameter to a comma-separated list of the properties you wish to include.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 402,
+              "status": "Payment Required",
               "header": [
                 {
                   "key": "Content-Type",
@@ -119264,7 +119405,7 @@
             },
             "body": null,
             "description": {
-              "content": "A specific, existing time tracking entry can be deleted by making a `DELETE` request on\nthe URL for that time tracking entry.\n\nReturns an empty data record.\n\n## Response Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  | An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object. |",
+              "content": "A specific, existing time tracking entry can be deleted by making a `DELETE` request on\nthe URL for that time tracking entry.\n\nReturns an empty data record.\n\n#### Access requirements\n\nThis endpoint is available only when time tracking is available through the domain's\nplan or add-ons. A request from a domain without time tracking access returns a\n`402 Payment Required` error.\n\n## Response Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | object |  | An empty object. Some endpoints do not return an object on success. The success is conveyed through a 2-- status code and returning an empty object. |",
               "type": "text/markdown"
             }
           },
@@ -119440,6 +119581,66 @@
               },
               "code": 401,
               "status": "Unauthorized",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[402] The request was valid, but the queried object or object mutation specified in the request is above your current premium level.",
+              "originalRequest": {
+                "method": "DELETE",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "time_tracking_entries",
+                    ":time_tracking_entry_gid"
+                  ],
+                  "variable": [
+                    {
+                      "key": "time_tracking_entry_gid",
+                      "value": "917392",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the time tracking entry.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "opt_pretty",
+                      "value": "True",
+                      "type": "boolean",
+                      "disabled": true,
+                      "description": {
+                        "content": "Provides “pretty” output.\nProvides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 402,
+              "status": "Payment Required",
               "header": [
                 {
                   "key": "Content-Type",

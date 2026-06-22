@@ -44172,7 +44172,11 @@ components:
           example: '987654'
         billable_status:
           description: >-
-            *Optional*. The current billable status of the entry.
+            *Optional*. The current billable status of the entry. This field requires
+            the
+            Timesheets and Budgets add-on; including it without the add-on returns
+            a
+            `402 Payment Required` error.
           type: string
           enum:
             - billable
@@ -44181,14 +44185,22 @@ components:
           example: billable
         description:
           description: >-
-            *Optional*. The description of the entry.
+            *Optional*. The description of the entry. This field requires the Timesheets
+            and
+            Budgets add-on; including it without the add-on returns a `402 Payment
+            Required`
+            error.
           type: string
           example: My description of work done on this entry
         categories:
           description: >-
             *Optional*. The gids of time tracking categories to assign to
             this time tracking entry. Existing categories will be overridden.
-            Currently limited to a maximum of 1 category.
+            Currently limited to a maximum of 1 category. This field requires the
+            Timesheets and
+            Budgets add-on; including it without the add-on returns a `402 Payment
+            Required`
+            error.
           type: array
           items:
             type: string
@@ -44216,7 +44228,11 @@ components:
           example: '987654'
         billable_status:
           description: >-
-            *Optional*. The current billable status of the entry.
+            *Optional*. The current billable status of the entry. This field requires
+            the
+            Timesheets and Budgets add-on; including it without the add-on returns
+            a
+            `402 Payment Required` error.
           type: string
           enum:
             - billable
@@ -44225,14 +44241,22 @@ components:
           example: billable
         description:
           description: >-
-            *Optional*. The description of the entry.
+            *Optional*. The description of the entry. This field requires the Timesheets
+            and
+            Budgets add-on; including it without the add-on returns a `402 Payment
+            Required`
+            error.
           type: string
           example: My description of work done on this entry
         categories:
           description: >-
             *Optional*. The gids of time tracking categories to assign to
             this time tracking entry. Existing categories will be overridden.
-            Currently limited to a maximum of 1 category.
+            Currently limited to a maximum of 1 category. This field requires the
+            Timesheets and
+            Budgets add-on; including it without the add-on returns a `402 Payment
+            Required`
+            error.
           type: array
           items:
             type: string
@@ -73739,6 +73763,25 @@ paths:
         Creates a time tracking entry on a given task.
 
         Returns the record of the newly created time tracking entry.
+
+        #### Access requirements
+
+        Access to this endpoint has two levels:
+
+        - **Endpoint access** requires time tracking to be available through the domain's plan
+        or add-ons. A request from a domain without time tracking access returns a
+        `402 Payment Required` error for every request to this endpoint.
+
+        - **Field access** for some request fields requires the Timesheets and Budgets add-on.
+        Fields with this requirement are noted in the request schema. Including one of these
+        fields without the add-on returns a `402 Payment Required` error, even when the rest of
+        the request is valid.
+
+        Because the field-level requirement is separate, the same endpoint may return `201` or
+        `402` for the same domain depending on which fields are sent: a request that only uses
+        fields available with endpoint access succeeds on any domain that meets the endpoint
+        requirement, while a request that includes a field requiring the add-on also requires
+        the add-on.
       tags:
         - Time tracking entries
       operationId: createTimeTrackingEntry
@@ -73808,6 +73851,8 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
         403:
           $ref: '#/components/responses/Forbidden'
         404:
@@ -73903,6 +73948,25 @@ paths:
         you last retrieved the task.
 
         Returns the complete updated time tracking entry record.
+
+        #### Access requirements
+
+        Access to this endpoint has two levels:
+
+        - **Endpoint access** requires time tracking to be available through the domain's plan
+        or add-ons. A request from a domain without time tracking access returns a
+        `402 Payment Required` error for every request to this endpoint.
+
+        - **Field access** for some request fields requires the Timesheets and Budgets add-on.
+        Fields with this requirement are noted in the request schema. Including one of these
+        fields without the add-on returns a `402 Payment Required` error, even when the rest of
+        the request is valid.
+
+        Because the field-level requirement is separate, the same endpoint may return `200` or
+        `402` for the same domain depending on which fields are sent: a request that only uses
+        fields available with endpoint access succeeds on any domain that meets the endpoint
+        requirement, while a request that includes a field requiring the add-on also requires
+        the add-on.
       tags:
         - Time tracking entries
       operationId: updateTimeTrackingEntry
@@ -73972,6 +74036,8 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
         403:
           $ref: '#/components/responses/Forbidden'
         404:
@@ -73985,6 +74051,12 @@ paths:
         the URL for that time tracking entry.
 
         Returns an empty data record.
+
+        #### Access requirements
+
+        This endpoint is available only when time tracking is available through the domain's
+        plan or add-ons. A request from a domain without time tracking access returns a
+        `402 Payment Required` error.
       tags:
         - Time tracking entries
       operationId: deleteTimeTrackingEntry
@@ -73995,6 +74067,8 @@ paths:
           $ref: '#/components/responses/BadRequest'
         401:
           $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
         403:
           $ref: '#/components/responses/Forbidden'
         404:
