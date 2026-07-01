@@ -2769,6 +2769,1345 @@
       ]
     },
     {
+      "name": "AI Studio usage API",
+      "description": {
+        "content": "The AI Studio usage API provides programmatic, admin-only access to AI Studio usage data — credit consumption per run and current seat allocations — for organizations licensed for AI Studio. It is the programmatic equivalent of the AI Studio usage CSV export, intended for loading into a data warehouse or BI tool.",
+        "type": "text/markdown"
+      },
+      "item": [
+        {
+          "name": "Get AI Studio credit utilization",
+          "request": {
+            "method": "GET",
+            "url": {
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                ":workspace_gid",
+                "ai_studio",
+                "runs"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_gid",
+                  "value": "12345",
+                  "type": "string",
+                  "disabled": false,
+                  "description": {
+                    "content": "Globally unique identifier for the workspace or organization.",
+                    "type": "text/markdown"
+                  }
+                }
+              ],
+              "query": [
+                {
+                  "key": "start_at",
+                  "value": "",
+                  "type": "string",
+                  "disabled": true,
+                  "description": {
+                    "content": "Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by `run_started_at`. Omitted ⇒ the 2025-01-08 floor — no credit data exists before then, and there is no limit on how far back you can query. A value earlier than 2025-01-08 is treated as 2025-01-08 (not rejected), matching the audit log.",
+                    "type": "text/markdown"
+                  }
+                },
+                {
+                  "key": "end_at",
+                  "value": "",
+                  "type": "string",
+                  "disabled": true,
+                  "description": {
+                    "content": "Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by `run_started_at`. Defaults to the time of the request.",
+                    "type": "text/markdown"
+                  }
+                },
+                {
+                  "key": "division_gid",
+                  "value": "",
+                  "type": "string",
+                  "disabled": true,
+                  "description": {
+                    "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                    "type": "text/markdown"
+                  }
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "type": "integer",
+                  "disabled": true,
+                  "description": {
+                    "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                    "type": "text/markdown"
+                  }
+                },
+                {
+                  "key": "offset",
+                  "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                  "type": "string",
+                  "disabled": true,
+                  "description": {
+                    "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                    "type": "text/markdown"
+                  }
+                }
+              ]
+            },
+            "body": null,
+            "description": {
+              "content": "Returns one row per AI Studio run (rule execution) for the workspace, in ascending order (oldest first) so that incremental consumers can poll forward. Each row describes what ran, who it is attributed to, the model used, and the credits consumed.\n\nCredit data is available from January 8th, 2025 onward, and is queryable for the full history since then (there is no limit on how far back you can query). A `start_at` earlier than January 8th, 2025 is silently clamped; it is not an error.\n\nThe list is always [paginated](https://developers.asana.com/docs/pagination). When more results exist, the response includes a `next_page` with an `offset` that can be used to retrieve the next set of rows. The row `gid` is stable and can be used to de-duplicate rows across incremental loads.\n\nThis endpoint is restricted to [service accounts](https://help.asana.com/s/article/service-accounts) in organizations licensed for AI Studio.\n\n## Response Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | array[object] |  |  |\n| `data[].gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data[].resource_type` | string |  | The base type of this resource. |\n| `data[].rule` | object |  | The rule (automation) that ran, as a compact reference. The Rules API is not yet public, so this is not dereferenceable today, but the shape is forward-compatible (consumers can key off `rule.gid`). |\n| `data[].rule.gid` | string |  |  |\n| `data[].rule.resource_type` | string |  |  |\n| `data[].rule.name` | string |  |  |\n| `data[].rule_owner` | object |  | The user who owns the rule. |\n| `data[].rule_owner.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data[].rule_owner.resource_type` | string |  | The base type of this resource. |\n| `data[].rule_owner.name` | string |  | *Read-only except when same user as requester*. The user's name. |\n| `data[].rule_owner.email` | string |  |  |\n| `data[].triggered_by` | object |  | The user the run executed as, and to whom the credits are attributed. Usually the same as `rule_owner`, but can differ for chained or AI-teammate-triggered runs. |\n| `data[].triggered_by.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data[].triggered_by.resource_type` | string |  | The base type of this resource. |\n| `data[].triggered_by.name` | string |  | *Read-only except when same user as requester*. The user's name. |\n| `data[].triggered_by.email` | string |  |  |\n| `data[].triggering_container` | object |  | The object the rule lives in (its container) — a project or portfolio — as a compact reference. `null` if the container is unavailable. |\n| `data[].triggering_container.gid` | string |  |  |\n| `data[].triggering_container.resource_type` | string | `project`, `portfolio` |  |\n| `data[].division` | object |  | The division the actor belonged to at the time of the run, as a compact reference. `null` when division metering is not enabled for the domain. Not dereferenceable yet (no public Division API); `name` reflects the division's current state. |\n| `data[].division.gid` | string |  |  |\n| `data[].division.resource_type` | string |  |  |\n| `data[].division.name` | string |  |  |\n| `data[].run_started_at` | string(date-time) |  | When the run was triggered. |\n| `data[].run_completed_at` | string(date-time) |  | When the run finished. `null` for runs that did not complete (e.g. cancelled). Runs still in progress don't appear in this endpoint (a usage record exists only once a run is metered), so this is non-null for every success/failed run. |\n| `data[].status` | string | `success`, `failed`, `cancelled` | The outcome of the run. |\n| `data[].model` | string |  | The LLM model used for the run. |\n| `data[].credits_used` | number |  | The number of credits consumed by the run. |\n| `data[].credit_source` | string | `paid`, `free` | Whether the credits were drawn from a paid or free balance. |\n| `next_page` | object |  | *Conditional*. This property is only present when a limit query parameter is provided in the request. When making a paginated request, the API will return a number of results as specified by the limit parameter. If more results exist, then the response will contain a next_page attribute, which will include an offset, a relative path attribute, and a full uri attribute. If there are no more pages available, next_page will be null and no offset will be provided. Note that an offset token will expire after some time, as data may have changed. |\n| `next_page.offset` | string |  | Pagination offset for the request. |\n| `next_page.path` | string |  | A relative path containing the query parameters to fetch for next_page |\n| `next_page.uri` | string(uri) |  | A full uri containing the query parameters to fetch for next_page |",
+              "type": "text/markdown"
+            }
+          },
+          "response": [
+            {
+              "name": "[200] Successfully retrieved AI Studio credit utilization rows.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "runs"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "start_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by `run_started_at`. Omitted ⇒ the 2025-01-08 floor — no credit data exists before then, and there is no limit on how far back you can query. A value earlier than 2025-01-08 is treated as 2025-01-08 (not rejected), matching the audit log.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by `run_started_at`. Defaults to the time of the request.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 200,
+              "status": "OK",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"gid\": \"12345\",\n      \"resource_type\": \"ai_studio_run\",\n      \"rule\": {\n        \"gid\": \"1208111111111111\",\n        \"resource_type\": \"rule\",\n        \"name\": \"Auto-summarize incoming requests\"\n      },\n      \"rule_owner\": {\n        \"gid\": \"12345\",\n        \"resource_type\": \"user\",\n        \"name\": \"Greg Sanchez\",\n        \"email\": \"owner@example.com\"\n      },\n      \"triggered_by\": {\n        \"gid\": \"12345\",\n        \"resource_type\": \"user\",\n        \"name\": \"Greg Sanchez\",\n        \"email\": \"runner@example.com\"\n      },\n      \"triggering_container\": {\n        \"gid\": \"1206000000000001\",\n        \"resource_type\": \"project\"\n      },\n      \"division\": {\n        \"gid\": \"1205000000000003\",\n        \"resource_type\": \"division\",\n        \"name\": \"Engineering\"\n      },\n      \"run_started_at\": \"2026-05-01T14:03:12.000Z\",\n      \"run_completed_at\": \"2026-05-01T14:03:15.220Z\",\n      \"status\": \"success\",\n      \"model\": \"claude-sonnet-4-6\",\n      \"credits_used\": 12,\n      \"credit_source\": \"paid\"\n    }\n  ],\n  \"next_page\": {\n    \"offset\": \"eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9\",\n    \"path\": \"/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9\",\n    \"uri\": \"https://app.asana.com/api/1.0/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9\"\n  }\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[400] This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "runs"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "start_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by `run_started_at`. Omitted ⇒ the 2025-01-08 floor — no credit data exists before then, and there is no limit on how far back you can query. A value earlier than 2025-01-08 is treated as 2025-01-08 (not rejected), matching the audit log.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by `run_started_at`. Defaults to the time of the request.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 400,
+              "status": "Bad Request",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[401] A valid authentication token was not provided with the request, so the API could not associate a user with the request.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "runs"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "start_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by `run_started_at`. Omitted ⇒ the 2025-01-08 floor — no credit data exists before then, and there is no limit on how far back you can query. A value earlier than 2025-01-08 is treated as 2025-01-08 (not rejected), matching the audit log.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by `run_started_at`. Defaults to the time of the request.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 401,
+              "status": "Unauthorized",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[403] The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "runs"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "start_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by `run_started_at`. Omitted ⇒ the 2025-01-08 floor — no credit data exists before then, and there is no limit on how far back you can query. A value earlier than 2025-01-08 is treated as 2025-01-08 (not rejected), matching the audit log.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by `run_started_at`. Defaults to the time of the request.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 403,
+              "status": "Forbidden",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[404] Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "runs"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "start_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by `run_started_at`. Omitted ⇒ the 2025-01-08 floor — no credit data exists before then, and there is no limit on how far back you can query. A value earlier than 2025-01-08 is treated as 2025-01-08 (not rejected), matching the audit log.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by `run_started_at`. Defaults to the time of the request.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 404,
+              "status": "Not Found",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[500] There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "runs"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "start_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Inclusive lower bound. Runs are ordered and filtered by when their usage was recorded (the monotonic timestamp used for incremental polling), not by `run_started_at`. Omitted ⇒ the 2025-01-08 floor — no credit data exists before then, and there is no limit on how far back you can query. A value earlier than 2025-01-08 is treated as 2025-01-08 (not rejected), matching the audit log.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "end_at",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter to runs whose usage was recorded before this time (exclusive) — by when the run's credit usage was recorded, not by `run_started_at`. Defaults to the time of the request.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 500,
+              "status": "Internal Server Error",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        },
+        {
+          "name": "Get AI Studio seats",
+          "request": {
+            "method": "GET",
+            "url": {
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "workspaces",
+                ":workspace_gid",
+                "ai_studio",
+                "seats"
+              ],
+              "variable": [
+                {
+                  "key": "workspace_gid",
+                  "value": "12345",
+                  "type": "string",
+                  "disabled": false,
+                  "description": {
+                    "content": "Globally unique identifier for the workspace or organization.",
+                    "type": "text/markdown"
+                  }
+                }
+              ],
+              "query": [
+                {
+                  "key": "state",
+                  "value": "",
+                  "type": "string",
+                  "disabled": true,
+                  "description": {
+                    "content": "Filter seats to this state.",
+                    "type": "text/markdown"
+                  }
+                },
+                {
+                  "key": "division_gid",
+                  "value": "",
+                  "type": "string",
+                  "disabled": true,
+                  "description": {
+                    "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                    "type": "text/markdown"
+                  }
+                },
+                {
+                  "key": "limit",
+                  "value": "50",
+                  "type": "integer",
+                  "disabled": true,
+                  "description": {
+                    "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                    "type": "text/markdown"
+                  }
+                },
+                {
+                  "key": "offset",
+                  "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                  "type": "string",
+                  "disabled": true,
+                  "description": {
+                    "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                    "type": "text/markdown"
+                  }
+                }
+              ]
+            },
+            "body": null,
+            "description": {
+              "content": "Returns a current snapshot of AI Studio seat allocations for the workspace — who has access, at what license tier, and the state of each seat. This is a point-in-time snapshot; customers build their own history tables on top of periodic pulls.\n\nThe list is always [paginated](https://developers.asana.com/docs/pagination). When more results exist, the response includes a `next_page` with an `offset` that can be used to retrieve the next set of rows.\n\nThis endpoint is restricted to [service accounts](https://help.asana.com/s/article/service-accounts) in organizations licensed for AI Studio.\n\n## Response Body:\n\n| Field | Type | Enum Values | Description |\n|-------|------|-------------|-------------|\n| `data` | array[object] |  |  |\n| `data[].gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data[].resource_type` | string |  | The base type of this resource. |\n| `data[].user` | object |  | The user who holds the seat. |\n| `data[].user.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data[].user.resource_type` | string |  | The base type of this resource. |\n| `data[].user.name` | string |  | *Read-only except when same user as requester*. The user's name. |\n| `data[].user.email` | string |  |  |\n| `data[].license` | string | `ai_studio_plus`, `ai_studio_pro`, `ai_studio_max` | The user's effective AI Studio license tier. `/seats` returns only paid seats, so the free tier is not included. |\n| `data[].state` | string | `active`, `revoked`, `expired` | The state of the seat. |\n| `data[].assigned_at` | string(date-time) |  | When the seat was granted/assigned. |\n| `data[].revoked_at` | string(date-time) |  | When the seat was revoked or expired. `null` for active seats. |\n| `data[].assigned_by` | object |  | The user who assigned the seat. `null` when assigned by the system. |\n| `data[].assigned_by.gid` | string |  | Globally unique identifier of the resource, as a string. |\n| `data[].assigned_by.resource_type` | string |  | The base type of this resource. |\n| `data[].assigned_by.name` | string |  | *Read-only except when same user as requester*. The user's name. |\n| `next_page` | object |  | *Conditional*. This property is only present when a limit query parameter is provided in the request. When making a paginated request, the API will return a number of results as specified by the limit parameter. If more results exist, then the response will contain a next_page attribute, which will include an offset, a relative path attribute, and a full uri attribute. If there are no more pages available, next_page will be null and no offset will be provided. Note that an offset token will expire after some time, as data may have changed. |\n| `next_page.offset` | string |  | Pagination offset for the request. |\n| `next_page.path` | string |  | A relative path containing the query parameters to fetch for next_page |\n| `next_page.uri` | string(uri) |  | A full uri containing the query parameters to fetch for next_page |",
+              "type": "text/markdown"
+            }
+          },
+          "response": [
+            {
+              "name": "[200] Successfully retrieved AI Studio seats.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "seats"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter seats to this state.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 200,
+              "status": "OK",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"gid\": \"12345\",\n      \"resource_type\": \"ai_studio_seat\",\n      \"user\": {\n        \"gid\": \"12345\",\n        \"resource_type\": \"user\",\n        \"name\": \"Greg Sanchez\",\n        \"email\": \"user@example.com\"\n      },\n      \"license\": \"ai_studio_plus\",\n      \"state\": \"active\",\n      \"assigned_at\": \"2026-03-01T00:00:00.000Z\",\n      \"revoked_at\": \"<string>\",\n      \"assigned_by\": {\n        \"gid\": \"12345\",\n        \"resource_type\": \"user\",\n        \"name\": \"Greg Sanchez\"\n      }\n    }\n  ],\n  \"next_page\": {\n    \"offset\": \"eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9\",\n    \"path\": \"/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9\",\n    \"uri\": \"https://app.asana.com/api/1.0/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9\"\n  }\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[400] This usually occurs because of a missing or malformed parameter. Check the documentation and the syntax of your request and try again.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "seats"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter seats to this state.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 400,
+              "status": "Bad Request",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[401] A valid authentication token was not provided with the request, so the API could not associate a user with the request.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "seats"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter seats to this state.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 401,
+              "status": "Unauthorized",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[403] The authentication and request syntax was valid but the server is refusing to complete the request. This can happen if you try to read or write to objects or properties that the user does not have access to.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "seats"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter seats to this state.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 403,
+              "status": "Forbidden",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[404] Either the request method and path supplied do not specify a known action in the API, or the object specified by the request does not exist.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "seats"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter seats to this state.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 404,
+              "status": "Not Found",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "name": "[500] There was a problem on Asana’s end. In the event of a server error the response body should contain an error phrase. These phrases can be used by Asana support to quickly look up the incident that caused the server error. Some errors are due to server load, and will not supply an error phrase.",
+              "originalRequest": {
+                "method": "GET",
+                "url": {
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "workspaces",
+                    ":workspace_gid",
+                    "ai_studio",
+                    "seats"
+                  ],
+                  "variable": [
+                    {
+                      "key": "workspace_gid",
+                      "value": "12345",
+                      "type": "string",
+                      "disabled": false,
+                      "description": {
+                        "content": "Globally unique identifier for the workspace or organization.",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ],
+                  "query": [
+                    {
+                      "key": "state",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Filter seats to this state.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "division_gid",
+                      "value": "",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Scope results to a single division (its gid). Omitted ⇒ the org's first licensed division. Use this to retrieve only one division's slice (e.g. for a division-level admin or billing owner) rather than the whole organization.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50",
+                      "type": "integer",
+                      "disabled": true,
+                      "description": {
+                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
+                        "type": "text/markdown"
+                      }
+                    },
+                    {
+                      "key": "offset",
+                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
+                      "type": "string",
+                      "disabled": true,
+                      "description": {
+                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
+                        "type": "text/markdown"
+                      }
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {}
+              },
+              "code": 500,
+              "status": "Internal Server Error",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"message\": \"project: Missing input\",\n      \"help\": \"For more information on API status codes and how to handle them, read the docs on errors: https://asana.github.io/developer-docs/#errors'\",\n      \"phrase\": \"6 sad squid snuggle softly\"\n    }\n  ]\n}",
+              "_postman_previewlanguage": "json"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Allocations",
       "description": {
         "content": "An allocation object represents how much of a resource (e.g. person, team) is dedicated to a specific work object (e.g. project, portfolio) over a specific period of time. The effort value of an allocation object can be a percentage or number of hours.",

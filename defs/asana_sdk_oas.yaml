@@ -127,6 +127,13 @@ tags:
       An *agent* object represents a software program that can perceive its environment,
       reason, plan, and take autonomous actions to achieve specific goals.
       Agents may be built by Asana, provided by apps, or defined by the system.
+  - name: AI Studio usage API
+    description: >-
+      The AI Studio usage API provides programmatic, admin-only access to AI Studio
+      usage data — credit consumption per run and current seat allocations — for
+      organizations licensed for AI Studio. It is the programmatic equivalent of the
+      AI Studio usage CSV export, intended for loading into a data warehouse or BI
+      tool.
   - name: Allocations
     description: >-
       An allocation object represents how much of a resource (e.g. person, team) is
@@ -1770,6 +1777,16 @@ components:
         application/json; charset=UTF-8:
           schema:
             $ref: '#/components/schemas/AgentResponseData'
+    AiStudioRunResponseArray:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/AiStudioRunResponseArray'
+    AiStudioSeatResponseArray:
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/AiStudioSeatResponseArray'
     AllocationResponseData:
       content:
         application/json; charset=UTF-8:
@@ -46355,6 +46372,411 @@ components:
               type: boolean
               example: true
       x-docs-overrides: *id052
+    AiStudioRunCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A single AI Studio run (rule execution), representing the credits consumed
+        by one execution of an AI Studio rule.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+      x-docs-overrides: &id053
+        properties.resource_type.example: ai_studio_run
+    AiStudioRunResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A single AI Studio run (rule execution), representing the credits consumed
+        by one execution of an AI Studio rule.A generic Asana Resource, containing
+        a globally unique identifier.A generic Asana Resource, containing a globally
+        unique identifier.
+
+        A single AI Studio run (rule execution), representing the credits consumed
+        by one execution of an AI Studio rule.
+
+        A single AI Studio run (rule execution). The `gid` is stable and serves as
+        the de-duplication key for incremental loads.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        rule:
+          type: object
+          readOnly: true
+          description: >-
+            The rule (automation) that ran, as a compact reference. The Rules API
+            is not
+            yet public, so this is not dereferenceable today, but the shape is
+            forward-compatible (consumers can key off `rule.gid`).
+          properties:
+            gid:
+              type: string
+              readOnly: true
+              example: '1208111111111111'
+            resource_type:
+              type: string
+              readOnly: true
+              example: rule
+            name:
+              type: string
+              readOnly: true
+              example: Auto-summarize incoming requests
+        rule_owner:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user who owns the rule.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+            email:
+              type: string
+              readOnly: true
+              example: owner@example.com
+          x-docs-overrides: *id002
+          readOnly: true
+        triggered_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user the run executed as, and to whom the credits are attributed.
+            Usually the same as `rule_owner`, but can differ for chained or AI-teammate-triggered
+            runs.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+            email:
+              type: string
+              readOnly: true
+              example: runner@example.com
+          x-docs-overrides: *id002
+          readOnly: true
+        triggering_container:
+          type: object
+          readOnly: true
+          nullable: true
+          description: >-
+            The object the rule lives in (its container) — a project or portfolio
+            — as a
+            compact reference. `null` if the container is unavailable.
+          properties:
+            gid:
+              type: string
+              readOnly: true
+              example: '1206000000000001'
+            resource_type:
+              type: string
+              readOnly: true
+              enum:
+                - project
+                - portfolio
+              example: project
+        division:
+          type: object
+          readOnly: true
+          nullable: true
+          description: >-
+            The division the actor belonged to at the time of the run, as a compact
+            reference. `null` when division metering is not enabled for the domain.
+            Not
+            dereferenceable yet (no public Division API); `name` reflects the division's
+            current state.
+          properties:
+            gid:
+              type: string
+              readOnly: true
+              example: '1205000000000003'
+            resource_type:
+              type: string
+              readOnly: true
+              example: division
+            name:
+              type: string
+              readOnly: true
+              example: Engineering
+        run_started_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: When the run was triggered.
+          example: '2026-05-01T14:03:12.000Z'
+        run_completed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: >-
+            When the run finished. `null` for runs that did not complete (e.g. cancelled).
+            Runs
+            still in progress don't appear in this endpoint (a usage record exists
+            only once a
+            run is metered), so this is non-null for every success/failed run.
+          example: '2026-05-01T14:03:15.220Z'
+        status:
+          type: string
+          readOnly: true
+          description: The outcome of the run.
+          enum:
+            - success
+            - failed
+            - cancelled
+        model:
+          type: string
+          readOnly: true
+          description: The LLM model used for the run.
+          example: claude-sonnet-4-6
+        credits_used:
+          type: number
+          readOnly: true
+          description: The number of credits consumed by the run.
+          example: 12
+        credit_source:
+          type: string
+          readOnly: true
+          description: Whether the credits were drawn from a paid or free balance.
+          enum:
+            - paid
+            - free
+      x-docs-overrides: *id053
+    AiStudioSeatCompact:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A single AI Studio seat allocation, representing one user's access to AI Studio
+        in the workspace.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+      x-docs-overrides: &id054
+        properties.resource_type.example: ai_studio_seat
+    AiStudioSeatResponse:
+      description: >-
+        A generic Asana Resource, containing a globally unique identifier.A generic
+        Asana Resource, containing a globally unique identifier.
+
+        A single AI Studio seat allocation, representing one user's access to AI Studio
+        in the workspace.A generic Asana Resource, containing a globally unique identifier.A
+        generic Asana Resource, containing a globally unique identifier.
+
+        A single AI Studio seat allocation, representing one user's access to AI Studio
+        in the workspace.
+
+        A single AI Studio seat allocation (current snapshot).
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: task
+          x-insert-after: gid
+        user:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user who holds the seat.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+            email:
+              type: string
+              readOnly: true
+              example: user@example.com
+          x-docs-overrides: *id002
+          readOnly: true
+        license:
+          type: string
+          readOnly: true
+          description: >-
+            The user's effective AI Studio license tier. `/seats` returns only paid
+            seats, so the free tier is not included.
+          enum:
+            - ai_studio_plus
+            - ai_studio_pro
+            - ai_studio_max
+        state:
+          type: string
+          readOnly: true
+          description: The state of the seat.
+          enum:
+            - active
+            - revoked
+            - expired
+        assigned_at:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When the seat was granted/assigned.
+          example: '2026-03-01T00:00:00.000Z'
+        revoked_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+          description: When the seat was revoked or expired. `null` for active seats.
+        assigned_by:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user who assigned the seat. `null` when assigned by the system.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id002
+          readOnly: true
+          nullable: true
+      x-docs-overrides: *id054
     AccessRequestResponseArray:
       type: object
       required:
@@ -46398,6 +46820,28 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/AgentResponse'
+    AiStudioRunResponseArray:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AiStudioRunResponse'
+        next_page:
+          $ref: '#/components/schemas/NextPage'
+    AiStudioSeatResponseArray:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AiStudioSeatResponse'
+        next_page:
+          $ref: '#/components/schemas/NextPage'
     AllocationResponseData:
       type: object
       required:
@@ -47421,6 +47865,100 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/AgentResponseData'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /workspaces/{workspace_gid}/ai_studio/runs:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/ai_studio_start_at'
+      - $ref: '#/components/parameters/ai_studio_end_at'
+      - $ref: '#/components/parameters/ai_studio_division_gid'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+    get:
+      summary: Get AI Studio credit utilization
+      description: >-
+        Returns one row per AI Studio run (rule execution) for the workspace, in ascending
+        order (oldest first) so that incremental consumers can poll forward. Each
+        row
+        describes what ran, who it is attributed to, the model used, and the credits
+        consumed.
+
+
+        Credit data is available from January 8th, 2025 onward, and is queryable for
+        the full
+        history since then (there is no limit on how far back you can query). A `start_at`
+        earlier than January 8th, 2025 is silently clamped; it is not an error.
+
+
+        The list is always [paginated](/docs/pagination). When more results exist,
+        the
+        response includes a `next_page` with an `offset` that can be used to retrieve
+        the
+        next set of rows. The row `gid` is stable and can be used to de-duplicate
+        rows
+        across incremental loads.
+
+
+        This endpoint is restricted to [service accounts](https://help.asana.com/s/article/service-accounts)
+        in organizations licensed for AI Studio.
+      tags:
+        - AI Studio usage API
+      operationId: getAiStudioRuns
+      responses:
+        200:
+          $ref: '#/components/responses/AiStudioRunResponseArray'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+  /workspaces/{workspace_gid}/ai_studio/seats:
+    parameters:
+      - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/ai_studio_seat_state'
+      - $ref: '#/components/parameters/ai_studio_division_gid'
+      - $ref: '#/components/parameters/limit'
+      - $ref: '#/components/parameters/offset'
+    get:
+      summary: Get AI Studio seats
+      description: >-
+        Returns a current snapshot of AI Studio seat allocations for the workspace
+        —
+        who has access, at what license tier, and the state of each seat. This is
+        a
+        point-in-time snapshot; customers build their own history tables on top of
+        periodic pulls.
+
+
+        The list is always [paginated](/docs/pagination). When more results exist,
+        the
+        response includes a `next_page` with an `offset` that can be used to retrieve
+        the
+        next set of rows.
+
+
+        This endpoint is restricted to [service accounts](https://help.asana.com/s/article/service-accounts)
+        in organizations licensed for AI Studio.
+      tags:
+        - AI Studio usage API
+      operationId: getAiStudioSeats
+      responses:
+        200:
+          $ref: '#/components/responses/AiStudioSeatResponseArray'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
