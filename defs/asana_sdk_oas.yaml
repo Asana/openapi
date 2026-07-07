@@ -3750,7 +3750,8 @@ components:
               description: >-
                 The type of actor.
 
-                Can be one of `user`, `asana`, `asana_support`, `anonymous`, or `external_administrator`.
+                Can be one of `user`, `asana`, `asana_support`, `anonymous`, `external_administrator`,
+                or `data_retention_policy`.
               type: string
               enum:
                 - user
@@ -3758,6 +3759,7 @@ components:
                 - asana_support
                 - anonymous
                 - external_administrator
+                - data_retention_policy
               example: user
             gid:
               description: >-
@@ -3894,7 +3896,8 @@ components:
           description: >-
             The type of actor.
 
-            Can be one of `user`, `asana`, `asana_support`, `anonymous`, or `external_administrator`.
+            Can be one of `user`, `asana`, `asana_support`, `anonymous`, `external_administrator`,
+            or `data_retention_policy`.
           type: string
           enum:
             - user
@@ -3902,6 +3905,7 @@ components:
             - asana_support
             - anonymous
             - external_administrator
+            - data_retention_policy
           example: user
         gid:
           description: >-
