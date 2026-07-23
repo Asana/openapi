@@ -10711,6 +10711,7 @@ components:
             attachments:delete: Delete access to attachments
             custom_fields:read: View access to custom fields
             custom_fields:write: Create and modify access to custom fields
+            custom_types:read: View access to custom types
             goals:read: View access to goals
             jobs:read: View access to jobs
             ooo_entries:read: View access to OOO entries
