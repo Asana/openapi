@@ -7875,12 +7875,7 @@ components:
               type: array
               readOnly: true
               items:
-                type: object
-                properties:
-                  project:
-                    $ref: '#/components/schemas/ProjectCompact'
-                  section:
-                    $ref: '#/components/schemas/SectionCompact'
+                $ref: '#/components/schemas/TaskMembership'
             modified_at:
               description: |-
                 The time at which this task was last modified.
@@ -8304,6 +8299,15 @@ components:
             task template will be used.
           type: string
           example: New Task
+    TaskMembership:
+      type: object
+      properties:
+        project:
+          $ref: '#/components/schemas/ProjectCompact'
+        section:
+          allOf:
+            - $ref: '#/components/schemas/SectionCompact'
+            - nullable: true
     TaskRequestBase:
       allOf:
         - $ref: '#/components/schemas/TaskBase'
@@ -48542,6 +48546,10 @@ paths:
             <td><code>projects:read</code>, <code>project_sections:read</code></td>
           </tr>
           <tr>
+            <td><code>effective_memberships</code></td>
+            <td><code>projects:read</code>, <code>project_sections:read</code></td>
+          </tr>
+          <tr>
             <td><code>actual_time_minutes</code></td>
             <td><code>time_tracking_entries:read</code></td>
           </tr>
@@ -55409,6 +55417,10 @@ paths:
           </tr>
           <tr>
             <td><code>memberships</code></td>
+            <td><code>projects:read</code>, <code>project_sections:read</code></td>
+          </tr>
+          <tr>
+            <td><code>effective_memberships</code></td>
             <td><code>projects:read</code>, <code>project_sections:read</code></td>
           </tr>
           <tr>
