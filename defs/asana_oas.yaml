@@ -3524,6 +3524,20 @@ components:
               type: string
               example: blue
               nullable: true
+    EffectiveTaskMembership:
+      description: >-
+        A task's project membership, indicating whether the membership is direct
+        or inherited from an ancestor task.
+      allOf:
+        - $ref: '#/components/schemas/TaskMembership'
+        - type: object
+          properties:
+            is_inherited:
+              description: >-
+                Whether this membership is inherited from an ancestor task
+                (`true`) or is a direct membership (`false`).
+              type: boolean
+              example: false
     EmptyResponse:
       type: object
       description: >-
@@ -7977,9 +7991,9 @@ components:
               readOnly: true
               nullable: true
     TaskCompact:
-      description: "<p><strong style={{ color: \"#4573D2\" }}>Full object requires
-        scope: </strong><code>tasks:read</code></p>\n\nThe *task* is the basic object
-        around which many operations in Asana are centered."
+      description: >-
+        The *task* is the basic object around which many operations in Asana
+        are centered.
       type: object
       properties:
         gid:
@@ -8477,7 +8491,9 @@ components:
                 `text`, and so on. Please note that the `gid` returned on each
                 custom field value *is identical* to the `gid` of the custom field,
                 which allows referencing the custom field metadata through the
-                `/custom_fields/custom_field_gid` endpoint.
+                `/custom_fields/custom_field_gid` endpoint. The array includes
+                custom fields from projects the task belongs to directly and from
+                projects inherited from its full ancestor chain.
               type: array
               items:
                 $ref: '#/components/schemas/CustomFieldResponse'
@@ -8509,7 +8525,8 @@ components:
                   nullable: true
             projects:
               description: >-
-                *Create-only.* Array of projects this task is associated with.
+                *Create-only.* Array of projects this task is directly associated
+                with.
                 At task creation time, this array can be used to add the task to
                 many projects at once. After task creation, these associations can
                 be modified using the addProject and removeProject endpoints.
@@ -8517,6 +8534,19 @@ components:
               readOnly: true
               items:
                 $ref: '#/components/schemas/ProjectCompact'
+            effective_memberships:
+              description: >-
+                <p><strong style={{ color: "#4573D2" }}>Full object requires scope:
+                </strong><code>projects:read</code>, <code>project_sections:read</code></p>
+
+
+                Opt-in, read-only. The union of direct and inherited memberships for
+                this task. If the task is both directly associated with and inherits
+                the same project, the direct membership takes precedence.
+              type: array
+              readOnly: true
+              items:
+                $ref: '#/components/schemas/EffectiveTaskMembership'
             tags:
               description: >-
                 Array of tags associated with this task. In order to change tags on
@@ -9776,6 +9806,9 @@ components:
           readOnly: true
         categories:
           description: >-
+            <p><strong style={{ color: "#4573D2" }}>Full object requires scope: </strong><code>time_tracking_categories:read</code></p>
+
+
             The categories linked to this time tracking entry.
           type: array
           items:
@@ -22581,33 +22614,6 @@ paths:
       description: |-
         <b>Required scope: </b><code>jobs:read</code>
 
-        <table>
-          <tr>
-            <th>Field</th>
-            <th>Required Scope</th>
-          </tr>
-          <tr>
-            <td><code>new_task_template</code></td>
-            <td><code>task_templates:read</code></td>
-          </tr>
-          <tr>
-            <td><code>new_portfolio</code></td>
-            <td><code>portfolios:read</code></td>
-          </tr>
-          <tr>
-            <td><code>new_project</code></td>
-            <td><code>projects:read</code></td>
-          </tr>
-          <tr>
-            <td><code>new_task</code></td>
-            <td><code>tasks:read</code></td>
-          </tr>
-          <tr>
-            <td><code>new_project_template</code></td>
-            <td><code>project_templates:read</code></td>
-          </tr>
-        </table>
-
         Returns the full record for a job.
       tags:
         - Jobs
@@ -25853,6 +25859,17 @@ paths:
       summary: Get a portfolio
       description: |-
         <b>Required scope: </b><code>portfolios:read</code>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>custom_type</code></td>
+            <td><code>custom_types:read</code></td>
+          </tr>
+        </table>
 
         Returns the complete portfolio record for a single portfolio.
       tags:
@@ -32598,6 +32615,10 @@ paths:
             <td><code>team</code></td>
             <td><code>teams:read</code></td>
           </tr>
+          <tr>
+            <td><code>custom_type</code></td>
+            <td><code>custom_types:read</code></td>
+          </tr>
         </table>
 
         Returns the complete project record for a single project.
@@ -33813,6 +33834,16 @@ paths:
       - $ref: '#/components/parameters/pretty'
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/offset'
+      - name: include_inherited_projects
+        in: query
+        description: >-
+          Opt-in, read-only. When `true`, the response also includes projects the
+          task inherits from its ancestor tasks (in addition to its direct projects).
+          Defaults to `false`, in which case only direct projects are returned.
+        schema:
+          type: boolean
+          default: false
+        example: false
     get:
       summary: Get projects a task is in
       description: |-
@@ -37075,6 +37106,10 @@ paths:
           <tr>
             <td><code>team</code></td>
             <td><code>teams:read</code></td>
+          </tr>
+          <tr>
+            <td><code>custom_type</code></td>
+            <td><code>custom_types:read</code></td>
           </tr>
         </table>
 
@@ -47819,6 +47854,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -47935,6 +47971,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -48226,6 +48263,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -48339,6 +48377,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -48636,6 +48675,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -48749,6 +48789,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -49020,6 +49061,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -49133,6 +49175,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -49780,6 +49823,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -49896,6 +49940,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -50180,6 +50225,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -50296,6 +50342,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -50580,6 +50627,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -50696,6 +50744,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -50981,6 +51030,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -51097,6 +51147,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -51384,6 +51435,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -51500,6 +51552,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -51775,6 +51828,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -51888,6 +51942,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -52171,6 +52226,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -52284,6 +52340,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -52567,6 +52624,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -52683,6 +52741,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -53289,6 +53348,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -53405,6 +53465,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -54701,6 +54762,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -54814,6 +54876,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -55096,6 +55159,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -55209,6 +55273,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -55542,7 +55607,8 @@ paths:
       - name: projects.any
         in: query
         description: >-
-          Comma-separated list of project IDs
+          Comma-separated list of project IDs. Returns tasks that are directly in
+          these projects or inherit them from an ancestor task.
         schema:
           type: string
         example: 12345,23456,34567
@@ -56059,6 +56125,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -56172,6 +56239,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -60665,6 +60733,17 @@ paths:
       summary: Get a time tracking entry
       description: |-
         <b>Required scope: </b><code>time_tracking_entries:read</code>
+
+        <table>
+          <tr>
+            <th>Field</th>
+            <th>Required Scope</th>
+          </tr>
+          <tr>
+            <td><code>categories</code></td>
+            <td><code>time_tracking_categories:read</code></td>
+          </tr>
+        </table>
 
         Returns the complete time tracking entry record for a single time tracking entry.
       tags:

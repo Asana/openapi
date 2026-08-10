@@ -9165,6 +9165,86 @@ components:
           example: blue
           nullable: true
       x-docs-overrides: *id011
+    EffectiveTaskMembership:
+      description: >-
+        A task's project membership, indicating whether the membership is direct
+        or inherited from an ancestor task.
+      allOf:
+        - type: object
+          properties:
+            project:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *project* represents a prioritized list of tasks in Asana or a board
+                with columns of tasks represented as cards. It exists in a single
+                workspace or organization and is accessible to a subset of users in
+                that workspace or organization, depending on its permissions.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: >-
+                    Name of the project. This is generally a short sentence fragment
+                    that fits on a line in the UI for maximum readability. However,
+                    it
+                    can be longer.
+                  type: string
+                  example: Stuff to buy
+              x-docs-overrides: *id006
+            section:
+              description: >-
+                A generic Asana Resource, containing a globally unique identifier.A
+                generic Asana Resource, containing a globally unique identifier.
+
+                A *section* is a subdivision of a project that groups tasks together.
+                It can either be a header above a list of tasks in a list view or
+                a column in a board view of a project.
+              type: object
+              properties:
+                gid:
+                  description: >-
+                    Globally unique identifier of the resource, as a string.
+                  type: string
+                  readOnly: true
+                  example: '12345'
+                  x-insert-after: false
+                resource_type:
+                  description: The base type of this resource.
+                  type: string
+                  readOnly: true
+                  example: task
+                  x-insert-after: gid
+                name:
+                  description: >-
+                    The name of the section (i.e. the text displayed as the section
+                    header).
+                  type: string
+                  example: Next Actions
+              x-docs-overrides: &id037
+                properties.resource_type.example: section
+              nullable: true
+        - type: object
+          properties:
+            is_inherited:
+              description: >-
+                Whether this membership is inherited from an ancestor task
+                (`true`) or is a direct membership (`false`).
+              type: boolean
+              example: false
     EmptyResponse:
       type: object
       description: >-
@@ -29370,8 +29450,7 @@ components:
             header).
           type: string
           example: Next Actions
-      x-docs-overrides: &id037
-        properties.resource_type.example: section
+      x-docs-overrides: *id037
     SectionCompact:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -37595,7 +37674,9 @@ components:
             `text`, and so on. Please note that the `gid` returned on each
             custom field value *is identical* to the `gid` of the custom field,
             which allows referencing the custom field metadata through the
-            `/custom_fields/custom_field_gid` endpoint.
+            `/custom_fields/custom_field_gid` endpoint. The array includes
+            custom fields from projects the task belongs to directly and from
+            projects inherited from its full ancestor chain.
           type: array
           items:
             description: >-
@@ -38530,7 +38611,7 @@ components:
           nullable: true
         projects:
           description: >-
-            *Create-only.* Array of projects this task is associated with.
+            *Create-only.* Array of projects this task is directly associated with.
             At task creation time, this array can be used to add the task to
             many projects at once. After task creation, these associations can
             be modified using the addProject and removeProject endpoints.
@@ -38569,6 +38650,95 @@ components:
                 type: string
                 example: Stuff to buy
             x-docs-overrides: *id006
+        effective_memberships:
+          description: >-
+            Opt-in, read-only. The union of direct and inherited memberships for
+            this task. If the task is both directly associated with and inherits
+            the same project, the direct membership takes precedence.
+          type: array
+          readOnly: true
+          items:
+            description: >-
+              A task's project membership, indicating whether the membership is direct
+              or inherited from an ancestor task.
+            allOf:
+              - type: object
+                properties:
+                  project:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      A *project* represents a prioritized list of tasks in Asana
+                      or a board with columns of tasks represented as cards. It exists
+                      in a single workspace or organization and is accessible to a
+                      subset of users in that workspace or organization, depending
+                      on its permissions.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: >-
+                          Name of the project. This is generally a short sentence
+                          fragment
+                          that fits on a line in the UI for maximum readability. However,
+                          it
+                          can be longer.
+                        type: string
+                        example: Stuff to buy
+                    x-docs-overrides: *id006
+                  section:
+                    description: >-
+                      A generic Asana Resource, containing a globally unique identifier.A
+                      generic Asana Resource, containing a globally unique identifier.
+
+                      A *section* is a subdivision of a project that groups tasks
+                      together. It can either be a header above a list of tasks in
+                      a list view or a column in a board view of a project.
+                    type: object
+                    properties:
+                      gid:
+                        description: >-
+                          Globally unique identifier of the resource, as a string.
+                        type: string
+                        readOnly: true
+                        example: '12345'
+                        x-insert-after: false
+                      resource_type:
+                        description: The base type of this resource.
+                        type: string
+                        readOnly: true
+                        example: task
+                        x-insert-after: gid
+                      name:
+                        description: >-
+                          The name of the section (i.e. the text displayed as the
+                          section
+                          header).
+                        type: string
+                        example: Next Actions
+                    x-docs-overrides: *id037
+                    nullable: true
+              - type: object
+                properties:
+                  is_inherited:
+                    description: >-
+                      Whether this membership is inherited from an ancestor task
+                      (`true`) or is a direct membership (`false`).
+                    type: boolean
+                    example: false
         tags:
           description: >-
             Array of tags associated with this task. In order to change tags on an
@@ -59107,6 +59277,16 @@ paths:
       - $ref: '#/components/parameters/task_path_gid'
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/offset'
+      - name: include_inherited_projects
+        in: query
+        description: >-
+          Opt-in, read-only. When `true`, the response also includes projects the
+          task inherits from its ancestor tasks (in addition to its direct projects).
+          Defaults to `false`, in which case only direct projects are returned.
+        schema:
+          type: boolean
+          default: false
+        example: false
     get:
       summary: Get projects a task is in
       description: |-
@@ -67161,6 +67341,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -67277,6 +67458,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -67429,6 +67611,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -67542,6 +67725,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -67698,6 +67882,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -67811,6 +67996,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -67962,6 +68148,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -68075,6 +68262,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -68358,6 +68546,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -68474,6 +68663,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -68626,6 +68816,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -68742,6 +68933,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -68893,6 +69085,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -69009,6 +69202,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -69163,6 +69357,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -69279,6 +69474,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -69430,6 +69626,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -69546,6 +69743,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -69692,6 +69890,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -69805,6 +70004,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -69963,6 +70163,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -70076,6 +70277,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -70234,6 +70436,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -70350,6 +70553,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -70583,6 +70787,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -70699,6 +70904,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -71132,6 +71338,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -71245,6 +71452,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -71401,6 +71609,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -71514,6 +71723,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
@@ -71658,7 +71868,8 @@ paths:
       - name: projects.any
         in: query
         description: >-
-          Comma-separated list of project IDs
+          Comma-separated list of project IDs. Returns tasks that are directly in
+          these projects or inherit them from an ancestor task.
         schema:
           type: string
         example: 12345,23456,34567
@@ -72175,6 +72386,7 @@ paths:
             - dependents
             - due_at
             - due_on
+            - effective_memberships
             - external
             - external.data
             - followers
@@ -72288,6 +72500,7 @@ paths:
                 - dependents
                 - due_at
                 - due_on
+                - effective_memberships
                 - external
                 - external.data
                 - followers
