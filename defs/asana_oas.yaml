@@ -16944,17 +16944,10 @@ paths:
       - $ref: '#/components/parameters/offset'
     get:
       summary: Get all custom types associated with an object
-      description: >-
-        Returns a list of all of the custom types associated with an object.
-        Exactly one of `project` or `workspace` must be provided as a query parameter.
-        When `workspace` is provided, all custom types in the workspace are listed,
-        including types created by Asana products.
-        Note that, as in all queries to collections which return
-        compact representation, `opt_fields` can be used to
-        include more data than is returned in the compact representation. See the
-        [documentation for input/output
-        options](https://developers.asana.com/docs/inputoutput-options)
-        for more information.
+      description: |-
+        <b>Required scope: </b><code>custom_types:read</code>
+
+        Returns a list of all of the custom types associated with an object. Exactly one of `project` or `workspace` must be provided as a query parameter. When `workspace` is provided, all custom types in the workspace are listed, including types created by Asana products. Note that, as in all queries to collections which return compact representation, `opt_fields` can be used to include more data than is returned in the compact representation. See the [documentation for input/output options](https://developers.asana.com/docs/inputoutput-options) for more information.
       tags:
         - Custom types
       operationId: getCustomTypes
@@ -17020,7 +17013,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
       security:
         - personalAccessToken: []
-        - oauth2: []
+        - oauth2:
+            - custom_types:read
       x-readme:
         code-samples:
           - language: node
