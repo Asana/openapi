@@ -1161,6 +1161,19 @@ components:
       schema:
         type: string
       example: '12345'
+    custom_type_query_param:
+      name: custom_type
+      in: query
+      description: >-
+        Filter results by custom type. Provide a custom type GID to return only
+        objects of that custom type (an unknown GID returns `400`). Provide an
+        empty string to return only objects with no custom type assigned. If this
+        parameter is omitted, results are not filtered by custom type.
+      required: false
+      schema:
+        type: string
+      example: '12345'
+      x-env-variable: custom_type
     goal_path_gid:
       name: goal_gid
       in: path
@@ -1235,9 +1248,9 @@ components:
       name: project
       in: query
       description: >-
-        Globally unique identifier for the project, which is used as a filter when
-        retrieving all custom types.
-      required: true
+        Globally unique identifier for the project, used as a filter when retrieving
+        custom types.
+      required: false
       schema:
         type: string
       example: '1331'
@@ -3438,9 +3451,9 @@ components:
     CustomTypeBase:
       $ref: '#/components/schemas/CustomTypeCompact'
     CustomTypeCompact:
-      description: >-
-        Custom Types extend the types of Asana Objects, currently only Custom Tasks
-        are supported.
+      description: "<p><strong style={{ color: \"#4573D2\" }}>Full object requires
+        scope: </strong><code>custom_types:read</code></p>\n\nCustom Types extend
+        the types of Asana Objects."
       type: object
       properties:
         gid:
@@ -3460,6 +3473,25 @@ components:
           type: string
           description: The name of the custom type.
           example: Bug ticket
+        asana_created_type_identifier:
+          description: >-
+            *Read-only*. A stable identifier present when this custom type was
+            created by Asana as part of an Asana product (for example, a Command
+            ticket type or a Service queue type). `null` for custom types created
+            by users, and for Asana-created types that do not have a public
+            identifier yet. New values may be added over time as Asana products
+            introduce new types; integrations should tolerate unrecognized values.
+          type: string
+          readOnly: true
+          nullable: true
+          example: COMMAND_TICKET
+          enum:
+            - COMMAND_TICKET
+            - COMMAND_RELEASE
+            - COMMAND_TEAMSPACE
+            - SERVICE_TICKET
+            - SERVICE_CONVERSATION
+            - SERVICE_QUEUE
     CustomTypeResponse:
       allOf:
         - $ref: '#/components/schemas/CustomTypeBase'
@@ -4820,6 +4852,16 @@ components:
           description: The name of the portfolio.
           type: string
           example: Bug Portfolio
+        resource_subtype:
+          type: string
+          description: >-
+            The subtype of this resource. Different subtypes retain many of
+            the same fields and behavior, but may render differently in Asana
+            or represent resources with different semantic meaning.
+          enum:
+            - default_portfolio
+            - custom
+          example: default_portfolio
     PortfolioMembershipBase:
       $ref: '#/components/schemas/PortfolioMembershipCompact'
     DeprecatedPortfolioMembershipBase:
@@ -4940,6 +4982,19 @@ components:
               type: boolean
               deprecated: true
               example: false
+            custom_type:
+              type: string
+              readOnly: false
+              x-env-variable: true
+              description: >-
+                *Conditional:* You can only set custom_type if portfolio `resource_subtype`
+                is `custom`.
+                GID or globally-unique identifier of a portfolio's custom type.
+                The type must be valid for portfolios, and some Asana-created custom
+                types cannot be assigned via the API; attempting either returns an
+                error explaining which condition failed.
+              example: '12345'
+              nullable: true
     PortfolioUpdateRequest:
       allOf:
         - $ref: '#/components/schemas/PortfolioBase'
@@ -4965,6 +5020,19 @@ components:
               example:
                 '5678904321': On Hold
                 '4578152156': Not Started
+            custom_type:
+              type: string
+              readOnly: false
+              x-env-variable: true
+              description: >-
+                *Conditional:* You can only set custom_type if portfolio `resource_subtype`
+                is `custom`.
+                GID or globally-unique identifier of a portfolio's custom type.
+                The type must be valid for portfolios, and some Asana-created custom
+                types cannot be assigned via the API; attempting either returns an
+                error explaining which condition failed.
+              example: '12345'
+              nullable: true
     PortfolioResponse:
       allOf:
         - $ref: '#/components/schemas/PortfolioBase'
@@ -5041,6 +5109,10 @@ components:
               readOnly: true
               items:
                 $ref: '#/components/schemas/ProjectTemplateCompact'
+            custom_type:
+              allOf:
+                - $ref: '#/components/schemas/CustomTypeCompact'
+                - nullable: true
     PortfolioItemCompact:
       anyOf:
         - $ref: '#/components/schemas/ProjectCompact'
@@ -5406,6 +5478,16 @@ components:
             can be longer.
           type: string
           example: Stuff to buy
+        resource_subtype:
+          type: string
+          description: >-
+            The subtype of this resource. Different subtypes retain many of
+            the same fields and behavior, but may render differently in Asana
+            or represent resources with different semantic meaning.
+          enum:
+            - default_project
+            - custom
+          example: default_project
     ProjectDuplicateRequest:
       type: object
       required:
@@ -5787,6 +5869,19 @@ components:
               description: >-
                 The `gid` of a workspace.
               example: '12345'
+            custom_type:
+              type: string
+              readOnly: false
+              x-env-variable: true
+              description: >-
+                *Conditional:* You can only set custom_type if project `resource_subtype`
+                is `custom`.
+                GID or globally-unique identifier of a project's custom type.
+                The type must be valid for projects, and some Asana-created custom
+                types cannot be assigned via the API; attempting either returns an
+                error explaining which condition failed.
+              example: '12345'
+              nullable: true
     ProjectUpdateRequest:
       allOf:
         - $ref: '#/components/schemas/ProjectBase'
@@ -5832,6 +5927,19 @@ components:
               deprecated: true
               type: string
               example: '12345'
+            custom_type:
+              type: string
+              readOnly: false
+              x-env-variable: true
+              description: >-
+                *Conditional:* You can only set custom_type if project `resource_subtype`
+                is `custom`.
+                GID or globally-unique identifier of a project's custom type.
+                The type must be valid for projects, and some Asana-created custom
+                types cannot be assigned via the API; attempting either returns an
+                error explaining which condition failed.
+              example: '12345'
+              nullable: true
     ProjectResponse:
       allOf:
         - $ref: '#/components/schemas/ProjectBase'
@@ -5926,6 +6034,10 @@ components:
                     different workspace. This attribute can only be specified at
                     creation time. If the workspace for your project is an
                     organization, you must also supply a `team` in the request body.
+            custom_type:
+              allOf:
+                - $ref: '#/components/schemas/CustomTypeCompact'
+                - nullable: true
     ProjectSectionInsertRequest:
       type: object
       properties:
@@ -8441,6 +8553,9 @@ components:
                 *Conditional:* You can only set custom_type if task `resource_subtype`
                 is `custom`.
                 GID or globally-unique identifier of a task's custom type.
+                The type must be valid for tasks, and some Asana-created custom
+                types cannot be assigned via the API; attempting either returns an
+                error explaining which condition failed.
               example: '12345'
               nullable: true
             custom_type_status_option:
@@ -11540,6 +11655,7 @@ paths:
             - end_date
             - parent
             - parent.name
+            - parent.resource_subtype
             - resource_subtype
             - start_date
           schema:
@@ -11557,6 +11673,7 @@ paths:
                 - end_date
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - resource_subtype
                 - start_date
           style: form
@@ -11688,6 +11805,7 @@ paths:
             - end_date
             - parent
             - parent.name
+            - parent.resource_subtype
             - resource_subtype
             - start_date
           schema:
@@ -11705,6 +11823,7 @@ paths:
                 - end_date
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - resource_subtype
                 - start_date
           style: form
@@ -11969,6 +12088,7 @@ paths:
             - offset
             - parent
             - parent.name
+            - parent.resource_subtype
             - path
             - resource_subtype
             - start_date
@@ -11989,6 +12109,7 @@ paths:
                 - offset
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - path
                 - resource_subtype
                 - start_date
@@ -12134,6 +12255,7 @@ paths:
             - end_date
             - parent
             - parent.name
+            - parent.resource_subtype
             - resource_subtype
             - start_date
           schema:
@@ -12151,6 +12273,7 @@ paths:
                 - end_date
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - resource_subtype
                 - start_date
           style: form
@@ -13696,6 +13819,7 @@ paths:
             - estimate.value
             - parent
             - parent.name
+            - parent.resource_subtype
             - total
             - total.enabled
             - total.units
@@ -13718,6 +13842,7 @@ paths:
                 - estimate.value
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - total
                 - total.enabled
                 - total.units
@@ -13825,6 +13950,7 @@ paths:
             - estimate.value
             - parent
             - parent.name
+            - parent.resource_subtype
             - total
             - total.enabled
             - total.units
@@ -13847,6 +13973,7 @@ paths:
                 - estimate.value
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - total
                 - total.enabled
                 - total.units
@@ -14085,9 +14212,11 @@ paths:
             - offset
             - parent
             - parent.name
+            - parent.resource_subtype
             - path
             - project
             - project.name
+            - project.resource_subtype
             - uri
           schema:
             type: array
@@ -14144,9 +14273,11 @@ paths:
                 - offset
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - path
                 - project
                 - project.name
+                - project.resource_subtype
                 - uri
           style: form
           explode: false
@@ -14370,9 +14501,11 @@ paths:
             - offset
             - parent
             - parent.name
+            - parent.resource_subtype
             - path
             - project
             - project.name
+            - project.resource_subtype
             - uri
           schema:
             type: array
@@ -14429,9 +14562,11 @@ paths:
                 - offset
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - path
                 - project
                 - project.name
+                - project.resource_subtype
                 - uri
           style: form
           explode: false
@@ -14655,9 +14790,11 @@ paths:
             - offset
             - parent
             - parent.name
+            - parent.resource_subtype
             - path
             - project
             - project.name
+            - project.resource_subtype
             - uri
           schema:
             type: array
@@ -14714,9 +14851,11 @@ paths:
                 - offset
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - path
                 - project
                 - project.name
+                - project.resource_subtype
                 - uri
           style: form
           explode: false
@@ -14870,8 +15009,10 @@ paths:
             - is_important
             - parent
             - parent.name
+            - parent.resource_subtype
             - project
             - project.name
+            - project.resource_subtype
           schema:
             type: array
             items:
@@ -14926,8 +15067,10 @@ paths:
                 - is_important
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - project
                 - project.name
+                - project.resource_subtype
           style: form
           explode: false
       responses:
@@ -16795,6 +16938,7 @@ paths:
   /custom_types:
     parameters:
       - $ref: '#/components/parameters/project_query_param'
+      - $ref: '#/components/parameters/workspace_query_param'
       - $ref: '#/components/parameters/pretty'
       - $ref: '#/components/parameters/limit'
       - $ref: '#/components/parameters/offset'
@@ -16802,7 +16946,9 @@ paths:
       summary: Get all custom types associated with an object
       description: >-
         Returns a list of all of the custom types associated with an object.
-        Currently, only projects are supported.
+        Exactly one of `project` or `workspace` must be provided as a query parameter.
+        When `workspace` is provided, all custom types in the workspace are listed,
+        including types created by Asana products.
         Note that, as in all queries to collections which return
         compact representation, `opt_fields` can be used to
         include more data than is returned in the compact representation. See the
@@ -16820,6 +16966,7 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - asana_created_type_identifier
             - name
             - offset
             - path
@@ -16834,6 +16981,7 @@ paths:
             items:
               type: string
               enum:
+                - asana_created_type_identifier
                 - name
                 - offset
                 - path
@@ -16943,6 +17091,7 @@ paths:
             to a comma-separated list of the properties you wish to include.
           required: false
           example:
+            - asana_created_type_identifier
             - name
             - status_options
             - status_options.color
@@ -16954,6 +17103,7 @@ paths:
             items:
               type: string
               enum:
+                - asana_created_type_identifier
                 - name
                 - status_options
                 - status_options.color
@@ -17565,6 +17715,7 @@ paths:
             - supported_goal.owner.name
             - supporting_resource
             - supporting_resource.name
+            - supporting_resource.resource_subtype
           schema:
             type: array
             items:
@@ -17578,6 +17729,7 @@ paths:
                 - supported_goal.owner.name
                 - supporting_resource
                 - supporting_resource.name
+                - supporting_resource.resource_subtype
           style: form
           explode: false
       responses:
@@ -17744,6 +17896,7 @@ paths:
             - supported_goal.owner.name
             - supporting_resource
             - supporting_resource.name
+            - supporting_resource.resource_subtype
           schema:
             type: array
             items:
@@ -17757,6 +17910,7 @@ paths:
                 - supported_goal.owner.name
                 - supporting_resource
                 - supporting_resource.name
+                - supporting_resource.resource_subtype
           style: form
           explode: false
       requestBody:
@@ -17953,6 +18107,7 @@ paths:
             - supported_goal.owner.name
             - supporting_resource
             - supporting_resource.name
+            - supporting_resource.resource_subtype
             - uri
           schema:
             type: array
@@ -17969,6 +18124,7 @@ paths:
                 - supported_goal.owner.name
                 - supporting_resource
                 - supporting_resource.name
+                - supporting_resource.resource_subtype
                 - uri
           style: form
           explode: false
@@ -18149,6 +18305,7 @@ paths:
             - supported_goal.owner.name
             - supporting_resource
             - supporting_resource.name
+            - supporting_resource.resource_subtype
           schema:
             type: array
             items:
@@ -18162,6 +18319,7 @@ paths:
                 - supported_goal.owner.name
                 - supporting_resource
                 - supporting_resource.name
+                - supporting_resource.resource_subtype
           style: form
           explode: false
       requestBody:
@@ -18556,8 +18714,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -18681,8 +18841,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -18960,8 +19122,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -19085,8 +19249,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -19563,8 +19729,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -19691,8 +19859,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -19993,8 +20163,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -20118,8 +20290,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -20408,8 +20582,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -20533,8 +20709,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -20828,8 +21006,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -20953,8 +21133,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -21250,8 +21432,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -21375,8 +21559,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -21669,8 +21855,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -21794,8 +21982,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -22088,8 +22278,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -22213,8 +22405,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -22632,8 +22826,10 @@ paths:
             - new_graph_export.download_url
             - new_portfolio
             - new_portfolio.name
+            - new_portfolio.resource_subtype
             - new_project
             - new_project.name
+            - new_project.resource_subtype
             - new_project_template
             - new_project_template.name
             - new_resource_export
@@ -22657,8 +22853,10 @@ paths:
                 - new_graph_export.download_url
                 - new_portfolio
                 - new_portfolio.name
+                - new_portfolio.resource_subtype
                 - new_project
                 - new_project.name
+                - new_project.resource_subtype
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
@@ -24526,6 +24724,7 @@ paths:
             - path
             - portfolio
             - portfolio.name
+            - portfolio.resource_subtype
             - uri
             - user
             - user.name
@@ -24539,6 +24738,7 @@ paths:
                 - path
                 - portfolio
                 - portfolio.name
+                - portfolio.resource_subtype
                 - uri
                 - user
                 - user.name
@@ -24715,6 +24915,7 @@ paths:
             - access_level
             - portfolio
             - portfolio.name
+            - portfolio.resource_subtype
             - user
             - user.name
           schema:
@@ -24725,6 +24926,7 @@ paths:
                 - access_level
                 - portfolio
                 - portfolio.name
+                - portfolio.resource_subtype
                 - user
                 - user.name
           style: form
@@ -24894,6 +25096,7 @@ paths:
             - path
             - portfolio
             - portfolio.name
+            - portfolio.resource_subtype
             - uri
             - user
             - user.name
@@ -24907,6 +25110,7 @@ paths:
                 - path
                 - portfolio
                 - portfolio.name
+                - portfolio.resource_subtype
                 - uri
                 - user
                 - user.name
@@ -25101,6 +25305,7 @@ paths:
           schema:
             type: string
           example: '14916'
+        - $ref: '#/components/parameters/custom_type_query_param'
         - name: opt_fields
           in: query
           description: This endpoint returns a resource which excludes some properties
@@ -25166,8 +25371,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -25194,6 +25401,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - due_on
             - members
@@ -25208,6 +25418,7 @@ paths:
             - project_templates
             - project_templates.name
             - public
+            - resource_subtype
             - start_on
             - uri
             - workspace
@@ -25275,8 +25486,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -25303,6 +25516,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - due_on
                 - members
@@ -25317,6 +25533,7 @@ paths:
                 - project_templates
                 - project_templates.name
                 - public
+                - resource_subtype
                 - start_on
                 - uri
                 - workspace
@@ -25552,8 +25769,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -25580,6 +25799,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - due_on
             - members
@@ -25592,6 +25814,7 @@ paths:
             - project_templates
             - project_templates.name
             - public
+            - resource_subtype
             - start_on
             - workspace
             - workspace.name
@@ -25658,8 +25881,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -25686,6 +25911,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - due_on
                 - members
@@ -25698,6 +25926,7 @@ paths:
                 - project_templates
                 - project_templates.name
                 - public
+                - resource_subtype
                 - start_on
                 - workspace
                 - workspace.name
@@ -25941,8 +26170,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -25969,6 +26200,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - due_on
             - members
@@ -25981,6 +26215,7 @@ paths:
             - project_templates
             - project_templates.name
             - public
+            - resource_subtype
             - start_on
             - workspace
             - workspace.name
@@ -26047,8 +26282,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -26075,6 +26312,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - due_on
                 - members
@@ -26087,6 +26327,7 @@ paths:
                 - project_templates
                 - project_templates.name
                 - public
+                - resource_subtype
                 - start_on
                 - workspace
                 - workspace.name
@@ -26307,8 +26548,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -26335,6 +26578,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - due_on
             - members
@@ -26347,6 +26593,7 @@ paths:
             - project_templates
             - project_templates.name
             - public
+            - resource_subtype
             - start_on
             - workspace
             - workspace.name
@@ -26413,8 +26660,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -26441,6 +26690,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - due_on
                 - members
@@ -26453,6 +26705,7 @@ paths:
                 - project_templates
                 - project_templates.name
                 - public
+                - resource_subtype
                 - start_on
                 - workspace
                 - workspace.name
@@ -27649,8 +27902,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -27677,6 +27932,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - due_on
             - members
@@ -27689,6 +27947,7 @@ paths:
             - project_templates
             - project_templates.name
             - public
+            - resource_subtype
             - start_on
             - workspace
             - workspace.name
@@ -27755,8 +28014,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -27783,6 +28044,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - due_on
                 - members
@@ -27795,6 +28059,7 @@ paths:
                 - project_templates
                 - project_templates.name
                 - public
+                - resource_subtype
                 - start_on
                 - workspace
                 - workspace.name
@@ -28029,8 +28294,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -28057,6 +28324,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - due_on
             - members
@@ -28069,6 +28339,7 @@ paths:
             - project_templates
             - project_templates.name
             - public
+            - resource_subtype
             - start_on
             - workspace
             - workspace.name
@@ -28135,8 +28406,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -28163,6 +28436,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - due_on
                 - members
@@ -28175,6 +28451,7 @@ paths:
                 - project_templates
                 - project_templates.name
                 - public
+                - resource_subtype
                 - start_on
                 - workspace
                 - workspace.name
@@ -28357,8 +28634,10 @@ paths:
             - new_graph_export.download_url
             - new_portfolio
             - new_portfolio.name
+            - new_portfolio.resource_subtype
             - new_project
             - new_project.name
+            - new_project.resource_subtype
             - new_project_template
             - new_project_template.name
             - new_resource_export
@@ -28382,8 +28661,10 @@ paths:
                 - new_graph_export.download_url
                 - new_portfolio
                 - new_portfolio.name
+                - new_portfolio.resource_subtype
                 - new_project
                 - new_project.name
+                - new_project.resource_subtype
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
@@ -28502,6 +28783,7 @@ paths:
             - permalink_url
             - project
             - project.name
+            - project.resource_subtype
             - text
             - title
           schema:
@@ -28513,6 +28795,7 @@ paths:
                 - permalink_url
                 - project
                 - project.name
+                - project.resource_subtype
                 - text
                 - title
           style: form
@@ -28687,6 +28970,7 @@ paths:
             - permalink_url
             - project
             - project.name
+            - project.resource_subtype
             - text
             - title
           schema:
@@ -28698,6 +28982,7 @@ paths:
                 - permalink_url
                 - project
                 - project.name
+                - project.resource_subtype
                 - text
                 - title
           style: form
@@ -29017,6 +29302,7 @@ paths:
             - permalink_url
             - project
             - project.name
+            - project.resource_subtype
             - text
             - title
           schema:
@@ -29028,6 +29314,7 @@ paths:
                 - permalink_url
                 - project
                 - project.name
+                - project.resource_subtype
                 - text
                 - title
           style: form
@@ -29207,8 +29494,10 @@ paths:
             - member.name
             - parent
             - parent.name
+            - parent.resource_subtype
             - project
             - project.name
+            - project.resource_subtype
             - user
             - user.name
             - write_access
@@ -29222,8 +29511,10 @@ paths:
                 - member.name
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - project
                 - project.name
+                - project.resource_subtype
                 - user
                 - user.name
                 - write_access
@@ -29395,6 +29686,7 @@ paths:
             - offset
             - parent
             - parent.name
+            - parent.resource_subtype
             - path
             - uri
           schema:
@@ -29408,6 +29700,7 @@ paths:
                 - offset
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - path
                 - uri
           style: form
@@ -31505,8 +31798,10 @@ paths:
             - new_graph_export.download_url
             - new_portfolio
             - new_portfolio.name
+            - new_portfolio.resource_subtype
             - new_project
             - new_project.name
+            - new_project.resource_subtype
             - new_project_template
             - new_project_template.name
             - new_resource_export
@@ -31530,8 +31825,10 @@ paths:
                 - new_graph_export.download_url
                 - new_portfolio
                 - new_portfolio.name
+                - new_portfolio.resource_subtype
                 - new_project
                 - new_project.name
+                - new_project.resource_subtype
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
@@ -31735,6 +32032,7 @@ paths:
           example: '14916'
           deprecated: true
         - $ref: '#/components/parameters/archived_query_param'
+        - $ref: '#/components/parameters/custom_type_query_param'
         - name: opt_fields
           in: query
           description: This endpoint returns a resource which excludes some properties
@@ -31815,8 +32113,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -31843,6 +32143,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -31865,6 +32168,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -31949,8 +32253,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -31977,6 +32283,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -31999,6 +32308,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -32263,8 +32573,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -32291,6 +32603,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -32311,6 +32626,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -32394,8 +32710,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -32422,6 +32740,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -32442,6 +32763,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -32706,8 +33028,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -32734,6 +33058,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -32754,6 +33081,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -32837,8 +33165,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -32865,6 +33195,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -32885,6 +33218,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -33132,8 +33466,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -33160,6 +33496,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -33180,6 +33519,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -33263,8 +33603,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -33291,6 +33633,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -33311,6 +33656,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -33637,8 +33983,10 @@ paths:
             - new_graph_export.download_url
             - new_portfolio
             - new_portfolio.name
+            - new_portfolio.resource_subtype
             - new_project
             - new_project.name
+            - new_project.resource_subtype
             - new_project_template
             - new_project_template.name
             - new_resource_export
@@ -33662,8 +34010,10 @@ paths:
                 - new_graph_export.download_url
                 - new_portfolio
                 - new_portfolio.name
+                - new_portfolio.resource_subtype
                 - new_project
                 - new_project.name
+                - new_project.resource_subtype
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
@@ -33934,8 +34284,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -33962,6 +34314,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -33984,6 +34339,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -34068,8 +34424,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -34096,6 +34454,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -34118,6 +34479,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -34369,8 +34731,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -34397,6 +34761,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -34419,6 +34786,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -34503,8 +34871,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -34531,6 +34901,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -34553,6 +34926,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -34800,8 +35174,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -34828,6 +35204,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -34848,6 +35227,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -34931,8 +35311,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -34959,6 +35341,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -34979,6 +35364,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -35234,8 +35620,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -35262,6 +35650,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -35284,6 +35675,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -35368,8 +35760,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -35396,6 +35790,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -35418,6 +35815,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -35670,8 +36068,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -35698,6 +36098,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -35718,6 +36121,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -35801,8 +36205,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -35829,6 +36235,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -35849,6 +36258,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -36333,8 +36743,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -36361,6 +36773,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -36381,6 +36796,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -36464,8 +36880,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -36492,6 +36910,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -36512,6 +36933,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -36718,8 +37140,10 @@ paths:
             - is_important
             - parent
             - parent.name
+            - parent.resource_subtype
             - project
             - project.name
+            - project.resource_subtype
           schema:
             type: array
             items:
@@ -36774,8 +37198,10 @@ paths:
                 - is_important
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - project
                 - project.name
+                - project.resource_subtype
           style: form
           explode: false
       requestBody:
@@ -37383,8 +37809,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -37411,6 +37839,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -37431,6 +37862,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -37514,8 +37946,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -37542,6 +37976,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -37562,6 +37999,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -37812,8 +38250,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -37840,6 +38280,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -37860,6 +38303,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -37943,8 +38387,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -37971,6 +38417,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -37991,6 +38440,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -38245,8 +38695,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -38273,6 +38725,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -38293,6 +38748,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -38376,8 +38832,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -38404,6 +38862,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -38424,6 +38885,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -38675,8 +39137,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - custom_fields
             - custom_fields.date_value
             - custom_fields.date_value.date
@@ -38703,6 +39167,9 @@ paths:
             - custom_fields.representation_type
             - custom_fields.text_value
             - custom_fields.type
+            - custom_type
+            - custom_type.asana_created_type_identifier
+            - custom_type.name
             - default_access_level
             - default_view
             - due_date
@@ -38723,6 +39190,7 @@ paths:
             - privacy_setting
             - project_brief
             - public
+            - resource_subtype
             - start_on
             - team
             - team.name
@@ -38806,8 +39274,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - custom_fields
                 - custom_fields.date_value
                 - custom_fields.date_value.date
@@ -38834,6 +39304,9 @@ paths:
                 - custom_fields.representation_type
                 - custom_fields.text_value
                 - custom_fields.type
+                - custom_type
+                - custom_type.asana_created_type_identifier
+                - custom_type.name
                 - default_access_level
                 - default_view
                 - due_date
@@ -38854,6 +39327,7 @@ paths:
                 - privacy_setting
                 - project_brief
                 - public
+                - resource_subtype
                 - start_on
                 - team
                 - team.name
@@ -39036,8 +39510,10 @@ paths:
             - new_graph_export.download_url
             - new_portfolio
             - new_portfolio.name
+            - new_portfolio.resource_subtype
             - new_project
             - new_project.name
+            - new_project.resource_subtype
             - new_project_template
             - new_project_template.name
             - new_resource_export
@@ -39061,8 +39537,10 @@ paths:
                 - new_graph_export.download_url
                 - new_portfolio
                 - new_portfolio.name
+                - new_portfolio.resource_subtype
                 - new_project
                 - new_project.name
+                - new_project.resource_subtype
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
@@ -39384,6 +39862,7 @@ paths:
             - currency_code
             - parent
             - parent.name
+            - parent.resource_subtype
             - rate
             - resource
             - resource.name
@@ -39397,6 +39876,7 @@ paths:
                 - currency_code
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - rate
                 - resource
                 - resource.name
@@ -39506,6 +39986,7 @@ paths:
             - currency_code
             - parent
             - parent.name
+            - parent.resource_subtype
             - rate
             - resource
             - resource.name
@@ -39519,6 +40000,7 @@ paths:
                 - currency_code
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - rate
                 - resource
                 - resource.name
@@ -39619,6 +40101,7 @@ paths:
             - currency_code
             - parent
             - parent.name
+            - parent.resource_subtype
             - rate
             - resource
             - resource.name
@@ -39632,6 +40115,7 @@ paths:
                 - currency_code
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - rate
                 - resource
                 - resource.name
@@ -40836,8 +41320,10 @@ paths:
             - name
             - project
             - project.name
+            - project.resource_subtype
             - projects
             - projects.name
+            - projects.resource_subtype
           schema:
             type: array
             items:
@@ -40847,8 +41333,10 @@ paths:
                 - name
                 - project
                 - project.name
+                - project.resource_subtype
                 - projects
                 - projects.name
+                - projects.resource_subtype
           style: form
           explode: false
       responses:
@@ -41014,8 +41502,10 @@ paths:
             - name
             - project
             - project.name
+            - project.resource_subtype
             - projects
             - projects.name
+            - projects.resource_subtype
           schema:
             type: array
             items:
@@ -41025,8 +41515,10 @@ paths:
                 - name
                 - project
                 - project.name
+                - project.resource_subtype
                 - projects
                 - projects.name
+                - projects.resource_subtype
           style: form
           explode: false
       requestBody:
@@ -41347,8 +41839,10 @@ paths:
             - path
             - project
             - project.name
+            - project.resource_subtype
             - projects
             - projects.name
+            - projects.resource_subtype
             - uri
           schema:
             type: array
@@ -41361,8 +41855,10 @@ paths:
                 - path
                 - project
                 - project.name
+                - project.resource_subtype
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - uri
           style: form
           explode: false
@@ -41531,8 +42027,10 @@ paths:
             - name
             - project
             - project.name
+            - project.resource_subtype
             - projects
             - projects.name
+            - projects.resource_subtype
           schema:
             type: array
             items:
@@ -41542,8 +42040,10 @@ paths:
                 - name
                 - project
                 - project.name
+                - project.resource_subtype
                 - projects
                 - projects.name
+                - projects.resource_subtype
           style: form
           explode: false
       requestBody:
@@ -42058,6 +42558,7 @@ paths:
             - num_likes
             - parent
             - parent.name
+            - parent.resource_subtype
             - reaction_summary
             - reaction_summary.count
             - reaction_summary.emoji_base
@@ -42091,6 +42592,7 @@ paths:
                 - num_likes
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - reaction_summary
                 - reaction_summary.count
                 - reaction_summary.emoji_base
@@ -42433,6 +42935,7 @@ paths:
             - offset
             - parent
             - parent.name
+            - parent.resource_subtype
             - path
             - reaction_summary
             - reaction_summary.count
@@ -42469,6 +42972,7 @@ paths:
                 - offset
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - path
                 - reaction_summary
                 - reaction_summary.count
@@ -42665,6 +43169,7 @@ paths:
             - num_likes
             - parent
             - parent.name
+            - parent.resource_subtype
             - reaction_summary
             - reaction_summary.count
             - reaction_summary.emoji_base
@@ -42698,6 +43203,7 @@ paths:
                 - num_likes
                 - parent
                 - parent.name
+                - parent.resource_subtype
                 - reaction_summary
                 - reaction_summary.count
                 - reaction_summary.emoji_base
@@ -43010,6 +43516,7 @@ paths:
             - previews.title_link
             - project
             - project.name
+            - project.resource_subtype
             - reaction_summary
             - reaction_summary.count
             - reaction_summary.emoji_base
@@ -43155,6 +43662,7 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
+                - project.resource_subtype
                 - reaction_summary
                 - reaction_summary.count
                 - reaction_summary.emoji_base
@@ -43450,6 +43958,7 @@ paths:
             - previews.title_link
             - project
             - project.name
+            - project.resource_subtype
             - reaction_summary
             - reaction_summary.count
             - reaction_summary.emoji_base
@@ -43595,6 +44104,7 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
+                - project.resource_subtype
                 - reaction_summary
                 - reaction_summary.count
                 - reaction_summary.emoji_base
@@ -44053,6 +44563,7 @@ paths:
             - previews.title_link
             - project
             - project.name
+            - project.resource_subtype
             - reaction_summary
             - reaction_summary.count
             - reaction_summary.emoji_base
@@ -44201,6 +44712,7 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
+                - project.resource_subtype
                 - reaction_summary
                 - reaction_summary.count
                 - reaction_summary.emoji_base
@@ -44510,6 +45022,7 @@ paths:
             - previews.title_link
             - project
             - project.name
+            - project.resource_subtype
             - reaction_summary
             - reaction_summary.count
             - reaction_summary.emoji_base
@@ -44655,6 +45168,7 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
+                - project.resource_subtype
                 - reaction_summary
                 - reaction_summary.count
                 - reaction_summary.emoji_base
@@ -44972,6 +45486,7 @@ paths:
             - previews.title_link
             - project
             - project.name
+            - project.resource_subtype
             - reaction_summary
             - reaction_summary.count
             - reaction_summary.emoji_base
@@ -45120,6 +45635,7 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
+                - project.resource_subtype
                 - reaction_summary
                 - reaction_summary.count
                 - reaction_summary.emoji_base
@@ -45363,6 +45879,7 @@ paths:
             - previews.title_link
             - project
             - project.name
+            - project.resource_subtype
             - reaction_summary
             - reaction_summary.count
             - reaction_summary.emoji_base
@@ -45508,6 +46025,7 @@ paths:
                 - previews.title_link
                 - project
                 - project.name
+                - project.resource_subtype
                 - reaction_summary
                 - reaction_summary.count
                 - reaction_summary.emoji_base
@@ -47548,8 +48066,10 @@ paths:
             - new_graph_export.download_url
             - new_portfolio
             - new_portfolio.name
+            - new_portfolio.resource_subtype
             - new_project
             - new_project.name
+            - new_project.resource_subtype
             - new_project_template
             - new_project_template.name
             - new_resource_export
@@ -47573,8 +48093,10 @@ paths:
                 - new_graph_export.download_url
                 - new_portfolio
                 - new_portfolio.name
+                - new_portfolio.resource_subtype
                 - new_project
                 - new_project.name
+                - new_project.resource_subtype
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
@@ -47778,6 +48300,7 @@ paths:
             type: string
             format: date-time
           example: '2012-02-22T02:06:58.158Z'
+        - $ref: '#/components/parameters/custom_type_query_param'
         - name: opt_fields
           in: query
           description: This endpoint returns a resource which excludes some properties
@@ -47847,6 +48370,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -47872,6 +48396,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -47889,6 +48414,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -47964,6 +48490,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -47989,6 +48516,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -48006,6 +48534,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -48256,6 +48785,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -48281,6 +48811,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -48296,6 +48827,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -48370,6 +48902,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -48395,6 +48928,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -48410,6 +48944,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -48668,6 +49203,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -48693,6 +49229,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -48708,6 +49245,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -48782,6 +49320,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -48807,6 +49346,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -48822,6 +49362,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -49054,6 +49595,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -49079,6 +49621,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -49094,6 +49637,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -49168,6 +49712,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -49193,6 +49738,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -49208,6 +49754,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -49538,8 +50085,10 @@ paths:
             - new_graph_export.download_url
             - new_portfolio
             - new_portfolio.name
+            - new_portfolio.resource_subtype
             - new_project
             - new_project.name
+            - new_project.resource_subtype
             - new_project_template
             - new_project_template.name
             - new_resource_export
@@ -49563,8 +50112,10 @@ paths:
                 - new_graph_export.download_url
                 - new_portfolio
                 - new_portfolio.name
+                - new_portfolio.resource_subtype
                 - new_project
                 - new_project.name
+                - new_project.resource_subtype
                 - new_project_template
                 - new_project_template.name
                 - new_resource_export
@@ -49816,6 +50367,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -49841,6 +50393,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -49858,6 +50411,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -49933,6 +50487,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -49958,6 +50513,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -49975,6 +50531,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -50218,6 +50775,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -50243,6 +50801,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -50260,6 +50819,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -50335,6 +50895,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -50360,6 +50921,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -50377,6 +50939,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -50620,6 +51183,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -50645,6 +51209,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -50662,6 +51227,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -50737,6 +51303,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -50762,6 +51329,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -50779,6 +51347,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -51023,6 +51592,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -51048,6 +51618,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -51065,6 +51636,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -51140,6 +51712,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -51165,6 +51738,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -51182,6 +51756,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -51428,6 +52003,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -51453,6 +52029,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -51470,6 +52047,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -51545,6 +52123,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -51570,6 +52149,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -51587,6 +52167,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -51821,6 +52402,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -51846,6 +52428,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -51861,6 +52444,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -51935,6 +52519,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -51960,6 +52545,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -51975,6 +52561,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -52219,6 +52806,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -52244,6 +52832,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -52259,6 +52848,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -52333,6 +52923,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -52358,6 +52949,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -52373,6 +52965,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -52617,6 +53210,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -52642,6 +53236,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -52659,6 +53254,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -52734,6 +53330,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -52759,6 +53356,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -52776,6 +53374,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -53341,6 +53940,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -53366,6 +53966,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -53383,6 +53984,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -53458,6 +54060,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -53483,6 +54086,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -53500,6 +54104,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -54755,6 +55360,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -54780,6 +55386,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -54795,6 +55402,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -54869,6 +55477,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -54894,6 +55503,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -54909,6 +55519,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -55152,6 +55763,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -55177,6 +55789,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -55192,6 +55805,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -55266,6 +55880,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -55291,6 +55906,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -55306,6 +55922,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -56118,6 +56735,7 @@ paths:
             - custom_fields.text_value
             - custom_fields.type
             - custom_type
+            - custom_type.asana_created_type_identifier
             - custom_type.name
             - custom_type_status_option
             - custom_type_status_option.name
@@ -56143,6 +56761,7 @@ paths:
             - memberships
             - memberships.project
             - memberships.project.name
+            - memberships.project.resource_subtype
             - memberships.section
             - memberships.section.name
             - modified_at
@@ -56158,6 +56777,7 @@ paths:
             - permalink_url
             - projects
             - projects.name
+            - projects.resource_subtype
             - resource_subtype
             - start_at
             - start_on
@@ -56232,6 +56852,7 @@ paths:
                 - custom_fields.text_value
                 - custom_fields.type
                 - custom_type
+                - custom_type.asana_created_type_identifier
                 - custom_type.name
                 - custom_type_status_option
                 - custom_type_status_option.name
@@ -56257,6 +56878,7 @@ paths:
                 - memberships
                 - memberships.project
                 - memberships.project.name
+                - memberships.project.resource_subtype
                 - memberships.section
                 - memberships.section.name
                 - modified_at
@@ -56272,6 +56894,7 @@ paths:
                 - permalink_url
                 - projects
                 - projects.name
+                - projects.resource_subtype
                 - resource_subtype
                 - start_at
                 - start_on
@@ -57441,8 +58064,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -57513,8 +58138,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -57749,8 +58376,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -57821,8 +58450,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -58041,8 +58672,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -58113,8 +58746,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -58354,8 +58989,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -58429,8 +59066,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -58678,8 +59317,10 @@ paths:
             - custom_field_settings.is_important
             - custom_field_settings.parent
             - custom_field_settings.parent.name
+            - custom_field_settings.parent.resource_subtype
             - custom_field_settings.project
             - custom_field_settings.project.name
+            - custom_field_settings.project.resource_subtype
             - description
             - edit_team_name_or_description_access_level
             - edit_team_visibility_or_trash_team_access_level
@@ -58753,8 +59394,10 @@ paths:
                 - custom_field_settings.is_important
                 - custom_field_settings.parent
                 - custom_field_settings.parent.name
+                - custom_field_settings.parent.resource_subtype
                 - custom_field_settings.project
                 - custom_field_settings.project.name
+                - custom_field_settings.project.resource_subtype
                 - description
                 - edit_team_name_or_description_access_level
                 - edit_team_visibility_or_trash_team_access_level
@@ -60017,6 +60660,7 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - attributable_to.resource_subtype
             - categories
             - categories.color
             - categories.name
@@ -60034,6 +60678,7 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - attributable_to.resource_subtype
                 - categories
                 - categories.color
                 - categories.name
@@ -60403,6 +61048,7 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - attributable_to.resource_subtype
             - categories
             - categories.color
             - categories.name
@@ -60420,6 +61066,7 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - attributable_to.resource_subtype
                 - categories
                 - categories.color
                 - categories.name
@@ -60577,6 +61224,7 @@ paths:
             - approval_status
             - attributable_to
             - attributable_to.name
+            - attributable_to.resource_subtype
             - billable_status
             - categories
             - categories.color
@@ -60599,6 +61247,7 @@ paths:
                 - approval_status
                 - attributable_to
                 - attributable_to.name
+                - attributable_to.resource_subtype
                 - billable_status
                 - categories
                 - categories.color
@@ -60760,6 +61409,7 @@ paths:
             - approval_status
             - attributable_to
             - attributable_to.name
+            - attributable_to.resource_subtype
             - billable_status
             - categories
             - categories.color
@@ -60782,6 +61432,7 @@ paths:
                 - approval_status
                 - attributable_to
                 - attributable_to.name
+                - attributable_to.resource_subtype
                 - billable_status
                 - categories
                 - categories.color
@@ -60940,6 +61591,7 @@ paths:
             - approval_status
             - attributable_to
             - attributable_to.name
+            - attributable_to.resource_subtype
             - billable_status
             - categories
             - categories.color
@@ -60962,6 +61614,7 @@ paths:
                 - approval_status
                 - attributable_to
                 - attributable_to.name
+                - attributable_to.resource_subtype
                 - billable_status
                 - categories
                 - categories.color
@@ -61280,6 +61933,7 @@ paths:
           example:
             - attributable_to
             - attributable_to.name
+            - attributable_to.resource_subtype
             - categories
             - categories.color
             - categories.name
@@ -61297,6 +61951,7 @@ paths:
               enum:
                 - attributable_to
                 - attributable_to.name
+                - attributable_to.resource_subtype
                 - categories
                 - categories.color
                 - categories.name
