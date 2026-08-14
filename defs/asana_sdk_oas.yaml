@@ -51947,6 +51947,8 @@ paths:
     get:
       summary: Get a custom type
       description: |-
+        <b>Required scope: </b><code>custom_types:read</code>
+
         Returns the complete custom type record for a single custom type.
       tags:
         - Custom types
@@ -51993,6 +51995,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - custom_types:read
   /events:
     parameters:
       - name: resource
