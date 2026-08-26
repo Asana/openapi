@@ -3507,8 +3507,9 @@ components:
     CustomTypeStatusOptionBase:
       $ref: '#/components/schemas/CustomTypeStatusOptionCompact'
     CustomTypeStatusOptionCompact:
-      description: >-
-        A generic Asana Resource, containing a globally unique identifier.
+      description: "<p><strong style={{ color: \"#4573D2\" }}>Full object requires
+        scope: </strong><code>custom_types:read</code></p>\n\nA generic Asana Resource,
+        containing a globally unique identifier."
       type: object
       properties:
         gid:
@@ -49121,6 +49122,14 @@ paths:
             <td><code>projects:read</code>, <code>project_sections:read</code></td>
           </tr>
           <tr>
+            <td><code>custom_type</code></td>
+            <td><code>custom_types:read</code></td>
+          </tr>
+          <tr>
+            <td><code>custom_type_status_option</code></td>
+            <td><code>custom_types:read</code></td>
+          </tr>
+          <tr>
             <td><code>actual_time_minutes</code></td>
             <td><code>time_tracking_entries:read</code></td>
           </tr>
@@ -56101,6 +56110,14 @@ paths:
           <tr>
             <td><code>effective_memberships</code></td>
             <td><code>projects:read</code>, <code>project_sections:read</code></td>
+          </tr>
+          <tr>
+            <td><code>custom_type</code></td>
+            <td><code>custom_types:read</code></td>
+          </tr>
+          <tr>
+            <td><code>custom_type_status_option</code></td>
+            <td><code>custom_types:read</code></td>
           </tr>
           <tr>
             <td><code>actual_time_minutes</code></td>
