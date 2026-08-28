@@ -1030,7 +1030,7 @@ components:
         The id of included objects will always be returned, regardless of the
         field options.
 
-        To learn how to select nested fields, see the
+        Properties can include nested fields. To learn more, see the
         [input/output options guide](/docs/inputoutput-options#selecting-nested-fields).
       example:
         - followers
@@ -10926,7 +10926,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - approval_status
@@ -11272,7 +11274,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - behavior_guidance
@@ -11406,7 +11410,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - behavior_guidance
@@ -11754,7 +11760,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -11904,7 +11912,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -12186,7 +12196,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -12354,7 +12366,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -12523,7 +12537,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - connected_to_app
@@ -12878,7 +12894,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - connected_to_app
@@ -13112,7 +13130,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - connected_to_app
@@ -13560,7 +13580,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - body
@@ -13915,7 +13937,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual
@@ -14046,7 +14070,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual
@@ -14271,7 +14297,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field
@@ -14560,7 +14588,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field
@@ -14849,7 +14879,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field
@@ -15069,7 +15101,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field
@@ -15285,7 +15319,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - asana_created_field
@@ -15558,7 +15594,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - asana_created_field
@@ -15815,7 +15853,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - asana_created_field
@@ -16228,7 +16268,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - asana_created_field
@@ -16501,7 +16543,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -16687,7 +16731,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -16881,7 +16927,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -17068,7 +17116,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - asana_created_type_identifier
@@ -17198,7 +17248,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - asana_created_type_identifier
@@ -17345,7 +17397,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - action
@@ -17815,7 +17869,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - contribution_weight
@@ -17996,7 +18052,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - contribution_weight
@@ -18205,7 +18263,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - contribution_weight
@@ -18405,7 +18465,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - contribution_weight
@@ -18769,7 +18831,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -19177,7 +19241,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -19784,7 +19850,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -20218,7 +20286,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -20637,7 +20707,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -21061,7 +21133,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -21487,7 +21561,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -21910,7 +21986,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -22333,7 +22411,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - current_status_update
@@ -22928,7 +23008,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - new_graph_export
@@ -23180,7 +23262,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - offset
@@ -23866,7 +23950,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_by
@@ -23976,7 +24062,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_by
@@ -24211,7 +24299,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_by
@@ -24341,7 +24431,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_by
@@ -24466,7 +24558,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -24649,7 +24743,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -24827,7 +24923,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - access_level
@@ -25020,7 +25118,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - access_level
@@ -25199,7 +25299,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - access_level
@@ -25421,7 +25523,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -25821,7 +25925,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -26222,7 +26328,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -26600,7 +26708,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -27133,7 +27243,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - offset
@@ -27954,7 +28066,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -28346,7 +28460,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -28738,7 +28854,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - new_graph_export
@@ -28889,7 +29007,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - html_text
@@ -29076,7 +29196,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - html_text
@@ -29408,7 +29530,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - html_text
@@ -29599,7 +29723,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - access_level
@@ -29790,7 +29916,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - access_level
@@ -29985,7 +30113,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -30093,7 +30223,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -30213,7 +30345,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -30337,7 +30471,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -30459,7 +30595,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - author
@@ -30789,7 +30927,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - author
@@ -30986,7 +31126,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - author
@@ -31184,7 +31326,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -31481,7 +31625,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -31692,7 +31838,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -31902,7 +32050,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - new_graph_export
@@ -32150,7 +32300,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -32612,7 +32764,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -33067,7 +33221,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -33505,7 +33661,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -34089,7 +34247,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - new_graph_export
@@ -34323,7 +34483,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -34772,7 +34934,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -35215,7 +35379,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -35661,7 +35827,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -36109,7 +36277,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -36784,7 +36954,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -37205,7 +37377,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field
@@ -37669,7 +37843,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - num_completed_milestones
@@ -37850,7 +38026,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -38291,7 +38469,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -38736,7 +38916,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -39178,7 +39360,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - archived
@@ -39618,7 +39802,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - new_graph_export
@@ -39861,7 +40047,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - offset
@@ -39971,7 +40159,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_by
@@ -40095,7 +40285,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_by
@@ -40210,7 +40402,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_by
@@ -40530,7 +40724,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - base_role_type
@@ -40713,7 +40909,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - base_role_type
@@ -40893,7 +41091,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - base_role_type
@@ -41059,7 +41259,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - base_role_type
@@ -41430,7 +41632,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -41612,7 +41816,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -41947,7 +42153,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -42137,7 +42345,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -42653,7 +42863,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - author
@@ -43029,7 +43241,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - author
@@ -43264,7 +43478,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - author
@@ -43516,7 +43732,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -43958,7 +44176,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -44561,7 +44781,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -45022,7 +45244,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -45484,7 +45708,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -45879,7 +46105,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - assignee
@@ -46279,7 +46507,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -46478,7 +46708,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -46671,7 +46903,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -46856,7 +47090,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -47192,7 +47428,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -47392,7 +47630,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -47592,7 +47832,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -47797,7 +48039,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -47939,7 +48183,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -48174,7 +48420,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - new_graph_export
@@ -48422,7 +48670,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -48839,7 +49089,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -49265,7 +49517,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -49657,7 +49911,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -50203,7 +50459,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - new_graph_export
@@ -50429,7 +50687,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -50837,7 +51097,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -51245,7 +51507,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -51654,7 +51918,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -52065,7 +52331,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -52464,7 +52732,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -52868,7 +53138,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -53272,7 +53544,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -54002,7 +54276,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -55422,7 +55698,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -55825,7 +56103,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -56805,7 +57085,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - actual_time_minutes
@@ -57339,7 +57621,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - is_admin
@@ -57544,7 +57828,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - is_admin
@@ -57745,7 +58031,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - is_admin
@@ -57950,7 +58238,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - is_admin
@@ -58146,7 +58436,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field_settings
@@ -58458,7 +58750,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field_settings
@@ -58754,7 +59048,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field_settings
@@ -59071,7 +59367,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field_settings
@@ -59399,7 +59697,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_field_settings
@@ -59724,7 +60024,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - is_admin
@@ -60071,7 +60373,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - display_name
@@ -60274,7 +60578,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - display_name
@@ -60476,7 +60782,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -60579,7 +60887,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -60790,7 +61100,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - attributable_to
@@ -60943,7 +61255,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -61062,7 +61376,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - color
@@ -61178,7 +61494,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - attributable_to
@@ -61353,7 +61671,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - approval_status
@@ -61538,7 +61858,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - approval_status
@@ -61720,7 +62042,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - approval_status
@@ -62063,7 +62387,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - attributable_to
@@ -62213,7 +62539,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - approval_status
@@ -62323,7 +62651,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - approval_status
@@ -62487,7 +62817,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - approval_status
@@ -62621,7 +62953,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - approval_status
@@ -62844,7 +63178,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - name
@@ -63029,7 +63365,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - name
@@ -63210,7 +63548,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - name
@@ -63402,7 +63742,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_fields
@@ -63658,7 +64000,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_fields
@@ -63896,7 +64240,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_fields
@@ -64106,7 +64452,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - name
@@ -64295,7 +64643,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_fields
@@ -64543,7 +64893,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_fields
@@ -64787,7 +65139,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_fields
@@ -64958,7 +65312,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - custom_fields
@@ -65159,7 +65515,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - active
@@ -65424,7 +65782,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - active
@@ -65636,7 +65996,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - active
@@ -65827,7 +66189,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - active
@@ -66172,7 +66536,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -66370,7 +66736,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -66583,7 +66951,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - created_at
@@ -66789,7 +67159,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - email_domains
@@ -66972,7 +67344,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - email_domains
@@ -67143,7 +67517,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - email_domains
@@ -67327,7 +67703,9 @@ paths:
           in: query
           description: This endpoint returns a resource which excludes some properties
             by default. To include those optional properties, set this query parameter
-            to a comma-separated list of the properties you wish to include.
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
             - email
