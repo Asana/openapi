@@ -6117,7 +6117,11 @@ components:
           type: string
           example: Status Update - Jun 15
     ProjectStatusRequest:
-      $ref: '#/components/schemas/ProjectStatusBase'
+      allOf:
+        - $ref: '#/components/schemas/ProjectStatusBase'
+        - type: object
+          required:
+            - color
     ProjectStatusResponse:
       allOf:
         - $ref: '#/components/schemas/ProjectStatusBase'
