@@ -1265,7 +1265,7 @@ components:
       name: status_update_gid
       in: path
       required: true
-      description: The status update to get.
+      description: Globally unique identifier for the status update.
       schema:
         type: string
       example: '321654'
@@ -66054,9 +66054,6 @@ paths:
         500:
           $ref: '#/components/responses/InternalServerError'
   /status_updates:
-    parameters:
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
     get:
       summary: Get status updates from an object
       description: >-
@@ -66065,6 +66062,8 @@ paths:
         - Status updates
       operationId: getStatusesForObject
       parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
         - name: parent
           required: true
           in: query

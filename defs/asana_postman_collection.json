@@ -78181,7 +78181,7 @@
                   "type": "string",
                   "disabled": false,
                   "description": {
-                    "content": "The status update to get.",
+                    "content": "Globally unique identifier for the status update.",
                     "type": "text/markdown"
                   }
                 }
@@ -78235,7 +78235,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78305,7 +78305,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78375,7 +78375,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78445,7 +78445,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78515,7 +78515,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78585,7 +78585,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78657,7 +78657,7 @@
                   "type": "string",
                   "disabled": false,
                   "description": {
-                    "content": "The status update to get.",
+                    "content": "Globally unique identifier for the status update.",
                     "type": "text/markdown"
                   }
                 }
@@ -78701,7 +78701,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78761,7 +78761,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78821,7 +78821,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78881,7 +78881,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -78941,7 +78941,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -79001,7 +79001,7 @@
                       "type": "string",
                       "disabled": false,
                       "description": {
-                        "content": "The status update to get.",
+                        "content": "Globally unique identifier for the status update.",
                         "type": "text/markdown"
                       }
                     }
@@ -79740,26 +79740,6 @@
                   }
                 },
                 {
-                  "key": "limit",
-                  "value": "50",
-                  "type": "integer",
-                  "disabled": true,
-                  "description": {
-                    "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
-                    "type": "text/markdown"
-                  }
-                },
-                {
-                  "key": "offset",
-                  "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
-                  "type": "string",
-                  "disabled": true,
-                  "description": {
-                    "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
-                    "type": "text/markdown"
-                  }
-                },
-                {
                   "key": "opt_fields",
                   "value": "author,author.name,created_at,created_by,created_by.name,hearted,hearts,hearts.user,hearts.user.name,html_text,liked,likes,likes.user,likes.user.name,modified_at,num_hearts,num_likes,parent,parent.name,parent.resource_subtype,reaction_summary,reaction_summary.count,reaction_summary.emoji_base,reaction_summary.reacted,reaction_summary.variant,resource_subtype,status_type,text,title",
                   "type": "array",
@@ -79773,7 +79753,7 @@
             },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"data\": {\n    \"title\": \"Status Update - Jun 15\",\n    \"text\": \"The project is moving forward according to plan...\",\n    \"html_text\": \"<body>The project <strong>is</strong> moving forward according to plan...</body>\",\n    \"status_type\": \"on_track\",\n    \"parent\": {}\n  }\n}",
+              "raw": "{\n  \"data\": {\n    \"title\": \"Status Update - Jun 15\",\n    \"text\": \"The project is moving forward according to plan...\",\n    \"html_text\": \"<body>The project <strong>is</strong> moving forward according to plan...</body>\",\n    \"status_type\": \"on_track\",\n    \"parent\": \"<string>\"\n  }\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -79806,26 +79786,6 @@
                       "disabled": true,
                       "description": {
                         "content": "Provides “pretty” output.\nProvides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "limit",
-                      "value": "50",
-                      "type": "integer",
-                      "disabled": true,
-                      "description": {
-                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "offset",
-                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
-                      "type": "string",
-                      "disabled": true,
-                      "description": {
-                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
                         "type": "text/markdown"
                       }
                     },
@@ -79888,26 +79848,6 @@
                       }
                     },
                     {
-                      "key": "limit",
-                      "value": "50",
-                      "type": "integer",
-                      "disabled": true,
-                      "description": {
-                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "offset",
-                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
-                      "type": "string",
-                      "disabled": true,
-                      "description": {
-                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
                       "key": "opt_fields",
                       "value": "author,author.name,created_at,created_by,created_by.name,hearted,hearts,hearts.user,hearts.user.name,html_text,liked,likes,likes.user,likes.user.name,modified_at,num_hearts,num_likes,parent,parent.name,parent.resource_subtype,reaction_summary,reaction_summary.count,reaction_summary.emoji_base,reaction_summary.reacted,reaction_summary.variant,resource_subtype,status_type,text,title",
                       "type": "array",
@@ -79962,26 +79902,6 @@
                       "disabled": true,
                       "description": {
                         "content": "Provides “pretty” output.\nProvides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "limit",
-                      "value": "50",
-                      "type": "integer",
-                      "disabled": true,
-                      "description": {
-                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "offset",
-                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
-                      "type": "string",
-                      "disabled": true,
-                      "description": {
-                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
                         "type": "text/markdown"
                       }
                     },
@@ -80044,26 +79964,6 @@
                       }
                     },
                     {
-                      "key": "limit",
-                      "value": "50",
-                      "type": "integer",
-                      "disabled": true,
-                      "description": {
-                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "offset",
-                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
-                      "type": "string",
-                      "disabled": true,
-                      "description": {
-                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
                       "key": "opt_fields",
                       "value": "author,author.name,created_at,created_by,created_by.name,hearted,hearts,hearts.user,hearts.user.name,html_text,liked,likes,likes.user,likes.user.name,modified_at,num_hearts,num_likes,parent,parent.name,parent.resource_subtype,reaction_summary,reaction_summary.count,reaction_summary.emoji_base,reaction_summary.reacted,reaction_summary.variant,resource_subtype,status_type,text,title",
                       "type": "array",
@@ -80122,26 +80022,6 @@
                       }
                     },
                     {
-                      "key": "limit",
-                      "value": "50",
-                      "type": "integer",
-                      "disabled": true,
-                      "description": {
-                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "offset",
-                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
-                      "type": "string",
-                      "disabled": true,
-                      "description": {
-                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
                       "key": "opt_fields",
                       "value": "author,author.name,created_at,created_by,created_by.name,hearted,hearts,hearts.user,hearts.user.name,html_text,liked,likes,likes.user,likes.user.name,modified_at,num_hearts,num_likes,parent,parent.name,parent.resource_subtype,reaction_summary,reaction_summary.count,reaction_summary.emoji_base,reaction_summary.reacted,reaction_summary.variant,resource_subtype,status_type,text,title",
                       "type": "array",
@@ -80196,26 +80076,6 @@
                       "disabled": true,
                       "description": {
                         "content": "Provides “pretty” output.\nProvides the response in a “pretty” format. In the case of JSON this means doing proper line breaking and indentation to make it readable. This will take extra time and increase the response size so it is advisable only to use this during debugging.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "limit",
-                      "value": "50",
-                      "type": "integer",
-                      "disabled": true,
-                      "description": {
-                        "content": "Results per page.\nThe number of objects to return per page. The value must be between 1 and 100.",
-                        "type": "text/markdown"
-                      }
-                    },
-                    {
-                      "key": "offset",
-                      "value": "eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9",
-                      "type": "string",
-                      "disabled": true,
-                      "description": {
-                        "content": "Offset token.\nAn offset to the next page returned by the API. A pagination request will return an offset token, which can be used as an input parameter to the next request. If an offset is not passed in, the API will return the first page of results.\n*Note: You can only pass in an offset that was returned to you via a previously paginated request.*",
                         "type": "text/markdown"
                       }
                     },

@@ -1309,7 +1309,7 @@ components:
       name: status_update_gid
       in: path
       required: true
-      description: The status update to get.
+      description: Globally unique identifier for the status update.
       schema:
         type: string
       example: '321654'
@@ -7089,12 +7089,10 @@ components:
             - parent
           properties:
             parent:
-              allOf:
-                - type: string
-                  description: >-
-                    The id of parent to send this status update to. This can be a
-                    project,
-                    goal or portfolio.
+              type: string
+              description: >-
+                The id of parent to send this status update to. This can be a project,
+                goal or portfolio.
     StatusUpdateResponse:
       allOf:
         - $ref: '#/components/schemas/StatusUpdateBase'
@@ -43212,8 +43210,6 @@ paths:
   /status_updates:
     parameters:
       - $ref: '#/components/parameters/pretty'
-      - $ref: '#/components/parameters/limit'
-      - $ref: '#/components/parameters/offset'
     get:
       summary: Get status updates from an object
       description: >-
@@ -43222,6 +43218,8 @@ paths:
         - Status updates
       operationId: getStatusesForObject
       parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
         - name: parent
           required: true
           in: query
