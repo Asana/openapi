@@ -8486,6 +8486,29 @@ components:
               example:
                 '5678904321': On Hold
                 '4578152156': Not Started
+            custom_type:
+              type: string
+              readOnly: false
+              x-env-variable: true
+              description: >-
+                *Conditional:* You can only set custom_type if task `resource_subtype`
+                is `custom`.
+                GID or globally-unique identifier of a task's custom type.
+                The type must be valid for tasks, and some Asana-created custom
+                types cannot be assigned via the API; attempting either returns an
+                error explaining which condition failed.
+              example: '12345'
+              nullable: true
+            custom_type_status_option:
+              type: string
+              readOnly: false
+              x-env-variable: true
+              description: >-
+                *Conditional:* You can only set custom_type_status_option if task
+                `resource_subtype` is `custom`
+                GID or globally-unique identifier of a custom type's status option.
+              example: '12345'
+              nullable: true
             parent:
               type: string
               readOnly: false
@@ -8546,31 +8569,6 @@ components:
     TaskUpdateRequest:
       allOf:
         - $ref: '#/components/schemas/TaskRequestBase'
-        - type: object
-          properties:
-            custom_type:
-              type: string
-              readOnly: false
-              x-env-variable: true
-              description: >-
-                *Conditional:* You can only set custom_type if task `resource_subtype`
-                is `custom`.
-                GID or globally-unique identifier of a task's custom type.
-                The type must be valid for tasks, and some Asana-created custom
-                types cannot be assigned via the API; attempting either returns an
-                error explaining which condition failed.
-              example: '12345'
-              nullable: true
-            custom_type_status_option:
-              type: string
-              readOnly: false
-              x-env-variable: true
-              description: >-
-                *Conditional:* You can only set custom_type_status_option if task
-                `resource_subtype` is `custom`
-                GID or globally-unique identifier of a custom type's status option.
-              example: '12345'
-              nullable: true
     TaskResponse:
       allOf:
         - $ref: '#/components/schemas/TaskBase'
@@ -12885,8 +12883,8 @@ paths:
           required: true
           in: query
           description: >-
-            Globally unique identifier for object to fetch statuses from. Must be
-            a GID
+            Globally unique identifier for the object to fetch attachments from. Must
+            be a GID
             for a `project`, `project_brief`, or `task`.
           schema:
             type: string
