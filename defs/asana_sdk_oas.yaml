@@ -68930,8 +68930,11 @@ paths:
             - created_at
             - created_by
             - name
+            - offset
+            - path
             - project
             - template
+            - uri
           schema:
             type: array
             items:
@@ -68940,8 +68943,11 @@ paths:
                 - created_at
                 - created_by
                 - name
+                - offset
+                - path
                 - project
                 - template
+                - uri
           style: form
           explode: false
       responses:

@@ -48046,8 +48046,11 @@ paths:
             - created_at
             - created_by
             - name
+            - offset
+            - path
             - project
             - template
+            - uri
           schema:
             type: array
             items:
@@ -48056,8 +48059,11 @@ paths:
                 - created_at
                 - created_by
                 - name
+                - offset
+                - path
                 - project
                 - template
+                - uri
           style: form
           explode: false
       responses:
@@ -48072,6 +48078,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskTemplateCompact'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
         400:
           $ref: '#/components/responses/BadRequest'
         401:
