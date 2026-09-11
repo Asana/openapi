@@ -47555,7 +47555,6 @@ components:
             - guest
             - member
             - admin
-            - super_admin
         permissions:
           description: The permissions of the role.
           type: object
@@ -65078,6 +65077,7 @@ paths:
         - $ref: '#/components/parameters/offset'
         - name: workspace
           in: query
+          required: true
           description: >-
             The workspace or organization to filter roles on.
           schema:

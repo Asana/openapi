@@ -10580,6 +10580,14 @@ components:
             - base_role_type
             - workspace
           properties:
+            base_role_type:
+              description: >-
+                The base role type of the role.
+              type: string
+              enum:
+                - guest
+                - member
+                - admin
             workspace:
               type: string
               description: >-
@@ -40713,6 +40721,7 @@ paths:
         - $ref: '#/components/parameters/offset'
         - name: workspace
           in: query
+          required: true
           description: >-
             The workspace or organization to filter roles on.
           schema:
