@@ -10877,6 +10877,8 @@ components:
             custom_types:read: View access to custom types
             goals:read: View access to goals
             jobs:read: View access to jobs
+            notifications:read: View access to notifications
+            notifications:write: Create and modify access to notifications
             ooo_entries:read: View access to OOO entries
             ooo_entries:write: Create and modify access to OOO entries
             ooo_entries:delete: Delete access to OOO entries
