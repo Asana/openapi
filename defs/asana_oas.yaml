@@ -4538,6 +4538,30 @@ components:
             - failed
           readOnly: true
           example: in_progress
+        dates_rollup_progress:
+          description: >-
+            Progress of a subtask date rollup job. Only present on project rollup
+            jobs; the
+            object is empty until the job discovers tasks to reconcile.
+          type: object
+          readOnly: true
+          properties:
+            updated_tasks:
+              description: >-
+                The number of tasks whose dates have been reconciled so far.
+              type: integer
+              minimum: 0
+              readOnly: true
+              example: 12
+            total_tasks:
+              description: >-
+                The total number of tasks discovered for reconciliation so far. This
+                value may
+                increase while the job is running and is final when the job completes.
+              type: integer
+              minimum: 0
+              readOnly: true
+              example: 40
         new_portfolio:
           $ref: '#/components/schemas/PortfolioCompact'
         new_project:
@@ -8009,6 +8033,16 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Like'
+              readOnly: true
+            has_subtasks_date_mismatch:
+              description: >-
+                [Opt In](/docs/inputoutput-options). True when one or more
+                descendant subtasks have dates outside the task's own date range.
+                This field reflects
+                the latest computed rollup state and returns false when no rollup
+                has been computed.
+              type: boolean
+              example: true
               readOnly: true
             is_rendered_as_separator:
               description: >-
@@ -23069,6 +23103,9 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
             - new_graph_export
             - new_graph_export.completed_at
             - new_graph_export.created_at
@@ -23096,6 +23133,9 @@ paths:
             items:
               type: string
               enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
                 - new_graph_export
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
@@ -28915,6 +28955,9 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
             - new_graph_export
             - new_graph_export.completed_at
             - new_graph_export.created_at
@@ -28942,6 +28985,9 @@ paths:
             items:
               type: string
               enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
                 - new_graph_export
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
@@ -32111,6 +32157,9 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
             - new_graph_export
             - new_graph_export.completed_at
             - new_graph_export.created_at
@@ -32138,6 +32187,9 @@ paths:
             items:
               type: string
               enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
                 - new_graph_export
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
@@ -34308,6 +34360,9 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
             - new_graph_export
             - new_graph_export.completed_at
             - new_graph_export.created_at
@@ -34335,6 +34390,9 @@ paths:
             items:
               type: string
               enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
                 - new_graph_export
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
@@ -39863,6 +39921,9 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
             - new_graph_export
             - new_graph_export.completed_at
             - new_graph_export.created_at
@@ -39890,6 +39951,9 @@ paths:
             items:
               type: string
               enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
                 - new_graph_export
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
@@ -40066,6 +40130,113 @@ paths:
 
               result = client.projects.project_save_as_template(project_gid: 'project_gid',
               field: "value", field: "value", options: {pretty: true})
+  /projects/{project_gid}/rollup:
+    parameters:
+      - $ref: '#/components/parameters/project_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    post:
+      summary: Roll up subtask dates for a project
+      description: |-
+        <b>Required scope: </b><code>projects:write</code>
+
+        Creates and returns a job that will asynchronously roll up subtask dates for tasks in the project with the given `project_gid` whose descendant dates fall outside their current date range. Each parent task's start and due dates are reconciled to cover its descendants' date range.
+      tags:
+        - Projects
+      operationId: rollupProject
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
+          required: false
+          example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
+            - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
+            - new_portfolio.resource_subtype
+            - new_project
+            - new_project.name
+            - new_project.resource_subtype
+            - new_project_template
+            - new_project_template.name
+            - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
+            - new_task
+            - new_task.created_by
+            - new_task.name
+            - new_task.resource_subtype
+            - resource_subtype
+            - status
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
+                - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
+                - new_portfolio.resource_subtype
+                - new_project
+                - new_project.name
+                - new_project.resource_subtype
+                - new_project_template
+                - new_project_template.name
+                - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
+                - new_task
+                - new_task.created_by
+                - new_task.name
+                - new_task.resource_subtype
+                - resource_subtype
+                - status
+          style: form
+          explode: false
+      responses:
+        201:
+          description: >-
+            Successfully created a job to roll up the project's subtask dates.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/JobResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - projects:write
   /rates:
     parameters:
       - $ref: '#/components/parameters/pretty'
@@ -48496,6 +48667,9 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
             - new_graph_export
             - new_graph_export.completed_at
             - new_graph_export.created_at
@@ -48523,6 +48697,9 @@ paths:
             items:
               type: string
               enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
                 - new_graph_export
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
@@ -48821,6 +48998,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -48941,6 +49119,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -49240,6 +49419,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -49357,6 +49537,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -49668,6 +49849,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -49785,6 +49967,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -50062,6 +50245,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -50179,6 +50363,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -50535,6 +50720,9 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
             - new_graph_export
             - new_graph_export.completed_at
             - new_graph_export.created_at
@@ -50562,6 +50750,9 @@ paths:
             items:
               type: string
               enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
                 - new_graph_export
                 - new_graph_export.completed_at
                 - new_graph_export.created_at
@@ -50838,6 +51029,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -50958,6 +51150,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -51248,6 +51441,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -51368,6 +51562,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -51658,6 +51853,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -51778,6 +51974,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -52069,6 +52266,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -52189,6 +52387,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -52482,6 +52681,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -52602,6 +52802,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -52883,6 +53084,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -53000,6 +53202,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -53289,6 +53492,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -53406,6 +53610,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -53695,6 +53900,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -53815,6 +54021,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -54427,6 +54634,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -54547,6 +54755,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -55849,6 +56058,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -55966,6 +56176,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -56254,6 +56465,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -56371,6 +56583,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
@@ -56561,6 +56774,113 @@ paths:
 
               result = client.tasks.remove_follower_for_task(task_gid: 'task_gid',
               field: "value", field: "value", options: {pretty: true})
+  /tasks/{task_gid}/rollup:
+    parameters:
+      - $ref: '#/components/parameters/task_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    post:
+      summary: Roll up subtask dates for a task
+      description: |-
+        <b>Required scope: </b><code>tasks:write</code>
+
+        Creates and returns a job that will asynchronously roll up the subtask dates for the subtask tree rooted at the task with the given `task_gid`. Each parent task's start and due dates are reconciled to cover its descendants' date range.
+      tags:
+        - Tasks
+      operationId: rollupTask
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
+          required: false
+          example:
+            - dates_rollup_progress
+            - dates_rollup_progress.total_tasks
+            - dates_rollup_progress.updated_tasks
+            - new_graph_export
+            - new_graph_export.completed_at
+            - new_graph_export.created_at
+            - new_graph_export.download_url
+            - new_portfolio
+            - new_portfolio.name
+            - new_portfolio.resource_subtype
+            - new_project
+            - new_project.name
+            - new_project.resource_subtype
+            - new_project_template
+            - new_project_template.name
+            - new_resource_export
+            - new_resource_export.completed_at
+            - new_resource_export.created_at
+            - new_resource_export.download_url
+            - new_task
+            - new_task.created_by
+            - new_task.name
+            - new_task.resource_subtype
+            - resource_subtype
+            - status
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - dates_rollup_progress
+                - dates_rollup_progress.total_tasks
+                - dates_rollup_progress.updated_tasks
+                - new_graph_export
+                - new_graph_export.completed_at
+                - new_graph_export.created_at
+                - new_graph_export.download_url
+                - new_portfolio
+                - new_portfolio.name
+                - new_portfolio.resource_subtype
+                - new_project
+                - new_project.name
+                - new_project.resource_subtype
+                - new_project_template
+                - new_project_template.name
+                - new_resource_export
+                - new_resource_export.completed_at
+                - new_resource_export.created_at
+                - new_resource_export.download_url
+                - new_task
+                - new_task.created_by
+                - new_task.name
+                - new_task.resource_subtype
+                - resource_subtype
+                - status
+          style: form
+          explode: false
+      responses:
+        201:
+          description: >-
+            Successfully created a job to roll up the task's subtask dates.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/JobResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        402:
+          $ref: '#/components/responses/PaymentRequired'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - tasks:write
   /workspaces/{workspace_gid}/tasks/custom_id/{custom_id}:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
@@ -57236,6 +57556,7 @@ paths:
             - external.data
             - followers
             - followers.name
+            - has_subtasks_date_mismatch
             - hearted
             - hearts
             - hearts.user
@@ -57353,6 +57674,7 @@ paths:
                 - external.data
                 - followers
                 - followers.name
+                - has_subtasks_date_mismatch
                 - hearted
                 - hearts
                 - hearts.user
