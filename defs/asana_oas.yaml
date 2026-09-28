@@ -4322,22 +4322,6 @@ components:
               example:
                 '5678904321': On Hold
                 '4578152156': Not Started
-            html_custom_fields:
-              description: >-
-                An object where each key is the GID of a text custom field
-                and the corresponding value is a rich text HTML string.
-                Only text-type custom fields support this parameter.
-                Values must be wrapped in <body></body> tags.
-                See the [custom fields guide](/docs/custom-fields-guide) and
-                [rich text](/docs/rich-text) for details on supported formatting.
-              type: object
-              additionalProperties:
-                type: string
-                description: >-
-                  "{custom_field_gid}" => HTML string (e.g., "<body>Text content</body>")
-              example:
-                '5678904321': <body><strong>Bold text</strong></body>
-                '4578152156': <body><code>Code block</code></body>
     GoalResponse:
       allOf:
         - $ref: '#/components/schemas/GoalBase'
@@ -5113,22 +5097,6 @@ components:
               example:
                 '5678904321': On Hold
                 '4578152156': Not Started
-            html_custom_fields:
-              description: >-
-                An object where each key is the GID of a text custom field
-                and the corresponding value is a rich text HTML string.
-                Only text-type custom fields support this parameter.
-                Values must be wrapped in <body></body> tags.
-                See the [custom fields guide](/docs/custom-fields-guide) and
-                [rich text](/docs/rich-text) for details on supported formatting.
-              type: object
-              additionalProperties:
-                type: string
-                description: >-
-                  "{custom_field_gid}" => HTML string (e.g., "<body>Text content</body>")
-              example:
-                '5678904321': <body><strong>Bold text</strong></body>
-                '4578152156': <body><code>Code block</code></body>
             custom_type:
               type: string
               readOnly: false
@@ -5947,22 +5915,6 @@ components:
               example:
                 '5678904321': On Hold
                 '4578152156': Not Started
-            html_custom_fields:
-              description: >-
-                An object where each key is the GID of a text custom field
-                and the corresponding value is a rich text HTML string.
-                Only text-type custom fields support this parameter.
-                Values must be wrapped in <body></body> tags.
-                See the [custom fields guide](/docs/custom-fields-guide) and
-                [rich text](/docs/rich-text) for details on supported formatting.
-              type: object
-              additionalProperties:
-                type: string
-                description: >-
-                  "{custom_field_gid}" => HTML string (e.g., "<body>Text content</body>")
-              example:
-                '5678904321': <body><strong>Bold text</strong></body>
-                '4578152156': <body><code>Code block</code></body>
             followers:
               description: >-
                 *Create-only*. Comma separated string of users. Followers
@@ -6026,22 +5978,6 @@ components:
               example:
                 '5678904321': On Hold
                 '4578152156': Not Started
-            html_custom_fields:
-              description: >-
-                An object where each key is the GID of a text custom field
-                and the corresponding value is a rich text HTML string.
-                Only text-type custom fields support this parameter.
-                Values must be wrapped in <body></body> tags.
-                See the [custom fields guide](/docs/custom-fields-guide) and
-                [rich text](/docs/rich-text) for details on supported formatting.
-              type: object
-              additionalProperties:
-                type: string
-                description: >-
-                  "{custom_field_gid}" => HTML string (e.g., "<body>Text content</body>")
-              example:
-                '5678904321': <body><strong>Bold text</strong></body>
-                '4578152156': <body><code>Code block</code></body>
             followers:
               description: >-
                 *Create-only*. Comma separated string of users. Followers
@@ -8654,22 +8590,6 @@ components:
                 GID or globally-unique identifier of a custom type's status option.
               example: '12345'
               nullable: true
-            html_custom_fields:
-              description: >-
-                An object where each key is the GID of a text custom field
-                and the corresponding value is a rich text HTML string.
-                Only text-type custom fields support this parameter.
-                Values must be wrapped in <body></body> tags.
-                See the [custom fields guide](/docs/custom-fields-guide) and
-                [rich text](/docs/rich-text) for details on supported formatting.
-              type: object
-              additionalProperties:
-                type: string
-                description: >-
-                  "{custom_field_gid}" => HTML string (e.g., "<body>Text content</body>")
-              example:
-                '5678904321': <body><strong>Bold text</strong></body>
-                '4578152156': <body><code>Code block</code></body>
             parent:
               type: string
               readOnly: false
@@ -9286,22 +9206,6 @@ components:
               example:
                 '5678904321': On Hold
                 '4578152156': Not Started
-            html_custom_fields:
-              description: >-
-                An object where each key is the GID of a text custom field
-                and the corresponding value is a rich text HTML string.
-                Only text-type custom fields support this parameter.
-                Values must be wrapped in <body></body> tags.
-                See the [custom fields guide](/docs/custom-fields-guide) and
-                [rich text](/docs/rich-text) for details on supported formatting.
-              type: object
-              additionalProperties:
-                type: string
-                description: >-
-                  "{custom_field_gid}" => HTML string (e.g., "<body>Text content</body>")
-              example:
-                '5678904321': <body><strong>Bold text</strong></body>
-                '4578152156': <body><code>Code block</code></body>
     UserBaseResponse:
       allOf:
         - $ref: '#/components/schemas/UserBase'
