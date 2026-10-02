@@ -10097,8 +10097,12 @@ components:
                 entry should be counted toward, if the task belongs to more than one
                 project. If it only belongs to one project, it should be that project.
         created_by:
-          $ref: '#/components/schemas/UserCompact'
-          readOnly: true
+          allOf:
+            - $ref: '#/components/schemas/UserCompact'
+            - type: object
+              description: >-
+                User that created a time tracking entry.
+              readOnly: true
         categories:
           description: >-
             <p><strong style={{ color: "#4573D2" }}>Full object requires scope: </strong><code>time_tracking_categories:read</code></p>
