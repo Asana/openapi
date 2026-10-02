@@ -48275,11 +48275,17 @@ components:
         rule:
           type: object
           readOnly: true
+          nullable: true
           description: >-
-            The rule (automation) that ran, as a compact reference. The Rules API
-            is not
-            yet public, so this is not dereferenceable today, but the shape is
-            forward-compatible (consumers can key off `rule.gid`).
+            The rule (AutomationStep) that ran, as a compact reference. Non-null for
+            both
+            standalone rules and multi-step automation steps as long as the step still
+            exists.
+            `null` if the step was deleted after the run. The Rules API is not yet
+            public, so
+            this is not dereferenceable today, but the shape is forward-compatible
+            (consumers
+            can key off `rule.gid`).
           properties:
             gid:
               type: string
@@ -48293,6 +48299,34 @@ components:
               type: string
               readOnly: true
               example: Auto-summarize incoming requests
+        automation:
+          type: object
+          readOnly: true
+          nullable: true
+          description: >-
+            The multi-step automation (AutomationWorkflow) the step belonged to when
+            it ran.
+            `null` for standalone rules. Non-null for workflow steps regardless of
+            whether the
+            step itself was later deleted. Each step of a multi-step automation run
+            is returned
+            as its own row with the same `automation`, so group by `automation.gid`
+            to
+            reconstruct per-automation usage. Not dereferenceable yet (no public Automations
+            API).
+          properties:
+            gid:
+              type: string
+              readOnly: true
+              example: '1208222222222222'
+            resource_type:
+              type: string
+              readOnly: true
+              example: automation
+            name:
+              type: string
+              readOnly: true
+              example: Intake triage automation
         rule_owner:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
