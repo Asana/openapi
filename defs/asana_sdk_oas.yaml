@@ -1027,6 +1027,22 @@ components:
         type: integer
         minimum: 1
         maximum: 100
+    search_limit:
+      name: limit
+      in: query
+      description: >-
+        Results per search response.
+
+        The number of objects to return in one search response. The value must be
+        between 1 and 100. Search responses have no `next_page`, so to retrieve
+        further results, sort by `created_at` and repeat the query with a
+        `created_at.before` or `created_at.after` filter that excludes the results
+        you have already seen.
+      example: 50
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
     offset:
       name: offset
       in: query
@@ -62933,6 +62949,7 @@ paths:
   /workspaces/{workspace_gid}/projects/search:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/search_limit'
       - name: text
         in: query
         description: Performs full-text search on the project name.
@@ -74519,6 +74536,7 @@ paths:
   /workspaces/{workspace_gid}/tasks/search:
     parameters:
       - $ref: '#/components/parameters/workspace_path_gid'
+      - $ref: '#/components/parameters/search_limit'
       - name: text
         in: query
         description: >-
