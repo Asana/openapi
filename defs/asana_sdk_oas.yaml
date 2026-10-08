@@ -46136,6 +46136,11 @@ components:
           description: >-
             *Optional*. The gid of the project which the time is attributable to.
           example: '987654'
+        assignee:
+          type: string
+          description: >-
+            *Optional*. The gid of the user which the time is attributed to.
+          example: '12345'
         billable_status:
           description: >-
             *Optional*. The current billable status of the entry. This field requires
@@ -46192,6 +46197,16 @@ components:
           description: >-
             *Optional*. The gid of the project which the time is attributable to.
           example: '987654'
+        assignee:
+          type: string
+          description: >-
+            *Optional*. The gid of the user this entry's logged time is attributed
+            to.
+            Defaults to the current user; can only be set to another user if you're
+            their
+            time reviewer or an admin. Reviewer-submitter relationships require the
+            Timesheets and Budgets add-on.
+          example: '12345'
         billable_status:
           description: >-
             *Optional*. The current billable status of the entry. This field requires
@@ -46310,6 +46325,41 @@ components:
                 - custom
               example: default_project
           x-docs-overrides: *id006
+        assignee:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user this entry's logged time is attributed to.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id002
         created_by:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -46487,6 +46537,41 @@ components:
                 - custom
               example: default_project
           x-docs-overrides: *id006
+        assignee:
+          description: >-
+            A generic Asana Resource, containing a globally unique identifier.A generic
+            Asana Resource, containing a globally unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.A generic Asana Resource, containing
+            a globally unique identifier.A generic Asana Resource, containing a globally
+            unique identifier.
+
+            A *user* object represents an account in Asana that can be given access
+            to various workspaces, projects, and tasks.
+
+            The user this entry's logged time is attributed to.
+          type: object
+          properties:
+            gid:
+              description: >-
+                Globally unique identifier of the resource, as a string.
+              type: string
+              readOnly: true
+              example: '12345'
+              x-insert-after: false
+            resource_type:
+              description: The base type of this resource.
+              type: string
+              readOnly: true
+              example: task
+              x-insert-after: gid
+            name:
+              type: string
+              description: >-
+                *Read-only except when same user as requester*. The user's name.
+              example: Greg Sanchez
+          x-docs-overrides: *id002
         created_by:
           description: >-
             A generic Asana Resource, containing a globally unique identifier.A generic
@@ -76992,6 +77077,8 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -77010,6 +77097,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -77197,6 +77286,8 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -77215,6 +77306,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -77285,6 +77378,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -77308,6 +77403,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -77375,6 +77472,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -77398,6 +77497,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -77478,6 +77579,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -77501,6 +77604,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -77610,8 +77715,22 @@ paths:
           example: '12345'
         - name: user
           in: query
-          description: Globally unique identifier for the user to filter time tracking
+          description: >-
+            *Deprecated - please use assignee instead* Globally unique identifier
+            for the user
+            the time tracking entry's logged time is attributed to, to filter time
+            tracking
             entries by.
+          schema:
+            type: string
+          example: '12345'
+          deprecated: true
+        - name: assignee
+          in: query
+          description: >-
+            Globally unique identifier for the user the time tracking entry's logged
+            time is
+            attributed to, to filter time tracking entries by.
           schema:
             type: string
           example: '12345'
@@ -77657,6 +77776,8 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -77675,6 +77796,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype

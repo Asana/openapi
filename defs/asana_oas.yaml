@@ -9997,6 +9997,11 @@ components:
           description: >-
             *Optional*. The gid of the project which the time is attributable to.
           example: '987654'
+        assignee:
+          type: string
+          description: >-
+            *Optional*. The gid of the user which the time is attributed to.
+          example: '12345'
         billable_status:
           description: >-
             *Optional*. The current billable status of the entry. This field requires
@@ -10053,6 +10058,16 @@ components:
           description: >-
             *Optional*. The gid of the project which the time is attributable to.
           example: '987654'
+        assignee:
+          type: string
+          description: >-
+            *Optional*. The gid of the user this entry's logged time is attributed
+            to.
+            Defaults to the current user; can only be set to another user if you're
+            their
+            time reviewer or an admin. Reviewer-submitter relationships require the
+            Timesheets and Budgets add-on.
+          example: '12345'
         billable_status:
           description: >-
             *Optional*. The current billable status of the entry. This field requires
@@ -10126,6 +10141,12 @@ components:
                 The attributable to project specifies which project's budget a time
                 entry should be counted toward, if the task belongs to more than one
                 project. If it only belongs to one project, it should be that project.
+        assignee:
+          allOf:
+            - $ref: '#/components/schemas/UserCompact'
+            - type: object
+              description: >-
+                The user this entry's logged time is attributed to.
         created_by:
           allOf:
             - $ref: '#/components/schemas/UserCompact'
@@ -61765,6 +61786,8 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -61783,6 +61806,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -62159,6 +62184,8 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -62177,6 +62204,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -62337,6 +62366,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -62360,6 +62391,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -62524,6 +62557,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -62547,6 +62582,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -62708,6 +62745,8 @@ paths:
           required: false
           example:
             - approval_status
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -62731,6 +62770,8 @@ paths:
               type: string
               enum:
                 - approval_status
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
@@ -63005,8 +63046,22 @@ paths:
           example: '12345'
         - name: user
           in: query
-          description: Globally unique identifier for the user to filter time tracking
+          description: >-
+            *Deprecated - please use assignee instead* Globally unique identifier
+            for the user
+            the time tracking entry's logged time is attributed to, to filter time
+            tracking
             entries by.
+          schema:
+            type: string
+          example: '12345'
+          deprecated: true
+        - name: assignee
+          in: query
+          description: >-
+            Globally unique identifier for the user the time tracking entry's logged
+            time is
+            attributed to, to filter time tracking entries by.
           schema:
             type: string
           example: '12345'
@@ -63052,6 +63107,8 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - assignee
+            - assignee.name
             - attributable_to
             - attributable_to.name
             - attributable_to.resource_subtype
@@ -63070,6 +63127,8 @@ paths:
             items:
               type: string
               enum:
+                - assignee
+                - assignee.name
                 - attributable_to
                 - attributable_to.name
                 - attributable_to.resource_subtype
