@@ -8043,6 +8043,7 @@ components:
             *Conditional*. Only relevant for custom fields of type `text`.
             This is the HTML representation of the text value of a custom field,
             corresponding to the `text_value` plain-text field.
+            See [rich text](/docs/rich-text#reading-rich-text).
           type: string
           readOnly: true
           nullable: true
@@ -9013,6 +9014,7 @@ components:
                 *Conditional*. Only relevant for custom fields of type `text`.
                 This is the HTML representation of the text value of a custom field,
                 corresponding to the `text_value` plain-text field.
+                See [rich text](/docs/rich-text#reading-rich-text).
               type: string
               readOnly: true
               nullable: true
@@ -10019,6 +10021,7 @@ components:
           type: string
           description: >-
             The notes of the goal with formatting as HTML.
+            See [rich text](/docs/rich-text).
           example: <body>Start building brand awareness.</body>
         notes:
           type: string
@@ -10428,6 +10431,7 @@ components:
           type: string
           description: >-
             The notes of the goal with formatting as HTML.
+            See [rich text](/docs/rich-text).
           example: <body>Start building brand awareness.</body>
         notes:
           type: string
@@ -10514,6 +10518,7 @@ components:
           type: string
           description: >-
             The notes of the goal with formatting as HTML.
+            See [rich text](/docs/rich-text).
           example: <body>Start building brand awareness.</body>
         notes:
           type: string
@@ -10608,6 +10613,7 @@ components:
           type: string
           description: >-
             The notes of the goal with formatting as HTML.
+            See [rich text](/docs/rich-text).
           example: <body>Start building brand awareness.</body>
         notes:
           type: string
@@ -10740,6 +10746,7 @@ components:
           type: string
           description: >-
             The notes of the goal with formatting as HTML.
+            See [rich text](/docs/rich-text).
           example: <body>Start building brand awareness.</body>
         notes:
           type: string
@@ -12538,6 +12545,7 @@ components:
                       This is the HTML representation of the text value of a custom
                       field,
                       corresponding to the `text_value` plain-text field.
+                      See [rich text](/docs/rich-text#reading-rich-text).
                     type: string
                     readOnly: true
                     nullable: true
@@ -17972,6 +17980,7 @@ components:
                       This is the HTML representation of the text value of a custom
                       field,
                       corresponding to the `text_value` plain-text field.
+                      See [rich text](/docs/rich-text#reading-rich-text).
                     type: string
                     readOnly: true
                     nullable: true
@@ -18792,7 +18801,9 @@ components:
           type: string
           example: https://asana.comn/apps/slack
         html_text:
-          description: HTML formatted text for the body of the preview.
+          description: >-
+            HTML formatted text for the body of the preview.
+            See [rich text](/docs/rich-text#reading-rich-text).
           type: string
           example: <body>Great! I like this idea.</body>
         text:
@@ -18979,6 +18990,7 @@ components:
                 [Opt
                 In](/docs/inputoutput-options).
                 The text content of the status update with formatting as HTML.
+                See [rich text](/docs/rich-text).
               type: string
               example: >-
                 <body>The project <strong>is</strong> moving forward according to
@@ -20042,6 +20054,7 @@ components:
                       This is the HTML representation of the text value of a custom
                       field,
                       corresponding to the `text_value` plain-text field.
+                      See [rich text](/docs/rich-text#reading-rich-text).
                     type: string
                     readOnly: true
                     nullable: true
@@ -20116,6 +20129,7 @@ components:
           description: >-
             [Opt In](/docs/inputoutput-options).
             The notes of the project with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>These are things we need to purchase.</body>
         members:
@@ -20256,6 +20270,7 @@ components:
         html_text:
           description: >-
             HTML formatted text for the project brief.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>This is a <strong>project brief</strong>.</body>
       x-docs-overrides: &id028
@@ -20313,6 +20328,7 @@ components:
         html_text:
           description: >-
             HTML formatted text for the project brief.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>This is a <strong>project brief</strong>.</body>
         text:
@@ -20353,6 +20369,7 @@ components:
         html_text:
           description: >-
             HTML formatted text for the project brief.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>This is a <strong>project brief</strong>.</body>
         text:
@@ -23199,6 +23216,7 @@ components:
                 [Opt
                 In](/docs/inputoutput-options).
                 The text content of the status update with formatting as HTML.
+                See [rich text](/docs/rich-text).
               type: string
               example: >-
                 <body>The project <strong>is</strong> moving forward according to
@@ -24261,6 +24279,7 @@ components:
                       This is the HTML representation of the text value of a custom
                       field,
                       corresponding to the `text_value` plain-text field.
+                      See [rich text](/docs/rich-text#reading-rich-text).
                     type: string
                     readOnly: true
                     nullable: true
@@ -24335,6 +24354,7 @@ components:
           description: >-
             [Opt In](/docs/inputoutput-options).
             The notes of the project with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>These are things we need to purchase.</body>
         members:
@@ -24691,6 +24711,7 @@ components:
                 [Opt
                 In](/docs/inputoutput-options).
                 The text content of the status update with formatting as HTML.
+                See [rich text](/docs/rich-text).
               type: string
               example: >-
                 <body>The project <strong>is</strong> moving forward according to
@@ -25753,6 +25774,7 @@ components:
                       This is the HTML representation of the text value of a custom
                       field,
                       corresponding to the `text_value` plain-text field.
+                      See [rich text](/docs/rich-text#reading-rich-text).
                     type: string
                     readOnly: true
                     nullable: true
@@ -25827,6 +25849,7 @@ components:
           description: >-
             [Opt In](/docs/inputoutput-options).
             The notes of the project with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>These are things we need to purchase.</body>
         members:
@@ -26178,6 +26201,7 @@ components:
                 [Opt
                 In](/docs/inputoutput-options).
                 The text content of the status update with formatting as HTML.
+                See [rich text](/docs/rich-text).
               type: string
               example: >-
                 <body>The project <strong>is</strong> moving forward according to
@@ -27240,6 +27264,7 @@ components:
                       This is the HTML representation of the text value of a custom
                       field,
                       corresponding to the `text_value` plain-text field.
+                      See [rich text](/docs/rich-text#reading-rich-text).
                     type: string
                     readOnly: true
                     nullable: true
@@ -27314,6 +27339,7 @@ components:
           description: >-
             [Opt In](/docs/inputoutput-options).
             The notes of the project with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>These are things we need to purchase.</body>
         members:
@@ -28222,6 +28248,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The text content of the status update with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>The project <strong>is</strong> moving forward according to
@@ -28308,6 +28335,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The text content of the status update with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>The project <strong>is</strong> moving forward according to
@@ -28364,6 +28392,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The text content of the status update with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>The project <strong>is</strong> moving forward according to
@@ -28519,6 +28548,7 @@ components:
         html_description:
           description: >-
             The description of the project template with formatting as HTML.
+            See [rich text](/docs/rich-text#reading-rich-text).
           type: string
           example: <body>These are things we need to pack for a trip.</body>
         public:
@@ -28712,6 +28742,7 @@ components:
         html_description:
           description: >-
             The description of the project template with formatting as HTML.
+            See [rich text](/docs/rich-text#reading-rich-text).
           type: string
           example: <body>These are things we need to pack for a trip.</body>
         public:
@@ -30879,6 +30910,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The text content of the status update with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>The project <strong>is</strong> moving forward according to
@@ -31002,6 +31034,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The text content of the status update with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>The project <strong>is</strong> moving forward according to
@@ -31087,6 +31120,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The text content of the status update with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>The project <strong>is</strong> moving forward according to
@@ -31424,6 +31458,7 @@ components:
             [Opt In](/docs/inputoutput-options).
             HTML formatted text for a comment. This will not include the name
             of the creator.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>This is a comment.</body>
         is_pinned:
@@ -31577,6 +31612,7 @@ components:
             [Opt In](/docs/inputoutput-options).
             HTML formatted text for a comment. This will not include the name
             of the creator.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>This is a comment.</body>
         is_pinned:
@@ -31648,6 +31684,7 @@ components:
             [Opt In](/docs/inputoutput-options).
             HTML formatted text for a comment. This will not include the name
             of the creator.
+            See [rich text](/docs/rich-text).
           type: string
           example: <body>This is a comment.</body>
         is_pinned:
@@ -31910,7 +31947,9 @@ components:
                 type: string
                 example: https://asana.comn/apps/slack
               html_text:
-                description: HTML formatted text for the body of the preview.
+                description: >-
+                  HTML formatted text for the body of the preview.
+                  See [rich text](/docs/rich-text#reading-rich-text).
                 type: string
                 example: <body>Great! I like this idea.</body>
               text:
@@ -34334,6 +34373,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The notes of the text with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>Mittens <em>really</em> likes the stuff from
@@ -34799,6 +34839,7 @@ components:
         html_description:
           description: >-
             HTML description of the task that will be created from this template.
+            See [rich text](/docs/rich-text#reading-rich-text).
           type: string
           example: >-
             Please describe the bug you found and how to reproduce it.
@@ -35526,6 +35567,7 @@ components:
                 html_description:
                   description: >-
                     HTML description of the task that will be created from this template.
+                    See [rich text](/docs/rich-text#reading-rich-text).
                   type: string
                   example: >-
                     Please describe the bug you found and how to reproduce it.
@@ -36677,6 +36719,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The notes of the text with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>Mittens <em>really</em> likes the stuff from
@@ -37351,6 +37394,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The notes of the text with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>Mittens <em>really</em> likes the stuff from
@@ -38068,6 +38112,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The notes of the text with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>Mittens <em>really</em> likes the stuff from
@@ -38742,6 +38787,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The notes of the text with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body>Mittens <em>really</em> likes the stuff from
@@ -39874,6 +39920,7 @@ components:
                   *Conditional*. Only relevant for custom fields of type `text`.
                   This is the HTML representation of the text value of a custom field,
                   corresponding to the `text_value` plain-text field.
+                  See [rich text](/docs/rich-text#reading-rich-text).
                 type: string
                 readOnly: true
                 nullable: true
@@ -40738,6 +40785,7 @@ components:
         html_description:
           description: >
             The description of the team with formatting as HTML.
+            See [rich text](/docs/rich-text).
           type: string
           example: >-
             <body><em>All</em> developers should be members of this
@@ -40851,6 +40899,7 @@ components:
             [Opt
             In](/docs/inputoutput-options).
             The description of the team with formatting as HTML.
+            See [rich text](/docs/rich-text#reading-rich-text).
           type: string
           example: >-
             <body><em>All</em> developers should be members of this
@@ -41874,6 +41923,7 @@ components:
                       This is the HTML representation of the text value of a custom
                       field,
                       corresponding to the `text_value` plain-text field.
+                      See [rich text](/docs/rich-text#reading-rich-text).
                     type: string
                     readOnly: true
                     nullable: true
