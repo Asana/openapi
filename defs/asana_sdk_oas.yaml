@@ -1675,6 +1675,26 @@ components:
         type: string
       example: '12345'
       x-env-variable: role
+    table_path_gid:
+      name: table_gid
+      in: path
+      description: >-
+        Globally unique identifier for the table.
+      required: true
+      schema:
+        type: string
+      example: '1337'
+      x-env-variable: table
+    record_path_gid:
+      name: record_gid
+      in: path
+      description: >-
+        Globally unique identifier for the record.
+      required: true
+      schema:
+        type: string
+      example: '7331'
+      x-env-variable: record
     ai_studio_start_at:
       name: start_at
       in: query
@@ -1781,6 +1801,14 @@ components:
         Either the request method and path supplied do not specify a known
         action in the API, or the object specified by the request does not
         exist.
+      content:
+        application/json; charset=UTF-8:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: >-
+        The request could not be completed because it conflicts with the
+        current state of the target resource.
       content:
         application/json; charset=UTF-8:
           schema:

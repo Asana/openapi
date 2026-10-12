@@ -1719,6 +1719,26 @@ components:
         type: string
       example: '12345'
       x-env-variable: role
+    table_path_gid:
+      name: table_gid
+      in: path
+      description: >-
+        Globally unique identifier for the table.
+      required: true
+      schema:
+        type: string
+      example: '1337'
+      x-env-variable: table
+    record_path_gid:
+      name: record_gid
+      in: path
+      description: >-
+        Globally unique identifier for the record.
+      required: true
+      schema:
+        type: string
+      example: '7331'
+      x-env-variable: record
     ai_studio_start_at:
       name: start_at
       in: query
@@ -1825,6 +1845,14 @@ components:
         Either the request method and path supplied do not specify a known
         action in the API, or the object specified by the request does not
         exist.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Conflict:
+      description: >-
+        The request could not be completed because it conflicts with the
+        current state of the target resource.
       content:
         application/json:
           schema:
@@ -11164,6 +11192,9 @@ components:
             projects:delete: Delete access to projects
             projects:read: View access to projects
             projects:write: Create and modify access to projects
+            records:read: View access to records
+            records:write: Create and modify access to records
+            records:delete: Delete access to records
             roles:read: View access to roles
             roles:write: Create and modify access to roles
             roles:delete: Delete access to roles
@@ -11179,6 +11210,9 @@ components:
               approval statuses
             stories:read: View access to stories
             stories:write: Create and modify access to stories
+            tables:read: View access to tables
+            tables:write: Create and modify access to tables
+            tables:delete: Delete access to tables
             tags:read: View access to tags
             tags:write: Create and modify access to tags
             webhooks:read: View access to webhooks
