@@ -3233,6 +3233,12 @@ components:
             custom field.
           type: boolean
           example: false
+        is_lookup_field:
+          description: >-
+            *Conditional*. This flag describes whether a custom field is a lookup
+            custom field.
+          type: boolean
+          example: false
         date_value:
           description: >-
             *Conditional*. Only relevant for custom fields of type `date`.
@@ -3405,6 +3411,12 @@ components:
             is_formula_field:
               description: >-
                 *Conditional*. This flag describes whether a custom field is a formula
+                custom field.
+              type: boolean
+              example: false
+            is_lookup_field:
+              description: >-
+                *Conditional*. This flag describes whether a custom field is a lookup
                 custom field.
               type: boolean
               example: false
@@ -14641,6 +14653,7 @@ paths:
             - custom_field.input_restrictions
             - custom_field.is_formula_field
             - custom_field.is_global_to_workspace
+            - custom_field.is_lookup_field
             - custom_field.is_value_read_only
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -14702,6 +14715,7 @@ paths:
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
                 - custom_field.is_global_to_workspace
+                - custom_field.is_lookup_field
                 - custom_field.is_value_read_only
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -14932,6 +14946,7 @@ paths:
             - custom_field.input_restrictions
             - custom_field.is_formula_field
             - custom_field.is_global_to_workspace
+            - custom_field.is_lookup_field
             - custom_field.is_value_read_only
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -14993,6 +15008,7 @@ paths:
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
                 - custom_field.is_global_to_workspace
+                - custom_field.is_lookup_field
                 - custom_field.is_value_read_only
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -15223,6 +15239,7 @@ paths:
             - custom_field.input_restrictions
             - custom_field.is_formula_field
             - custom_field.is_global_to_workspace
+            - custom_field.is_lookup_field
             - custom_field.is_value_read_only
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -15284,6 +15301,7 @@ paths:
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
                 - custom_field.is_global_to_workspace
+                - custom_field.is_lookup_field
                 - custom_field.is_value_read_only
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -15445,6 +15463,7 @@ paths:
             - custom_field.input_restrictions
             - custom_field.is_formula_field
             - custom_field.is_global_to_workspace
+            - custom_field.is_lookup_field
             - custom_field.is_value_read_only
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -15503,6 +15522,7 @@ paths:
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
                 - custom_field.is_global_to_workspace
+                - custom_field.is_lookup_field
                 - custom_field.is_value_read_only
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -15662,6 +15682,7 @@ paths:
             - input_restrictions
             - is_formula_field
             - is_global_to_workspace
+            - is_lookup_field
             - is_value_read_only
             - multi_enum_values
             - multi_enum_values.color
@@ -15712,6 +15733,7 @@ paths:
                 - input_restrictions
                 - is_formula_field
                 - is_global_to_workspace
+                - is_lookup_field
                 - is_value_read_only
                 - multi_enum_values
                 - multi_enum_values.color
@@ -15937,6 +15959,7 @@ paths:
             - input_restrictions
             - is_formula_field
             - is_global_to_workspace
+            - is_lookup_field
             - is_value_read_only
             - multi_enum_values
             - multi_enum_values.color
@@ -15987,6 +16010,7 @@ paths:
                 - input_restrictions
                 - is_formula_field
                 - is_global_to_workspace
+                - is_lookup_field
                 - is_value_read_only
                 - multi_enum_values
                 - multi_enum_values.color
@@ -16196,6 +16220,7 @@ paths:
             - input_restrictions
             - is_formula_field
             - is_global_to_workspace
+            - is_lookup_field
             - is_value_read_only
             - multi_enum_values
             - multi_enum_values.color
@@ -16246,6 +16271,7 @@ paths:
                 - input_restrictions
                 - is_formula_field
                 - is_global_to_workspace
+                - is_lookup_field
                 - is_value_read_only
                 - multi_enum_values
                 - multi_enum_values.color
@@ -16611,6 +16637,7 @@ paths:
             - input_restrictions
             - is_formula_field
             - is_global_to_workspace
+            - is_lookup_field
             - is_value_read_only
             - multi_enum_values
             - multi_enum_values.color
@@ -16664,6 +16691,7 @@ paths:
                 - input_restrictions
                 - is_formula_field
                 - is_global_to_workspace
+                - is_lookup_field
                 - is_value_read_only
                 - multi_enum_values
                 - multi_enum_values.color
@@ -19179,6 +19207,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -19220,6 +19249,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -19306,6 +19336,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -19347,6 +19378,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -19589,6 +19621,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -19630,6 +19663,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -19716,6 +19750,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -19757,6 +19792,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -20198,6 +20234,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -20239,6 +20276,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -20328,6 +20366,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -20369,6 +20408,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -20634,6 +20674,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -20675,6 +20716,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -20761,6 +20803,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -20802,6 +20845,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -21055,6 +21099,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -21096,6 +21141,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -21182,6 +21228,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -21223,6 +21270,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -21481,6 +21529,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -21522,6 +21571,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -21608,6 +21658,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -21649,6 +21700,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -21909,6 +21961,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -21950,6 +22003,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -22036,6 +22090,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -22077,6 +22132,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -22334,6 +22390,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -22375,6 +22432,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -22461,6 +22519,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -22502,6 +22561,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -22759,6 +22819,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -22800,6 +22861,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -22886,6 +22948,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -22927,6 +22990,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -25882,6 +25946,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -25923,6 +25988,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -25997,6 +26063,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -26038,6 +26105,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -26284,6 +26352,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -26325,6 +26394,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -26396,6 +26466,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -26437,6 +26508,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -26687,6 +26759,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -26728,6 +26801,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -26799,6 +26873,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -26840,6 +26915,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -27067,6 +27143,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -27108,6 +27185,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -27179,6 +27257,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -27220,6 +27299,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -28425,6 +28505,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -28466,6 +28547,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -28537,6 +28619,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -28578,6 +28661,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -28819,6 +28903,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -28860,6 +28945,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -28931,6 +29017,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -28972,6 +29059,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -32686,6 +32774,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -32727,6 +32816,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -32826,6 +32916,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -32867,6 +32958,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -33150,6 +33242,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -33191,6 +33284,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -33287,6 +33381,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -33328,6 +33423,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -33607,6 +33703,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -33648,6 +33745,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -33744,6 +33842,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -33785,6 +33884,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -34047,6 +34147,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -34088,6 +34189,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -34184,6 +34286,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -34225,6 +34328,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -34875,6 +34979,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -34916,6 +35021,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -35015,6 +35121,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -35056,6 +35163,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -35326,6 +35434,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -35367,6 +35476,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -35466,6 +35576,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -35507,6 +35618,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -35771,6 +35883,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -35812,6 +35925,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -35908,6 +36022,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -35949,6 +36064,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -36219,6 +36335,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -36260,6 +36377,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -36359,6 +36477,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -36400,6 +36519,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -36669,6 +36789,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -36710,6 +36831,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -36806,6 +36928,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -36847,6 +36970,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -37347,6 +37471,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -37388,6 +37513,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -37484,6 +37610,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -37525,6 +37652,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -37746,6 +37874,7 @@ paths:
             - custom_field.input_restrictions
             - custom_field.is_formula_field
             - custom_field.is_global_to_workspace
+            - custom_field.is_lookup_field
             - custom_field.is_value_read_only
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
@@ -37804,6 +37933,7 @@ paths:
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
                 - custom_field.is_global_to_workspace
+                - custom_field.is_lookup_field
                 - custom_field.is_value_read_only
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
@@ -38419,6 +38549,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -38460,6 +38591,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -38556,6 +38688,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -38597,6 +38730,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -38862,6 +38996,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -38903,6 +39038,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -38999,6 +39135,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -39040,6 +39177,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -39309,6 +39447,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -39350,6 +39489,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -39446,6 +39586,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -39487,6 +39628,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -39753,6 +39895,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -39794,6 +39937,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -39890,6 +40034,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -39931,6 +40076,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -44250,6 +44396,7 @@ paths:
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
+            - custom_field.is_lookup_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
             - custom_field.multi_enum_values.enabled
@@ -44396,6 +44543,7 @@ paths:
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
+                - custom_field.is_lookup_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
                 - custom_field.multi_enum_values.enabled
@@ -44694,6 +44842,7 @@ paths:
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
+            - custom_field.is_lookup_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
             - custom_field.multi_enum_values.enabled
@@ -44840,6 +44989,7 @@ paths:
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
+                - custom_field.is_lookup_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
                 - custom_field.multi_enum_values.enabled
@@ -45302,6 +45452,7 @@ paths:
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
+            - custom_field.is_lookup_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
             - custom_field.multi_enum_values.enabled
@@ -45451,6 +45602,7 @@ paths:
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
+                - custom_field.is_lookup_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
                 - custom_field.multi_enum_values.enabled
@@ -45771,6 +45923,7 @@ paths:
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
+            - custom_field.is_lookup_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
             - custom_field.multi_enum_values.enabled
@@ -45917,6 +46070,7 @@ paths:
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
+                - custom_field.is_lookup_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
                 - custom_field.multi_enum_values.enabled
@@ -46238,6 +46392,7 @@ paths:
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
+            - custom_field.is_lookup_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
             - custom_field.multi_enum_values.enabled
@@ -46387,6 +46542,7 @@ paths:
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
+                - custom_field.is_lookup_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
                 - custom_field.multi_enum_values.enabled
@@ -46641,6 +46797,7 @@ paths:
             - custom_field.id_prefix
             - custom_field.input_restrictions
             - custom_field.is_formula_field
+            - custom_field.is_lookup_field
             - custom_field.multi_enum_values
             - custom_field.multi_enum_values.color
             - custom_field.multi_enum_values.enabled
@@ -46787,6 +46944,7 @@ paths:
                 - custom_field.id_prefix
                 - custom_field.input_restrictions
                 - custom_field.is_formula_field
+                - custom_field.is_lookup_field
                 - custom_field.multi_enum_values
                 - custom_field.multi_enum_values.color
                 - custom_field.multi_enum_values.enabled
@@ -49242,6 +49400,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -49363,6 +49522,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -49663,6 +49823,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -49781,6 +49942,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -50093,6 +50255,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -50211,6 +50374,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -50489,6 +50653,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -50607,6 +50772,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -51273,6 +51439,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -51394,6 +51561,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -51685,6 +51853,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -51806,6 +51975,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -52097,6 +52267,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -52218,6 +52389,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -52510,6 +52682,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -52631,6 +52804,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -52925,6 +53099,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -53046,6 +53221,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -53328,6 +53504,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -53446,6 +53623,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -53736,6 +53914,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -53854,6 +54033,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -54144,6 +54324,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -54265,6 +54446,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -54878,6 +55060,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -54999,6 +55182,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -56302,6 +56486,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -56420,6 +56605,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -56709,6 +56895,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -56827,6 +57014,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -57847,6 +58035,7 @@ paths:
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
             - custom_fields.is_global_to_workspace
+            - custom_fields.is_lookup_field
             - custom_fields.is_value_read_only
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
@@ -57965,6 +58154,7 @@ paths:
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
                 - custom_fields.is_global_to_workspace
+                - custom_fields.is_lookup_field
                 - custom_fields.is_value_read_only
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
@@ -59186,6 +59376,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -59260,6 +59451,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -59500,6 +59692,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -59574,6 +59767,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -59798,6 +59992,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -59872,6 +60067,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -60117,6 +60313,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -60194,6 +60391,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -60447,6 +60645,7 @@ paths:
             - custom_field_settings.custom_field.input_restrictions
             - custom_field_settings.custom_field.is_formula_field
             - custom_field_settings.custom_field.is_global_to_workspace
+            - custom_field_settings.custom_field.is_lookup_field
             - custom_field_settings.custom_field.is_value_read_only
             - custom_field_settings.custom_field.multi_enum_values
             - custom_field_settings.custom_field.multi_enum_values.color
@@ -60524,6 +60723,7 @@ paths:
                 - custom_field_settings.custom_field.input_restrictions
                 - custom_field_settings.custom_field.is_formula_field
                 - custom_field_settings.custom_field.is_global_to_workspace
+                - custom_field_settings.custom_field.is_lookup_field
                 - custom_field_settings.custom_field.is_value_read_only
                 - custom_field_settings.custom_field.multi_enum_values
                 - custom_field_settings.custom_field.multi_enum_values.color
@@ -64517,6 +64717,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -64562,6 +64763,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -64775,6 +64977,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -64817,6 +65020,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -65015,6 +65219,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -65057,6 +65262,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -65418,6 +65624,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -65460,6 +65667,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -65668,6 +65876,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -65710,6 +65919,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -65914,6 +66124,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -65956,6 +66167,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
@@ -66087,6 +66299,7 @@ paths:
             - custom_fields.id_prefix
             - custom_fields.input_restrictions
             - custom_fields.is_formula_field
+            - custom_fields.is_lookup_field
             - custom_fields.multi_enum_values
             - custom_fields.multi_enum_values.color
             - custom_fields.multi_enum_values.enabled
@@ -66129,6 +66342,7 @@ paths:
                 - custom_fields.id_prefix
                 - custom_fields.input_restrictions
                 - custom_fields.is_formula_field
+                - custom_fields.is_lookup_field
                 - custom_fields.multi_enum_values
                 - custom_fields.multi_enum_values.color
                 - custom_fields.multi_enum_values.enabled
