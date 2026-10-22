@@ -7459,6 +7459,28 @@ components:
           readOnly: true
           example: story
           x-insert-after: gid
+        comment_gid:
+          description: >-
+            *Conditional*. The GID of this comment's envelope, distinct from
+            the story `gid`. Request with `opt_fields=comment_gid` on story
+            reads. For a top-level task comment, pass this value as
+            `parent_comment` when creating a threaded reply. Null for a legacy
+            comment without an envelope; absent on non-comment stories.
+          type: string
+          nullable: true
+          readOnly: true
+          example: '12345'
+        anchor_gid:
+          description: >-
+            *Conditional*. The GID of the object this comment is anchored to.
+            For a top-level task comment this is the task GID; for a threaded
+            reply this is the parent comment's envelope GID (`comment_gid`).
+            Also present on sticker stories. Request with
+            `opt_fields=anchor_gid` on story reads.
+          type: string
+          nullable: true
+          readOnly: true
+          example: '12345'
         created_at:
           description: The time at which this resource was created.
           type: string
@@ -7493,11 +7515,48 @@ components:
           example: marked today
     StoryRequest:
       $ref: '#/components/schemas/StoryBase'
+    TaskStoryCreateRequest:
+      allOf:
+        - $ref: '#/components/schemas/StoryRequest'
+        - type: object
+          properties:
+            parent_comment:
+              description: >-
+                The GID of the top-level comment envelope to reply to, exposed as
+                `comment_gid` on story reads. This is not the story `gid`.
+                Retrieve it with `GET /stories/{story_gid}?opt_fields=comment_gid`.
+                The parent must belong to the task in the request URL and must not
+                itself be a reply. Works with either `text` or `html_text`.
+                Omit this input to create a top-level comment.
+              type: string
+              example: '12345'
     StoryResponse:
       allOf:
         - $ref: '#/components/schemas/StoryBase'
         - type: object
           properties:
+            comment_gid:
+              description: >-
+                *Conditional*. The GID of this comment's envelope, distinct from
+                the story `gid`. Request with `opt_fields=comment_gid` on story
+                reads. For a top-level task comment, pass this value as
+                `parent_comment` when creating a threaded reply. Null for a legacy
+                comment without an envelope; absent on non-comment stories.
+              type: string
+              nullable: true
+              readOnly: true
+              example: '12345'
+            anchor_gid:
+              description: >-
+                *Conditional*. The GID of the object this comment is anchored to.
+                For a top-level task comment this is the task GID; for a threaded
+                reply this is the parent comment's envelope GID (`comment_gid`).
+                Also present on sticker stories. Request with
+                `opt_fields=anchor_gid` on story reads.
+              type: string
+              nullable: true
+              readOnly: true
+              example: '12345'
             created_by:
               $ref: '#/components/schemas/UserCompact'
             type:
@@ -44375,8 +44434,10 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - anchor_gid
             - assignee
             - assignee.name
+            - comment_gid
             - created_at
             - created_by
             - created_by.name
@@ -44500,6 +44561,8 @@ paths:
             - source
             - sticker_name
             - story
+            - story.anchor_gid
+            - story.comment_gid
             - story.created_at
             - story.created_by
             - story.created_by.name
@@ -44522,8 +44585,10 @@ paths:
             items:
               type: string
               enum:
+                - anchor_gid
                 - assignee
                 - assignee.name
+                - comment_gid
                 - created_at
                 - created_by
                 - created_by.name
@@ -44647,6 +44712,8 @@ paths:
                 - source
                 - sticker_name
                 - story
+                - story.anchor_gid
+                - story.comment_gid
                 - story.created_at
                 - story.created_by
                 - story.created_by.name
@@ -44821,8 +44888,10 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - anchor_gid
             - assignee
             - assignee.name
+            - comment_gid
             - created_at
             - created_by
             - created_by.name
@@ -44946,6 +45015,8 @@ paths:
             - source
             - sticker_name
             - story
+            - story.anchor_gid
+            - story.comment_gid
             - story.created_at
             - story.created_by
             - story.created_by.name
@@ -44968,8 +45039,10 @@ paths:
             items:
               type: string
               enum:
+                - anchor_gid
                 - assignee
                 - assignee.name
+                - comment_gid
                 - created_at
                 - created_by
                 - created_by.name
@@ -45093,6 +45166,8 @@ paths:
                 - source
                 - sticker_name
                 - story
+                - story.anchor_gid
+                - story.comment_gid
                 - story.created_at
                 - story.created_by
                 - story.created_by.name
@@ -45431,8 +45506,10 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - anchor_gid
             - assignee
             - assignee.name
+            - comment_gid
             - created_at
             - created_by
             - created_by.name
@@ -45558,6 +45635,8 @@ paths:
             - source
             - sticker_name
             - story
+            - story.anchor_gid
+            - story.comment_gid
             - story.created_at
             - story.created_by
             - story.created_by.name
@@ -45581,8 +45660,10 @@ paths:
             items:
               type: string
               enum:
+                - anchor_gid
                 - assignee
                 - assignee.name
+                - comment_gid
                 - created_at
                 - created_by
                 - created_by.name
@@ -45708,6 +45789,8 @@ paths:
                 - source
                 - sticker_name
                 - story
+                - story.anchor_gid
+                - story.comment_gid
                 - story.created_at
                 - story.created_by
                 - story.created_by.name
@@ -45888,6 +45971,14 @@ paths:
         stories to be created. The comment will be authored by the currently
         authenticated user, and timestamped when the server receives the request.
 
+        Omit `parent_comment` to create a top-level comment. To create a threaded
+        reply, pass the top-level comment's `comment_gid`, not its story `gid`.
+        Retrieve it with `GET /stories/{story_gid}?opt_fields=comment_gid` or
+        `GET /tasks/{task_gid}/stories?opt_fields=comment_gid,text,anchor_gid`.
+        The parent must belong to this task and must not itself be a reply.
+        A top-level comment's `anchor_gid` is the task GID; a reply's `anchor_gid`
+        is its parent comment's envelope GID.
+
         Returns the full record for the new story added to the task.
       tags:
         - Stories
@@ -45902,8 +45993,10 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - anchor_gid
             - assignee
             - assignee.name
+            - comment_gid
             - created_at
             - created_by
             - created_by.name
@@ -46027,6 +46120,8 @@ paths:
             - source
             - sticker_name
             - story
+            - story.anchor_gid
+            - story.comment_gid
             - story.created_at
             - story.created_by
             - story.created_by.name
@@ -46049,8 +46144,10 @@ paths:
             items:
               type: string
               enum:
+                - anchor_gid
                 - assignee
                 - assignee.name
+                - comment_gid
                 - created_at
                 - created_by
                 - created_by.name
@@ -46174,6 +46271,8 @@ paths:
                 - source
                 - sticker_name
                 - story
+                - story.anchor_gid
+                - story.comment_gid
                 - story.created_at
                 - story.created_by
                 - story.created_by.name
@@ -46202,7 +46301,7 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/StoryRequest'
+                  $ref: '#/components/schemas/TaskStoryCreateRequest'
       responses:
         201:
           description: Successfully created a new story.
@@ -46371,8 +46470,10 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - anchor_gid
             - assignee
             - assignee.name
+            - comment_gid
             - created_at
             - created_by
             - created_by.name
@@ -46498,6 +46599,8 @@ paths:
             - source
             - sticker_name
             - story
+            - story.anchor_gid
+            - story.comment_gid
             - story.created_at
             - story.created_by
             - story.created_by.name
@@ -46521,8 +46624,10 @@ paths:
             items:
               type: string
               enum:
+                - anchor_gid
                 - assignee
                 - assignee.name
+                - comment_gid
                 - created_at
                 - created_by
                 - created_by.name
@@ -46648,6 +46753,8 @@ paths:
                 - source
                 - sticker_name
                 - story
+                - story.anchor_gid
+                - story.comment_gid
                 - story.created_at
                 - story.created_by
                 - story.created_by.name
@@ -46776,8 +46883,10 @@ paths:
             guide](/docs/inputoutput-options#selecting-nested-fields).
           required: false
           example:
+            - anchor_gid
             - assignee
             - assignee.name
+            - comment_gid
             - created_at
             - created_by
             - created_by.name
@@ -46901,6 +47010,8 @@ paths:
             - source
             - sticker_name
             - story
+            - story.anchor_gid
+            - story.comment_gid
             - story.created_at
             - story.created_by
             - story.created_by.name
@@ -46923,8 +47034,10 @@ paths:
             items:
               type: string
               enum:
+                - anchor_gid
                 - assignee
                 - assignee.name
+                - comment_gid
                 - created_at
                 - created_by
                 - created_by.name
@@ -47048,6 +47161,8 @@ paths:
                 - source
                 - sticker_name
                 - story
+                - story.anchor_gid
+                - story.comment_gid
                 - story.created_at
                 - story.created_by
                 - story.created_by.name
