@@ -715,6 +715,8 @@ tags:
       A membership object represents the relationship between a team or user and an object in Asana. Currently, the
       supported types of memberships are for goals, projects, custom fields, custom types,and portfolios. For example, a project membership
       can be used to add a user to a project.
+  - name: Notifications
+    description: Notifications represent activity delivered to a user's Inbox.
   - name: Ooo entries
     description: >-
       An OOO entry represents a period of time during which a user is out of office.
@@ -4666,6 +4668,44 @@ components:
           example: '12345'
         user:
           $ref: '#/components/schemas/UserCompact'
+    MarkNotificationsRequest:
+      type: object
+      required:
+        - workspace
+        - notification_gids
+      properties:
+        workspace:
+          description: GID of the workspace used to route the request.
+          type: string
+          example: '31326'
+        notification_gids:
+          description: >-
+            The notifications to update. Between 1 and 50 GIDs may be supplied,
+            and duplicate GIDs are ignored.
+          type: array
+          minItems: 1
+          maxItems: 50
+          items:
+            type: string
+            description: The `gid` of a notification.
+          example:
+            - '1234567890'
+            - '1234567891'
+    MarkNotificationsResponse:
+      type: object
+      properties:
+        failed_gids:
+          description: >-
+            The GIDs from notification_gids that could not be updated, for
+            example because the notification does not exist, does not belong
+            to the caller, or has been deleted. GIDs not listed here were
+            updated successfully. Empty when every GID succeeded.
+          type: array
+          items:
+            type: string
+            description: The `gid` of a notification that failed to update.
+          example:
+            - '1234567891'
     MemberCompact:
       description: A *member* object represents either a team or user.
       type: object
@@ -4749,6 +4789,100 @@ components:
           description: A full uri containing the query parameters to fetch for next_page
           example: 
             https://app.asana.com/api/1.0/tasks/12345/attachments?limit=2&offset=eyJ0eXAiOJiKV1iQLCJhbGciOiJIUzI1NiJ9
+    NotificationCompact:
+      description: >-
+        A *notification* is a recipient-specific record generated for the
+        authenticated user when a story they should be notified about
+        occurs in Asana. Multiple notifications can refer to the same
+        underlying story, one per eligible recipient.
+      type: object
+      properties:
+        gid:
+          description: >-
+            Globally unique identifier of the resource, as a string.
+          type: string
+          readOnly: true
+          example: '12345'
+          x-insert-after: false
+        resource_type:
+          description: The base type of this resource.
+          type: string
+          readOnly: true
+          example: notification
+          x-insert-after: gid
+      required:
+        - gid
+        - resource_type
+    NotificationBase:
+      allOf:
+        - $ref: '#/components/schemas/NotificationCompact'
+    NotificationResponse:
+      allOf:
+        - $ref: '#/components/schemas/NotificationBase'
+        - type: object
+          required:
+            - priority_classification
+            - story_resource_subtype
+            - work_objects
+            - story
+            - created_by
+            - created_at
+            - is_read
+          properties:
+            priority_classification:
+              type: string
+              readOnly: true
+              description: >-
+                The notification's Priority classification.
+              enum:
+                - unclassified
+              example: unclassified
+            story_resource_subtype:
+              type: string
+              readOnly: true
+              description: >-
+                The stable public subtype of the Story that produced the
+                notification.
+              example: comment_added
+            work_objects:
+              type: array
+              readOnly: true
+              description: >-
+                Work referenced by the notification. Each entry is a compact
+                representation of the underlying Asana resource.
+              items:
+                $ref: '#/components/schemas/AsanaNamedResource'
+            story:
+              type: object
+              nullable: true
+              readOnly: true
+              description: >-
+                The Story that produced the notification. This is `null` when the
+                activity is not exposed through the Stories API.
+              allOf:
+                - $ref: '#/components/schemas/StoryCompact'
+            created_by:
+              allOf:
+                - $ref: '#/components/schemas/AsanaNamedResource'
+                - type: object
+                  nullable: true
+                  readOnly: true
+                  description: >-
+                    The computed actor responsible for the underlying activity,
+                    or `null` when no actor is available.
+            created_at:
+              type: string
+              format: date-time
+              readOnly: true
+              description: The time at which the notification was created.
+              example: '2026-08-20T18:42:31.123Z'
+            is_read:
+              type: boolean
+              readOnly: true
+              description: >-
+                Whether the notification is effectively read in the user's
+                Inbox.
+              example: false
     OooEntryBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.
@@ -24371,6 +24505,236 @@ paths:
 
               result = client.memberships.delete_membership(membership_gid: 'membership_gid',
               options: {pretty: true})
+  /users/{user_gid}/notifications:
+    parameters:
+      - $ref: '#/components/parameters/user_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    get:
+      summary: Get notifications for a user
+      description: |-
+        <b>Required scope: </b><code>notifications:read</code>
+
+        Returns a paginated collection of active, unarchived notifications for the current user in newest-first Inbox order. A user may only list their own notifications. The default page size is 50 notifications.
+      tags:
+        - Notifications
+      operationId: getNotificationsForUser
+      parameters:
+        - name: workspace
+          in: query
+          required: true
+          description: >-
+            GID of the workspace from which to return notifications.
+          schema:
+            type: string
+          example: '31326'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/offset'
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
+          required: false
+          example:
+            - created_at
+            - created_by
+            - created_by.name
+            - is_read
+            - offset
+            - path
+            - priority_classification
+            - story
+            - story_resource_subtype
+            - uri
+            - work_objects
+            - work_objects.name
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - created_at
+                - created_by
+                - created_by.name
+                - is_read
+                - offset
+                - path
+                - priority_classification
+                - story
+                - story_resource_subtype
+                - uri
+                - work_objects
+                - work_objects.name
+          style: form
+          explode: false
+      responses:
+        200:
+          description: Successfully retrieved the requested notifications.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/NotificationResponse'
+                  next_page:
+                    $ref: '#/components/schemas/NextPage'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - notifications:read
+  /users/{user_gid}/notifications/markRead:
+    parameters:
+      - $ref: '#/components/parameters/user_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    post:
+      summary: Mark notifications as read
+      description: |-
+        <b>Required scope: </b><code>notifications:write</code>
+
+        Marks only the given notifications as read for the authenticated user. A user may only mark their own notifications. GIDs that don't exist, don't belong to the caller, or have been deleted are reported in failed_gids rather than failing the whole request.
+      tags:
+        - Notifications
+      operationId: markNotificationsReadForUser
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
+          required: false
+          example:
+            - failed_gids
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - failed_gids
+          style: form
+          explode: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  $ref: '#/components/schemas/MarkNotificationsRequest'
+      responses:
+        200:
+          description: >-
+            Successfully processed the request. Check failed_gids for any
+            notifications that could not be updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MarkNotificationsResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - notifications:write
+  /users/{user_gid}/notifications/markUnread:
+    parameters:
+      - $ref: '#/components/parameters/user_path_gid'
+      - $ref: '#/components/parameters/pretty'
+    post:
+      summary: Mark notifications as unread
+      description: |-
+        <b>Required scope: </b><code>notifications:write</code>
+
+        Marks only the given notifications as unread for the authenticated user. A notification that is archived is also unarchived and moves to the top of Inbox, matching the Inbox UI's unarchive action. Notifications already in Inbox keep their existing position. A user may only mark their own notifications. GIDs that don't exist, don't belong to the caller, or have been deleted are reported in failed_gids rather than failing the whole request.
+      tags:
+        - Notifications
+      operationId: markNotificationsUnreadForUser
+      parameters:
+        - name: opt_fields
+          in: query
+          description: This endpoint returns a resource which excludes some properties
+            by default. To include those optional properties, set this query parameter
+            to a comma-separated list of the properties you wish to include. Properties
+            can include nested fields. To learn more, see the [input/output options
+            guide](/docs/inputoutput-options#selecting-nested-fields).
+          required: false
+          example:
+            - failed_gids
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - failed_gids
+          style: form
+          explode: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - data
+              properties:
+                data:
+                  $ref: '#/components/schemas/MarkNotificationsRequest'
+      responses:
+        200:
+          description: >-
+            Successfully processed the request. Check failed_gids for any
+            notifications that could not be updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/MarkNotificationsResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        403:
+          $ref: '#/components/responses/Forbidden'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/InternalServerError'
+      security:
+        - personalAccessToken: []
+        - oauth2:
+            - notifications:write
   /ooo_entries/{ooo_entry_gid}:
     parameters:
       - $ref: '#/components/parameters/ooo_entry_path_gid'
