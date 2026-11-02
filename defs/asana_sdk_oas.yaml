@@ -34879,6 +34879,17 @@ components:
             Conflict` error rather than creating a duplicate.
           type: string
           example: sfdc-opportunity-0061
+        default_access_level:
+          description: >-
+            The default access level for users who join or are added as members
+            of the record. This isn't applied when the record is private.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          example: viewer
       x-docs-overrides: *id034
       required:
         - name
@@ -34890,6 +34901,17 @@ components:
           description: The name of the record.
           type: string
           example: Q3 renewal
+        default_access_level:
+          description: >-
+            The default access level for users who join or are added as members
+            of the record. This isn't applied when the record is private.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          example: viewer
         custom_fields:
           description: >-
             An object where each key is the GID of a custom field and its corresponding
@@ -35863,6 +35885,17 @@ components:
           type: boolean
           readOnly: true
           example: false
+        default_access_level:
+          description: >-
+            The default access level for users who join or are added as members
+            of the record. This isn't applied when the record is private.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          example: viewer
       x-docs-overrides: *id034
     TableBase:
       description: >-
@@ -35962,6 +35995,17 @@ components:
           description: The name of the table.
           type: string
           example: Vendor contracts
+        default_access_level:
+          description: >-
+            The default access level for users who join or are added as members
+            of the table.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          example: viewer
     CustomFieldTableSettingBase:
       description: >-
         A generic Asana Resource, containing a globally unique identifier.A generic
@@ -37023,6 +37067,17 @@ components:
                 type: boolean
                 readOnly: true
             x-docs-overrides: *id045
+        default_access_level:
+          description: >-
+            The default access level for users who join or are added as members
+            of the table.
+          type: string
+          enum:
+            - admin
+            - editor
+            - commenter
+            - viewer
+          example: viewer
       x-docs-overrides: *id032
     TagBase:
       description: >-
@@ -69874,6 +69929,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - deleted_at
             - is_in_archived_table
             - modified_at
@@ -69942,6 +69998,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - deleted_at
                 - is_in_archived_table
                 - modified_at
@@ -70166,6 +70223,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - deleted_at
             - is_in_archived_table
             - modified_at
@@ -70231,6 +70289,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - deleted_at
                 - is_in_archived_table
                 - modified_at
@@ -70333,6 +70392,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - deleted_at
             - is_in_archived_table
             - modified_at
@@ -70398,6 +70458,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - deleted_at
                 - is_in_archived_table
                 - modified_at
@@ -70512,6 +70573,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - deleted_at
             - is_in_archived_table
             - modified_at
@@ -70577,6 +70639,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - deleted_at
                 - is_in_archived_table
                 - modified_at
@@ -70680,6 +70743,7 @@ paths:
             - custom_fields.resource_subtype
             - custom_fields.text_value
             - custom_fields.type
+            - default_access_level
             - deleted_at
             - is_in_archived_table
             - modified_at
@@ -70745,6 +70809,7 @@ paths:
                 - custom_fields.resource_subtype
                 - custom_fields.text_value
                 - custom_fields.type
+                - default_access_level
                 - deleted_at
                 - is_in_archived_table
                 - modified_at
@@ -74939,6 +75004,7 @@ paths:
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
             - custom_field_settings.is_important
+            - default_access_level
             - modified_at
             - name
             - offset
@@ -74981,6 +75047,7 @@ paths:
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
                 - custom_field_settings.is_important
+                - default_access_level
                 - modified_at
                 - name
                 - offset
@@ -75060,6 +75127,7 @@ paths:
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
             - custom_field_settings.is_important
+            - default_access_level
             - modified_at
             - name
             - workspace
@@ -75099,6 +75167,7 @@ paths:
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
                 - custom_field_settings.is_important
+                - default_access_level
                 - modified_at
                 - name
                 - workspace
@@ -75185,6 +75254,7 @@ paths:
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
             - custom_field_settings.is_important
+            - default_access_level
             - modified_at
             - name
             - workspace
@@ -75224,6 +75294,7 @@ paths:
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
                 - custom_field_settings.is_important
+                - default_access_level
                 - modified_at
                 - name
                 - workspace
@@ -75301,6 +75372,7 @@ paths:
             - custom_field_settings.custom_field.text_value
             - custom_field_settings.custom_field.type
             - custom_field_settings.is_important
+            - default_access_level
             - modified_at
             - name
             - workspace
@@ -75340,6 +75412,7 @@ paths:
                 - custom_field_settings.custom_field.text_value
                 - custom_field_settings.custom_field.type
                 - custom_field_settings.is_important
+                - default_access_level
                 - modified_at
                 - name
                 - workspace
