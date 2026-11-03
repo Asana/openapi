@@ -71461,7 +71461,9 @@ paths:
       - $ref: '#/components/parameters/section_path_gid'
     get:
       summary: Get a section
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>projects:read</code>
+
         Returns the complete record for a single section.
       tags:
         - Sections
@@ -71512,9 +71514,14 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
     put:
       summary: Update a section
       description: |-
+        <b>Required scope: </b><code>projects:write</code>
+
         A specific, existing section can be updated by making a PUT request on
         the URL for that project. Only the fields provided in the `data` block
         will be updated; any unspecified fields will remain unchanged. (note that
@@ -71583,9 +71590,14 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:write
     delete:
       summary: Delete a section
       description: |-
+        <b>Required scope: </b><code>projects:write</code>
+
         A specific, existing section can be deleted by making a DELETE request on
         the URL for that section.
 
@@ -71610,12 +71622,17 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:write
   /projects/{project_gid}/sections:
     parameters:
       - $ref: '#/components/parameters/project_path_gid'
     get:
       summary: Get sections in a project
-      description: >-
+      description: |-
+        <b>Required scope: </b><code>projects:read</code>
+
         Returns the compact records for all sections in the specified project.
       tags:
         - Sections
@@ -71674,11 +71691,15 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:read
     post:
       summary: Create a section in a project
-      description: >-
-        Creates a new section in a project.
+      description: |-
+        <b>Required scope: </b><code>projects:write</code>
 
+        Creates a new section in a project.
         Returns the full record of the newly created section.
       tags:
         - Sections
@@ -71738,6 +71759,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:write
   /sections/{section_gid}/addTask:
     parameters:
       - $ref: '#/components/parameters/section_path_gid'
@@ -71785,6 +71809,8 @@ paths:
     post:
       summary: Move or Insert sections
       description: |-
+        <b>Required scope: </b><code>projects:write</code>
+
         Move sections relative to each other. One of
         `before_section` or `after_section` is required.
 
@@ -71816,6 +71842,9 @@ paths:
           $ref: '#/components/responses/NotFound'
         500:
           $ref: '#/components/responses/InternalServerError'
+      security:
+        - oauth2:
+            - projects:write
   /status_updates/{status_update_gid}:
     parameters:
       - $ref: '#/components/parameters/status_update_path_gid'
