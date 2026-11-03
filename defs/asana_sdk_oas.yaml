@@ -1423,6 +1423,16 @@ components:
         type: string
       example: '987654'
       x-env-variable: release
+    coding_agent_session_path_gid:
+      name: session_gid
+      in: path
+      description: >-
+        Globally unique identifier for the Command coding agent session.
+      required: true
+      schema:
+        type: string
+      example: '321654'
+      x-env-variable: session
     ticket_path_gid:
       name: ticket_gid
       in: path
