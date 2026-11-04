@@ -1423,6 +1423,16 @@ components:
         type: string
       example: '987654'
       x-env-variable: release
+    teamspace_path_gid:
+      name: teamspace_gid
+      in: path
+      description: >-
+        Globally unique identifier for the Command teamspace.
+      required: true
+      schema:
+        type: string
+      example: '67890'
+      x-env-variable: teamspace
     coding_agent_session_path_gid:
       name: session_gid
       in: path
