@@ -51360,6 +51360,7 @@ components:
             - member
             - admin
             - super_admin
+            - csm
         permissions:
           description: The permissions of the role.
           type: object
@@ -51560,6 +51561,7 @@ components:
             - member
             - admin
             - super_admin
+            - csm
         permissions:
           description: The permissions of the role.
           type: object
@@ -52008,6 +52010,7 @@ components:
             - member
             - admin
             - super_admin
+            - csm
         permissions:
           description: The permissions of the role.
           type: object
