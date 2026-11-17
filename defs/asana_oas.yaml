@@ -386,7 +386,7 @@ tags:
       the work is defined in the custom field title)
 
       * `reference` - a reference to another Asana object (task, project, portfolio,
-      goal, etc.)
+      goal, team, record)
 
       #### Example use case
 
@@ -463,8 +463,9 @@ tags:
 
       The `input_restrictions` field on the custom field definition specifies which
       object types are allowed as values. Possible values include: `task`, `project`,
-      `portfolio`, and `goal`. `input_restrictions` cannot be an empty array, it
-      must have at least one object type.
+      `portfolio`, `goal`, `team`, and `record`. `input_restrictions` cannot be an
+      empty
+      array, it must have at least one object type.
 
 
       #### Querying an organization for its custom fields
@@ -3285,6 +3286,8 @@ components:
               - project
               - portfolio
               - goal
+              - team
+              - record
           example:
             - task
         is_formula_field:
@@ -3466,6 +3469,8 @@ components:
                   - project
                   - portfolio
                   - goal
+                  - team
+                  - record
               example:
                 - task
             is_formula_field:
