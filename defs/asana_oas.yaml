@@ -11863,6 +11863,20 @@ components:
             attachments:read: View access to attachments
             attachments:write: Create and modify access to attachments
             attachments:delete: Delete access to attachments
+            command_coding_agent_sessions:read: View access to Command coding agent
+              sessions
+            command_coding_agent_sessions:write: Start Command coding agent sessions
+            command_coding_agents:read: View access to Command coding agents
+            command_releases:read: View access to Command releases
+            command_releases:write: Create and modify access to Command releases
+            command_releases:delete: Delete access to Command releases
+            command_teamspaces:read: View access to Command teamspaces
+            command_teamspaces:write: Create and modify access to Command teamspaces
+            command_teamspaces:delete: Delete access to Command teamspaces
+            command_tickets:read: View access to Command tickets and their to-dos
+            command_tickets:write: Create and modify access to Command tickets and
+              their to-dos
+            command_tickets:delete: Delete access to Command tickets and their to-dos
             custom_fields:read: View access to custom fields
             custom_fields:write: Create and modify access to custom fields
             custom_types:read: View access to custom types
