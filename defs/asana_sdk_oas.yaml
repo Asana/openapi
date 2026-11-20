@@ -1444,6 +1444,16 @@ components:
         type: string
       example: '321654'
       x-env-variable: session
+    label_path_gid:
+      name: label_gid
+      in: path
+      description: >-
+        Globally unique identifier for the Command label.
+      required: true
+      schema:
+        type: string
+      example: '13579'
+      x-env-variable: label
     ticket_path_gid:
       name: ticket_gid
       in: path
