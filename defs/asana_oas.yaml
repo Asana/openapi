@@ -59362,6 +59362,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/TaskCompact'
+                    x-public-items:
+                      $ref: '#/components/schemas/TaskCompact'
                   next_page:
                     $ref: '#/components/schemas/NextPage'
         400:
@@ -60100,6 +60102,8 @@ paths:
                   data:
                     type: array
                     items:
+                      $ref: '#/components/schemas/TaskCompact'
+                    x-public-items:
                       $ref: '#/components/schemas/TaskCompact'
                   next_page:
                     $ref: '#/components/schemas/NextPage'
