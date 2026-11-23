@@ -9532,6 +9532,9 @@ components:
           example: blue
           nullable: true
       x-docs-overrides: *id011
+    DependencyTypeRequest:
+      type: object
+      properties: {}
     EffectiveTaskMembership:
       description: >-
         A task's project membership, indicating whether the membership is direct
@@ -80379,7 +80382,9 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/ModifyDependenciesRequest'
+                  allOf:
+                    - $ref: '#/components/schemas/ModifyDependenciesRequest'
+                    - $ref: '#/components/schemas/DependencyTypeRequest'
       responses:
         200:
           $ref: '#/components/responses/EmptyResponseData'
@@ -80742,7 +80747,9 @@ paths:
               type: object
               properties:
                 data:
-                  $ref: '#/components/schemas/ModifyDependentsRequest'
+                  allOf:
+                    - $ref: '#/components/schemas/ModifyDependentsRequest'
+                    - $ref: '#/components/schemas/DependencyTypeRequest'
       responses:
         200:
           $ref: '#/components/responses/EmptyResponseData'
